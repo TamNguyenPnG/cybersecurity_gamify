@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enter the Journey — Cybersecurity Awareness Month 2026</title>
+<meta name="description" content="Verify your identity to begin the Cybersecurity Awareness Month journey.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="page">
+  <!-- State switcher: lets reviewers preview every designed state -->
+  <div style="position:fixed;top:18px;right:18px;z-index:60" class="glass" id="stateSwitcher">
+    <div style="padding:12px 14px">
+      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Preview state</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;max-width:280px">
+        <button class="tab active" data-state="default">Default</button>
+        <button class="tab" data-state="focus">Focus</button>
+        <button class="tab" data-state="loading">Loading</button>
+        <button class="tab" data-state="errorA">Error A</button>
+        <button class="tab" data-state="errorB">Error B</button>
+      </div>
+    </div>
+  </div>
+
+  <main style="min-height:100vh;display:grid;place-items:center;padding:60px 20px">
+    <div style="width:100%;max-width:460px">
+
+      <!-- Shield-with-keyhole logo -->
+      <div class="center" style="margin-bottom:26px">
+        <svg width="64" height="74" viewBox="0 0 64 74" fill="none" aria-hidden="true"
+             style="filter:drop-shadow(0 0 18px rgba(34,211,238,.65))">
+          <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z"
+                stroke="#22D3EE" stroke-width="2.5" fill="rgba(34,211,238,0.07)" stroke-linejoin="round"/>
+          <circle cx="32" cy="31" r="7.5" stroke="#22D3EE" stroke-width="2.5" fill="none"/>
+          <path d="M32 38.5 V50" stroke="#22D3EE" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="glass" style="padding:40px 36px">
+        <div class="center" style="margin-bottom:30px">
+          <h1 class="t-h2" style="margin:0 0 10px">Enter the Journey</h1>
+          <p class="t-body" style="margin:0">Verify your identity to begin.</p>
+        </div>
+
+        <form id="loginForm" novalidate autocomplete="off">
+
+          <!-- Email combo with live autocomplete -->
+          <div class="field combo" id="emailField">
+            <label for="email">P&amp;G Email</label>
+            <input class="input" type="email" id="email" name="email"
+                   placeholder="minh.cs@pg.com" autocomplete="off"
+                   aria-describedby="emailErr" aria-autocomplete="list"
+                   aria-expanded="false" role="combobox" aria-controls="emailAC">
+            <div class="autocomplete" id="emailAC" role="listbox" aria-label="Matching P&amp;G emails"></div>
+            <div class="field-msg msg-error" id="emailErr" role="alert">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 4.5v4.2M8 11.2v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span>Email không chính xác — Email not found. Please try again.</span>
+            </div>
+          </div>
+
+          <!-- Department -->
+          <div class="field" id="deptField">
+            <label for="dept">Department</label>
+            <select class="select" id="dept" name="dept" aria-describedby="deptErr">
+              <option value="">Select your department</option>
+            </select>
+            <div class="field-msg msg-warning" id="deptErr" role="alert">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px">
+                <path d="M8 1.8 15 14H1L8 1.8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M8 6.2v3.1M8 11.5v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span>Department does not match this account. Access denied.</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:6px">
+            <span id="btnLabel">Enter</span>
+          </button>
+
+          <p class="t-caption center" style="margin:18px 0 0">
+            Need help? <a href="mailto:minh.cs@pg.com">Contact HR</a>. You can retry as many times as you like.
+          </p>
+        </form>
+      </div>
+
+      <p class="t-caption center" style="margin-top:22px;opacity:.75">
+        Cybersecurity Awareness Month · October 2026
+      </p>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/starfield.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>

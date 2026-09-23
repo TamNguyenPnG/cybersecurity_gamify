@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter Result — Cybersecurity Month Journey 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="page" id="resultPage">
+
+  <!-- Variant switcher for design review -->
+  <div style="position:fixed;top:18px;right:18px;z-index:60" class="glass">
+    <div style="padding:12px 14px">
+      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Variant</div>
+      <div style="display:flex;gap:6px">
+        <a class="tab" id="tabWin" href="result.html?ch=1&score=5&attempt=1">Win 5/5</a>
+        <a class="tab" id="tabPartial" href="result.html?ch=1&score=3&attempt=2">Partial</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="shell" style="min-height:100vh;display:grid;place-items:center;padding-top:70px;padding-bottom:70px">
+    <div style="width:100%">
+
+      <div class="glass result-card">
+
+        <div class="result-stage" id="resultStage">
+          <span class="stage-tag" id="stageTag">Result scene — placeholder</span>
+          <div class="hero-figures" id="resultFigures"></div>
+          <div class="stage-note" id="stageNote"></div>
+        </div>
+
+        <span class="accent-chip" id="chChip" style="margin-bottom:18px">Chapter 01 · Safe Account</span>
+
+        <h1 class="t-h2" id="resultTitle" style="margin:0 0 12px">Champion! Hacker captured.</h1>
+        <p class="t-body-l" id="resultSub" style="margin:0 auto;max-width:460px">
+          Perfect run — you locked every door before the hacker got through.
+        </p>
+
+        <div class="result-stats">
+          <div class="rstat">
+            <div class="v" id="statScore">5/5</div>
+            <div class="l">Your score</div>
+          </div>
+          <div class="rstat">
+            <div class="v" id="statAttempt">1</div>
+            <div class="l">Attempt number</div>
+          </div>
+          <div class="rstat">
+            <div class="v" id="statRank">#1</div>
+            <div class="l">Rank this chapter</div>
+          </div>
+        </div>
+
+        <div class="stack-16" style="max-width:420px;margin:0 auto">
+          <a class="btn btn-primary btn-lg btn-pulse" id="nextBtn" href="chapter.html?ch=2">
+            <span id="nextLabel">Unlock Chapter 02</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn btn-secondary" id="againBtn" href="chapter.html?ch=1">Play again</a>
+          <a class="t-caption" href="main-hall.html" style="color:var(--text-muted)">← Back to Main Hall</a>
+        </div>
+
+        <p class="t-caption" id="bravoNote" style="margin:24px 0 0;opacity:.8"></p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/starfield.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/result.js"></script>
+</body>
+</html>

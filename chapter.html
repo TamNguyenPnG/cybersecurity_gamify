@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter — Cybersecurity Month Journey 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="page" id="chapterPage">
+
+  <!-- ===== HEADER BAR ===== -->
+  <header class="shell">
+    <div class="chapter-header">
+      <a class="icon-btn" href="main-hall.html" aria-label="Back to Main Hall">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 12H6M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <span class="accent-chip" id="chChip">Chapter 01 · Safe Account</span>
+
+      <div class="spacer"></div>
+
+      <div class="progress-dots" id="dots" aria-label="Question progress"></div>
+
+      <span class="meta-pill" id="scorePill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="color:var(--accent)" aria-hidden="true">
+          <path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+        </svg>
+        <span id="scoreText">0 / 5</span>
+      </span>
+
+      <span class="meta-pill" id="timerPill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="color:var(--accent)" aria-hidden="true">
+          <circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span id="timerText">00:00</span>
+      </span>
+    </div>
+  </header>
+
+  <!-- ===== BODY ===== -->
+  <main class="shell" style="padding-top:28px;padding-bottom:70px">
+    <div class="chapter-layout">
+
+      <!-- LEFT 60% — game stage placeholder -->
+      <section class="game-stage" id="gameStage">
+        <span class="stage-tag" id="stageTag">Game scene — varies by chapter</span>
+
+        <div class="chase">
+          <div class="chase-row">
+            <div class="figure fig-hero" id="heroFig" style="transition:transform .6s ease">
+              <div class="body">🛡️</div>
+              <div class="cap">P&amp;G Champion</div>
+            </div>
+            <div class="figure hacker" id="hackerFig" style="transition:transform .6s ease,opacity .6s ease">
+              <div class="body">🕵️</div>
+              <div class="cap">Hacker</div>
+            </div>
+          </div>
+
+          <div class="track" id="track">
+            <span class="fill" id="trackFill" style="width:0%"></span>
+          </div>
+        </div>
+
+        <div class="stage-note" id="stageNote"></div>
+      </section>
+
+      <!-- RIGHT 40% — question card -->
+      <section class="glass question-card">
+        <div class="row-between" style="margin-bottom:14px">
+          <span class="t-overline" id="qCounter">Question 1 of 5</span>
+          <span class="t-caption" id="attemptLabel">Attempt 1</span>
+        </div>
+
+        <h2 class="t-h3" id="qText" style="margin:0">Loading…</h2>
+
+        <div class="answers" id="answers"></div>
+
+        <p class="t-caption" style="margin:20px 0 0;opacity:.7">
+          Answers are shuffled every play. Incorrect answers are not revealed — retry the chapter to improve your score.
+        </p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="toast-wrap"></div>
+
+<script src="assets/js/starfield.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/chapter.js"></script>
+</body>
+</html>

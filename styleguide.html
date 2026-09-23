@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style Sheet — Cybersecurity Month 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .sw { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
+  .sw .chip { border-radius:10px; height:64px; border:1px solid rgba(255,255,255,.15); }
+  .spec { display:grid; grid-template-columns:200px 1fr; gap:20px; align-items:baseline; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+</style>
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="page shell" style="padding-top:60px;padding-bottom:80px">
+
+  <a class="t-caption" href="main-hall.html" style="color:var(--text-muted)">← Back to Main Hall</a>
+  <h1 class="t-h1" style="margin:16px 0 8px">Style Sheet</h1>
+  <p class="t-body-l" style="margin:0 0 50px">Cybersecurity Awareness Month — October 2026 · Design tokens &amp; components</p>
+
+  <!-- COLOURS -->
+  <h2 class="t-h3" style="margin:0 0 20px">Colour</h2>
+  <div class="stack-24" id="colorGroups"></div>
+
+  <!-- TYPE -->
+  <h2 class="t-h3" style="margin:56px 0 12px">Type scale</h2>
+  <div id="typeScale"></div>
+
+  <!-- BUTTONS -->
+  <h2 class="t-h3" style="margin:56px 0 20px">Buttons</h2>
+  <div class="row" style="flex-wrap:wrap;gap:16px">
+    <button class="btn btn-primary">Enter</button>
+    <button class="btn btn-primary btn-lg btn-pulse">Let's start the journey →</button>
+    <button class="btn btn-secondary">Play again</button>
+    <button class="btn btn-primary" disabled>Verifying <span class="spinner"></span></button>
+  </div>
+
+  <!-- INPUTS -->
+  <h2 class="t-h3" style="margin:56px 0 20px">Inputs</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1000px">
+    <div class="field"><label>Default</label><input class="input" placeholder="minh.cs@pg.com"></div>
+    <div class="field"><label>Focus</label><input class="input" id="focusDemo" value="minh.cs@pg.com"
+      style="border-color:var(--ch1);box-shadow:0 0 0 3px rgba(34,211,238,.18),var(--glow-cyan-soft)"></div>
+    <div class="field is-error"><label>Error A — not found</label><input class="input" value="unknown@pg.com">
+      <div class="field-msg msg-error"><span>Email không chính xác — Email not found. Please try again.</span></div></div>
+    <div class="field is-warning"><label>Error B — dept mismatch</label>
+      <select class="select"><option>Finance</option></select>
+      <div class="field-msg msg-warning"><span>Department does not match this account. Access denied.</span></div></div>
+  </div>
+
+  <!-- CARDS -->
+  <h2 class="t-h3" style="margin:56px 0 20px">Chapter card states</h2>
+  <div class="chapter-grid" id="cardStates"></div>
+
+  <!-- ANSWER ROWS -->
+  <h2 class="t-h3" style="margin:56px 0 20px">Answer row states</h2>
+  <div class="answers" style="max-width:520px">
+    <button class="answer"><span class="key">A</span><span>Default</span></button>
+    <button class="answer selected"><span class="key">B</span><span>Selected</span></button>
+    <button class="answer correct"><span class="key">C</span><span>Correct</span></button>
+    <button class="answer incorrect"><span class="key">D</span><span>Incorrect (answer not revealed)</span></button>
+  </div>
+
+</div>
+
+<script src="assets/js/starfield.js"></script>
+<script src="assets/js/data.js"></script>
+<script>
+(function () {
+  var groups = [
+    ['Background', [['navy-700','#0B2A5B'],['navy-900','#071B3D'],['navy-500','#0F3A78']]],
+    ['Chapter accents', [['Ch1 cyan','#22D3EE'],['Ch2 sky','#38BDF8'],['Ch3 blue','#60A5FA'],['Ch4 indigo','#818CF8']]],
+    ['Text', [['headline','#FFFFFF'],['body','#9EC5E8'],['muted','#A9C6E6']]],
+    ['State', [['error','#F87171'],['warning','#FBBF24'],['success','#34D399']]],
+    ['Rank', [['gold','#FCD34D'],['silver','#CBD5E1'],['bronze','#D9A066']]]
+  ];
+  var host = document.getElementById('colorGroups');
+  groups.forEach(function (g) {
+    var sec = document.createElement('div');
+    sec.innerHTML = '<div class="t-small" style="margin-bottom:12px">' + g[0] + '</div>';
+    var grid = document.createElement('div');
+    grid.className = 'sw';
+    g[1].forEach(function (c) {
+      var d = document.createElement('div');
+      d.innerHTML = '<div class="chip" style="background:' + c[1] + '"></div>' +
+        '<div class="t-caption" style="margin-top:8px;color:#fff">' + c[0] + '</div>' +
+        '<div class="t-caption" style="opacity:.7">' + c[1] + '</div>';
+      grid.appendChild(d);
+    });
+    sec.appendChild(grid);
+    host.appendChild(sec);
+  });
+
+  var scale = [
+    ['t-display','Display / 56 Bold','Cybersecurity'],
+    ['t-h1','H1 / 44 Bold','Cybersecurity Month Journey'],
+    ['t-h2','H2 / 32 Bold','Chapter 01 · Safe Account'],
+    ['t-h3','H3 / 24 Semi Bold','Keep your account safe'],
+    ['t-body-l','Body L / 18 Regular','Go with us to become a Cybersecurity Champion.'],
+    ['t-body','Body / 16 Regular','Four chapters, four habits.'],
+    ['t-small','Small / 14 Medium','Unlocks Oct 12'],
+    ['t-caption','Caption / 12 Regular','Ranked by highest score, then total plays.'],
+    ['t-overline','Overline / 12 Bold','Cybersecurity Month']
+  ];
+  var ts = document.getElementById('typeScale');
+  scale.forEach(function (s) {
+    var r = document.createElement('div');
+    r.className = 'spec';
+    r.innerHTML = '<div class="t-caption">' + s[1] + '</div><div class="' + s[0] + '">' + s[2] + '</div>';
+    ts.appendChild(r);
+  });
+
+  var states = [
+    ['locked', 4, 'Unlocks Oct 26'],
+    ['available', 2, 'Start chapter →'],
+    ['completed', 1, 'Play again →']
+  ];
+  var cs = document.getElementById('cardStates');
+  states.forEach(function (st) {
+    var ch = DB.getChapter(st[1]);
+    var d = document.createElement('div');
+    d.className = 'glass chapter-card is-' + st[0];
+    d.dataset.ch = ch.id;
+    d.innerHTML =
+      '<span class="ch-node"></span>' +
+      (st[0] === 'completed' ? '<span class="check-badge">✓</span>' : '') +
+      '<div class="ch-num">CH ' + ch.num + ' · ' + st[0].toUpperCase() + '</div>' +
+      '<div class="ch-icon">🔐</div>' +
+      '<h3 class="ch-title">' + ch.title + '</h3>' +
+      '<p class="ch-desc">' + ch.desc + '</p>' +
+      '<div class="ch-foot">' +
+        (st[0] === 'completed' ? '<span class="score-chip">5/5</span>' : '') +
+        '<span class="ch-action">' + st[2] + '</span></div>';
+    cs.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

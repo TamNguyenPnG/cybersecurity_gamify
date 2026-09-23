@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Main Hall — Cybersecurity Month Journey 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="page">
+
+  <header class="site-header">
+    <div class="shell">
+      <div class="brand">
+        <svg width="26" height="30" viewBox="0 0 64 74" fill="none" aria-hidden="true">
+          <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z"
+                stroke="currentColor" stroke-width="4" fill="rgba(34,211,238,0.08)" stroke-linejoin="round"/>
+          <circle cx="32" cy="31" r="7.5" stroke="currentColor" stroke-width="4" fill="none"/>
+          <path d="M32 38.5 V50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span>Cybersecurity Month</span>
+      </div>
+      <div class="spacer"></div>
+      <div class="row" id="whoami"></div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero shell">
+    <p class="t-overline" style="margin:0 0 14px">Cybersecurity Month</p>
+    <h1 class="t-h1" style="margin:0 0 16px">Cybersecurity Month Journey</h1>
+    <p class="t-body-l" style="margin:0 auto;max-width:620px">
+      Go with us to become a Cybersecurity Champion — four chapters, four habits.
+    </p>
+
+    <!-- Hero illustration placeholder + art direction -->
+    <div class="hero-art">
+      <span class="stage-tag">Hero illustration — placeholder</span>
+
+      <!-- Floating shield / lock motifs -->
+      <svg class="float-motif" style="left:12%;top:20%;animation-delay:0s" width="44" height="50" viewBox="0 0 64 74" fill="none" aria-hidden="true">
+        <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z" stroke="currentColor" stroke-width="3" fill="none"/>
+      </svg>
+      <svg class="float-motif" style="right:14%;top:16%;animation-delay:1.4s" width="40" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="1.8"/>
+      </svg>
+      <svg class="float-motif" style="right:24%;bottom:22%;animation-delay:2.6s" width="34" height="38" viewBox="0 0 64 74" fill="none" aria-hidden="true">
+        <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z" stroke="currentColor" stroke-width="3" fill="none"/>
+      </svg>
+
+      <div class="hero-figures">
+        <div class="figure fig-hero">
+          <div class="body">🛡️</div>
+          <div class="cap">P&amp;G Champion — M</div>
+        </div>
+        <div class="figure hero-w">
+          <div class="body">🔐</div>
+          <div class="cap">P&amp;G Champion — F</div>
+        </div>
+      </div>
+
+      <div class="stage-note">
+        <strong style="color:var(--ch1)">Art direction:</strong> Semi-realistic illustrated style (not photoreal).
+        A man and a woman standing side by side in a heroic 3/4 pose, wearing P&amp;G-logo jackets, lit with a cyan rim-light
+        against the star field. Shield and padlock motifs float behind them. Export at 1800×800 @2x, transparent PNG.
+      </div>
+    </div>
+
+    <div style="margin-top:34px">
+      <a class="btn btn-primary btn-lg btn-pulse" href="chapter.html?ch=1">
+        Let's start the journey
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== KPI STRIP ===== -->
+  <section class="shell" style="padding-bottom:20px">
+    <div class="kpi-grid" id="kpiGrid"></div>
+  </section>
+
+  <!-- ===== CHAPTERS + RULES ===== -->
+  <section class="section shell">
+    <div class="hall-grid" id="chapterArea">
+      <div>
+        <div class="section-head">
+          <div>
+            <h2 class="t-h2" style="margin:0 0 6px">Choose your chapter</h2>
+            <p class="t-small" style="margin:0">One chapter unlocks each week. Complete all four to become a Champion.</p>
+          </div>
+        </div>
+
+        <div class="chapter-rail">
+          <div class="constellation-line"><span class="lit" id="litLine" style="width:0%"></span></div>
+          <div class="chapter-grid" id="chapterGrid"></div>
+        </div>
+      </div>
+
+      <!-- Rules panel -->
+      <aside class="glass rules" id="rulesPanel">
+        <button class="rules-head" id="rulesToggle" aria-expanded="true" aria-controls="rulesBody">
+          <span class="row" style="gap:10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:var(--ch1)" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8.2v.1M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            How it works
+          </span>
+          <svg class="chev" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+            <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="rules-body" id="rulesBody">
+          <div class="rule-item"><span class="ri">📅</span><span>One chapter per week</span></div>
+          <div class="rule-item"><span class="ri">❓</span><span>5 questions per chapter</span></div>
+          <div class="rule-item"><span class="ri">🔀</span><span>Answers shuffled every play</span></div>
+          <div class="rule-item"><span class="ri">♻️</span><span>Retry as many times as you like</span></div>
+          <div class="rule-item"><span class="ri">🏆</span><span>Top 3 per chapter win <strong style="color:var(--ch1)">200 Bravo points</strong></span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== LEADERBOARD ===== -->
+  <section class="section shell" style="padding-top:12px">
+    <div class="glass" style="padding:28px">
+      <div class="section-head" style="margin-bottom:22px">
+        <div>
+          <h2 class="t-h3" style="margin:0 0 6px">Leaderboard</h2>
+          <p class="t-caption" style="margin:0">Ranked by highest score, then total plays.</p>
+        </div>
+        <div class="tabs" id="lbTabs">
+          <button class="tab active" data-filter="all">All</button>
+          <button class="tab" data-filter="chapter">By Chapter</button>
+          <button class="tab" data-filter="dept">By Department</button>
+        </div>
+      </div>
+
+      <div id="lbSubfilter" class="tabs hidden" style="margin-bottom:18px"></div>
+
+      <div style="overflow-x:auto">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th style="width:70px">Rank</th>
+              <th>Name</th>
+              <th style="width:210px">Department</th>
+              <th style="width:110px">Best Score</th>
+              <th style="width:110px">Total Plays</th>
+            </tr>
+          </thead>
+          <tbody id="lbBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="shell" style="padding-bottom:70px">
+    <div class="glass contact" style="max-width:440px">
+      <div class="avatar" style="width:52px;height:52px;font-size:15px">MC</div>
+      <div style="flex:1">
+        <div class="t-small" style="color:var(--text-headline);font-weight:700;margin-bottom:2px">Questions? Contact HR — Minh</div>
+        <div class="t-caption">minh.cs@pg.com</div>
+      </div>
+      <a class="icon-btn" href="mailto:minh.cs@pg.com" aria-label="Email Minh">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M3.5 7l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <button class="icon-btn" aria-label="Chat with Minh" onclick="UI.toast('Opening chat with Minh…')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 12a7.5 7.5 0 01-10.9 6.7L4 20l1.4-4.6A7.5 7.5 0 1120 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="t-caption" style="margin-top:28px;opacity:.7">
+      Demo controls:
+      <a href="#" id="demoReset">reset progress</a> ·
+      <a href="#" id="demoComplete">mark Ch1 complete 5/5</a> ·
+      <a href="styleguide.html">style sheet</a> ·
+      <a href="#" id="demoLogout">sign out</a>
+    </p>
+  </section>
+
+</div>
+
+<script src="assets/js/starfield.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main-hall.js"></script>
+</body>
+</html>
