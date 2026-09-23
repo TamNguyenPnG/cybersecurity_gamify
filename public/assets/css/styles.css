@@ -894,3 +894,47 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
+
+/* ============================================================
+   20. REAL ARTWORK
+   Opt-in hooks for swapping placeholders for final images.
+   See docs/setup-guide.md. Placed last so they win on specificity.
+   ============================================================ */
+
+/* Whole-scene artwork: add class "has-art" to .hero-art / .game-stage /
+   .result-stage and drop an <img class="stage-img"> inside it. The
+   placeholder figures, art-direction note and dashed frame step aside. */
+.stage-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+}
+.has-art { border-style: solid; border-color: rgba(255,255,255,.12); padding-bottom: 0; }
+.has-art > .hero-figures,
+.has-art > .stage-note,
+.has-art > .stage-tag,
+.has-art > .float-motif { display: none; }
+
+/* Single-figure artwork: put an <img> inside a .figure .body.
+   The glass capsule becomes the frame for the character art. */
+.figure .body img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.figure .body:has(img) { background: none; border: none; box-shadow: none; }
+
+/* Profile photos: put an <img> inside any .avatar. Initials stay as the
+   fallback whenever no image is supplied. */
+.avatar img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.avatar:has(img) { background: none; }
+
+/* Chapter card icon artwork: an <img> inside .ch-icon. */
+.ch-icon img { width: 60%; height: 60%; object-fit: contain; display: block; }

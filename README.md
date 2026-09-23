@@ -6,6 +6,10 @@ gamified learning experience. Four chapters, four habits, one Champion.
 Built as static HTML/CSS/vanilla JS — no build step, no dependencies.
 Available in **English and Vietnamese** from one shared set of content files.
 
+> **Setting up your own content?** Start with
+> [`docs/setup-guide.md`](docs/setup-guide.md) — where questions, emails,
+> departments and images live, and how to swap the placeholder artwork.
+
 ---
 
 ## Screens
@@ -100,7 +104,10 @@ Responsive at **1100px** (tablet) and **720px** (mobile). Honours `prefers-reduc
 ## Illustration placeholders
 
 The hero and the four game stages are **labelled placeholder frames with art direction
-baked into the markup** — swap them for final artwork when it lands.
+baked into the markup**. To swap in final artwork, drop files into
+`public/assets/img/`, add the `has-art` class to the stage and an
+`<img class="stage-img">` inside it — full steps in
+[`docs/setup-guide.md`](docs/setup-guide.md#3-images--how-to-attach-your-own-artwork).
 
 - **Hero** (`main-hall.html`) — two P&G Champions, semi-realistic, cyan rim-light,
   floating shield/lock motifs. Export 1800×800 @2x transparent PNG.

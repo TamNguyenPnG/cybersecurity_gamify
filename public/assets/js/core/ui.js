@@ -7,6 +7,14 @@ window.UI = {
     return String(name || '').split(/\s+/).slice(0, 2)
       .map(function (p) { return p.charAt(0); }).join('').toUpperCase();
   },
+  /* Inner HTML for an avatar element: a photo when one is supplied,
+     otherwise initials. Photos are optional everywhere. */
+  avatarInner: function (name, photo) {
+    if (photo) {
+      return '<img src="' + UI.escape(photo) + '" alt="' + UI.escape(name || '') + '">';
+    }
+    return UI.escape(UI.initials(name));
+  },
   qs: function (key, fallback) {
     var v = new URLSearchParams(window.location.search).get(key);
     return v === null ? fallback : v;

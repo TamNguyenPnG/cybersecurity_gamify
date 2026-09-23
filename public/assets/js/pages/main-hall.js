@@ -9,7 +9,7 @@ I18N.ready.then(function () {
     var user = UI.session.get();
     if (user) {
       who.innerHTML =
-        '<div class="avatar">' + UI.escape(UI.initials(user.name)) + '</div>' +
+        '<div class="avatar">' + UI.avatarInner(user.name, user.photo) + '</div>' +
         '<div><div class="t-small" style="color:var(--text-headline);font-weight:700">' + UI.escape(user.name) + '</div>' +
         '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
     } else {
@@ -155,7 +155,7 @@ I18N.ready.then(function () {
       if (i < 3) tr.className = 'rank-' + (i + 1);
       tr.innerHTML =
         '<td><span class="rank-badge">' + (i + 1) + '</span></td>' +
-        '<td><div class="lb-user"><span class="avatar">' + UI.escape(UI.initials(r.name)) + '</span>' +
+        '<td><div class="lb-user"><span class="avatar">' + UI.avatarInner(r.name, r.photo) + '</span>' +
           '<span class="lb-name">' + UI.escape(r.name) + '</span></div></td>' +
         '<td>' + UI.escape(r.dept) + '</td>' +
         '<td><strong style="color:var(--text-headline)">' + r.best + '/5</strong></td>' +

@@ -181,7 +181,7 @@
         return;
       }
 
-      UI.session.set({ email: emp.email, name: emp.name, dept: emp.dept });
+      UI.session.set({ email: emp.email, name: emp.name, dept: emp.dept, photo: emp.photo });
       window.location.href = 'main-hall.html';
     }, 900);
   });
