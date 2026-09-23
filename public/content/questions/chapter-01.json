@@ -1,0 +1,117 @@
+{
+  "chapter": 1,
+  "slug": "safe-account",
+  "title": { "en": "Safe Account", "vi": "Tài khoản an toàn" },
+  "questions": [
+    {
+      "id": "c1q1",
+      "answer": 0,
+      "en": {
+        "q": "You receive an email asking you to \"re-verify\" your P&G password via a link. What do you do?",
+        "o": [
+          "Report it to IT Security and delete it",
+          "Click the link and check if it looks official",
+          "Forward it to your team to warn them",
+          "Enter your password only if the page has HTTPS"
+        ]
+      },
+      "vi": {
+        "q": "Bạn nhận được email yêu cầu \"xác minh lại\" mật khẩu P&G qua một đường link. Bạn sẽ làm gì?",
+        "o": [
+          "Báo cáo cho IT Security và xoá email đó",
+          "Bấm vào link và kiểm tra xem có chính thống không",
+          "Chuyển tiếp cho cả nhóm để cảnh báo",
+          "Chỉ nhập mật khẩu nếu trang web có HTTPS"
+        ]
+      }
+    },
+    {
+      "id": "c1q2",
+      "answer": 2,
+      "en": {
+        "q": "Which of these is the strongest passphrase for your work account?",
+        "o": [
+          "P&G2026!",
+          "Password123",
+          "purple-tiger-runs-42-miles",
+          "yourname1990"
+        ]
+      },
+      "vi": {
+        "q": "Đâu là cụm mật khẩu mạnh nhất cho tài khoản công việc của bạn?",
+        "o": [
+          "P&G2026!",
+          "Password123",
+          "purple-tiger-runs-42-miles",
+          "yourname1990"
+        ]
+      }
+    },
+    {
+      "id": "c1q3",
+      "answer": 1,
+      "en": {
+        "q": "Multi-factor authentication (MFA) protects you mainly because…",
+        "o": [
+          "It makes your password longer",
+          "A stolen password alone is not enough to log in",
+          "It encrypts your hard drive",
+          "It hides your email address"
+        ]
+      },
+      "vi": {
+        "q": "Xác thực đa yếu tố (MFA) bảo vệ bạn chủ yếu vì…",
+        "o": [
+          "Nó làm mật khẩu của bạn dài hơn",
+          "Chỉ riêng mật khẩu bị đánh cắp thì không đủ để đăng nhập",
+          "Nó mã hoá ổ cứng của bạn",
+          "Nó ẩn địa chỉ email của bạn"
+        ]
+      }
+    },
+    {
+      "id": "c1q4",
+      "answer": 3,
+      "en": {
+        "q": "A colleague asks to borrow your login \"just for five minutes\". The correct response is:",
+        "o": [
+          "Share it, they are on your team",
+          "Share it but change the password after",
+          "Type it in for them yourself",
+          "Refuse — credentials are never shared"
+        ]
+      },
+      "vi": {
+        "q": "Một đồng nghiệp xin mượn tài khoản đăng nhập của bạn \"chỉ năm phút thôi\". Phản hồi đúng là:",
+        "o": [
+          "Cho mượn, vì họ cùng nhóm với bạn",
+          "Cho mượn nhưng đổi mật khẩu sau đó",
+          "Tự tay nhập mật khẩu giúp họ",
+          "Từ chối — không bao giờ chia sẻ thông tin đăng nhập"
+        ]
+      }
+    },
+    {
+      "id": "c1q5",
+      "answer": 2,
+      "en": {
+        "q": "You get an unexpected MFA push notification you did not trigger. You should:",
+        "o": [
+          "Approve it so it stops repeating",
+          "Ignore it and carry on",
+          "Deny it and report to IT Security immediately",
+          "Turn MFA off temporarily"
+        ]
+      },
+      "vi": {
+        "q": "Bạn nhận được thông báo MFA bất ngờ mà bạn không hề yêu cầu. Bạn nên:",
+        "o": [
+          "Chấp nhận để nó ngừng hiện lại",
+          "Bỏ qua và tiếp tục làm việc",
+          "Từ chối và báo ngay cho IT Security",
+          "Tạm thời tắt MFA"
+        ]
+      }
+    }
+  ]
+}

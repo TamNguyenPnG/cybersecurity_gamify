@@ -1,0 +1,117 @@
+{
+  "chapter": 4,
+  "slug": "safe-installation",
+  "title": { "en": "Safe Installation", "vi": "Cài đặt an toàn" },
+  "questions": [
+    {
+      "id": "c4q1",
+      "answer": 1,
+      "en": {
+        "q": "You need a new productivity tool for your team. First step:",
+        "o": [
+          "Download it from the vendor site",
+          "Request it through the approved software catalogue",
+          "Ask a colleague to share their installer",
+          "Use a free portable version"
+        ]
+      },
+      "vi": {
+        "q": "Nhóm của bạn cần một công cụ làm việc mới. Bước đầu tiên là:",
+        "o": [
+          "Tải trực tiếp từ trang web của nhà cung cấp",
+          "Yêu cầu qua danh mục phần mềm đã được phê duyệt",
+          "Nhờ đồng nghiệp gửi bộ cài của họ",
+          "Dùng bản portable miễn phí"
+        ]
+      }
+    },
+    {
+      "id": "c4q2",
+      "answer": 1,
+      "en": {
+        "q": "A pop-up says your browser is outdated and offers a \"one-click fix\". You should:",
+        "o": [
+          "Click the fix",
+          "Close it and update via official channels",
+          "Call the number shown",
+          "Install it, then scan afterwards"
+        ]
+      },
+      "vi": {
+        "q": "Một cửa sổ pop-up báo trình duyệt của bạn đã lỗi thời và mời \"sửa chỉ với một cú nhấp\". Bạn nên:",
+        "o": [
+          "Bấm vào nút sửa lỗi",
+          "Đóng pop-up và cập nhật qua kênh chính thức",
+          "Gọi vào số điện thoại hiển thị trên đó",
+          "Cài đặt trước, rồi quét virus sau"
+        ]
+      }
+    },
+    {
+      "id": "c4q3",
+      "answer": 1,
+      "en": {
+        "q": "Browser extensions are risky mainly because they can:",
+        "o": [
+          "Slow down your laptop",
+          "Read and modify the pages you visit",
+          "Use extra disk space",
+          "Change your wallpaper"
+        ]
+      },
+      "vi": {
+        "q": "Tiện ích mở rộng trình duyệt tiềm ẩn rủi ro chủ yếu vì chúng có thể:",
+        "o": [
+          "Làm máy tính của bạn chạy chậm đi",
+          "Đọc và chỉnh sửa nội dung các trang bạn truy cập",
+          "Chiếm thêm dung lượng ổ đĩa",
+          "Thay đổi hình nền máy tính của bạn"
+        ]
+      }
+    },
+    {
+      "id": "c4q4",
+      "answer": 2,
+      "en": {
+        "q": "Using a licence key found online for paid software is:",
+        "o": [
+          "Fine if the company saves money",
+          "Acceptable for a trial period",
+          "Prohibited — it is a legal and security risk",
+          "Allowed if IT does not notice"
+        ]
+      },
+      "vi": {
+        "q": "Việc dùng mã bản quyền tìm được trên mạng cho phần mềm có phí là:",
+        "o": [
+          "Chấp nhận được nếu giúp công ty tiết kiệm chi phí",
+          "Chấp nhận được trong thời gian dùng thử",
+          "Bị nghiêm cấm — đây là rủi ro pháp lý và bảo mật",
+          "Được phép nếu IT không phát hiện ra"
+        ]
+      }
+    },
+    {
+      "id": "c4q5",
+      "answer": 1,
+      "en": {
+        "q": "Who should install software on your P&G-managed laptop?",
+        "o": [
+          "Anyone with the admin password",
+          "You, via approved self-service or IT",
+          "An external vendor on site",
+          "A teammate who has done it before"
+        ]
+      },
+      "vi": {
+        "q": "Ai được phép cài đặt phần mềm trên máy tính do P&G quản lý của bạn?",
+        "o": [
+          "Bất kỳ ai có mật khẩu quản trị",
+          "Chính bạn, qua kênh tự phục vụ được phê duyệt hoặc qua IT",
+          "Nhà cung cấp bên ngoài đang có mặt tại văn phòng",
+          "Một đồng nghiệp đã từng làm việc này"
+        ]
+      }
+    }
+  ]
+}

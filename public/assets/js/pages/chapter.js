@@ -1,9 +1,13 @@
 /* Chapter template — reusable across all 4 chapters.
-   Only the accent colour, chip label and game stage change per chapter. */
-(function () {
+   Only the accent colour, chip label and game stage change per chapter.
+
+   Questions are loaded from content/questions/chapter-0N.json. Each question
+   carries both languages and ONE shared `answer` index, so switching language
+   mid-quiz re-labels the options without changing which one is correct. */
+I18N.ready.then(function () {
   'use strict';
 
-  var chId    = Number(UI.qs('ch', 1));
+  var chId = Number(UI.qs('ch', 1));
   if (!(chId >= 1 && chId <= 4)) chId = 1;
 
   var chapter = DB.getChapter(chId);
@@ -17,20 +21,32 @@
   var scoreEl = document.getElementById('scoreText');
   var timerEl = document.getElementById('timerText');
 
-  /* ---------- Per-chapter theming ---------- */
+  /* ---------- Per-chapter theming (re-applied on language change) ---------- */
   page.style.setProperty('--accent', 'var(' + chapter.accentVar + ')');
-  document.getElementById('chChip').textContent = 'Chapter ' + chapter.num + ' · ' + chapter.title;
-  document.getElementById('stageTag').textContent = 'Game scene — Chapter ' + chapter.num + ': ' + chapter.title;
-  document.getElementById('stageNote').innerHTML =
-    '<strong style="color:var(--accent)">Game stage placeholder.</strong> ' + UI.escape(chapter.stage);
-  document.title = 'Chapter ' + chapter.num + ' · ' + chapter.title + ' — Cybersecurity Month 2026';
+
+  function renderChrome() {
+    var vars = { num: chapter.num, title: I18N.t('chapter.' + chId + '.title') };
+    document.getElementById('chChip').textContent = I18N.t('ch.chip', vars);
+    document.getElementById('stageTag').textContent = I18N.t('ch.stageTag', vars);
+    document.getElementById('stageTag').removeAttribute('data-i18n');
+    document.getElementById('stageNote').innerHTML =
+      '<strong style="color:var(--accent)">' + UI.escape(I18N.t('ch.stageLabel')) + '</strong> ' +
+      UI.escape(I18N.t('chapter.' + chId + '.stage'));
+    document.title = I18N.t('ch.docTitle', vars);
+    document.getElementById('attemptLabel').textContent = I18N.t('ch.attempt', { n: attempt });
+  }
 
   /* ---------- Attempt counter ---------- */
   var prev = UI.progress.get(chId);
   var attempt = (prev ? prev.plays : 0) + 1;
-  document.getElementById('attemptLabel').textContent = 'Attempt ' + attempt;
 
-  /* ---------- Build the shuffled quiz ---------- */
+  renderChrome();
+
+  /* ---------- Quiz state ---------- */
+  var file = null;     // raw bilingual question file
+  var plan = [];       // per-question shuffled option order (language-independent)
+  var idx = 0, score = 0, locked = false;
+
   function shuffle(arr) {
     var a = arr.slice();
     for (var i = a.length - 1; i > 0; i--) {
@@ -39,14 +55,6 @@
     }
     return a;
   }
-
-  // Shuffle the options inside each question, tracking where the answer moved.
-  var quiz = DB.getQuestions(chId).map(function (item) {
-    var opts = item.o.map(function (text, i) { return { text: text, correct: i === item.a }; });
-    return { q: item.q, opts: shuffle(opts) };
-  });
-
-  var idx = 0, score = 0, locked = false;
 
   /* ---------- Progress dots ---------- */
   function renderDots() {
@@ -76,52 +84,57 @@
     document.getElementById('hackerFig').style.opacity   = String(1 - score * 0.1);
   }
 
-  /* ---------- Render a question ---------- */
+  /* ---------- Render the current question in the active language ---------- */
   function render() {
+    if (!file) return;
     locked = false;
-    var item = quiz[idx];
 
-    qCount.textContent = 'Question ' + (idx + 1) + ' of ' + TOTAL;
-    qText.textContent = item.q;
+    var item = file.questions[idx];
+    var loc  = item[I18N.lang] || item.en;
+
+    qCount.textContent = I18N.t('ch.counter', { n: idx + 1, total: TOTAL });
+    qText.textContent = loc.q;
+    qText.removeAttribute('data-i18n');   // no longer the "Loading…" placeholder
     scoreEl.textContent = score + ' / ' + TOTAL;
     renderDots();
     renderTrack();
 
     answers.innerHTML = '';
-    item.opts.forEach(function (opt, i) {
+    plan[idx].forEach(function (origIndex, i) {
       var b = document.createElement('button');
       b.className = 'answer';
       b.type = 'button';
-      b.innerHTML = '<span class="key">' + String.fromCharCode(65 + i) + '</span><span>' + UI.escape(opt.text) + '</span>';
-      b.addEventListener('click', function () { pick(b, opt); });
+      b.innerHTML = '<span class="key">' + String.fromCharCode(65 + i) + '</span>' +
+                    '<span>' + UI.escape(loc.o[origIndex]) + '</span>';
+      b.addEventListener('click', function () {
+        pick(b, origIndex === Number(item.answer));
+      });
       answers.appendChild(b);
     });
   }
 
   /* ---------- Answer handling ---------- */
-  function pick(btn, opt) {
+  function pick(btn, isCorrect) {
     if (locked) return;
     locked = true;
 
     // Disable every option once one is chosen.
     answers.querySelectorAll('.answer').forEach(function (n) { n.disabled = true; });
-
     btn.classList.add('selected');
 
     setTimeout(function () {
       btn.classList.remove('selected');
-      if (opt.correct) {
+      if (isCorrect) {
         btn.classList.add('correct');
         score++;
         scoreEl.textContent = score + ' / ' + TOTAL;
         renderTrack();
-        UI.toast('Correct!', 'ok');
+        UI.toast(I18N.t('ch.toast.correct'), 'ok');
       } else {
         // Incorrect: glow red but never reveal the right answer.
         btn.classList.add('incorrect');
-        UI.toast('Not quite.', 'bad');
+        UI.toast(I18N.t('ch.toast.wrong'), 'bad');
       }
-
       setTimeout(next, 1100);
     }, 260);
   }
@@ -145,5 +158,22 @@
       String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
   }, 1000);
 
-  render();
-})();
+  /* ---------- Language change: relabel without losing progress ---------- */
+  window.addEventListener('i18n:change', function () {
+    renderChrome();
+    if (!locked) render();
+  });
+
+  /* ---------- Load questions, then start ---------- */
+  QUESTIONS.raw(chId).then(function (data) {
+    file = data;
+    TOTAL = file.questions.length || 5;
+    plan = file.questions.map(function (item) {
+      return shuffle(item.en.o.map(function (_, i) { return i; }));
+    });
+    render();
+  }).catch(function (err) {
+    console.error(err);
+    qText.textContent = 'Could not load questions. Serve this site over HTTP (see README).';
+  });
+});

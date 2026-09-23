@@ -461,9 +461,34 @@ a { color: var(--accent); text-decoration: none; }
   color: var(--ch1);
 }
 
+/* ---------- 11b. LANGUAGE SWITCH ---------- */
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--glass-border);
+}
+.lang-btn {
+  padding: 5px 13px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px; font-weight: 700; letter-spacing: .6px;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.lang-btn:hover { color: var(--text-headline); }
+.lang-btn.is-active {
+  background: color-mix(in srgb, var(--ch1) 20%, transparent);
+  color: var(--ch1);
+  box-shadow: var(--glow-cyan-soft);
+}
+
 /* ---------- 12. LEADERBOARD ---------- */
-.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-.tab {
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }.tab {
   padding: 8px 18px;
   border-radius: var(--radius-pill);
   background: transparent;

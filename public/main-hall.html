@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Main Hall — Cybersecurity Month Journey 2026</title>
+<title data-i18n-title="hall.docTitle">Main Hall — Cybersecurity Month Journey 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -23,24 +23,25 @@
           <circle cx="32" cy="31" r="7.5" stroke="currentColor" stroke-width="4" fill="none"/>
           <path d="M32 38.5 V50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
         </svg>
-        <span>Cybersecurity Month</span>
+        <span data-i18n="app.name">Cybersecurity Month</span>
       </div>
       <div class="spacer"></div>
+      <div data-lang-switch></div>
       <div class="row" id="whoami"></div>
     </div>
   </header>
 
   <!-- ===== HERO ===== -->
   <section class="hero shell">
-    <p class="t-overline" style="margin:0 0 14px">Cybersecurity Month</p>
-    <h1 class="t-h1" style="margin:0 0 16px">Cybersecurity Month Journey</h1>
-    <p class="t-body-l" style="margin:0 auto;max-width:620px">
+    <p class="t-overline" style="margin:0 0 14px" data-i18n="hall.overline">Cybersecurity Month</p>
+    <h1 class="t-h1" style="margin:0 0 16px" data-i18n="hall.h1">Cybersecurity Month Journey</h1>
+    <p class="t-body-l" style="margin:0 auto;max-width:620px" data-i18n="hall.sub">
       Go with us to become a Cybersecurity Champion — four chapters, four habits.
     </p>
 
     <!-- Hero illustration placeholder + art direction -->
     <div class="hero-art">
-      <span class="stage-tag">Hero illustration — placeholder</span>
+      <span class="stage-tag" data-i18n="hall.artTag">Hero illustration — placeholder</span>
 
       <!-- Floating shield / lock motifs -->
       <svg class="float-motif" style="left:12%;top:20%;animation-delay:0s" width="44" height="50" viewBox="0 0 64 74" fill="none" aria-hidden="true">
@@ -57,24 +58,25 @@
       <div class="hero-figures">
         <div class="figure fig-hero">
           <div class="body">🛡️</div>
-          <div class="cap">P&amp;G Champion — M</div>
+          <div class="cap" data-i18n="hall.figM">P&amp;G Champion — M</div>
         </div>
         <div class="figure hero-w">
           <div class="body">🔐</div>
-          <div class="cap">P&amp;G Champion — F</div>
+          <div class="cap" data-i18n="hall.figF">P&amp;G Champion — F</div>
         </div>
       </div>
 
       <div class="stage-note">
-        <strong style="color:var(--ch1)">Art direction:</strong> Semi-realistic illustrated style (not photoreal).
+        <strong style="color:var(--ch1)" data-i18n="hall.artLabel">Art direction:</strong>
+        <span data-i18n="hall.artNote">Semi-realistic illustrated style (not photoreal).
         A man and a woman standing side by side in a heroic 3/4 pose, wearing P&amp;G-logo jackets, lit with a cyan rim-light
-        against the star field. Shield and padlock motifs float behind them. Export at 1800×800 @2x, transparent PNG.
+        against the star field. Shield and padlock motifs float behind them. Export at 1800×800 @2x, transparent PNG.</span>
       </div>
     </div>
 
     <div style="margin-top:34px">
       <a class="btn btn-primary btn-lg btn-pulse" href="chapter.html?ch=1">
-        Let's start the journey
+        <span data-i18n="hall.cta">Let's start the journey</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -93,8 +95,8 @@
       <div>
         <div class="section-head">
           <div>
-            <h2 class="t-h2" style="margin:0 0 6px">Choose your chapter</h2>
-            <p class="t-small" style="margin:0">One chapter unlocks each week. Complete all four to become a Champion.</p>
+            <h2 class="t-h2" style="margin:0 0 6px" data-i18n="hall.chooseTitle">Choose your chapter</h2>
+            <p class="t-small" style="margin:0" data-i18n="hall.chooseSub">One chapter unlocks each week. Complete all four to become a Champion.</p>
           </div>
         </div>
 
@@ -112,18 +114,18 @@
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
               <path d="M12 8.2v.1M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            How it works
+            <span data-i18n="hall.rulesTitle">How it works</span>
           </span>
           <svg class="chev" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
             <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </button>
         <div class="rules-body" id="rulesBody">
-          <div class="rule-item"><span class="ri">📅</span><span>One chapter per week</span></div>
-          <div class="rule-item"><span class="ri">❓</span><span>5 questions per chapter</span></div>
-          <div class="rule-item"><span class="ri">🔀</span><span>Answers shuffled every play</span></div>
-          <div class="rule-item"><span class="ri">♻️</span><span>Retry as many times as you like</span></div>
-          <div class="rule-item"><span class="ri">🏆</span><span>Top 3 per chapter win <strong style="color:var(--ch1)">200 Bravo points</strong></span></div>
+          <div class="rule-item"><span class="ri">📅</span><span data-i18n="hall.rule.week">One chapter per week</span></div>
+          <div class="rule-item"><span class="ri">❓</span><span data-i18n="hall.rule.questions">5 questions per chapter</span></div>
+          <div class="rule-item"><span class="ri">🔀</span><span data-i18n="hall.rule.shuffle">Answers shuffled every play</span></div>
+          <div class="rule-item"><span class="ri">♻️</span><span data-i18n="hall.rule.retry">Retry as many times as you like</span></div>
+          <div class="rule-item"><span class="ri">🏆</span><span data-i18n-html="hall.rule.bravo">Top 3 per chapter win <strong style="color:var(--ch1)">200 Bravo points</strong></span></div>
         </div>
       </aside>
     </div>
@@ -134,13 +136,13 @@
     <div class="glass" style="padding:28px">
       <div class="section-head" style="margin-bottom:22px">
         <div>
-          <h2 class="t-h3" style="margin:0 0 6px">Leaderboard</h2>
-          <p class="t-caption" style="margin:0">Ranked by highest score, then total plays.</p>
+          <h2 class="t-h3" style="margin:0 0 6px" data-i18n="hall.lbTitle">Leaderboard</h2>
+          <p class="t-caption" style="margin:0" data-i18n="hall.lbNote">Ranked by highest score, then total plays.</p>
         </div>
         <div class="tabs" id="lbTabs">
-          <button class="tab active" data-filter="all">All</button>
-          <button class="tab" data-filter="chapter">By Chapter</button>
-          <button class="tab" data-filter="dept">By Department</button>
+          <button class="tab active" data-filter="all" data-i18n="hall.tab.all">All</button>
+          <button class="tab" data-filter="chapter" data-i18n="hall.tab.chapter">By Chapter</button>
+          <button class="tab" data-filter="dept" data-i18n="hall.tab.dept">By Department</button>
         </div>
       </div>
 
@@ -150,11 +152,11 @@
         <table class="lb-table">
           <thead>
             <tr>
-              <th style="width:70px">Rank</th>
-              <th>Name</th>
-              <th style="width:210px">Department</th>
-              <th style="width:110px">Best Score</th>
-              <th style="width:110px">Total Plays</th>
+              <th style="width:70px" data-i18n="hall.th.rank">Rank</th>
+              <th data-i18n="hall.th.name">Name</th>
+              <th style="width:210px" data-i18n="hall.th.dept">Department</th>
+              <th style="width:110px" data-i18n="hall.th.best">Best Score</th>
+              <th style="width:110px" data-i18n="hall.th.plays">Total Plays</th>
             </tr>
           </thead>
           <tbody id="lbBody"></tbody>
@@ -168,16 +170,16 @@
     <div class="glass contact" style="max-width:440px">
       <div class="avatar" style="width:52px;height:52px;font-size:15px">MC</div>
       <div style="flex:1">
-        <div class="t-small" style="color:var(--text-headline);font-weight:700;margin-bottom:2px">Questions? Contact HR — Minh</div>
+        <div class="t-small" style="color:var(--text-headline);font-weight:700;margin-bottom:2px" data-i18n="hall.contactTitle">Questions? Contact HR — Minh</div>
         <div class="t-caption">minh.cs@pg.com</div>
       </div>
-      <a class="icon-btn" href="mailto:minh.cs@pg.com" aria-label="Email Minh">
+      <a class="icon-btn" href="mailto:minh.cs@pg.com" data-i18n-aria-label="hall.emailAria" aria-label="Email Minh">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
           <path d="M3.5 7l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </a>
-      <button class="icon-btn" aria-label="Chat with Minh" onclick="UI.toast('Opening chat with Minh…')">
+      <button class="icon-btn" data-i18n-aria-label="hall.chatAria" aria-label="Chat with Minh" onclick="UI.toast(I18N.t('hall.chatToast'))">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M20 12a7.5 7.5 0 01-10.9 6.7L4 20l1.4-4.6A7.5 7.5 0 1120 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
         </svg>
@@ -185,18 +187,20 @@
     </div>
 
     <p class="t-caption" style="margin-top:28px;opacity:.7">
-      Demo controls:
-      <a href="#" id="demoReset">reset progress</a> ·
-      <a href="#" id="demoComplete">mark Ch1 complete 5/5</a> ·
-      <a href="styleguide.html">style sheet</a> ·
-      <a href="#" id="demoLogout">sign out</a>
+      <span data-i18n="hall.demo.label">Demo controls:</span>
+      <a href="#" id="demoReset" data-i18n="hall.demo.reset">reset progress</a> ·
+      <a href="#" id="demoComplete" data-i18n="hall.demo.complete">mark Ch1 complete 5/5</a> ·
+      <a href="styleguide.html" data-i18n="hall.demo.style">style sheet</a> ·
+      <a href="#" id="demoLogout" data-i18n="hall.demo.signout">sign out</a>
     </p>
   </section>
 
 </div>
 
-<script src="assets/js/starfield.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/main-hall.js"></script>
+<script src="assets/js/core/starfield.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/core/i18n.js"></script>
+<script src="assets/js/data/db.js"></script>
+<script src="assets/js/pages/main-hall.js"></script>
 </body>
 </html>

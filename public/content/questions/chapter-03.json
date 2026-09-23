@@ -1,0 +1,117 @@
+{
+  "chapter": 3,
+  "slug": "safe-connection",
+  "title": { "en": "Safe Connection", "vi": "Kết nối an toàn" },
+  "questions": [
+    {
+      "id": "c3q1",
+      "answer": 1,
+      "en": {
+        "q": "You need to work from an airport. The safest connection is:",
+        "o": [
+          "Free open airport Wi-Fi",
+          "P&G-approved VPN over a trusted network",
+          "A stranger's mobile hotspot",
+          "Any network named \"Free_WiFi_Secure\""
+        ]
+      },
+      "vi": {
+        "q": "Bạn cần làm việc tại sân bay. Kết nối an toàn nhất là:",
+        "o": [
+          "Wi-Fi miễn phí công cộng của sân bay",
+          "VPN được P&G phê duyệt trên một mạng đáng tin cậy",
+          "Điểm phát sóng di động của người lạ",
+          "Bất kỳ mạng nào có tên \"Free_WiFi_Secure\""
+        ]
+      }
+    },
+    {
+      "id": "c3q2",
+      "answer": 1,
+      "en": {
+        "q": "Before entering credentials on a site, you should check that:",
+        "o": [
+          "The page looks familiar",
+          "The domain is correct and the connection is HTTPS",
+          "It loaded quickly",
+          "A colleague sent you the link"
+        ]
+      },
+      "vi": {
+        "q": "Trước khi nhập thông tin đăng nhập trên một trang web, bạn nên kiểm tra rằng:",
+        "o": [
+          "Trang web trông quen thuộc",
+          "Tên miền chính xác và kết nối dùng HTTPS",
+          "Trang tải lên rất nhanh",
+          "Link do một đồng nghiệp gửi cho bạn"
+        ]
+      }
+    },
+    {
+      "id": "c3q3",
+      "answer": 2,
+      "en": {
+        "q": "A public Wi-Fi network asks you to install a \"certificate\" to browse. You should:",
+        "o": [
+          "Install it — it is required",
+          "Install it only on your phone",
+          "Decline and use mobile data or VPN",
+          "Install and uninstall afterwards"
+        ]
+      },
+      "vi": {
+        "q": "Một mạng Wi-Fi công cộng yêu cầu bạn cài \"chứng chỉ\" để truy cập. Bạn nên:",
+        "o": [
+          "Cài đặt — vì đó là yêu cầu bắt buộc",
+          "Chỉ cài trên điện thoại của bạn",
+          "Từ chối và dùng dữ liệu di động hoặc VPN",
+          "Cài đặt rồi gỡ bỏ sau khi dùng xong"
+        ]
+      }
+    },
+    {
+      "id": "c3q4",
+      "answer": 1,
+      "en": {
+        "q": "Sharing an internal dashboard link with an external partner requires:",
+        "o": [
+          "Nothing, the link is harmless",
+          "Approval and a controlled sharing method",
+          "Sending it from your personal email",
+          "Posting it in a public channel"
+        ]
+      },
+      "vi": {
+        "q": "Việc chia sẻ link dashboard nội bộ cho đối tác bên ngoài đòi hỏi:",
+        "o": [
+          "Không cần gì cả, link đó vô hại",
+          "Có phê duyệt và dùng phương thức chia sẻ được kiểm soát",
+          "Gửi từ email cá nhân của bạn",
+          "Đăng lên một kênh công khai"
+        ]
+      }
+    },
+    {
+      "id": "c3q5",
+      "answer": 0,
+      "en": {
+        "q": "Your VPN disconnects mid-session while handling sensitive data. You should:",
+        "o": [
+          "Stop work and reconnect before continuing",
+          "Continue, it is only a short gap",
+          "Switch to personal email to finish",
+          "Save files locally and carry on"
+        ]
+      },
+      "vi": {
+        "q": "VPN của bạn bị ngắt giữa chừng khi đang xử lý dữ liệu nhạy cảm. Bạn nên:",
+        "o": [
+          "Dừng công việc và kết nối lại trước khi tiếp tục",
+          "Cứ tiếp tục, vì chỉ gián đoạn trong chốc lát",
+          "Chuyển sang email cá nhân để làm nốt",
+          "Lưu tệp về máy và tiếp tục làm việc"
+        ]
+      }
+    }
+  ]
+}

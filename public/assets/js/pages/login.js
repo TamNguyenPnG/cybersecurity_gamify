@@ -58,7 +58,7 @@
     if (!term.trim()) { closeAC(); return; }
 
     if (!current.length) {
-      ac.innerHTML = '<div class="ac-empty">No matching P&amp;G account found.</div>';
+      ac.innerHTML = '<div class="ac-empty">' + UI.escape(I18N.t('login.acEmpty')) + '</div>';
       ac.classList.add('open');
       emailEl.setAttribute('aria-expanded', 'true');
       return;
@@ -136,7 +136,8 @@
   /* ---------- Submit ---------- */
   function setLoading(on) {
     btn.disabled = on;
-    btnLabel.textContent = on ? 'Verifying' : 'Enter';
+    btnLabel.setAttribute('data-i18n', on ? 'login.verifying' : 'login.cta');
+    btnLabel.textContent = I18N.t(on ? 'login.verifying' : 'login.cta');
     var sp = btn.querySelector('.spinner');
     if (on && !sp) {
       var s = document.createElement('span');

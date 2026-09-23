@@ -4,6 +4,7 @@ Front-end for **Cybersecurity Awareness Month — October 2026**: a dark-theme, 
 gamified learning experience. Four chapters, four habits, one Champion.
 
 Built as static HTML/CSS/vanilla JS — no build step, no dependencies.
+Available in **English and Vietnamese** from one shared set of content files.
 
 ---
 
@@ -21,9 +22,12 @@ Built as static HTML/CSS/vanilla JS — no build step, no dependencies.
 
 ## Running it
 
-No build required. Any static server works:
+No build required, but it **must be served over HTTP** — questions and UI strings are
+fetched as JSON, and `fetch` is blocked on the `file://` origin.
 
 ```bash
+cd public
+
 # Python
 python -m http.server 8080
 
@@ -33,8 +37,8 @@ npx serve .
 
 Then open <http://localhost:8080>.
 
-> Open via a server rather than `file://` — `sessionStorage`/`localStorage` behave
-> inconsistently on the `file:` origin in some browsers.
+Append `?lang=vi` to any page to force Vietnamese, or use the **EN / VI** switch in the
+header. The choice is remembered in `localStorage`.
 
 ---
 
@@ -100,29 +104,78 @@ baked into the markup** — swap them for final artwork when it lands.
 
 - **Hero** (`main-hall.html`) — two P&G Champions, semi-realistic, cyan rim-light,
   floating shield/lock motifs. Export 1800×800 @2x transparent PNG.
-- **Game stages** (`chapter.html`) — per-chapter scene descriptions come from
-  `DB.chapters[].stage` in `assets/js/data.js`. Chapter 1 ships with a working
+- **Game stages** (`chapter.html`) — per-chapter scene descriptions come from the
+  `chapter.<n>.stage` keys in `content/i18n/*.json`. Chapter 1 ships with a working
   chase scene (hero advancing, hacker retreating, 5-step progress track).
 - **Result scenes** (`result.html`) — WIN: hacker captured + confetti.
   PARTIAL: hacker dissolving into the dark.
 
 ---
 
+## Languages
+
+The VI / EN switch sits in every page header. Switching is instant — both dictionaries
+are preloaded after first paint — and **safe mid-quiz**: the answer options are relabelled
+in place without reshuffling, so your score and progress carry over.
+
+- UI strings — `public/content/i18n/en.json` and `vi.json`, flat dot-namespaced keys.
+- Questions — one file per chapter with `en` and `vi` blocks side by side.
+- Markup binds through `data-i18n`, `data-i18n-html`, `data-i18n-placeholder`,
+  `data-i18n-aria-label`, `data-i18n-title`.
+- A missing key falls back to English, then to the key name — never a blank string.
+
+**Adding a language:** drop `content/i18n/<code>.json` next to the others, add the code to
+the list in `core/i18n.js`, and add a matching block to each question file.
+
+`styleguide.html` is an internal dev artifact and stays English-only.
+
+---
+
+## Content
+
+**Questions** live in `public/content/questions/chapter-0N.json`:
+
+```jsonc
+{
+  "id": "c1q1",
+  "answer": 0,                                    // index shared by BOTH languages
+  "en": { "q": "…", "o": ["…", "…", "…", "…"] },
+  "vi": { "q": "…", "o": ["…", "…", "…", "…"] }
+}
+```
+
+One `answer` index serves both languages, so a translation can never desync which option
+is correct — the translator supplies labels, not correctness. Keep `id` stable forever;
+answer history references it.
+
+**Excel templates** in `data/templates/` are the data contract for a future backend, not a
+live database:
+
+| Workbook | Grain | Purpose |
+|---|---|---|
+| `session_progress.xlsx` | one participant × one chapter | live standings, KPI strip, card states |
+| `user_records.xlsx` | one answered question | append-only audit history |
+
+Regenerate with `python data/scripts/build_templates.py`. Each workbook carries a
+`_schema` sheet documenting every column. Full details in
+[`docs/data-contract.md`](docs/data-contract.md).
+
+---
+
 ## Wiring a real backend
 
-Everything mock lives in `assets/js/data.js` behind the `DB` facade. Replace these
-with API calls and the UI needs no changes:
+Everything mock lives in `public/assets/js/data/db.js` behind the `DB` facade. Replace
+these with API calls and the UI needs no changes:
 
 | Method | Replace with |
 |---|---|
 | `DB.searchEmails(term)` | `GET /api/employees?q=` |
-| `DB.findByEmail(email)` | `GET /api/employees/:email` |
-| `DB.getQuestions(ch)` | `GET /api/chapters/:ch/questions` |
+| `DB.findByEmail(email)` | `POST /api/auth/verify` |
 | `DB.leaderboard(filter)` | `GET /api/leaderboard` |
 | `DB.kpis` | `GET /api/stats` |
 
-Progress currently persists to `localStorage` via `UI.progress`; session user to
-`sessionStorage` via `UI.session`.
+Progress persists to `localStorage` via `UI.progress`; session user to `sessionStorage`
+via `UI.session`.
 
 > **Security note:** this is a front-end prototype. Identity is verified client-side
 > against mock data, which is not a real access control. Move verification server-side
@@ -134,20 +187,25 @@ Progress currently persists to `localStorage` via `UI.progress`; session user to
 
 ```
 cybersecurity_gamify/
-├── index.html           Login portal
-├── main-hall.html       Main hall
-├── chapter.html         Chapter template
-├── result.html          Chapter result
-├── styleguide.html      Style sheet
-└── assets/
-    ├── css/styles.css   Design system + all components
-    └── js/
-        ├── starfield.js Animated canvas star field
-        ├── data.js      Mock DB + shared UI helpers
-        ├── login.js     Autocomplete, validation, error states
-        ├── main-hall.js KPIs, chapters, leaderboard
-        ├── chapter.js   Quiz engine
-        └── result.js    Result variants
+├── docs/data-contract.md        Data shapes + backend swap guide
+├── data/
+│   ├── scripts/build_templates.py
+│   └── templates/*.xlsx         Backend data contract
+└── public/                      ← serve this directory
+    ├── index.html               Login portal
+    ├── main-hall.html           Main hall
+    ├── chapter.html             Chapter template  (?ch=1..4)
+    ├── result.html              Chapter result    (?score=)
+    ├── styleguide.html          Style sheet
+    ├── assets/
+    │   ├── css/styles.css       Design system + all components
+    │   └── js/
+    │       ├── core/            starfield · i18n · shared UI helpers
+    │       ├── data/            mock DB · question loader
+    │       └── pages/           login · main-hall · chapter · result
+    └── content/
+        ├── questions/chapter-01..04.json
+        └── i18n/{en,vi}.json
 ```
 
 ---

@@ -1,18 +1,23 @@
 /* Main Hall — KPI strip, chapter selector, rules, leaderboard. */
-(function () {
+I18N.ready.then(function () {
   'use strict';
 
   /* ---------- Signed-in user ---------- */
-  var user = UI.session.get();
   var who = document.getElementById('whoami');
-  if (user) {
-    who.innerHTML =
-      '<div class="avatar">' + UI.escape(UI.initials(user.name)) + '</div>' +
-      '<div><div class="t-small" style="color:var(--text-headline);font-weight:700">' + UI.escape(user.name) + '</div>' +
-      '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
-  } else {
-    who.innerHTML = '<a class="btn btn-secondary" style="padding:9px 20px;font-size:14px" href="index.html">Sign in</a>';
+
+  function renderWho() {
+    var user = UI.session.get();
+    if (user) {
+      who.innerHTML =
+        '<div class="avatar">' + UI.escape(UI.initials(user.name)) + '</div>' +
+        '<div><div class="t-small" style="color:var(--text-headline);font-weight:700">' + UI.escape(user.name) + '</div>' +
+        '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
+    } else {
+      who.innerHTML = '<a class="btn btn-secondary" style="padding:9px 20px;font-size:14px" href="index.html">' +
+        UI.escape(I18N.t('nav.signIn')) + '</a>';
+    }
   }
+  renderWho();
 
   /* ---------- KPI tiles ---------- */
   var KPI_ICONS = {
@@ -23,24 +28,29 @@
   };
 
   var grid = document.getElementById('kpiGrid');
-  DB.kpis.forEach(function (k, i) {
-    var accents = ['--ch1', '--ch2', '--ch3', '--ch4'];
-    var el = document.createElement('div');
-    el.className = 'glass glass-hover kpi';
-    el.style.setProperty('--accent', 'var(' + accents[i] + ')');
-    el.innerHTML =
-      '<div class="kpi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">' + KPI_ICONS[k.key] + '</svg></div>' +
-      '<div class="kpi-value">' + UI.escape(k.value) + '</div>' +
-      '<div class="kpi-label">' + UI.escape(k.label) + '</div>' +
-      '<div class="t-caption" style="opacity:.75">' + UI.escape(k.sub) + '</div>' +
-      '<div class="kpi-bar"><span style="width:0%"></span></div>';
-    grid.appendChild(el);
-    // Animate the bar in after paint.
-    setTimeout(function () {
-      el.querySelector('.kpi-bar span').style.transition = 'width 1s ease';
-      el.querySelector('.kpi-bar span').style.width = k.pct + '%';
-    }, 120 + i * 90);
-  });
+
+  function renderKpis() {
+    grid.innerHTML = '';
+    DB.kpis.forEach(function (k, i) {
+      var accents = ['--ch1', '--ch2', '--ch3', '--ch4'];
+      var el = document.createElement('div');
+      el.className = 'glass glass-hover kpi';
+      el.style.setProperty('--accent', 'var(' + accents[i] + ')');
+      el.innerHTML =
+        '<div class="kpi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">' + KPI_ICONS[k.key] + '</svg></div>' +
+        '<div class="kpi-value">' + UI.escape(k.value) + '</div>' +
+        '<div class="kpi-label">' + UI.escape(I18N.t('kpi.' + k.key + '.label')) + '</div>' +
+        '<div class="t-caption" style="opacity:.75">' + UI.escape(I18N.t('kpi.' + k.key + '.sub')) + '</div>' +
+        '<div class="kpi-bar"><span style="width:0%"></span></div>';
+      grid.appendChild(el);
+      // Animate the bar in after paint.
+      setTimeout(function () {
+        el.querySelector('.kpi-bar span').style.transition = 'width 1s ease';
+        el.querySelector('.kpi-bar span').style.width = k.pct + '%';
+      }, 120 + i * 90);
+    });
+  }
+  renderKpis();
 
   /* ---------- Chapter cards ---------- */
   var CH_ICONS = [
@@ -76,15 +86,16 @@
       card.dataset.ch = ch.id;
       if (state !== 'locked') card.href = 'chapter.html?ch=' + ch.id;
 
+      var unlock = I18N.t('chapter.' + ch.id + '.unlock');
       var foot;
       if (state === 'locked') {
-        foot = '<span class="lock-pill">' + LOCK_SVG + ' Unlocks ' + UI.escape(ch.unlock) + '</span>';
+        foot = '<span class="lock-pill">' + LOCK_SVG + ' ' + UI.escape(I18N.t('hall.card.unlocks', { date: unlock })) + '</span>';
       } else if (state === 'completed') {
         foot = '<span class="score-chip">' + p.best + '/' + (p.total || 5) + '</span>' +
-               '<span class="ch-action">Play again →</span>';
+               '<span class="ch-action">' + UI.escape(I18N.t('hall.card.playAgain')) + '</span>';
       } else {
-        foot = '<span class="lock-pill">Unlocked ' + UI.escape(ch.unlock) + '</span>' +
-               '<span class="ch-action">Start chapter →</span>';
+        foot = '<span class="lock-pill">' + UI.escape(I18N.t('hall.card.unlocked', { date: unlock })) + '</span>' +
+               '<span class="ch-action">' + UI.escape(I18N.t('hall.card.start')) + '</span>';
       }
 
       card.innerHTML =
@@ -98,8 +109,8 @@
             ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="1.8"/></svg>'
             : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none">' + CH_ICONS[i] + '</svg>') +
         '</div>' +
-        '<h3 class="ch-title">' + UI.escape(ch.title) + '</h3>' +
-        '<p class="ch-desc">' + UI.escape(ch.desc) + '</p>' +
+        '<h3 class="ch-title">' + UI.escape(I18N.t('chapter.' + ch.id + '.title')) + '</h3>' +
+        '<p class="ch-desc">' + UI.escape(I18N.t('chapter.' + ch.id + '.desc')) + '</p>' +
         '<div class="ch-foot">' + foot + '</div>';
 
       wrap.appendChild(card);
@@ -134,7 +145,8 @@
     lbBody.innerHTML = '';
 
     if (!rows.length) {
-      lbBody.innerHTML = '<tr><td colspan="5" class="t-caption" style="padding:26px;text-align:center">No entries yet for this filter.</td></tr>';
+      lbBody.innerHTML = '<tr><td colspan="5" class="t-caption" style="padding:26px;text-align:center">' +
+        UI.escape(I18N.t('hall.lbEmpty')) + '</td></tr>';
       return;
     }
 
@@ -158,7 +170,7 @@
 
     subWrap.classList.remove('hidden');
     var opts = mode === 'chapter'
-      ? DB.chapters.map(function (c) { return { v: c.id, l: 'CH ' + c.num + ' · ' + c.title }; })
+      ? DB.chapters.map(function (c) { return { v: c.id, l: 'CH ' + c.num + ' · ' + I18N.t('chapter.' + c.id + '.title') }; })
       : DB.departments.map(function (d) { return { v: d, l: d }; });
 
     opts.forEach(function (o, i) {
@@ -193,17 +205,25 @@
     e.preventDefault();
     localStorage.removeItem('csm_progress');
     renderChapters();
-    UI.toast('Progress reset');
+    UI.toast(I18N.t('hall.toast.reset'));
   });
   document.getElementById('demoComplete').addEventListener('click', function (e) {
     e.preventDefault();
     UI.progress.save(1, 5, 5);
     renderChapters();
-    UI.toast('Chapter 1 marked complete');
+    UI.toast(I18N.t('hall.toast.complete'));
   });
   document.getElementById('demoLogout').addEventListener('click', function (e) {
     e.preventDefault();
     UI.session.clear();
     window.location.href = 'index.html';
   });
-})();
+
+  /* ---------- Re-render dynamic content on language change ---------- */
+  window.addEventListener('i18n:change', function () {
+    renderWho();
+    renderKpis();
+    renderChapters();
+    if (mode === 'all') { renderLB(); } else { renderSub(); }
+  });
+});

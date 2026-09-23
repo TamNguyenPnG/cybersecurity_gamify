@@ -1,0 +1,117 @@
+{
+  "chapter": 2,
+  "slug": "safe-device",
+  "title": { "en": "Safe Device", "vi": "Thiết bị an toàn" },
+  "questions": [
+    {
+      "id": "c2q1",
+      "answer": 0,
+      "en": {
+        "q": "You step away from your desk for a coffee. Your laptop should be:",
+        "o": [
+          "Locked (Win+L)",
+          "Left open, you will be quick",
+          "Closed but not locked",
+          "Left on the login screensaver timer"
+        ]
+      },
+      "vi": {
+        "q": "Bạn rời bàn làm việc đi lấy cà phê. Máy tính của bạn nên được:",
+        "o": [
+          "Khoá màn hình (Win+L)",
+          "Để mở, vì bạn sẽ quay lại ngay",
+          "Gập máy lại nhưng không khoá",
+          "Để tự khoá theo hẹn giờ screensaver"
+        ]
+      }
+    },
+    {
+      "id": "c2q2",
+      "answer": 1,
+      "en": {
+        "q": "Your phone prompts you to install a security update. The best practice is:",
+        "o": [
+          "Postpone it until next month",
+          "Install it promptly",
+          "Only install if IT emails you",
+          "Ignore updates on personal devices"
+        ]
+      },
+      "vi": {
+        "q": "Điện thoại của bạn nhắc cài đặt bản cập nhật bảo mật. Cách làm tốt nhất là:",
+        "o": [
+          "Hoãn lại đến tháng sau",
+          "Cài đặt ngay khi có thể",
+          "Chỉ cài khi IT gửi email yêu cầu",
+          "Bỏ qua cập nhật trên thiết bị cá nhân"
+        ]
+      }
+    },
+    {
+      "id": "c2q3",
+      "answer": 2,
+      "en": {
+        "q": "You find an unlabelled USB drive in the meeting room. You should:",
+        "o": [
+          "Plug it in to find the owner",
+          "Take it home to check it",
+          "Hand it to IT Security without plugging it in",
+          "Format it and reuse it"
+        ]
+      },
+      "vi": {
+        "q": "Bạn nhặt được một chiếc USB không nhãn trong phòng họp. Bạn nên:",
+        "o": [
+          "Cắm vào máy để tìm chủ nhân",
+          "Mang về nhà kiểm tra",
+          "Giao cho IT Security mà không cắm vào máy",
+          "Format lại và dùng cho mình"
+        ]
+      }
+    },
+    {
+      "id": "c2q4",
+      "answer": 3,
+      "en": {
+        "q": "Which is the safest place to store confidential P&G files?",
+        "o": [
+          "Personal cloud drive",
+          "Desktop of a shared PC",
+          "USB stick in your bag",
+          "Approved P&G-managed storage"
+        ]
+      },
+      "vi": {
+        "q": "Đâu là nơi an toàn nhất để lưu trữ tài liệu mật của P&G?",
+        "o": [
+          "Ổ đĩa đám mây cá nhân",
+          "Màn hình desktop của máy tính dùng chung",
+          "USB để trong cặp của bạn",
+          "Kho lưu trữ do P&G quản lý và phê duyệt"
+        ]
+      }
+    },
+    {
+      "id": "c2q5",
+      "answer": 0,
+      "en": {
+        "q": "Antivirus flags a file you just downloaded. The right action is:",
+        "o": [
+          "Do not open it and report to IT Security",
+          "Open it in a different app",
+          "Disable antivirus and retry",
+          "Move it to another folder"
+        ]
+      },
+      "vi": {
+        "q": "Phần mềm diệt virus cảnh báo một tệp bạn vừa tải về. Hành động đúng là:",
+        "o": [
+          "Không mở tệp và báo cho IT Security",
+          "Mở tệp bằng một ứng dụng khác",
+          "Tắt phần mềm diệt virus rồi thử lại",
+          "Chuyển tệp sang thư mục khác"
+        ]
+      }
+    }
+  ]
+}

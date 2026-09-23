@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chapter Result — Cybersecurity Month Journey 2026</title>
+<title data-i18n-title="result.docTitle">Chapter Result — Cybersecurity Month Journey 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -17,10 +17,11 @@
   <!-- Variant switcher for design review -->
   <div style="position:fixed;top:18px;right:18px;z-index:60" class="glass">
     <div style="padding:12px 14px">
-      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Variant</div>
+      <div data-lang-switch style="margin-bottom:10px"></div>
+      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase" data-i18n="result.variant">Variant</div>
       <div style="display:flex;gap:6px">
-        <a class="tab" id="tabWin" href="result.html?ch=1&score=5&attempt=1">Win 5/5</a>
-        <a class="tab" id="tabPartial" href="result.html?ch=1&score=3&attempt=2">Partial</a>
+        <a class="tab" id="tabWin" href="result.html?ch=1&score=5&attempt=1" data-i18n="result.variantWin">Win 5/5</a>
+        <a class="tab" id="tabPartial" href="result.html?ch=1&score=3&attempt=2" data-i18n="result.variantPartial">Partial</a>
       </div>
     </div>
   </div>
@@ -46,15 +47,15 @@
         <div class="result-stats">
           <div class="rstat">
             <div class="v" id="statScore">5/5</div>
-            <div class="l">Your score</div>
+            <div class="l" data-i18n="result.stat.score">Your score</div>
           </div>
           <div class="rstat">
             <div class="v" id="statAttempt">1</div>
-            <div class="l">Attempt number</div>
+            <div class="l" data-i18n="result.stat.attempt">Attempt number</div>
           </div>
           <div class="rstat">
             <div class="v" id="statRank">#1</div>
-            <div class="l">Rank this chapter</div>
+            <div class="l" data-i18n="result.stat.rank">Rank this chapter</div>
           </div>
         </div>
 
@@ -65,8 +66,8 @@
               <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <a class="btn btn-secondary" id="againBtn" href="chapter.html?ch=1">Play again</a>
-          <a class="t-caption" href="main-hall.html" style="color:var(--text-muted)">← Back to Main Hall</a>
+          <a class="btn btn-secondary" id="againBtn" href="chapter.html?ch=1" data-i18n="result.playAgain">Play again</a>
+          <a class="t-caption" href="main-hall.html" style="color:var(--text-muted)" data-i18n="nav.backToHall">← Back to Main Hall</a>
         </div>
 
         <p class="t-caption" id="bravoNote" style="margin:24px 0 0;opacity:.8"></p>
@@ -76,8 +77,10 @@
   </main>
 </div>
 
-<script src="assets/js/starfield.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/result.js"></script>
+<script src="assets/js/core/starfield.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/core/i18n.js"></script>
+<script src="assets/js/data/db.js"></script>
+<script src="assets/js/pages/result.js"></script>
 </body>
 </html>

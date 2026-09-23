@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enter the Journey — Cybersecurity Awareness Month 2026</title>
+<title data-i18n-title="login.docTitle">Enter the Journey — Cybersecurity Awareness Month 2026</title>
 <meta name="description" content="Verify your identity to begin the Cybersecurity Awareness Month journey.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,14 @@
   <!-- State switcher: lets reviewers preview every designed state -->
   <div style="position:fixed;top:18px;right:18px;z-index:60" class="glass" id="stateSwitcher">
     <div style="padding:12px 14px">
-      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Preview state</div>
+      <div data-lang-switch style="margin-bottom:10px"></div>
+      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase" data-i18n="login.previewState">Preview state</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;max-width:280px">
-        <button class="tab active" data-state="default">Default</button>
-        <button class="tab" data-state="focus">Focus</button>
-        <button class="tab" data-state="loading">Loading</button>
-        <button class="tab" data-state="errorA">Error A</button>
-        <button class="tab" data-state="errorB">Error B</button>
+        <button class="tab active" data-state="default" data-i18n="login.state.default">Default</button>
+        <button class="tab" data-state="focus" data-i18n="login.state.focus">Focus</button>
+        <button class="tab" data-state="loading" data-i18n="login.state.loading">Loading</button>
+        <button class="tab" data-state="errorA" data-i18n="login.state.errorA">Error A</button>
+        <button class="tab" data-state="errorB" data-i18n="login.state.errorB">Error B</button>
       </div>
     </div>
   </div>
@@ -44,63 +45,65 @@
 
       <div class="glass" style="padding:40px 36px">
         <div class="center" style="margin-bottom:30px">
-          <h1 class="t-h2" style="margin:0 0 10px">Enter the Journey</h1>
-          <p class="t-body" style="margin:0">Verify your identity to begin.</p>
+          <h1 class="t-h2" style="margin:0 0 10px" data-i18n="login.title">Enter the Journey</h1>
+          <p class="t-body" style="margin:0" data-i18n="login.subtitle">Verify your identity to begin.</p>
         </div>
 
         <form id="loginForm" novalidate autocomplete="off">
 
           <!-- Email combo with live autocomplete -->
           <div class="field combo" id="emailField">
-            <label for="email">P&amp;G Email</label>
+            <label for="email" data-i18n="login.emailLabel">P&amp;G Email</label>
             <input class="input" type="email" id="email" name="email"
-                   placeholder="minh.cs@pg.com" autocomplete="off"
+                   placeholder="minh.cs@pg.com" data-i18n-placeholder="login.emailPlaceholder" autocomplete="off"
                    aria-describedby="emailErr" aria-autocomplete="list"
                    aria-expanded="false" role="combobox" aria-controls="emailAC">
-            <div class="autocomplete" id="emailAC" role="listbox" aria-label="Matching P&amp;G emails"></div>
+            <div class="autocomplete" id="emailAC" role="listbox" data-i18n-aria-label="login.acAria" aria-label="Matching P&amp;G emails"></div>
             <div class="field-msg msg-error" id="emailErr" role="alert">
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px">
                 <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                 <path d="M8 4.5v4.2M8 11.2v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
-              <span>Email không chính xác — Email not found. Please try again.</span>
+              <span data-i18n="login.errorEmail">Email không chính xác — Email not found. Please try again.</span>
             </div>
           </div>
 
           <!-- Department -->
           <div class="field" id="deptField">
-            <label for="dept">Department</label>
+            <label for="dept" data-i18n="login.deptLabel">Department</label>
             <select class="select" id="dept" name="dept" aria-describedby="deptErr">
-              <option value="">Select your department</option>
+              <option value="" data-i18n="login.deptPlaceholder">Select your department</option>
             </select>
             <div class="field-msg msg-warning" id="deptErr" role="alert">
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px">
                 <path d="M8 1.8 15 14H1L8 1.8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                 <path d="M8 6.2v3.1M8 11.5v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
-              <span>Department does not match this account. Access denied.</span>
+              <span data-i18n="login.errorDept">Department does not match this account. Access denied.</span>
             </div>
           </div>
 
           <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:6px">
-            <span id="btnLabel">Enter</span>
+            <span id="btnLabel" data-i18n="login.cta">Enter</span>
           </button>
 
-          <p class="t-caption center" style="margin:18px 0 0">
+          <p class="t-caption center" style="margin:18px 0 0" data-i18n-html="login.help">
             Need help? <a href="mailto:minh.cs@pg.com">Contact HR</a>. You can retry as many times as you like.
           </p>
         </form>
       </div>
 
-      <p class="t-caption center" style="margin-top:22px;opacity:.75">
+      <p class="t-caption center" style="margin-top:22px;opacity:.75" data-i18n="app.month">
         Cybersecurity Awareness Month · October 2026
       </p>
     </div>
   </main>
 </div>
 
-<script src="assets/js/starfield.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/core/starfield.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/core/i18n.js"></script>
+<script src="assets/js/data/db.js"></script>
+<script src="assets/js/pages/login.js"></script>
 </body>
 </html>
