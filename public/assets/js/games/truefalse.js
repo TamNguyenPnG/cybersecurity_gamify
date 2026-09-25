@@ -38,16 +38,14 @@ GAMES.register('sort', function () {
     var arena = el('div', 'sort-arena');
 
     var zoneSafe = el('div', 'sort-zone is-safe');
-    zoneSafe.innerHTML =
-      '<div class="sort-zone-icon">&#128077;</div>' +
-      '<div class="sort-zone-label">' + UI.escape(ctx.pick(cfg.zones.safe.label)) + '</div>' +
-      '<div class="sort-zone-hint">' + UI.escape(ctx.pick(cfg.zones.safe.hint)) + '</div>';
-
     var zoneUnsafe = el('div', 'sort-zone is-unsafe');
-    zoneUnsafe.innerHTML =
-      '<div class="sort-zone-icon">&#129399;</div>' +
-      '<div class="sort-zone-label">' + UI.escape(ctx.pick(cfg.zones.unsafe.label)) + '</div>' +
-      '<div class="sort-zone-hint">' + UI.escape(ctx.pick(cfg.zones.unsafe.hint)) + '</div>';
+
+    function zoneText(node, z, icon) {
+      node.innerHTML =
+        '<div class="sort-zone-icon">' + icon + '</div>' +
+        '<div class="sort-zone-label">' + UI.escape(ctx.pick(z.label)) + '</div>' +
+        '<div class="sort-zone-hint">' + UI.escape(ctx.pick(z.hint)) + '</div>';
+    }
 
     var lane = el('div', 'sort-lane');
 
@@ -66,6 +64,24 @@ GAMES.register('sort', function () {
         ctx.t('game.card', { n: Math.min(idx + 1, queue.length), total: queue.length }));
     }
 
+    function cardText(card, stmt) {
+      card.innerHTML = '<p>' + UI.escape(ctx.pick(stmt)) + '</p>' +
+        '<div class="sort-card-keys">' +
+        '<span>&#8592; ' + UI.escape(ctx.pick(cfg.zones.safe.label)) + '</span>' +
+        '<span>' + UI.escape(ctx.pick(cfg.zones.unsafe.label)) + ' &#8594;</span>' +
+        '</div>';
+    }
+
+    /* Re-label on a language change. The card keeps falling from exactly
+       where it was — only its words are swapped. */
+    var liveCard = null;
+    ctx.live(function () {
+      zoneText(zoneSafe, cfg.zones.safe, '&#128077;');
+      zoneText(zoneUnsafe, cfg.zones.unsafe, '&#129399;');
+      paint();
+      if (liveCard) cardText(liveCard.el, liveCard.stmt);
+    });
+
     function record(stmt, chosen) {
       var ok = chosen === stmt.zone;
       results.push({ id: stmt.id, chosen: chosen, correct: ok });
@@ -80,11 +96,8 @@ GAMES.register('sort', function () {
 
       var stmt = queue[idx];
       var card = el('div', 'sort-card');
-      card.innerHTML = '<p>' + UI.escape(ctx.pick(stmt)) + '</p>' +
-        '<div class="sort-card-keys">' +
-        '<span>&#8592; ' + UI.escape(ctx.pick(cfg.zones.safe.label)) + '</span>' +
-        '<span>' + UI.escape(ctx.pick(cfg.zones.unsafe.label)) + ' &#8594;</span>' +
-        '</div>';
+      cardText(card, stmt);
+      liveCard = { el: card, stmt: stmt };
       lane.appendChild(card);
 
       var laneBox = lane.getBoundingClientRect();
@@ -122,6 +135,7 @@ GAMES.register('sort', function () {
         if (settled) return;
         settled = true;
         if (raf) cancelAnimationFrame(raf);
+        if (liveCard && liveCard.el === card) liveCard = null;
 
         var ok = chosen === stmt.zone;
         card.classList.add(chosen == null ? 'is-missed' : (ok ? 'is-ok' : 'is-bad'));
@@ -194,7 +208,7 @@ GAMES.register('sort', function () {
       /* A short acknowledgement only — no answer key and no tally. */
       GAMES.outcome(
         host, ctx, all,
-        all ? ctx.t('game.sort.win') : ctx.t('game.sort.miss'),
+        function () { return ctx.t(all ? 'game.sort.win' : 'game.sort.miss'); },
         null,
         function () {
           ctx.finish(all ? cfg.points : 0,

@@ -26,12 +26,14 @@ GAMES.register('hotspot', function () {
     var misses = 0;
     var done = false;
 
+    var byId = {};
+    cfg.hotspots.forEach(function (h) { byId[h.id] = h; });
+
     var wrap = el('div', 'hotspot-game');
 
     var bar = el('div', 'hotspot-bar');
     var counter = el('div', 'hotspot-counter');
-    var nextBtn = el('button', 'btn btn-ghost btn-sm',
-      UI.escape(ctx.t('game.next')));
+    var nextBtn = el('button', 'btn btn-ghost btn-sm');
     nextBtn.type = 'button';
     bar.appendChild(counter);
     bar.appendChild(nextBtn);
@@ -43,7 +45,6 @@ GAMES.register('hotspot', function () {
     var img = document.createElement('img');
     img.className = 'hotspot-img';
     img.src = cfg.image;
-    img.alt = ctx.pick(cfg.title);
     img.draggable = false;
     stage.appendChild(img);
 
@@ -60,7 +61,18 @@ GAMES.register('hotspot', function () {
       counter.innerHTML = UI.escape(
         ctx.t('game.found', { n: Object.keys(found).length, total: total }));
     }
-    paint();
+
+    /* Everything written in words, re-run whenever the language changes.
+       The rings, the misses and the score are untouched. */
+    ctx.live(function () {
+      paint();
+      img.alt = ctx.pick(cfg.title);
+      nextBtn.innerHTML = UI.escape(ctx.t('game.next'));
+      Array.prototype.forEach.call(list.children, function (row) {
+        var h = byId[row.getAttribute('data-hs')];
+        if (h) label(row, h);
+      });
+    });
 
     stage.addEventListener('click', function (ev) {
       if (done) return;
@@ -89,6 +101,13 @@ GAMES.register('hotspot', function () {
       setTimeout(function () { dot.remove(); }, 700);
     });
 
+    function label(row, h) {
+      row.innerHTML =
+        '<span class="hotspot-tick">&#10003;</span>' +
+        '<span><strong>' + UI.escape(ctx.pick(h.label)) + '</strong>' +
+        '<em>' + UI.escape(ctx.pick(h.why)) + '</em></span>';
+    }
+
     function reveal(h) {
       var r = h.rect;
       var ring = el('span', 'hotspot-ring');
@@ -99,10 +118,8 @@ GAMES.register('hotspot', function () {
       layer.appendChild(ring);
 
       var row = el('div', 'hotspot-item');
-      row.innerHTML =
-        '<span class="hotspot-tick">&#10003;</span>' +
-        '<span><strong>' + UI.escape(ctx.pick(h.label)) + '</strong>' +
-        '<em>' + UI.escape(ctx.pick(h.why)) + '</em></span>';
+      row.setAttribute('data-hs', h.id);
+      label(row, h);
       list.appendChild(row);
     }
 
@@ -121,7 +138,9 @@ GAMES.register('hotspot', function () {
          that hints at how many signs are left. */
       GAMES.outcome(
         host, ctx, all,
-        all ? ctx.t('game.hotspot.win') : ctx.t('game.hotspot.miss'),
+        function () {
+          return ctx.t(all ? 'game.hotspot.win' : 'game.hotspot.miss');
+        },
         null,
         function () {
           ctx.finish(all ? cfg.points : 0,

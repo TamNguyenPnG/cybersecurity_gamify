@@ -27,24 +27,23 @@ GAMES.register('trap', function () {
     var card = el('div', 'trap-card');
 
     card.appendChild(el('div', 'trap-lock', '&#128274;'));
-    card.appendChild(el('h2', 'trap-title', UI.escape(ctx.pick(cfg.title))));
-    card.appendChild(el('p', 'trap-prompt', UI.escape(ctx.pick(cfg.prompt))));
+    var title = el('h2', 'trap-title');
+    card.appendChild(title);
+    var prompt = el('p', 'trap-prompt');
+    card.appendChild(prompt);
 
     var field = el('div', 'trap-field');
     var input = document.createElement('input');
     input.type = 'password';
     input.className = 'input trap-input';
-    input.placeholder = ctx.pick(cfg.placeholder);
     input.autocomplete = 'off';
     input.setAttribute('autocapitalize', 'off');
     input.setAttribute('autocorrect', 'off');
     input.setAttribute('spellcheck', 'false');
     input.setAttribute('data-1p-ignore', 'true');
-    input.setAttribute('aria-label', ctx.pick(cfg.placeholder));
 
     var eye = el('button', 'trap-eye', eyeIcon(false));
     eye.type = 'button';
-    eye.setAttribute('aria-label', ctx.t('game.trap.toggle'));
     eye.addEventListener('click', function () {
       var shown = input.type === 'text';
       input.type = shown ? 'password' : 'text';
@@ -61,9 +60,9 @@ GAMES.register('trap', function () {
     card.appendChild(warn);
 
     var actions = el('div', 'trap-actions');
-    var cancel = el('button', 'btn btn-ghost', UI.escape(ctx.pick(cfg.cancelLabel)));
+    var cancel = el('button', 'btn btn-ghost');
     cancel.type = 'button';
-    var submit = el('button', 'btn btn-primary', UI.escape(ctx.pick(cfg.submitLabel)));
+    var submit = el('button', 'btn btn-primary');
     submit.type = 'button';
     actions.appendChild(cancel);
     actions.appendChild(submit);
@@ -72,6 +71,21 @@ GAMES.register('trap', function () {
     wrap.appendChild(card);
     host.appendChild(wrap);
     setTimeout(function () { input.focus(); }, 60);
+
+    /* Re-label on a language change. Anything already typed stays put —
+       the value is never read here, only replaced by the player. */
+    var panelState = null;
+    ctx.live(function () {
+      title.innerHTML = UI.escape(ctx.pick(cfg.title));
+      prompt.innerHTML = UI.escape(ctx.pick(cfg.prompt));
+      input.placeholder = ctx.pick(cfg.placeholder);
+      input.setAttribute('aria-label', ctx.pick(cfg.placeholder));
+      eye.setAttribute('aria-label', ctx.t('game.trap.toggle'));
+      cancel.innerHTML = UI.escape(ctx.pick(cfg.cancelLabel));
+      submit.innerHTML = UI.escape(ctx.pick(cfg.submitLabel));
+      if (warn.textContent) warn.textContent = ctx.pick(cfg.emptyWarning);
+      if (panelState) panelState();
+    });
 
     function attempt() {
       /* Only the length is ever inspected. The value itself is never read. */
@@ -100,18 +114,22 @@ GAMES.register('trap', function () {
       host.innerHTML = '';
 
       var panel = el('div', 'trap-result is-fail');
-      panel.innerHTML =
-        '<div class="trap-result-icon">&#9888;</div>' +
-        '<h2>' + UI.escape(ctx.pick(cfg.failTitle)) + '</h2>' +
-        '<p>' + UI.escape(ctx.pick(cfg.failBody)) + '</p>' +
-        '<div class="trap-note">' + UI.escape(ctx.pick(cfg.failNote)) + '</div>';
-
-      var btn = el('button', 'btn btn-primary', UI.escape(ctx.t('game.seeResult')));
+      var btn = el('button', 'btn btn-primary');
       btn.type = 'button';
       btn.addEventListener('click', function () {
         ctx.finish(0, { points: 0, submitted: true }, { zeroAll: true });
       });
-      panel.appendChild(btn);
+
+      panelState = function () {
+        panel.innerHTML =
+          '<div class="trap-result-icon">&#9888;</div>' +
+          '<h2>' + UI.escape(ctx.pick(cfg.failTitle)) + '</h2>' +
+          '<p>' + UI.escape(ctx.pick(cfg.failBody)) + '</p>' +
+          '<div class="trap-note">' + UI.escape(ctx.pick(cfg.failNote)) + '</div>';
+        btn.innerHTML = UI.escape(ctx.t('game.seeResult'));
+        panel.appendChild(btn);
+      };
+      panelState();
       host.appendChild(panel);
     }
 
@@ -121,18 +139,22 @@ GAMES.register('trap', function () {
       host.innerHTML = '';
 
       var panel = el('div', 'trap-result is-win');
-      panel.innerHTML =
-        '<div class="trap-result-icon">&#10003;</div>' +
-        '<h2>' + UI.escape(ctx.pick(cfg.winTitle)) + '</h2>' +
-        '<p>' + UI.escape(ctx.pick(cfg.winBody)) + '</p>' +
-        '<div class="trap-award">+' + cfg.points + '</div>';
-
-      var btn = el('button', 'btn btn-primary', UI.escape(ctx.t('game.seeResult')));
+      var btn = el('button', 'btn btn-primary');
       btn.type = 'button';
       btn.addEventListener('click', function () {
         ctx.finish(cfg.points, { points: cfg.points, submitted: false });
       });
-      panel.appendChild(btn);
+
+      panelState = function () {
+        panel.innerHTML =
+          '<div class="trap-result-icon">&#10003;</div>' +
+          '<h2>' + UI.escape(ctx.pick(cfg.winTitle)) + '</h2>' +
+          '<p>' + UI.escape(ctx.pick(cfg.winBody)) + '</p>' +
+          '<div class="trap-award">+' + cfg.points + '</div>';
+        btn.innerHTML = UI.escape(ctx.t('game.seeResult'));
+        panel.appendChild(btn);
+      };
+      panelState();
       host.appendChild(panel);
 
       fireworks(host);

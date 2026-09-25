@@ -4,6 +4,54 @@ All notable changes to **Cybersecurity Awareness Month — October 2026**.
 
 ---
 
+## 2026-09-25 — v2.1.1 "Two bug fixes"
+
+### 1. Two eye icons on the password field
+
+The final mini-game draws its own show/hide eye next to the password box.
+Edge and Chrome *also* draw a native reveal control inside any
+`input[type="password"]`, so the field showed two eyes side by side. The
+native controls are now hidden in CSS (`::-ms-reveal`, `::-ms-clear`,
+`::-webkit-credentials-auto-fill-button`,
+`::-webkit-strong-password-auto-fill-button`), leaving only ours.
+
+### 2. Switching language restarted the mini-game
+
+v2.1 made the language switch work mid-chapter by **re-mounting** the game.
+That was too blunt: it wiped whatever the player had done — cards already
+sorted, signs already found, the option they had just picked.
+
+The engine now re-labels **in place** instead. A new hook,
+`ctx.live(fn)`, lets a game register a function that rewrites its own text;
+the engine runs it once at mount and again on every `i18n:change`. The DOM
+is never rebuilt, so:
+
+* a falling card keeps falling, mid-flight, in the new language;
+* a branching option already chosen stays chosen, with its feedback showing;
+* found phishing signs keep their rings and get new captions;
+* the password trap's result panel re-translates without resetting;
+* timers, scores and progress are untouched.
+
+Re-mounting survives only as a fallback for a game that registers no hooks.
+
+> `ctx.lang` is now a snapshot taken at mount and will be stale after a
+> switch. Inside a `ctx.live` block, always read the language through
+> `ctx.pick()` or `ctx.t()`.
+
+#### Files touched
+
+```
+public/assets/css/games.css           hide native password reveal controls
+public/assets/js/games/engine.js      ctx.live hook; relang() re-labels
+public/assets/js/games/phishing.js    re-label hotspot list in place
+public/assets/js/games/truefalse.js   re-label zones and the falling card
+public/assets/js/games/branching.js   view + paint(); re-label slide in place
+public/assets/js/games/password.js    re-label prompt and result panel
+public/assets/js/games/quiz.js        ctx.live replaces a global listener
+```
+
+---
+
 ## 2026-09-25 — v2.1 "Quieter endings"
 
 A follow-up pass on how the mini-games close, on the result stats, and on
@@ -43,10 +91,9 @@ pressing **EN** halfway through left the game in Vietnamese until the next
 chapter. Now:
 
 * `ctx.pick()` reads the *current* language on every call.
-* The engine listens for `i18n:change` and re-mounts the mini-game that is on
-  screen, in the new language. Points already banked are kept; only the game in
-  progress restarts.
-* A generation counter stops the discarded mount from reporting a result, so a
+* The engine listens for `i18n:change` and re-labels the mini-game that is on
+  screen. Nothing is torn down and nothing restarts.
+* A generation counter stops a stale mount from reporting a result, so a
   language switch can never double-score or skip a game.
 
 All game content (`public/content/games/chapter-01.json`) and both UI

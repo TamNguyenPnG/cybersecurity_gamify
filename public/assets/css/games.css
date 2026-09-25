@@ -458,6 +458,19 @@
 
 .trap-field { position: relative; }
 .trap-input { width: 100%; padding-right: 48px; letter-spacing: .18em; }
+
+/* Edge and Chrome draw their own reveal/clear controls inside a password
+   field. Hide them, or they sit next to our eye button as a second icon. */
+.trap-input::-ms-reveal,
+.trap-input::-ms-clear { display: none; width: 0; height: 0; }
+.trap-input::-webkit-credentials-auto-fill-button,
+.trap-input::-webkit-strong-password-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
 .trap-eye {
   position: absolute;
   right: 6px;

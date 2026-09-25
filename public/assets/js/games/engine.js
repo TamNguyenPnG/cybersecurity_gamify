@@ -9,6 +9,9 @@
      ctx.lang            current language code
      ctx.pick(obj)       obj.vi / obj.en -> string for the current language
      ctx.t(key, vars)    UI string lookup
+     ctx.live(fn)        run fn now, and again whenever the language
+                         changes. Games use this to re-label themselves
+                         in place instead of restarting.
      ctx.finish(points, detail, opts)
                          called once when the game ends.
                          opts.zeroAll wipes every point earned so far.
@@ -33,6 +36,7 @@ window.GAMES = (function () {
     var timerId = null;
     var gen = 0;          // bumped on every mount; stale mounts are ignored
     var over = false;
+    var live = [];        // re-label hooks belonging to the mounted game
 
     function pick(obj) {
       if (obj == null) return '';
@@ -89,6 +93,7 @@ window.GAMES = (function () {
       var impl = registry[cfg.type];
       gen += 1;
       var myGen = gen;
+      live = [];
       clearTimer();
       host.innerHTML = '';
       host.scrollTop = 0;
@@ -107,6 +112,14 @@ window.GAMES = (function () {
         t: function (k, v) { return window.I18N.t(k, v); },
         setTimer: setTimer,
         clearTimer: clearTimer,
+        /* Register a re-label hook. It runs once now and again on every
+           language change, so a game can swap its text without losing
+           whatever the player has already done. */
+        live: function (fn) {
+          if (myGen !== gen) return;
+          live.push(fn);
+          fn();
+        },
         /* Optional: preview points earned so far inside a multi-part game,
            so the HUD ticks up instead of jumping at the end. */
         progress: function (points) {
@@ -135,11 +148,16 @@ window.GAMES = (function () {
       });
     }
 
-    /* Switching language restarts the current mini-game in the new
-       language. Points already banked are kept; the generation guard
-       above stops the discarded mount from reporting a result. */
+    /* Switching language re-labels the mini-game on screen in place, so
+       nothing the player has done is lost. A game that registered no
+       hooks is re-mounted instead; the generation guard above stops the
+       discarded mount from reporting a result. */
     function relang() {
-      if (!over) step();
+      if (over) return;
+      if (!live.length) return step();
+      live.slice().forEach(function (fn) {
+        try { fn(); } catch (e) { console.error(e); }
+      });
     }
     window.addEventListener('i18n:change', relang);
 
@@ -168,16 +186,14 @@ window.GAMES = (function () {
   /* Intro panel shared by every game: title, brief and a Start button. */
   function intro(host, cfg, ctx, onStart) {
     var wrap = el('div', 'game-intro');
-    wrap.appendChild(el('h2', 'game-intro-title', UI.escape(ctx.pick(cfg.title))));
-    if (cfg.brief) {
-      wrap.appendChild(el('p', 'game-intro-brief', UI.escape(ctx.pick(cfg.brief))));
-    }
-    var pts = cfg.points === 1
-      ? ctx.t('game.worthOne')
-      : ctx.t('game.worthN', { n: cfg.points });
-    wrap.appendChild(el('div', 'game-intro-points', UI.escape(pts)));
+    var title = el('h2', 'game-intro-title');
+    wrap.appendChild(title);
+    var brief = cfg.brief ? el('p', 'game-intro-brief') : null;
+    if (brief) wrap.appendChild(brief);
+    var points = el('div', 'game-intro-points');
+    wrap.appendChild(points);
 
-    var btn = el('button', 'btn btn-primary', UI.escape(ctx.t('game.start')));
+    var btn = el('button', 'btn btn-primary');
     btn.type = 'button';
     btn.addEventListener('click', function () {
       wrap.remove();
@@ -185,20 +201,40 @@ window.GAMES = (function () {
     });
     wrap.appendChild(btn);
     host.appendChild(wrap);
+
+    ctx.live(function () {
+      title.innerHTML = UI.escape(ctx.pick(cfg.title));
+      if (brief) brief.innerHTML = UI.escape(ctx.pick(cfg.brief));
+      points.innerHTML = UI.escape(cfg.points === 1
+        ? ctx.t('game.worthOne')
+        : ctx.t('game.worthN', { n: cfg.points }));
+      btn.innerHTML = UI.escape(ctx.t('game.start'));
+    });
   }
 
   /* Outcome panel shown after a game resolves. */
   function outcome(host, ctx, ok, title, body, onNext, nextLabel) {
     var wrap = el('div', 'game-outcome ' + (ok ? 'is-win' : 'is-miss'));
     wrap.appendChild(el('div', 'game-outcome-icon', ok ? '&#10003;' : '&#33;'));
-    wrap.appendChild(el('h3', null, UI.escape(title)));
-    if (body) wrap.appendChild(el('p', null, UI.escape(body)));
-    var btn = el('button', 'btn btn-primary',
-      UI.escape(nextLabel || ctx.t('game.next')));
+    var h = el('h3');
+    wrap.appendChild(h);
+    var p = body ? el('p') : null;
+    if (p) wrap.appendChild(p);
+    var btn = el('button', 'btn btn-primary');
     btn.type = 'button';
     btn.addEventListener('click', onNext);
     wrap.appendChild(btn);
     host.appendChild(wrap);
+
+    /* `title`, `body` and `nextLabel` may be plain strings or functions;
+       a function is re-evaluated on every language change. */
+    function read(v) { return typeof v === 'function' ? v() : v; }
+    ctx.live(function () {
+      h.innerHTML = UI.escape(read(title));
+      if (p) p.innerHTML = UI.escape(read(body));
+      btn.innerHTML = UI.escape(read(nextLabel) || ctx.t('game.next'));
+    });
+
     return wrap;
   }
 

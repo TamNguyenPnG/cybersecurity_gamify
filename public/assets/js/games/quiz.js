@@ -5,6 +5,8 @@
    this: it wraps the whole bilingual question file from
    content/questions/chapter-0N.json as a single "game" worth one point
    per question. Incorrect answers glow red but are never revealed.
+   Switching language relabels the card in place, so an answer already
+   given is not undone.
    ============================================================ */
 GAMES.register('quiz', function () {
   'use strict';
@@ -26,32 +28,54 @@ GAMES.register('quiz', function () {
       var card = el('div', 'glass quiz-card');
       host.appendChild(card);
 
+      var view = null;
+
+      function lang() { return (window.I18N && window.I18N.lang) || ctx.lang; }
+
       function render() {
         locked = false;
         var item = items[idx];
-        var loc = item[ctx.lang] || item.en;
 
         card.innerHTML = '';
-        card.appendChild(el('span', 't-overline',
-          UI.escape(ctx.t('ch.counter', { n: idx + 1, total: total }))));
-        card.appendChild(el('h2', 't-h3 quiz-q', UI.escape(loc.q)));
+        var counter = el('span', 't-overline');
+        card.appendChild(counter);
+        var q = el('h2', 't-h3 quiz-q');
+        card.appendChild(q);
 
         var answers = el('div', 'answers');
+        var buttons = [];
         plan[idx].forEach(function (orig, i) {
-          var b = el('button', 'answer',
-            '<span class="key">' + String.fromCharCode(65 + i) + '</span>' +
-            '<span>' + UI.escape(loc.o[orig]) + '</span>');
+          var b = el('button', 'answer');
           b.type = 'button';
           b.addEventListener('click', function () {
             choose(answers, b, orig === Number(item.answer));
           });
           answers.appendChild(b);
+          buttons.push({ el: b, orig: orig, key: String.fromCharCode(65 + i) });
         });
         card.appendChild(answers);
 
-        card.appendChild(el('p', 't-caption quiz-note',
-          UI.escape(ctx.t('ch.answersNote'))));
+        var note = el('p', 't-caption quiz-note');
+        card.appendChild(note);
+
+        view = { item: item, counter: counter, q: q, buttons: buttons, note: note };
+        paint();
       }
+
+      /* Relabels what is on screen. Disabled states, the selection and the
+         correct/incorrect glow all survive a language change. */
+      function paint() {
+        if (!view) return;
+        var loc = view.item[lang()] || view.item.en;
+        view.counter.innerHTML = UI.escape(ctx.t('ch.counter', { n: idx + 1, total: total }));
+        view.q.innerHTML = UI.escape(loc.q);
+        view.buttons.forEach(function (b) {
+          b.el.innerHTML = '<span class="key">' + b.key + '</span>' +
+            '<span>' + UI.escape(loc.o[b.orig]) + '</span>';
+        });
+        view.note.innerHTML = UI.escape(ctx.t('ch.answersNote'));
+      }
+      ctx.live(paint);
 
       function choose(answers, btn, correct) {
         if (locked) return;
@@ -76,10 +100,6 @@ GAMES.register('quiz', function () {
           }, 1000);
         }, 240);
       }
-
-      window.addEventListener('i18n:change', function () {
-        if (!locked && idx < total) render();
-      });
 
       render();
     }
