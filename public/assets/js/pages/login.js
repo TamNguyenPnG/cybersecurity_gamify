@@ -240,19 +240,19 @@ I18N.ready.then(function () {
     }
     if (state === 'loading') {
       emailEl.value = 'minh.cs@pg.com';
-      deptEl.value = 'Human Resources';
+      deptEl.value = 'Digital';
       setLoading(true);
     }
     if (state === 'errorA') {
       emailEl.value = 'unknown.person@pg.com';
-      deptEl.value = 'Finance';
+      deptEl.value = 'LFE';
       pickedEmail = null;
       showEmailError();
     }
     if (state === 'errorB') {
       emailEl.value = 'minh.cs@pg.com';
       pickedEmail = 'minh.cs@pg.com';
-      deptEl.value = 'Finance';   // record says Human Resources
+      deptEl.value = 'LFE';   // record says Digital
       showDeptError();
     }
   });

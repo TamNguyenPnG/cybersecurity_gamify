@@ -52,7 +52,12 @@ cybersecurity_gamify/
 ├── server.py                  ← the web + API server
 ├── data/
 │   ├── app.db                 ← SQLite database (generated, not in git)
-│   └── scripts/build_db.py    ← creates and seeds app.db
+│   ├── source/                ← NOT in git (real names and emails)
+│   │   ├── EE List - Cybersecurity.xlsx   ← the roster HR sends you
+│   │   └── employees.csv      ← generated from it
+│   └── scripts/
+│       ├── import_roster.py   ← spreadsheet → employees.csv
+│       └── build_db.py        ← employees.csv → app.db
 ├── docs/                      ← this guide, the data contract, the changelog
 └── public/                    ← everything the browser loads
     ├── index.html             ← login
@@ -77,49 +82,82 @@ cybersecurity_gamify/
 
 ## 4. Loading your people (email + department)
 
-The list of who may sign in, and which department each person belongs to,
-lives in **`data/scripts/build_db.py`**.
+The roster comes from an HR spreadsheet. It is loaded in two steps:
 
-Open it and find the `EMPLOYEES` list near the bottom:
-
-```python
-EMPLOYEES = [
-    ("minh.cs@pg.com",  "Minh Cao Sy",  "Human Resources", None),
-    ("chi.ptm@pg.com",  "Chi Pham Thi Minh", "Marketing",   None),
-    # email, full name, department, photo filename (or None)
-]
+```
+data/source/EE List - Cybersecurity.xlsx   ← the spreadsheet HR sends you
+            │  python data/scripts/import_roster.py
+            ▼
+data/source/employees.csv                  ← readable, easy to correct by hand
+            │  python data/scripts/build_db.py --reset
+            ▼
+data/app.db                                ← what the site reads
 ```
 
-Add one tuple per person, then rebuild:
+> **None of these three files is in git.** They are real names and real email
+> addresses, and this repository is public, so `data/source/` and `app.db` are
+> both gitignored. They live only on the machine that runs the site.
+>
+> On a fresh checkout there is no roster at all — `build_db.py` seeds a
+> five-person demo list so the site still starts. Drop the spreadsheet into
+> `data/source/` and run the two commands below to load the real one.
+
+### When HR sends a new list
+
+1. Save the file over `data/source/EE List - Cybersecurity.xlsx`.
+   It needs three columns in row 1: **Name**, **Email**, **Function**.
+2. Run both steps:
 
 ```powershell
+python data\scripts\import_roster.py
 python data\scripts\build_db.py --reset
 ```
 
-The `DEPARTMENTS` list just above it feeds the login dropdown. Every
-employee's department **must** appear in that list.
+`import_roster.py` prints a headcount per department and warns about anything
+it skipped (bad email, duplicate) or patched (missing Function). Read those
+warnings — they are the only sign something in the spreadsheet is wrong.
 
-### Loading from a spreadsheet instead
-
-If HR sends you a CSV, you can load it without editing Python by hand:
+If the spreadsheet is somewhere else:
 
 ```powershell
-python - <<'PY'
-import csv, sqlite3
-con = sqlite3.connect("data/app.db")
-with open("people.csv", newline="", encoding="utf-8-sig") as f:
-    for row in csv.DictReader(f):          # columns: email,name,department
-        con.execute("INSERT OR IGNORE INTO departments(name) VALUES (?)",
-                    (row["department"],))
-        con.execute("INSERT OR REPLACE INTO employees(email,name,department,photo)"
-                    " VALUES (?,?,?,NULL)",
-                    (row["email"].strip().lower(), row["name"], row["department"]))
-con.commit()
-PY
+python data\scripts\import_roster.py --xlsx "C:\path\to\other.xlsx"
 ```
 
-(On Windows PowerShell, save that snippet as `load_people.py` and run
-`python load_people.py` — PowerShell has no heredocs.)
+> `import_roster.py` needs `openpyxl` (`pip install openpyxl`).
+> `build_db.py` does not — it only reads the CSV, so a deployment machine
+> needs nothing beyond Python itself.
+
+### About names
+
+Name cells look like `TRAN NHI (NHÌ TRẦN)` — a Latin spelling with the
+Vietnamese spelling in brackets. Both are kept:
+
+| Column | Value | Used for |
+|---|---|---|
+| `name` | `Tran Nhi` | login autocomplete, greetings |
+| `name_vi` | `Nhì Trần` | available for Vietnamese display |
+
+Capitalisation is normalised, so `TRAN NHI` and `Tran Nhi` both end up the same.
+
+### Editing one person by hand
+
+For a single correction, edit `data/source/employees.csv` directly
+(`email,name,name_vi,department`) and re-run `build_db.py --reset`. Do not
+edit `app.db` by hand — the next rebuild overwrites it.
+
+> **`--reset` deletes every play record.** During October, add people without
+> `--reset`: `python data\scripts\build_db.py`. That re-seeds the roster and
+> leaves `attempts` alone.
+
+### The department dropdown
+
+The login dropdown is built from whatever departments appear in the CSV — you
+never maintain a separate list. Right now that is 15:
+
+```
+Digital · ESS · Engineering · Global Innovation · HDL · HR · Home Care
+I-Trade · ICA · LFE · MPD & SIEL · Plant Manager · Platform · QA/QC · WHSNO
+```
 
 ### What the login actually checks
 
@@ -262,19 +300,49 @@ python server.py --today 2026-10-12
 
 ## 8. Reading the results
 
-Open the database with any SQLite tool, or from Python:
+Two things record what people did:
+
+| | What it holds |
+|---|---|
+| `attempts` | One row per finished play. Append-only — nothing is ever updated or deleted, so a retry never erases the earlier score. |
+| `performance` | A **view** that rolls `attempts` up to one row per person per chapter. Query it exactly like a table; it can never fall out of step, because it is recalculated on every query. |
+
+`performance` gives you: `email`, `name`, `name_vi`, `department`,
+`chapter_id`, `plays`, `best_score`, `worst_score`, `avg_score`, `max_score`,
+`total_time_s`, `first_perfect_attempt`, `first_played_at`, `last_played_at`.
 
 ```python
 import sqlite3
 con = sqlite3.connect("data/app.db")
 con.row_factory = sqlite3.Row
+
+# Chapter 1 ranking — highest score first, fewest plays breaks the tie
 for r in con.execute("""
-        SELECT e.name, e.department, a.chapter_id,
-               MAX(a.score) AS best, COUNT(*) AS plays
-        FROM attempts a JOIN employees e ON e.email = a.email
-        GROUP BY a.email, a.chapter_id
-        ORDER BY best DESC, plays ASC"""):
+        SELECT name, department, best_score, plays, total_time_s
+        FROM performance
+        WHERE chapter_id = 1
+        ORDER BY best_score DESC, plays ASC, total_time_s ASC"""):
     print(dict(r))
+```
+
+Other useful queries:
+
+```sql
+-- One person's whole journey
+SELECT * FROM performance WHERE email = 'nhu.pk@pg.com';
+
+-- Participation by department
+SELECT department, COUNT(DISTINCT email) AS people, ROUND(AVG(best_score), 2) AS avg_best
+FROM performance WHERE chapter_id = 1 GROUP BY department ORDER BY people DESC;
+
+-- Who has not played chapter 1 yet
+SELECT e.email, e.name, e.department FROM employees e
+WHERE NOT EXISTS (SELECT 1 FROM attempts a
+                  WHERE a.email = e.email AND a.chapter_id = 1);
+
+-- Everyone who scored full marks
+SELECT name, department, first_perfect_attempt FROM performance
+WHERE chapter_id = 1 AND best_score = max_score ORDER BY first_perfect_attempt;
 ```
 
 To export to Excel for reporting:
@@ -282,7 +350,9 @@ To export to Excel for reporting:
 ```python
 import sqlite3, pandas as pd
 con = sqlite3.connect("data/app.db")
-pd.read_sql_query("SELECT * FROM attempts", con).to_excel("results.xlsx", index=False)
+with pd.ExcelWriter("results.xlsx") as x:
+    pd.read_sql_query("SELECT * FROM performance", con).to_excel(x, "Performance", index=False)
+    pd.read_sql_query("SELECT * FROM attempts", con).to_excel(x, "Every play", index=False)
 ```
 
 Each player can see their own history in the app via the **My records**

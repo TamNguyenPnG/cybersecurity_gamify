@@ -4,17 +4,23 @@ Create and seed data/app.db — the SQLite database behind the site.
 Run:  python data/scripts/build_db.py          (create if missing, keep records)
       python data/scripts/build_db.py --reset  (wipe and rebuild from scratch)
 
+People come from data/source/employees.csv, which is generated from the HR
+spreadsheet by data/scripts/import_roster.py. If that CSV is missing, a small
+built-in demo roster is used instead so the site still runs.
+
 The `employees`, `departments` and `chapters` tables are reference data and are
 re-seeded every run. The `attempts` and `chapter_exits` tables hold real user
 activity and are only touched by --reset.
 """
 
 import argparse
+import csv
 import os
 import sqlite3
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DB_PATH = os.path.join(ROOT, "data", "app.db")
+CSV_PATH = os.path.join(ROOT, "data", "source", "employees.csv")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS departments (
@@ -24,6 +30,7 @@ CREATE TABLE IF NOT EXISTS departments (
 CREATE TABLE IF NOT EXISTS employees (
     email      TEXT PRIMARY KEY,
     name       TEXT NOT NULL,
+    name_vi    TEXT,
     department TEXT NOT NULL REFERENCES departments(name),
     photo      TEXT
 );
@@ -64,41 +71,72 @@ CREATE TABLE IF NOT EXISTS chapter_exits (
     exited_at  TEXT NOT NULL,
     PRIMARY KEY (email, chapter_id)
 );
+
+-- Employee performance, one row per person per chapter they have played.
+-- This is a VIEW, not a table: it is derived from `attempts` on every query,
+-- so it can never drift out of step with the ledger. Query it like a table:
+--     SELECT * FROM performance WHERE email = 'nhu.pk@pg.com';
+--     SELECT * FROM performance WHERE chapter_id = 1 ORDER BY best_score DESC;
+DROP VIEW IF EXISTS performance;
+CREATE VIEW performance AS
+SELECT
+    e.email,
+    e.name,
+    e.name_vi,
+    e.department,
+    a.chapter_id,
+    COUNT(*)                                   AS plays,
+    MAX(a.score)                               AS best_score,
+    MIN(a.score)                               AS worst_score,
+    ROUND(AVG(a.score), 2)                     AS avg_score,
+    MAX(a.max_score)                           AS max_score,
+    SUM(COALESCE(a.duration_s, 0))             AS total_time_s,
+    MIN(CASE WHEN a.score = a.max_score THEN a.attempt_no END)
+                                               AS first_perfect_attempt,
+    MIN(a.played_at)                           AS first_played_at,
+    MAX(a.played_at)                           AS last_played_at
+FROM attempts a
+JOIN employees e ON e.email = a.email
+GROUP BY a.email, a.chapter_id;
 """
 
-DEPARTMENTS = [
-    "Human Resources",
-    "Information Technology",
-    "Finance",
-    "Marketing",
-    "Sales",
-    "Supply Chain",
-    "Research & Development",
-    "Manufacturing",
-    "Legal",
-    "Communications",
+DEMO_EMPLOYEES = [
+    ("minh.cs@pg.com",  "Minh Cao Sy",     "Minh Cao Sỹ",     "HR"),
+    ("tam.nt@pg.com",   "Tam Nguyen Thi",  "Tâm Nguyễn Thị",  "Platform"),
+    ("linh.pd@pg.com",  "Linh Pham Duc",   "Linh Phạm Đức",   "LFE"),
+    ("huy.nv@pg.com",   "Huy Nguyen Van",  "Huy Nguyễn Văn",  "Digital"),
+    ("an.lt@pg.com",    "An Le Thi",       "An Lê Thị",       "HDL"),
 ]
 
-EMPLOYEES = [
-    ("minh.cs@pg.com",   "Minh Cao Sy",       "Human Resources"),
-    ("minh.tt@pg.com",   "Minh Tran Thi",     "Marketing"),
-    ("tam.nt@pg.com",    "Tam Nguyen Thi",    "Information Technology"),
-    ("linh.pd@pg.com",   "Linh Pham Duc",     "Finance"),
-    ("huy.nv@pg.com",    "Huy Nguyen Van",    "Information Technology"),
-    ("an.lt@pg.com",     "An Le Thi",         "Supply Chain"),
-    ("khanh.vd@pg.com",  "Khanh Vo Duy",      "Research & Development"),
-    ("thao.dn@pg.com",   "Thao Dang Ngoc",    "Sales"),
-    ("quan.hm@pg.com",   "Quan Hoang Minh",   "Manufacturing"),
-    ("mai.tn@pg.com",    "Mai Truong Ngoc",   "Communications"),
-    ("duc.nb@pg.com",    "Duc Nguyen Ba",     "Legal"),
-    ("trang.lh@pg.com",  "Trang Le Hoang",    "Human Resources"),
-    ("son.pv@pg.com",    "Son Pham Van",      "Information Technology"),
-    ("yen.nh@pg.com",    "Yen Nguyen Hai",    "Finance"),
-    ("bao.tq@pg.com",    "Bao Tran Quoc",     "Marketing"),
-    ("ha.vt@pg.com",     "Ha Vu Thanh",       "Supply Chain"),
-    ("nam.lq@pg.com",    "Nam Le Quang",      "Sales"),
-    ("chi.ptm@pg.com",   "Chi Pham Thi Minh", "Research & Development"),
-]
+
+def load_roster():
+    """Read data/source/employees.csv, falling back to the demo roster.
+
+    Returns (employees, departments, source_label).
+    """
+    if not os.path.exists(CSV_PATH):
+        people = DEMO_EMPLOYEES
+        label = "built-in demo roster (data/source/employees.csv not found)"
+    else:
+        people = []
+        with open(CSV_PATH, encoding="utf-8-sig", newline="") as fh:
+            for row in csv.DictReader(fh):
+                email = (row.get("email") or "").strip().lower()
+                name = (row.get("name") or "").strip()
+                if not email or not name:
+                    continue
+                people.append((
+                    email,
+                    name,
+                    (row.get("name_vi") or "").strip(),
+                    (row.get("department") or "").strip() or "Unassigned",
+                ))
+        if not people:
+            raise SystemExit(CSV_PATH + " has no usable rows")
+        label = os.path.relpath(CSV_PATH, ROOT)
+
+    departments = sorted({p[3] for p in people})
+    return people, departments, label
 
 # Chapter windows for October 2026. A chapter is playable during its window;
 # afterwards it locks for anyone who already played it. Only chapter 1 has
@@ -117,19 +155,22 @@ def build(reset=False):
         os.remove(DB_PATH)
         print("removed existing database")
 
+    employees, departments, source = load_roster()
+
     con = sqlite3.connect(DB_PATH)
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript(SCHEMA)
 
     con.executemany(
         "INSERT OR IGNORE INTO departments (name) VALUES (?)",
-        [(d,) for d in DEPARTMENTS],
+        [(d,) for d in departments],
     )
     con.executemany(
-        "INSERT INTO employees (email, name, department) VALUES (?, ?, ?) "
+        "INSERT INTO employees (email, name, name_vi, department) "
+        "VALUES (?, ?, ?, ?) "
         "ON CONFLICT(email) DO UPDATE SET name = excluded.name, "
-        "department = excluded.department",
-        EMPLOYEES,
+        "name_vi = excluded.name_vi, department = excluded.department",
+        employees,
     )
     con.executemany(
         "INSERT INTO chapters (id, slug, opens, closes, has_content) "
@@ -143,10 +184,12 @@ def build(reset=False):
 
     counts = {
         t: con.execute("SELECT COUNT(*) FROM " + t).fetchone()[0]
-        for t in ("departments", "employees", "chapters", "attempts", "chapter_exits")
+        for t in ("departments", "employees", "chapters", "attempts",
+                  "chapter_exits", "performance")
     }
     con.close()
 
+    print("roster from", source)
     print("database ready at", os.path.relpath(DB_PATH, ROOT))
     for table, n in counts.items():
         print("  {:<14} {}".format(table, n))

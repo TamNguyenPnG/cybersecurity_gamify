@@ -18,8 +18,9 @@ Fully bilingual — **English and Vietnamese** from one shared set of content fi
 ## Running it
 
 ```powershell
-python data\scripts\build_db.py     # once — creates data/app.db
-python server.py                    # serves the site + the API
+python data\scripts\import_roster.py   # spreadsheet → data/source/employees.csv
+python data\scripts\build_db.py        # once — creates data/app.db
+python server.py                       # serves the site + the API
 ```
 
 Open <http://localhost:8099>.
@@ -109,16 +110,29 @@ verdict.
 
 ## Data
 
-Everything lives in **`data/app.db`** (SQLite), created and seeded by
-`data/scripts/build_db.py`. It is generated, so it is **not** committed.
+The roster starts as a spreadsheet from HR and ends up in SQLite:
+
+```
+data/source/EE List - Cybersecurity.xlsx   →  import_roster.py
+data/source/employees.csv                  →  build_db.py
+data/app.db
+```
+
+`app.db` is generated and `data/source/` holds real names and email addresses,
+so **none of them is committed** — this repository is public. On a fresh
+checkout `build_db.py` seeds a five-person demo roster so the site still runs;
+see [`docs/setup-guide.md`](docs/setup-guide.md) §4 to load the real one.
 
 | Table | Holds |
 |---|---|
-| `departments` | The login dropdown |
-| `employees` | Who may sign in — email, name, department |
+| `departments` | The login dropdown — derived from the roster |
+| `employees` | Who may sign in — email, name, Vietnamese name, department |
 | `chapters` | The four weekly windows and whether content exists |
 | `attempts` | One append-only row per completed play |
 | `chapter_exits` | Which last-chance plays have been burned |
+| `performance` | **View.** `attempts` rolled up per person per chapter — plays, best/worst/average score, total time, first perfect attempt, first and last played |
+
+254 people across 15 departments are loaded.
 
 The API the browser talks to:
 
@@ -204,7 +218,12 @@ cybersecurity_gamify/
 ├── server.py                    Web + API server
 ├── data/
 │   ├── app.db                   SQLite (generated, gitignored)
-│   └── scripts/build_db.py      Schema + seed data
+│   ├── source/                  Roster — gitignored, real personal data
+│   │   ├── EE List - Cybersecurity.xlsx   From HR
+│   │   └── employees.csv        Generated from it
+│   └── scripts/
+│       ├── import_roster.py     Spreadsheet → employees.csv
+│       └── build_db.py          Schema + seed from employees.csv
 ├── docs/
 │   ├── setup-guide.md           How to load your own data
 │   ├── data-contract.md         Tables, endpoints, file formats

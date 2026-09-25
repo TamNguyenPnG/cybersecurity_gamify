@@ -17,6 +17,19 @@ node_modules/
 dist/
 .cache/
 
-# Runtime database — rebuild with: python data/scripts/build_db.py
+# Runtime database - rebuild with: python data/scripts/build_db.py
 data/app.db
 data/*.db-journal
+
+# Personal data. The employee roster is real names and real email addresses,
+# so it is never committed - this repository is public.
+#
+#   data/source/EE List - Cybersecurity.xlsx   the file HR sends you
+#   data/source/employees.csv                  generated from it
+#
+# Keep them on the machine that runs the site. To set up a fresh checkout,
+# drop the spreadsheet into data/source/ and run:
+#   python data/scripts/import_roster.py
+#   python data/scripts/build_db.py --reset
+# Without them, build_db.py seeds a small demo roster so the site still runs.
+data/source/

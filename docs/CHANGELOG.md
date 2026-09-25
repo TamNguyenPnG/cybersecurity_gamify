@@ -4,6 +4,101 @@ All notable changes to **Cybersecurity Awareness Month — October 2026**.
 
 ---
 
+## 2026-09-25 — v2.2 "The real roster"
+
+The demo list of 18 invented people is gone. The site now runs on the actual
+HR list: **254 employees across 15 departments**.
+
+### How the roster gets in
+
+```
+data/source/EE List - Cybersecurity.xlsx   ← what HR sends
+        │  python data/scripts/import_roster.py
+        ▼
+data/source/employees.csv                  ← readable, hand-correctable
+        │  python data/scripts/build_db.py --reset
+        ▼
+data/app.db
+```
+
+The CSV in the middle means `build_db.py` needs **only the Python standard
+library** — a deployment box does not need `openpyxl` — and a single wrong
+department is a one-line fix rather than a spreadsheet round-trip.
+
+### None of this is in git
+
+`data/source/` is **gitignored**, alongside `data/app.db`. This repository is
+public, and the roster is 254 real names and real email addresses; publishing
+it would be a privacy breach. The roster lives only on the machine that runs
+the site.
+
+A fresh checkout therefore has no roster. `build_db.py` seeds a five-person
+demo list so the site still starts; drop the spreadsheet into `data/source/`
+and run the two commands above to load the real one.
+
+**`data/scripts/import_roster.py`** (new) reads the `Name`, `Email` and
+`Function` columns and:
+
+* splits `TRAN NHI (NHÌ TRẦN)` into `name` = *Tran Nhi* and
+  `name_vi` = *Nhì Trần*, so the Vietnamese spelling is available for display;
+* normalises capitalisation, since the spreadsheet mixes ALL CAPS and Title Case;
+* skips malformed emails and duplicates, and reports each one;
+* files anyone with a blank `Function` under **Global Innovation** rather than
+  dropping them, so the headcount always matches the spreadsheet. One person
+  (`tran.n.9@pg.com`) is in that position.
+
+**`data/scripts/build_db.py`** no longer carries a hard-coded list. It reads
+the CSV, derives the department dropdown from whatever departments actually
+appear, and falls back to a five-person demo roster if the CSV is missing so
+the site still starts on a fresh clone.
+
+> The login dropdown is now: Digital · ESS · Engineering · Global Innovation ·
+> HDL · HR · Home Care · I-Trade · ICA · LFE · MPD & SIEL · Plant Manager ·
+> Platform · QA/QC · WHSNO.
+
+### New: a `performance` view
+
+`attempts` is an append-only ledger — good for auditing, awkward for reporting.
+Alongside it there is now **`performance`**, one row per person per chapter:
+
+| | |
+|---|---|
+| `plays` | how many times they played |
+| `best_score` · `worst_score` · `avg_score` · `max_score` | the score spread |
+| `total_time_s` | seconds across every attempt |
+| `first_perfect_attempt` | which attempt first hit full marks, or `NULL` |
+| `first_played_at` · `last_played_at` | ISO-8601 UTC |
+
+plus `name`, `name_vi` and `department` joined in, so a ranking or a
+department breakdown is a single `SELECT`.
+
+It is a **view**, not a table: nothing writes to it, and it is recalculated on
+every query, so it can never drift out of step with `attempts`. Example
+queries are in `setup-guide.md` §8.
+
+### Schema changes
+
+```sql
+employees ADD COLUMN name_vi TEXT      -- Vietnamese spelling
+CREATE VIEW performance                -- rollup of attempts
+```
+
+Both require a rebuild: `python data\scripts\build_db.py --reset`.
+
+### Files touched
+
+```
+data/scripts/import_roster.py    new — spreadsheet → employees.csv
+data/scripts/build_db.py         reads the CSV; name_vi; performance view
+.gitignore                       data/source/ excluded — real personal data
+docs/setup-guide.md              §4 rewritten; §8 rewritten around performance
+docs/data-contract.md            employees + performance documented
+public/assets/js/pages/login.js  preview states use real departments
+README.md                        data section and structure updated
+```
+
+---
+
 ## 2026-09-25 — v2.1.1 "Two bug fixes"
 
 ### 1. Two eye icons on the password field
