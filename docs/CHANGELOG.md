@@ -4,6 +4,69 @@ All notable changes to **Cybersecurity Awareness Month — October 2026**.
 
 ---
 
+## 2026-09-25 — v2.1 "Quieter endings"
+
+A follow-up pass on how the mini-games close, on the result stats, and on
+language switching mid-chapter.
+
+### Mini-game endings no longer give anything away
+
+Both scored games used to end with a debrief: how many you got, plus the
+answers you missed. That turned a retry into a memory exercise rather than a
+second test, so the debriefs are gone.
+
+* **Game 1 — Spot the phishing.** The closing dialog is now one line: either
+  *"You found every sign"* or *"Some clues slipped through"*. The "you found
+  n of 5" sub-line was removed, and the signs that were missed are no longer
+  circled in amber at the end. Signs you *do* find during play are still
+  ringed and explained, exactly as before.
+* **Game 2 — Safe or unsafe.** The correct-sorting list and the "you judged
+  n of 6 correctly" line were removed. Running out of time and sorting the
+  last card now lead to the same single dialog.
+
+The running score in the top-right of the chapter header is unchanged — that
+is where the player watches their points, not the end-of-game dialogs.
+
+### Result screen — total time replaces best score
+
+The third stat tile was *Your best score*; it is now **Total time**, shown as
+`m:ss`. The engine already measured how long a run took (`durationS`), so the
+chapter now forwards it to the result page as `&time=` and the page formats it.
+
+> `GET /api/chapters` is no longer called from the result page — the tile it
+> fed is gone. The endpoint itself is unchanged and still drives the Main Hall.
+
+### Language can now be switched mid-chapter
+
+Previously the engine captured the language once, when the chapter started, so
+pressing **EN** halfway through left the game in Vietnamese until the next
+chapter. Now:
+
+* `ctx.pick()` reads the *current* language on every call.
+* The engine listens for `i18n:change` and re-mounts the mini-game that is on
+  screen, in the new language. Points already banked are kept; only the game in
+  progress restarts.
+* A generation counter stops the discarded mount from reporting a result, so a
+  language switch can never double-score or skip a game.
+
+All game content (`public/content/games/chapter-01.json`) and both UI
+dictionaries were verified complete in English and Vietnamese — 162 keys each,
+no drift, no Vietnamese text left in the English file.
+
+### Files touched
+
+```
+public/assets/js/games/engine.js      live language, re-mount, generation guard
+public/assets/js/games/phishing.js    no end-of-game reveal or tally
+public/assets/js/games/truefalse.js   no answer key or tally
+public/assets/js/pages/chapter.js     forwards &time= to the result page
+public/assets/js/pages/result.js      total time instead of personal best
+public/result.html                    third stat tile relabelled
+public/content/i18n/{en,vi}.json      +result.stat.time, -4 unused keys
+```
+
+---
+
 ## 2026-09-25 — v2.0 "Real data, real games"
 
 This release replaces the Excel/mock data layer with a real SQLite database

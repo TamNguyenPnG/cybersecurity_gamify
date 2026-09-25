@@ -5,6 +5,9 @@
    into "Recommend" (left) or "Ban" (right). A card that reaches the
    bottom counts as missed. All six correct scores the point.
 
+   When the last card settles a single dialog closes the game; the correct
+   sorting is never shown, so a retry stays a real test.
+
    Motion is driven by requestAnimationFrame rather than a CSS transition
    so the fall can be paused mid-drag and resumed from the same position.
    ============================================================ */
@@ -188,29 +191,11 @@ GAMES.register('sort', function () {
       var right = results.filter(function (r) { return r.correct; }).length;
       var all = right === queue.length;
 
-      /* Show the correct sorting for anything the player got wrong. */
-      var review = el('div', 'sort-review');
-      queue.forEach(function (s, i) {
-        var r = results[i];
-        if (r && r.correct) return;
-        var row = el('div', 'sort-review-row');
-        row.innerHTML =
-          '<span class="sort-review-zone ' + (s.zone === 'safe' ? 'is-safe' : 'is-unsafe') + '">' +
-          UI.escape(ctx.pick(cfg.zones[s.zone].label)) + '</span>' +
-          '<span>' + UI.escape(ctx.pick(s)) + '</span>';
-        review.appendChild(row);
-      });
-      if (review.childNodes.length) {
-        review.insertBefore(
-          el('div', 'sort-review-title', UI.escape(ctx.t('game.sort.review'))),
-          review.firstChild);
-        host.appendChild(review);
-      }
-
+      /* A short acknowledgement only — no answer key and no tally. */
       GAMES.outcome(
         host, ctx, all,
         all ? ctx.t('game.sort.win') : ctx.t('game.sort.miss'),
-        ctx.t('game.sort.summary', { n: right, total: queue.length }),
+        null,
         function () {
           ctx.finish(all ? cfg.points : 0,
             { points: all ? cfg.points : 0, correct: right, total: queue.length,

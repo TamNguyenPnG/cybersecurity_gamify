@@ -77,8 +77,9 @@ Append `?lang=vi` to any page to force Vietnamese, or use the **EN / VI** switch
 | 3 | **Branching story** | 1 | A three-slide decision story about reporting phishing. All three must be right. |
 | 4 | **The password trap** | +2 or **0** | A box asks for your password. Type one and you fail the whole chapter. **Cancel** and you score 2 — with fireworks. |
 
-Games 1–3 reveal the correct answers after a failed run, so a wrong attempt
-still teaches. Answer order is shuffled every play.
+Games 1–3 close with a short dialog that says only whether the run was clean.
+They never print a score breakdown or the answer key, so every retry is a real
+test. Answer order is shuffled every play.
 
 **About the password trap:** the code reads only the *length* of what you type,
 to check the box is not empty, then clears the field. Nothing typed there is

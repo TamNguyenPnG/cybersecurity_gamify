@@ -107,6 +107,7 @@
   "result.partial.capHacker": "Đang trốn thoát…",
   "result.stat.score": "Điểm của bạn",
   "result.stat.attempt": "Lượt chơi thứ",
+  "result.stat.time": "Tổng thời gian",
   "result.next": "Mở khoá Chương {num}",
   "result.finish": "Kết thúc hành trình",
   "result.playAgain": "Chơi lại",
@@ -125,11 +126,8 @@
   "game.found": "Đã tìm {n} / {total}",
   "game.hotspot.win": "Bạn đã tìm ra tất cả dấu hiệu!",
   "game.hotspot.miss": "Vẫn còn dấu hiệu bị bỏ sót",
-  "game.hotspot.summary": "Bạn tìm được {n} / {total}. Những dấu hiệu còn lại được khoanh màu vàng — hãy xem qua trước khi tiếp tục.",
   "game.sort.win": "Phân loại chính xác tuyệt đối!",
   "game.sort.miss": "Phân loại chưa chính xác",
-  "game.sort.summary": "Bạn đánh giá đúng {n} / {total} phát biểu.",
-  "game.sort.review": "Vị trí đúng của các phát biểu này",
   "game.story.right": "Lựa chọn tốt",
   "game.story.wrong": "Chưa phải cách tốt nhất",
   "game.story.win": "Xử lý rất chuẩn!",
@@ -166,6 +164,5 @@
   "hall.card.soon": "Sắp ra mắt",
   "hall.guideTitle": "Cách tham gia hành trình",
   "hall.heroAlt": "Hai Nhà vô địch An ninh mạng P&G đứng cạnh nhau trên nền trời sao",
-  "hall.rule.lock": "Mỗi chương sẽ khóa lại khi hết tuần của nó",
-  "result.stat.best": "Điểm cao nhất của bạn"
+  "hall.rule.lock": "Mỗi chương sẽ khóa lại khi hết tuần của nó"
 }

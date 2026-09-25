@@ -12,7 +12,6 @@ I18N.ready.then(function () {
 
   var chapter = DB.getChapter(chId);
   var page    = document.getElementById('resultPage');
-
   page.style.setProperty('--accent', 'var(' + chapter.accentVar + ')');
 
   var title = document.getElementById('resultTitle');
@@ -20,9 +19,14 @@ I18N.ready.then(function () {
   var figs  = document.getElementById('resultFigures');
   var note  = document.getElementById('stageNote');
 
-  /* Personal best for this chapter, filled in once the server answers.
-     (The public leaderboard was removed — progress is now personal only.) */
-  var best = score;
+  /* Time spent on this attempt, reported by the game engine. */
+  var elapsedS = Math.max(0, Number(UI.qs('time', 0)) || 0);
+
+  function clock(s) {
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return m + ':' + (r < 10 ? '0' : '') + r;
+  }
 
   function renderCopy() {
     var v = isWin ? 'win' : 'partial';
@@ -59,22 +63,7 @@ I18N.ready.then(function () {
   /* ---------- Stats ---------- */
   document.getElementById('statScore').textContent   = score + '/' + TOTAL;
   document.getElementById('statAttempt').textContent = attempt;
-  var bestEl = document.getElementById('statRank');
-  bestEl.textContent = best + '/' + TOTAL;
-
-  /* Pull the real personal best from the server so a retry that scored
-     lower still shows the user their best run. */
-  var me = UI.session.get();
-  if (me) {
-    API.chapters(me.email).then(function (data) {
-      (data.chapters || []).forEach(function (c) {
-        if (c.id === chId && c.best != null && c.best > best) {
-          best = c.best;
-          bestEl.textContent = best + '/' + TOTAL;
-        }
-      });
-    }, function () {});
-  }
+  document.getElementById('statTime').textContent    = clock(elapsedS);
 
   /* ---------- Next / retry buttons ---------- */
   document.getElementById('againBtn').href = 'chapter.html?ch=' + chId;

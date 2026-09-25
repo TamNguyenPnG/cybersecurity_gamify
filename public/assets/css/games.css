@@ -342,42 +342,6 @@
 .sort-chip.is-ok  { color: var(--success); border-color: var(--success); }
 .sort-chip.is-bad { color: var(--error);   border-color: var(--error); }
 
-.sort-review {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: min(620px, 100%);
-  margin: 6px auto 0;
-  text-align: left;
-}
-.sort-review-title {
-  font-size: 12px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 2px;
-}
-.sort-review-row {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 9px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-border);
-  font-size: 13px;
-  color: var(--text-body);
-  line-height: 1.55;
-}
-.sort-review-zone {
-  flex: 0 0 auto;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-}
-.sort-review-zone.is-safe   { color: var(--success); }
-.sort-review-zone.is-unsafe { color: var(--error); }
 
 /* ---------- 5. Game 3 — branching story ---------- */
 .story-game {

@@ -107,6 +107,7 @@
   "result.partial.capHacker": "Escaping…",
   "result.stat.score": "Your score",
   "result.stat.attempt": "Attempt number",
+  "result.stat.time": "Total time",
   "result.next": "Unlock Chapter {num}",
   "result.finish": "Finish the journey",
   "result.playAgain": "Play again",
@@ -125,11 +126,8 @@
   "game.found": "Found {n} of {total}",
   "game.hotspot.win": "Every clue spotted!",
   "game.hotspot.miss": "Some clues slipped through",
-  "game.hotspot.summary": "You found {n} of {total}. The rest are circled in amber — take a look before moving on.",
   "game.sort.win": "Sorted perfectly!",
   "game.sort.miss": "Not quite sorted",
-  "game.sort.summary": "You judged {n} of {total} correctly.",
-  "game.sort.review": "Here is where these belong",
   "game.story.right": "Good call",
   "game.story.wrong": "Not the best move",
   "game.story.win": "Handled like a champion",
@@ -166,6 +164,5 @@
   "hall.card.soon": "Coming soon",
   "hall.guideTitle": "How the journey works",
   "hall.heroAlt": "Two P&G Cybersecurity Champions standing side by side against a star field",
-  "hall.rule.lock": "A chapter locks once its week ends",
-  "result.stat.best": "Your best score"
+  "hall.rule.lock": "A chapter locks once its week ends"
 }

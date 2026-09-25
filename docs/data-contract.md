@@ -209,7 +209,7 @@ Common fields on every game:
 | `timeLimitS` | Seconds before the game ends itself |
 | `hotspots[].rect` | `[x1, y1, x2, y2]` as **fractions of the image, 0–1** |
 | `hotspots[].label` | `{en, vi}` — listed as the player finds each one |
-| `hotspots[].why` | `{en, vi}` — the teaching note revealed at the end |
+| `hotspots[].why` | `{en, vi}` — teaching note shown beside a sign once found |
 
 Scores its point only when **every** hotspot is found.
 

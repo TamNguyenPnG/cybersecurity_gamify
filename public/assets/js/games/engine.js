@@ -31,11 +31,14 @@ window.GAMES = (function () {
     var detail = {};
     var startedAt = Date.now();
     var timerId = null;
+    var gen = 0;          // bumped on every mount; stale mounts are ignored
+    var over = false;
 
     function pick(obj) {
       if (obj == null) return '';
       if (typeof obj === 'string') return obj;
-      return obj[lang] != null ? obj[lang] : (obj.en != null ? obj.en : '');
+      var cur = (window.I18N && window.I18N.lang) || lang;
+      return obj[cur] != null ? obj[cur] : (obj.en != null ? obj.en : '');
     }
 
     function paintScore() {
@@ -70,7 +73,10 @@ window.GAMES = (function () {
 
     function step() {
       if (index >= games.length) {
+        if (over) return;
+        over = true;
         clearTimer();
+        window.removeEventListener('i18n:change', relang);
         return opts.onComplete({
           score: score,
           maxScore: opts.maxScore,
@@ -81,6 +87,9 @@ window.GAMES = (function () {
 
       var cfg = games[index];
       var impl = registry[cfg.type];
+      gen += 1;
+      var myGen = gen;
+      clearTimer();
       host.innerHTML = '';
       host.scrollTop = 0;
       paintSteps();
@@ -93,7 +102,7 @@ window.GAMES = (function () {
 
       var finished = false;
       impl.mount(host, cfg, {
-        lang: lang,
+        lang: (window.I18N && window.I18N.lang) || lang,
         pick: pick,
         t: function (k, v) { return window.I18N.t(k, v); },
         setTimer: setTimer,
@@ -101,10 +110,12 @@ window.GAMES = (function () {
         /* Optional: preview points earned so far inside a multi-part game,
            so the HUD ticks up instead of jumping at the end. */
         progress: function (points) {
+          if (myGen !== gen) return;
           if (opts.onScore) opts.onScore(score + (points || 0), opts.maxScore);
         },
         finish: function (points, gameDetail, finishOpts) {
           if (finished) return;          // a game may only report once
+          if (myGen !== gen) return;     // ...and only while it is on screen
           finished = true;
           clearTimer();
 
@@ -123,6 +134,14 @@ window.GAMES = (function () {
         }
       });
     }
+
+    /* Switching language restarts the current mini-game in the new
+       language. Points already banked are kept; the generation guard
+       above stops the discarded mount from reporting a result. */
+    function relang() {
+      if (!over) step();
+    }
+    window.addEventListener('i18n:change', relang);
 
     paintScore();
     step();

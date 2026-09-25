@@ -6,6 +6,8 @@
    only when every hotspot has been found.
 
    Ends on: all found · timer expiry · the player pressing Next.
+   The closing dialog only says whether every sign was found — it never
+   reveals what was missed, so a retry is a fresh test.
    ============================================================ */
 GAMES.register('hotspot', function () {
   'use strict';
@@ -112,34 +114,15 @@ GAMES.register('hotspot', function () {
       if (done) return;
       done = true;
       ctx.clearTimer();
-
-      /* Reveal anything still hidden so the game always teaches, even
-         when the player runs out of time. */
-      cfg.hotspots.forEach(function (h) {
-        if (!found[h.id]) {
-          var r = h.rect;
-          var ring = el('span', 'hotspot-ring is-missed');
-          ring.style.left = (r[0] * 100) + '%';
-          ring.style.top = (r[1] * 100) + '%';
-          ring.style.width = ((r[2] - r[0]) * 100) + '%';
-          ring.style.height = ((r[3] - r[1]) * 100) + '%';
-          layer.appendChild(ring);
-
-          var row = el('div', 'hotspot-item is-missed');
-          row.innerHTML =
-            '<span class="hotspot-tick">&#215;</span>' +
-            '<span><strong>' + UI.escape(ctx.pick(h.label)) + '</strong>' +
-            '<em>' + UI.escape(ctx.pick(h.why)) + '</em></span>';
-          list.appendChild(row);
-        }
-      });
-
       nextBtn.remove();
       var n = Object.keys(found).length;
+
+      /* A short acknowledgement only — no score breakdown, and nothing
+         that hints at how many signs are left. */
       GAMES.outcome(
         host, ctx, all,
         all ? ctx.t('game.hotspot.win') : ctx.t('game.hotspot.miss'),
-        ctx.t('game.hotspot.summary', { n: n, total: total }),
+        null,
         function () {
           ctx.finish(all ? cfg.points : 0,
             { points: all ? cfg.points : 0, found: n, total: total, misses: misses });

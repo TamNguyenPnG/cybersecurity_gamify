@@ -143,6 +143,7 @@ I18N.ready.then(function () {
       window.location.href = 'result.html?ch=' + chId +
         '&score=' + result.score +
         '&max=' + result.maxScore +
+        '&time=' + (result.durationS || 0) +
         '&attempt=' + (attemptNo || attempt);
     }
 
