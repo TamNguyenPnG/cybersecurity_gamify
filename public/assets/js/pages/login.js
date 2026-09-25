@@ -1,5 +1,11 @@
-/* Login portal — email autocomplete, department match, error states. */
-(function () {
+/* ============================================================
+   Login portal.
+
+   Talks to server.py: the email list comes from /api/employees (email +
+   name only — never the department, so the dropdown can't leak the
+   answer) and the identity check is done server-side by /api/auth/verify.
+   ============================================================ */
+I18N.ready.then(function () {
   'use strict';
 
   var form      = document.getElementById('loginForm');
@@ -15,12 +21,17 @@
   var current   = [];
   /* The user must PICK a suggestion — free typing alone is not accepted. */
   var pickedEmail = null;
+  var acToken = 0;
 
   /* ---------- Populate departments ---------- */
-  DB.departments.forEach(function (d) {
-    var o = document.createElement('option');
-    o.value = d; o.textContent = d;
-    deptEl.appendChild(o);
+  API.departments().then(function (list) {
+    list.forEach(function (d) {
+      var o = document.createElement('option');
+      o.value = d; o.textContent = d;
+      deptEl.appendChild(o);
+    });
+  }, function () {
+    UI.toast(I18N.t('ch.loadFailed'), 'error');
   });
 
   /* ---------- Error helpers ---------- */
@@ -31,8 +42,7 @@
   function showEmailError() {
     clearErrors();
     emailField.classList.add('is-error');
-    // Restart the shake animation reliably.
-    void emailField.offsetWidth;
+    void emailField.offsetWidth;   // restart the shake animation reliably
     emailField.classList.add('shake');
     emailEl.focus();
   }
@@ -51,44 +61,58 @@
     activeIdx = -1;
   }
 
-  function renderAC(term) {
-    current = DB.searchEmails(term);
-    ac.innerHTML = '';
-
-    if (!term.trim()) { closeAC(); return; }
-
-    if (!current.length) {
-      ac.innerHTML = '<div class="ac-empty">' + UI.escape(I18N.t('login.acEmpty')) + '</div>';
-      ac.classList.add('open');
-      emailEl.setAttribute('aria-expanded', 'true');
-      return;
-    }
-
-    current.forEach(function (emp, i) {
-      var idx = emp.email.toLowerCase().indexOf(term.trim().toLowerCase());
-      var label = UI.escape(emp.email);
-      if (idx !== -1) {
-        label = UI.escape(emp.email.slice(0, idx)) +
-                '<mark>' + UI.escape(emp.email.substr(idx, term.trim().length)) + '</mark>' +
-                UI.escape(emp.email.slice(idx + term.trim().length));
-      }
-      var row = document.createElement('div');
-      row.className = 'ac-item';
-      row.setAttribute('role', 'option');
-      row.setAttribute('data-i', i);
-      row.innerHTML =
-        '<div class="ac-avatar">' + UI.escape(UI.initials(emp.name)) + '</div>' +
-        '<div><div class="ac-mail">' + label + '</div>' +
-        '<div class="ac-dept">' + UI.escape(emp.name) + ' · ' + UI.escape(emp.dept) + '</div></div>';
-      row.addEventListener('mousedown', function (e) {
-        e.preventDefault();
-        choose(i);
-      });
-      ac.appendChild(row);
-    });
-
+  function openAC(html) {
+    ac.innerHTML = html;
     ac.classList.add('open');
     emailEl.setAttribute('aria-expanded', 'true');
+  }
+
+  function renderAC(term) {
+    term = String(term || '').trim();
+    if (!term) { closeAC(); return; }
+
+    var token = ++acToken;
+    API.employees(term).then(function (rows) {
+      if (token !== acToken) return;      // a newer keystroke already won
+      current = rows;
+      ac.innerHTML = '';
+
+      if (!rows.length) {
+        openAC('<div class="ac-empty">' + UI.escape(I18N.t('login.acEmpty')) + '</div>');
+        return;
+      }
+
+      var lower = term.toLowerCase();
+      rows.forEach(function (emp, i) {
+        var idx = emp.email.toLowerCase().indexOf(lower);
+        var label = UI.escape(emp.email);
+        if (idx !== -1) {
+          label = UI.escape(emp.email.slice(0, idx)) +
+                  '<mark>' + UI.escape(emp.email.substr(idx, term.length)) + '</mark>' +
+                  UI.escape(emp.email.slice(idx + term.length));
+        }
+        var row = document.createElement('div');
+        row.className = 'ac-item';
+        row.setAttribute('role', 'option');
+        row.setAttribute('data-i', i);
+        /* Email + name only. The department is intentionally absent. */
+        row.innerHTML =
+          '<div class="ac-avatar">' + UI.escape(UI.initials(emp.name)) + '</div>' +
+          '<div><div class="ac-mail">' + label + '</div>' +
+          '<div class="ac-dept">' + UI.escape(emp.name) + '</div></div>';
+        row.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          choose(i);
+        });
+        ac.appendChild(row);
+      });
+
+      ac.classList.add('open');
+      emailEl.setAttribute('aria-expanded', 'true');
+    }, function () {
+      if (token !== acToken) return;
+      openAC('<div class="ac-empty">' + UI.escape(I18N.t('ch.loadFailed')) + '</div>');
+    });
   }
 
   function highlight(i) {
@@ -106,15 +130,21 @@
     if (!emp) return;
     emailEl.value = emp.email;
     pickedEmail = emp.email;
+    pickedName = emp.name;
     closeAC();
     clearErrors();
     deptEl.focus();
   }
 
+  var pickedName = null;
+  var debounce;
+
   emailEl.addEventListener('input', function () {
     pickedEmail = null;      // typing invalidates a previous pick
     clearErrors();
-    renderAC(emailEl.value);
+    clearTimeout(debounce);
+    var v = emailEl.value;
+    debounce = setTimeout(function () { renderAC(v); }, 140);
   });
 
   emailEl.addEventListener('focus', function () {
@@ -156,38 +186,38 @@
     var typed = emailEl.value.trim().toLowerCase();
     var dept  = deptEl.value;
 
+    /* The email must have been chosen from the list, not just typed. */
+    if (!typed || pickedEmail !== typed) { showEmailError(); return; }
+    if (!dept) { showDeptError(); return; }
+
     setLoading(true);
 
-    // Simulated network latency so the loading state is visible.
-    setTimeout(function () {
+    API.verify(typed, dept).then(function (res) {
       setLoading(false);
-
-      var emp = DB.findByEmail(typed);
-
-      // ERROR A — email not in the database, or never picked from the list.
-      if (!emp || pickedEmail !== emp.email) {
-        showEmailError();
+      if (!res.ok) {
+        /* ERROR A — unknown email. ERROR B — department mismatch. */
+        if (res.error === 'department-mismatch') showDeptError();
+        else showEmailError();
         return;
       }
-
-      if (!dept) {
-        showDeptError();
-        return;
-      }
-
-      // ERROR B — email is valid but the department does not match the record.
-      if (dept !== emp.dept) {
-        showDeptError();
-        return;
-      }
-
-      UI.session.set({ email: emp.email, name: emp.name, dept: emp.dept, photo: emp.photo });
+      UI.session.set({
+        email: res.user.email,
+        name: res.user.name,
+        dept: res.user.department
+      });
       window.location.href = 'main-hall.html';
-    }, 900);
+    }, function (err) {
+      setLoading(false);
+      if (err.code === 'department-mismatch') showDeptError();
+      else if (err.code === 'email-not-found') showEmailError();
+      else UI.toast(I18N.t('ch.loadFailed'), 'error');
+    });
   });
 
   /* ---------- State preview switcher (design deliverable) ---------- */
   var switcher = document.getElementById('stateSwitcher');
+  if (!switcher) return;
+
   switcher.addEventListener('click', function (e) {
     var b = e.target.closest('[data-state]');
     if (!b) return;
@@ -226,4 +256,4 @@
       showDeptError();
     }
   });
-})();
+});

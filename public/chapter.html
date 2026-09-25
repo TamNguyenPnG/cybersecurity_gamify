@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/games.css">
 </head>
 <body>
 <canvas id="starfield" aria-hidden="true"></canvas>
@@ -17,7 +18,7 @@
   <!-- ===== HEADER BAR ===== -->
   <header class="shell">
     <div class="chapter-header">
-      <a class="icon-btn" href="main-hall.html" data-i18n-aria-label="nav.backAria" aria-label="Back to Main Hall">
+      <a class="icon-btn" id="backBtn" href="main-hall.html" data-i18n-aria-label="nav.backAria" aria-label="Back to Main Hall">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M19 12H6M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -29,69 +30,32 @@
 
       <div data-lang-switch></div>
 
-      <div class="progress-dots" id="dots" data-i18n-aria-label="ch.progressAria" aria-label="Question progress"></div>
+      <div class="progress-dots" id="dots" data-i18n-aria-label="ch.progressAria" aria-label="Game progress"></div>
 
-      <span class="meta-pill" id="scorePill">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="color:var(--accent)" aria-hidden="true">
-          <path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-        </svg>
-        <span id="scoreText">0 / 5</span>
-      </span>
-
-      <span class="meta-pill" id="timerPill">
+      <span class="meta-pill" id="timerPill" hidden>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="color:var(--accent)" aria-hidden="true">
           <circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="1.8"/>
           <path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
         <span id="timerText">00:00</span>
       </span>
+
+      <!-- Running score, pinned top-right as requested -->
+      <span class="score-hud" id="scoreHud" role="status" aria-live="polite">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+        </svg>
+        <span id="scoreText">0 / 5</span>
+      </span>
     </div>
   </header>
 
-  <!-- ===== BODY ===== -->
-  <main class="shell" style="padding-top:28px;padding-bottom:70px">
-    <div class="chapter-layout">
-
-      <!-- LEFT 60% — game stage placeholder -->
-      <section class="game-stage" id="gameStage">
-        <span class="stage-tag" id="stageTag" data-i18n="ch.stageTagGeneric">Game scene — varies by chapter</span>
-
-        <div class="chase">
-          <div class="chase-row">
-            <div class="figure fig-hero" id="heroFig" style="transition:transform .6s ease">
-              <div class="body">🛡️</div>
-              <div class="cap" data-i18n="ch.figHero">P&amp;G Champion</div>
-            </div>
-            <div class="figure hacker" id="hackerFig" style="transition:transform .6s ease,opacity .6s ease">
-              <div class="body">🕵️</div>
-              <div class="cap" data-i18n="ch.figHacker">Hacker</div>
-            </div>
-          </div>
-
-          <div class="track" id="track">
-            <span class="fill" id="trackFill" style="width:0%"></span>
-          </div>
-        </div>
-
-        <div class="stage-note" id="stageNote"></div>
-      </section>
-
-      <!-- RIGHT 40% — question card -->
-      <section class="glass question-card">
-        <div class="row-between" style="margin-bottom:14px">
-          <span class="t-overline" id="qCounter">Question 1 of 5</span>
-          <span class="t-caption" id="attemptLabel">Attempt 1</span>
-        </div>
-
-        <h2 class="t-h3" id="qText" style="margin:0" data-i18n="ch.loading">Loading…</h2>
-
-        <div class="answers" id="answers"></div>
-
-        <p class="t-caption" style="margin:20px 0 0;opacity:.7" data-i18n="ch.answersNote">
-          Answers are shuffled every play. Incorrect answers are not revealed — retry the chapter to improve your score.
-        </p>
-      </section>
+  <!-- ===== GAME AREA ===== -->
+  <main class="shell chapter-main">
+    <div class="game-shell glass" id="gameHost" aria-live="polite">
+      <p class="t-body" data-i18n="ch.loading">Loading…</p>
     </div>
+    <p class="t-caption chapter-foot" id="attemptLabel">Attempt 1</p>
   </main>
 </div>
 
@@ -101,7 +65,14 @@
 <script src="assets/js/core/ui.js"></script>
 <script src="assets/js/core/i18n.js"></script>
 <script src="assets/js/data/db.js"></script>
+<script src="assets/js/data/api.js"></script>
 <script src="assets/js/data/questions.js"></script>
+<script src="assets/js/games/engine.js"></script>
+<script src="assets/js/games/phishing.js"></script>
+<script src="assets/js/games/truefalse.js"></script>
+<script src="assets/js/games/branching.js"></script>
+<script src="assets/js/games/password.js"></script>
+<script src="assets/js/games/quiz.js"></script>
 <script src="assets/js/pages/chapter.js"></script>
 </body>
 </html>

@@ -16,3 +16,7 @@ npm-debug.log*
 node_modules/
 dist/
 .cache/
+
+# Runtime database — rebuild with: python data/scripts/build_db.py
+data/app.db
+data/*.db-journal

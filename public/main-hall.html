@@ -26,56 +26,65 @@
         <span data-i18n="app.name">Cybersecurity Month</span>
       </div>
       <div class="spacer"></div>
+
+      <!-- Personal attempt history -->
+      <button class="btn btn-secondary btn-sm" id="recordsBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="17" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M8 2.5v3M16 2.5v3M4 9.5h16M8 13.5h8M8 17h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span data-i18n="rec.button">My records</span>
+      </button>
+
       <div data-lang-switch></div>
       <div class="row" id="whoami"></div>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero shell">
-    <p class="t-overline" style="margin:0 0 14px" data-i18n="hall.overline">Cybersecurity Month</p>
-    <h1 class="t-h1" style="margin:0 0 16px" data-i18n="hall.h1">Cybersecurity Month Journey</h1>
-    <p class="t-body-l" style="margin:0 auto;max-width:620px" data-i18n="hall.sub">
-      Go with us to become a Cybersecurity Champion — four chapters, four habits.
-    </p>
-
-    <!-- Hero illustration placeholder + art direction -->
-    <div class="hero-art">
-      <span class="stage-tag" data-i18n="hall.artTag">Hero illustration — placeholder</span>
-
-      <!-- Floating shield / lock motifs -->
-      <svg class="float-motif" style="left:12%;top:20%;animation-delay:0s" width="44" height="50" viewBox="0 0 64 74" fill="none" aria-hidden="true">
-        <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z" stroke="currentColor" stroke-width="3" fill="none"/>
-      </svg>
-      <svg class="float-motif" style="right:14%;top:16%;animation-delay:1.4s" width="40" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="1.8"/>
-      </svg>
-      <svg class="float-motif" style="right:24%;bottom:22%;animation-delay:2.6s" width="34" height="38" viewBox="0 0 64 74" fill="none" aria-hidden="true">
-        <path d="M32 3 L59 13 V36 C59 52 47 65 32 71 C17 65 5 52 5 36 V13 Z" stroke="currentColor" stroke-width="3" fill="none"/>
-      </svg>
-
-      <div class="hero-figures">
-        <div class="figure fig-hero">
-          <div class="body">🛡️</div>
-          <div class="cap" data-i18n="hall.figM">P&amp;G Champion — M</div>
+  <!-- ===== HERO — full artwork left, guide right ===== -->
+  <section class="hero-split shell">
+    <figure class="hero-image">
+      <img id="heroImg" src="assets/img/hero.png" alt="" data-i18n-alt="hall.heroAlt">
+      <figcaption class="hero-fallback" id="heroFallback" hidden>
+        <span class="stage-tag" data-i18n="hall.artTag">Hero illustration — placeholder</span>
+        <div class="stage-note">
+          <strong style="color:var(--ch1)" data-i18n="hall.artLabel">Art direction:</strong>
+          <span data-i18n="hall.artNote">Semi-realistic illustrated style (not photoreal).</span>
         </div>
-        <div class="figure hero-w">
-          <div class="body">🔐</div>
-          <div class="cap" data-i18n="hall.figF">P&amp;G Champion — F</div>
+      </figcaption>
+    </figure>
+
+    <div class="hero-side">
+      <p class="t-overline" style="margin:0 0 10px" data-i18n="hall.overline">Cybersecurity Month</p>
+      <h1 class="t-h2" style="margin:0 0 12px" data-i18n="hall.h1">Cybersecurity Month Journey</h1>
+      <p class="t-body" style="margin:0 0 22px" data-i18n="hall.sub">
+        Go with us to become a Cybersecurity Champion — four chapters, four habits.
+      </p>
+
+      <!-- Guide panel, to the right of the artwork -->
+      <div class="glass rules" id="rulesPanel">
+        <button class="rules-head" id="rulesToggle" aria-expanded="true" aria-controls="rulesBody">
+          <span class="row" style="gap:10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:var(--ch1)" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8.2v.1M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="hall.guideTitle">How the journey works</span>
+          </span>
+          <svg class="chev" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+            <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="rules-body" id="rulesBody">
+          <div class="rule-item"><span class="ri">📅</span><span data-i18n="hall.rule.week">One chapter per week</span></div>
+          <div class="rule-item"><span class="ri">❓</span><span data-i18n="hall.rule.questions">5 points per chapter</span></div>
+          <div class="rule-item"><span class="ri">🔀</span><span data-i18n="hall.rule.shuffle">Answers shuffled every play</span></div>
+          <div class="rule-item"><span class="ri">♻️</span><span data-i18n="hall.rule.retry">Retry as many times as you like</span></div>
+          <div class="rule-item"><span class="ri">🔒</span><span data-i18n="hall.rule.lock">A chapter locks once its week ends</span></div>
         </div>
       </div>
 
-      <div class="stage-note">
-        <strong style="color:var(--ch1)" data-i18n="hall.artLabel">Art direction:</strong>
-        <span data-i18n="hall.artNote">Semi-realistic illustrated style (not photoreal).
-        A man and a woman standing side by side in a heroic 3/4 pose, wearing P&amp;G-logo jackets, lit with a cyan rim-light
-        against the star field. Shield and padlock motifs float behind them. Export at 1800×800 @2x, transparent PNG.</span>
-      </div>
-    </div>
-
-    <div style="margin-top:34px">
-      <a class="btn btn-primary btn-lg btn-pulse" href="chapter.html?ch=1">
+      <a class="btn btn-primary btn-lg btn-pulse hero-cta" id="heroCta" href="chapter.html?ch=1">
         <span data-i18n="hall.cta">Let's start the journey</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,85 +93,24 @@
     </div>
   </section>
 
-  <!-- ===== KPI STRIP ===== -->
-  <section class="shell" style="padding-bottom:20px">
-    <div class="kpi-grid" id="kpiGrid"></div>
-  </section>
-
-  <!-- ===== CHAPTERS + RULES ===== -->
-  <section class="section shell">
-    <div class="hall-grid" id="chapterArea">
+  <!-- ===== CHAPTERS — full width, above the KPIs ===== -->
+  <section class="section shell" id="chapterArea">
+    <div class="section-head">
       <div>
-        <div class="section-head">
-          <div>
-            <h2 class="t-h2" style="margin:0 0 6px" data-i18n="hall.chooseTitle">Choose your chapter</h2>
-            <p class="t-small" style="margin:0" data-i18n="hall.chooseSub">One chapter unlocks each week. Complete all four to become a Champion.</p>
-          </div>
-        </div>
-
-        <div class="chapter-rail">
-          <div class="constellation-line"><span class="lit" id="litLine" style="width:0%"></span></div>
-          <div class="chapter-grid" id="chapterGrid"></div>
-        </div>
+        <h2 class="t-h2" style="margin:0 0 6px" data-i18n="hall.chooseTitle">Choose your chapter</h2>
+        <p class="t-small" style="margin:0" data-i18n="hall.chooseSub">One chapter unlocks each week. Complete all four to become a Champion.</p>
       </div>
+    </div>
 
-      <!-- Rules panel -->
-      <aside class="glass rules" id="rulesPanel">
-        <button class="rules-head" id="rulesToggle" aria-expanded="true" aria-controls="rulesBody">
-          <span class="row" style="gap:10px">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:var(--ch1)" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 8.2v.1M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span data-i18n="hall.rulesTitle">How it works</span>
-          </span>
-          <svg class="chev" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
-            <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="rules-body" id="rulesBody">
-          <div class="rule-item"><span class="ri">📅</span><span data-i18n="hall.rule.week">One chapter per week</span></div>
-          <div class="rule-item"><span class="ri">❓</span><span data-i18n="hall.rule.questions">5 questions per chapter</span></div>
-          <div class="rule-item"><span class="ri">🔀</span><span data-i18n="hall.rule.shuffle">Answers shuffled every play</span></div>
-          <div class="rule-item"><span class="ri">♻️</span><span data-i18n="hall.rule.retry">Retry as many times as you like</span></div>
-          <div class="rule-item"><span class="ri">🏆</span><span data-i18n-html="hall.rule.bravo">Top 3 per chapter win <strong style="color:var(--ch1)">200 Bravo points</strong></span></div>
-        </div>
-      </aside>
+    <div class="chapter-rail">
+      <div class="constellation-line"><span class="lit" id="litLine" style="width:0%"></span></div>
+      <div class="chapter-grid is-full" id="chapterGrid"></div>
     </div>
   </section>
 
-  <!-- ===== LEADERBOARD ===== -->
-  <section class="section shell" style="padding-top:12px">
-    <div class="glass" style="padding:28px">
-      <div class="section-head" style="margin-bottom:22px">
-        <div>
-          <h2 class="t-h3" style="margin:0 0 6px" data-i18n="hall.lbTitle">Leaderboard</h2>
-          <p class="t-caption" style="margin:0" data-i18n="hall.lbNote">Ranked by highest score, then total plays.</p>
-        </div>
-        <div class="tabs" id="lbTabs">
-          <button class="tab active" data-filter="all" data-i18n="hall.tab.all">All</button>
-          <button class="tab" data-filter="chapter" data-i18n="hall.tab.chapter">By Chapter</button>
-          <button class="tab" data-filter="dept" data-i18n="hall.tab.dept">By Department</button>
-        </div>
-      </div>
-
-      <div id="lbSubfilter" class="tabs hidden" style="margin-bottom:18px"></div>
-
-      <div style="overflow-x:auto">
-        <table class="lb-table">
-          <thead>
-            <tr>
-              <th style="width:70px" data-i18n="hall.th.rank">Rank</th>
-              <th data-i18n="hall.th.name">Name</th>
-              <th style="width:210px" data-i18n="hall.th.dept">Department</th>
-              <th style="width:110px" data-i18n="hall.th.best">Best Score</th>
-              <th style="width:110px" data-i18n="hall.th.plays">Total Plays</th>
-            </tr>
-          </thead>
-          <tbody id="lbBody"></tbody>
-        </table>
-      </div>
-    </div>
+  <!-- ===== KPI STRIP ===== -->
+  <section class="section shell" style="padding-top:8px">
+    <div class="kpi-grid is-three" id="kpiGrid"></div>
   </section>
 
   <!-- ===== CONTACT ===== -->
@@ -188,8 +136,6 @@
 
     <p class="t-caption" style="margin-top:28px;opacity:.7">
       <span data-i18n="hall.demo.label">Demo controls:</span>
-      <a href="#" id="demoReset" data-i18n="hall.demo.reset">reset progress</a> ·
-      <a href="#" id="demoComplete" data-i18n="hall.demo.complete">mark Ch1 complete 5/5</a> ·
       <a href="styleguide.html" data-i18n="hall.demo.style">style sheet</a> ·
       <a href="#" id="demoLogout" data-i18n="hall.demo.signout">sign out</a>
     </p>
@@ -197,10 +143,31 @@
 
 </div>
 
+<!-- ===== RECORDS DRAWER ===== -->
+<div class="drawer-backdrop" id="recordsBackdrop" hidden>
+  <div class="drawer glass" role="dialog" aria-modal="true" aria-labelledby="recordsTitle">
+    <div class="drawer-head">
+      <div>
+        <h2 class="t-h3" style="margin:0 0 4px" id="recordsTitle" data-i18n="rec.title">My records</h2>
+        <p class="t-caption" style="margin:0" data-i18n="rec.sub">Every attempt you have made, newest first.</p>
+      </div>
+      <button class="icon-btn" id="recordsClose" data-i18n-aria-label="rec.close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer-body" id="recordsBody"></div>
+  </div>
+</div>
+
+<div class="toast-wrap"></div>
+
 <script src="assets/js/core/starfield.js"></script>
 <script src="assets/js/core/ui.js"></script>
 <script src="assets/js/core/i18n.js"></script>
 <script src="assets/js/data/db.js"></script>
+<script src="assets/js/data/api.js"></script>
 <script src="assets/js/pages/main-hall.js"></script>
 </body>
 </html>

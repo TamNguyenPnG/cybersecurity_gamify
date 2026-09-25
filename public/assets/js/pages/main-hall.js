@@ -1,229 +1,233 @@
-/* Main Hall — KPI strip, chapter selector, rules, leaderboard. */
+/* ============================================================
+   Main Hall.
+
+   Reads everything live from the server: KPIs, the per-user chapter
+   states (which encode the lock policy) and the personal attempt history
+   shown in the records drawer.
+   ============================================================ */
 I18N.ready.then(function () {
   'use strict';
 
-  /* ---------- Signed-in user ---------- */
-  var who = document.getElementById('whoami');
+  var user = UI.session.get();
+  if (!user) { window.location.replace('index.html'); return; }
 
-  function renderWho() {
-    var user = UI.session.get();
-    if (user) {
-      who.innerHTML =
-        '<div class="avatar">' + UI.avatarInner(user.name, user.photo) + '</div>' +
-        '<div><div class="t-small" style="color:var(--text-headline);font-weight:700">' + UI.escape(user.name) + '</div>' +
-        '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
-    } else {
-      who.innerHTML = '<a class="btn btn-secondary" style="padding:9px 20px;font-size:14px" href="index.html">' +
-        UI.escape(I18N.t('nav.signIn')) + '</a>';
-    }
+  /* ---------- Who's signed in ---------- */
+  var initials = String(user.name || user.email).trim().split(/\s+/)
+    .slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();
+
+  document.getElementById('whoami').innerHTML =
+    '<div class="avatar">' + UI.escape(initials) + '</div>' +
+    '<div><div class="t-small" style="color:var(--text-headline);font-weight:600">' +
+      UI.escape(user.name) + '</div>' +
+    '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
+
+  /* ---------- Hero artwork: fall back to the brief if absent ---------- */
+  var heroImg = document.getElementById('heroImg');
+  heroImg.addEventListener('error', function () {
+    heroImg.hidden = true;
+    document.getElementById('heroFallback').hidden = false;
+  });
+
+  /* ---------- KPIs ---------- */
+  function renderKpis(kpis) {
+    document.getElementById('kpiGrid').innerHTML = kpis.map(function (k) {
+      return '' +
+        '<div class="glass kpi">' +
+          '<div class="kpi-icon">' + kpiIcon(k.key) + '</div>' +
+          '<div class="kpi-value">' + UI.escape(k.value) + '</div>' +
+          '<div class="kpi-label">' + UI.escape(I18N.t('kpi.' + k.key + '.label')) + '</div>' +
+          '<div class="kpi-bar"><span style="width:' + Math.max(0, Math.min(100, k.pct)) + '%"></span></div>' +
+          '<div class="t-caption" style="margin-top:8px">' +
+            UI.escape(I18N.t('kpi.' + k.key + '.sub', k.sub || {})) + '</div>' +
+        '</div>';
+    }).join('');
   }
-  renderWho();
 
-  /* ---------- KPI tiles ---------- */
-  var KPI_ICONS = {
-    'top-dept': '<path d="M3 21h18M6 21V9l6-5 6 5v12M10 21v-5h4v5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
-    'completed': '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
-    'plays': '<path d="M7 4v16l13-8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
-    'bravo': '<path d="M8 3h8v5a4 4 0 01-8 0V3zM12 12v5M8.5 21h7M5 5H3v2a4 4 0 004 4M19 5h2v2a4 4 0 01-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'
-  };
-
-  var grid = document.getElementById('kpiGrid');
-
-  function renderKpis() {
-    grid.innerHTML = '';
-    DB.kpis.forEach(function (k, i) {
-      var accents = ['--ch1', '--ch2', '--ch3', '--ch4'];
-      var el = document.createElement('div');
-      el.className = 'glass glass-hover kpi';
-      el.style.setProperty('--accent', 'var(' + accents[i] + ')');
-      el.innerHTML =
-        '<div class="kpi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">' + KPI_ICONS[k.key] + '</svg></div>' +
-        '<div class="kpi-value">' + UI.escape(k.value) + '</div>' +
-        '<div class="kpi-label">' + UI.escape(I18N.t('kpi.' + k.key + '.label')) + '</div>' +
-        '<div class="t-caption" style="opacity:.75">' + UI.escape(I18N.t('kpi.' + k.key + '.sub')) + '</div>' +
-        '<div class="kpi-bar"><span style="width:0%"></span></div>';
-      grid.appendChild(el);
-      // Animate the bar in after paint.
-      setTimeout(function () {
-        el.querySelector('.kpi-bar span').style.transition = 'width 1s ease';
-        el.querySelector('.kpi-bar span').style.width = k.pct + '%';
-      }, 120 + i * 90);
-    });
+  function kpiIcon(key) {
+    var paths = {
+      completed: '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+      plays: '<path d="M7 4.5v15l12-7.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+      avg: '<path d="M4 18l5-6 4 3.5L20 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+    };
+    return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+      (paths[key] || paths.plays) + '</svg>';
   }
-  renderKpis();
 
   /* ---------- Chapter cards ---------- */
-  var CH_ICONS = [
-    '<circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    '<rect x="4" y="3" width="16" height="18" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    '<path d="M5 12a7 7 0 0114 0M8.5 12a3.5 3.5 0 017 0M12 15.5v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    '<path d="M12 3v11M8 10l4 4 4-4M4 18v2h16v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
-  ];
-
-  var LOCK_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="2"/></svg>';
-
-  function chapterState(ch) {
-    var p = UI.progress.get(ch.id);
-    if (p && p.best > 0) return 'completed';
-    // Chapter 1 is always open; a chapter unlocks once the previous is completed.
-    if (ch.id === 1) return 'available';
-    var prev = UI.progress.get(ch.id - 1);
-    return (prev && prev.best > 0) ? 'available' : 'locked';
-  }
+  var chapterData = [];
 
   function renderChapters() {
-    var wrap = document.getElementById('chapterGrid');
-    wrap.innerHTML = '';
-    var completed = 0;
+    var grid = document.getElementById('chapterGrid');
+    grid.innerHTML = '';
 
-    DB.chapters.forEach(function (ch, i) {
-      var state = chapterState(ch);
-      var p = UI.progress.get(ch.id);
-      if (state === 'completed') completed++;
+    chapterData.forEach(function (row) {
+      var meta = DB.getChapter(row.id);
+      var state = row.state;
+      var playable = state === 'available' || state === 'grace';
+      var completed = row.best != null && row.plays > 0;
 
-      var card = document.createElement(state === 'locked' ? 'div' : 'a');
-      card.className = 'glass glass-hover chapter-card is-' + state;
-      card.dataset.ch = ch.id;
-      if (state !== 'locked') card.href = 'chapter.html?ch=' + ch.id;
+      var card = document.createElement(playable ? 'a' : 'div');
+      card.className = 'ch-card' +
+        (playable ? '' : ' locked') +
+        (completed ? ' completed' : '') +
+        (state === 'grace' ? ' is-grace' : '');
+      card.style.setProperty('--accent', 'var(' + meta.accentVar + ')');
+      if (playable) card.href = 'chapter.html?ch=' + row.id;
 
-      var unlock = I18N.t('chapter.' + ch.id + '.unlock');
-      var foot;
-      if (state === 'locked') {
-        foot = '<span class="lock-pill">' + LOCK_SVG + ' ' + UI.escape(I18N.t('hall.card.unlocks', { date: unlock })) + '</span>';
-      } else if (state === 'completed') {
-        foot = '<span class="score-chip">' + p.best + '/' + (p.total || 5) + '</span>' +
-               '<span class="ch-action">' + UI.escape(I18N.t('hall.card.playAgain')) + '</span>';
+      /* Status line under the title depends on the lock verdict. */
+      var status, cta;
+      if (state === 'available') {
+        status = I18N.t('hall.card.unlocked', { date: fmt(row.opens) });
+        cta = I18N.t('hall.card.' + (completed ? 'playAgain' : 'start'));
+      } else if (state === 'grace') {
+        status = I18N.t('ch.graceNotice');
+        cta = I18N.t('hall.card.grace');
+      } else if (state === 'upcoming') {
+        status = I18N.t('hall.card.unlocks', { date: fmt(row.opens) });
+        cta = null;
+      } else if (row.reason === 'no-content') {
+        status = I18N.t('hall.card.soon');
+        cta = null;
       } else {
-        foot = '<span class="lock-pill">' + UI.escape(I18N.t('hall.card.unlocked', { date: unlock })) + '</span>' +
-               '<span class="ch-action">' + UI.escape(I18N.t('hall.card.start')) + '</span>';
+        status = I18N.t('hall.card.closed');
+        cta = null;
       }
 
       card.innerHTML =
-        '<span class="ch-node"></span>' +
-        (state === 'completed'
-          ? '<span class="check-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
-          : '') +
-        '<div class="ch-num">CH ' + ch.num + '</div>' +
-        '<div class="ch-icon">' +
-          (state === 'locked'
-            ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 118 0v3" stroke="currentColor" stroke-width="1.8"/></svg>'
-            : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none">' + CH_ICONS[i] + '</svg>') +
+        '<div class="ch-top">' +
+          '<span class="ch-num">' + UI.escape(meta.num) + '</span>' +
+          (playable ? '' : '<span class="ch-lock">&#128274;</span>') +
+          (completed ? '<span class="ch-badge">&#10003; ' +
+            UI.escape(row.best + '/5') + '</span>' : '') +
         '</div>' +
-        '<h3 class="ch-title">' + UI.escape(I18N.t('chapter.' + ch.id + '.title')) + '</h3>' +
-        '<p class="ch-desc">' + UI.escape(I18N.t('chapter.' + ch.id + '.desc')) + '</p>' +
-        '<div class="ch-foot">' + foot + '</div>';
+        '<h3 class="ch-title">' + UI.escape(I18N.t('chapter.' + row.id + '.title')) + '</h3>' +
+        '<p class="ch-desc">' + UI.escape(I18N.t('chapter.' + row.id + '.desc')) + '</p>' +
+        '<div class="ch-foot">' +
+          '<span class="ch-status">' + UI.escape(status) + '</span>' +
+          (cta ? '<span class="ch-cta">' + UI.escape(cta) + '</span>' : '') +
+        '</div>';
 
-      wrap.appendChild(card);
+      grid.appendChild(card);
     });
 
-    // Light the constellation line proportionally to completion.
-    var pct = (completed / DB.chapters.length) * 100;
-    document.getElementById('litLine').style.width = pct + '%';
-  }
+    /* Constellation line lights up in proportion to chapters completed. */
+    var done = chapterData.filter(function (c) { return c.best != null && c.plays > 0; }).length;
+    document.getElementById('litLine').style.width =
+      (chapterData.length ? (done / chapterData.length) * 100 : 0) + '%';
 
-  renderChapters();
-
-  /* ---------- Rules panel ---------- */
-  var panel = document.getElementById('rulesPanel');
-  document.getElementById('rulesToggle').addEventListener('click', function () {
-    var collapsed = panel.classList.toggle('collapsed');
-    this.setAttribute('aria-expanded', String(!collapsed));
-  });
-
-  /* ---------- Leaderboard ---------- */
-  var lbBody = document.getElementById('lbBody');
-  var subWrap = document.getElementById('lbSubfilter');
-  var mode = 'all';
-  var sub = null;
-
-  function renderLB() {
-    var filter = {};
-    if (mode === 'chapter' && sub) filter.chapter = sub;
-    if (mode === 'dept' && sub) filter.dept = sub;
-
-    var rows = DB.leaderboard(filter);
-    lbBody.innerHTML = '';
-
-    if (!rows.length) {
-      lbBody.innerHTML = '<tr><td colspan="5" class="t-caption" style="padding:26px;text-align:center">' +
-        UI.escape(I18N.t('hall.lbEmpty')) + '</td></tr>';
-      return;
+    /* Point the hero CTA at the first chapter the user can actually play. */
+    var next = chapterData.filter(function (c) {
+      return c.state === 'available' || c.state === 'grace';
+    })[0];
+    var cta = document.getElementById('heroCta');
+    if (next) {
+      cta.href = 'chapter.html?ch=' + next.id;
+      cta.classList.remove('is-disabled');
+    } else {
+      cta.href = '#';
+      cta.classList.add('is-disabled');
     }
+  }
 
-    rows.forEach(function (r, i) {
-      var tr = document.createElement('tr');
-      if (i < 3) tr.className = 'rank-' + (i + 1);
-      tr.innerHTML =
-        '<td><span class="rank-badge">' + (i + 1) + '</span></td>' +
-        '<td><div class="lb-user"><span class="avatar">' + UI.avatarInner(r.name, r.photo) + '</span>' +
-          '<span class="lb-name">' + UI.escape(r.name) + '</span></div></td>' +
-        '<td>' + UI.escape(r.dept) + '</td>' +
-        '<td><strong style="color:var(--text-headline)">' + r.best + '/5</strong></td>' +
-        '<td>' + r.plays + '</td>';
-      lbBody.appendChild(tr);
+  function fmt(iso) {
+    if (!iso) return '';
+    var d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString(I18N.lang === 'vi' ? 'vi-VN' : 'en-GB',
+      { day: 'numeric', month: 'short' });
+  }
+
+  /* ---------- Records drawer ---------- */
+  var backdrop = document.getElementById('recordsBackdrop');
+
+  function openRecords() {
+    backdrop.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var body = document.getElementById('recordsBody');
+    body.innerHTML = '<p class="t-caption">' + UI.escape(I18N.t('ch.loading')) + '</p>';
+
+    API.records(user.email).then(function (rows) {
+      if (!rows.length) {
+        body.innerHTML = '<p class="t-body" style="opacity:.7">' +
+          UI.escape(I18N.t('rec.empty')) + '</p>';
+        return;
+      }
+      body.innerHTML =
+        '<table class="rec-table"><thead><tr>' +
+          '<th>' + UI.escape(I18N.t('rec.th.date')) + '</th>' +
+          '<th>' + UI.escape(I18N.t('rec.th.chapter')) + '</th>' +
+          '<th>' + UI.escape(I18N.t('rec.th.score')) + '</th>' +
+          '<th>' + UI.escape(I18N.t('rec.th.attempt')) + '</th>' +
+        '</tr></thead><tbody>' +
+        rows.map(function (r) {
+          var d = new Date(r.played_at.replace(' ', 'T'));
+          var date = isNaN(d) ? r.played_at
+            : d.toLocaleDateString(I18N.lang === 'vi' ? 'vi-VN' : 'en-GB',
+                { day: '2-digit', month: 'short', year: 'numeric' });
+          var pct = r.max_score ? (r.score / r.max_score) : 0;
+          return '<tr>' +
+            '<td>' + UI.escape(date) + '</td>' +
+            '<td><span class="rec-chip" style="--accent:var(' +
+              DB.getChapter(r.chapter_id).accentVar + ')">' +
+              UI.escape(I18N.t('ch.chip', {
+                num: DB.getChapter(r.chapter_id).num,
+                title: I18N.t('chapter.' + r.chapter_id + '.title')
+              })) + '</span></td>' +
+            '<td class="rec-score' + (pct === 1 ? ' is-perfect' : '') + '">' +
+              UI.escape(r.score + ' / ' + r.max_score) + '</td>' +
+            '<td>' + UI.escape(I18N.t('rec.attemptN', { n: r.attempt_no })) + '</td>' +
+          '</tr>';
+        }).join('') +
+        '</tbody></table>';
+    }, function () {
+      body.innerHTML = '<p class="t-body">' + UI.escape(I18N.t('ch.loadFailed')) + '</p>';
     });
   }
 
-  function renderSub() {
-    subWrap.innerHTML = '';
-    if (mode === 'all') { subWrap.classList.add('hidden'); sub = null; renderLB(); return; }
-
-    subWrap.classList.remove('hidden');
-    var opts = mode === 'chapter'
-      ? DB.chapters.map(function (c) { return { v: c.id, l: 'CH ' + c.num + ' · ' + I18N.t('chapter.' + c.id + '.title') }; })
-      : DB.departments.map(function (d) { return { v: d, l: d }; });
-
-    opts.forEach(function (o, i) {
-      var b = document.createElement('button');
-      b.className = 'tab' + (i === 0 ? ' active' : '');
-      b.textContent = o.l;
-      b.addEventListener('click', function () {
-        subWrap.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-        b.classList.add('active');
-        sub = o.v;
-        renderLB();
-      });
-      subWrap.appendChild(b);
-    });
-    sub = opts[0].v;
-    renderLB();
+  function closeRecords() {
+    backdrop.hidden = true;
+    document.body.style.overflow = '';
   }
 
-  document.getElementById('lbTabs').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-filter]');
-    if (!b) return;
-    this.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-    b.classList.add('active');
-    mode = b.dataset.filter;
-    renderSub();
+  document.getElementById('recordsBtn').addEventListener('click', openRecords);
+  document.getElementById('recordsClose').addEventListener('click', closeRecords);
+  backdrop.addEventListener('click', function (ev) {
+    if (ev.target === backdrop) closeRecords();
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && !backdrop.hidden) closeRecords();
   });
 
-  renderLB();
+  /* ---------- Collapsible guide ---------- */
+  var toggle = document.getElementById('rulesToggle');
+  toggle.addEventListener('click', function () {
+    var open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    document.getElementById('rulesPanel').classList.toggle('collapsed', open);
+  });
 
-  /* ---------- Demo controls ---------- */
-  document.getElementById('demoReset').addEventListener('click', function (e) {
-    e.preventDefault();
-    localStorage.removeItem('csm_progress');
-    renderChapters();
-    UI.toast(I18N.t('hall.toast.reset'));
-  });
-  document.getElementById('demoComplete').addEventListener('click', function (e) {
-    e.preventDefault();
-    UI.progress.save(1, 5, 5);
-    renderChapters();
-    UI.toast(I18N.t('hall.toast.complete'));
-  });
+  /* ---------- Sign out ---------- */
   document.getElementById('demoLogout').addEventListener('click', function (e) {
     e.preventDefault();
     UI.session.clear();
     window.location.href = 'index.html';
   });
 
-  /* ---------- Re-render dynamic content on language change ---------- */
+  /* ---------- Load ---------- */
+  function load() {
+    API.kpis().then(renderKpis, function () {});
+    API.chapters(user.email).then(function (data) {
+      chapterData = data.chapters || [];
+      renderChapters();
+    }, function () {
+      document.getElementById('chapterGrid').innerHTML =
+        '<p class="t-body">' + UI.escape(I18N.t('ch.loadFailed')) + '</p>';
+    });
+  }
+
   window.addEventListener('i18n:change', function () {
-    renderWho();
-    renderKpis();
-    renderChapters();
-    if (mode === 'all') { renderLB(); } else { renderSub(); }
+    if (chapterData.length) renderChapters();
+    API.kpis().then(renderKpis, function () {});
   });
+
+  load();
 });

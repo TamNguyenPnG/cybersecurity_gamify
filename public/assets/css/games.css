@@ -1,0 +1,615 @@
+/* ============================================================
+   Cybersecurity Awareness Month — October 2026
+   GAME STYLES — loaded only by chapter.html.
+
+   Depends on the tokens defined in styles.css (--accent, --glass-*,
+   --radius, --text-*). Sections:
+     1. Chapter shell & score HUD
+     2. Shared: intro, outcome, blocked
+     3. Game 1 — phishing hotspots
+     4. Game 2 — true/false sort
+     5. Game 3 — branching story
+     6. Game 4 — password trap
+     7. Motion & responsive
+   ============================================================ */
+
+/* ---------- 1. Chapter shell & score HUD ---------- */
+.chapter-main {
+  padding-top: 24px;
+  padding-bottom: 64px;
+}
+
+.game-shell {
+  position: relative;
+  min-height: 560px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.chapter-foot {
+  margin: 14px 2px 0;
+  opacity: .6;
+}
+
+/* Button variants used only by the games. */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--glass-border-strong);
+  color: var(--text-body);
+  box-shadow: none;
+}
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text-headline);
+  background: var(--glass-fill-hover);
+}
+.btn-sm { padding: 9px 18px; font-size: 13.5px; }
+
+.score-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--text-headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .02em;
+  box-shadow: var(--glow-accent);
+  white-space: nowrap;
+}
+.score-hud svg { color: var(--accent); }
+
+.meta-pill.is-urgent {
+  border-color: var(--error);
+  color: #FFE4E4;
+  animation: pulse-urgent 1s ease-in-out infinite;
+}
+/* `hidden` must beat the pill's own display rule. */
+.meta-pill[hidden] { display: none !important; }
+@keyframes pulse-urgent {
+  50% { box-shadow: var(--glow-error); }
+}
+
+/* ---------- 2. Shared panels ---------- */
+.game-intro,
+.game-outcome,
+.game-blocked {
+  margin: auto;
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+}
+
+.game-intro-title { margin: 0; font-size: 26px; color: var(--text-headline); }
+.game-intro-brief { margin: 0; color: var(--text-body); line-height: 1.65; }
+.game-intro-points {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.game-outcome-icon,
+.game-blocked-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 28px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+}
+.game-outcome.is-win .game-outcome-icon {
+  color: var(--success);
+  border-color: var(--success);
+  box-shadow: var(--glow-success);
+}
+.game-outcome.is-miss .game-outcome-icon {
+  color: var(--warning);
+  border-color: var(--warning);
+  box-shadow: var(--glow-warning);
+}
+.game-outcome h3 { margin: 0; font-size: 22px; color: var(--text-headline); }
+.game-outcome p  { margin: 0; color: var(--text-body); }
+
+.game-blocked h2 { margin: 0; color: var(--text-headline); }
+.game-blocked p  { margin: 0; color: var(--text-body); line-height: 1.65; }
+
+/* ---------- 3. Game 1 — phishing hotspots ---------- */
+.hotspot-game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  grid-template-areas:
+    "bar   bar"
+    "stage list";
+  gap: 16px 22px;
+  align-items: start;
+  width: 100%;
+}
+
+.hotspot-bar {
+  grid-area: bar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.hotspot-counter {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.hotspot-stage {
+  grid-area: stage;
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: #fff;
+  cursor: crosshair;
+  line-height: 0;
+}
+.hotspot-img { width: 100%; height: auto; display: block; }
+
+/* Overlay for rings and miss splashes; matches the image box exactly. */
+.hotspot-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hotspot-ring {
+  position: absolute;
+  border: 3px solid var(--success);
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px rgba(7, 27, 61, .5), var(--glow-success);
+  animation: ring-in .3s cubic-bezier(.2, 1.4, .5, 1);
+}
+.hotspot-ring.is-missed {
+  border-color: var(--warning);
+  border-style: dashed;
+  box-shadow: 0 0 0 2px rgba(7, 27, 61, .5), var(--glow-warning);
+}
+@keyframes ring-in {
+  from { transform: scale(1.45); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.hotspot-miss {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 2px solid var(--error);
+  animation: miss-out .65s ease forwards;
+}
+@keyframes miss-out {
+  to { transform: scale(1.9); opacity: 0; }
+}
+
+.hotspot-list {
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hotspot-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-fill);
+  border: 1px solid color-mix(in srgb, var(--success) 45%, transparent);
+  font-size: 13px;
+  color: var(--text-muted);
+  animation: ring-in .28s ease;
+}
+.hotspot-item.is-missed {
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+  opacity: .85;
+}
+.hotspot-tick { color: var(--success); font-weight: 700; flex: 0 0 auto; }
+.hotspot-item.is-missed .hotspot-tick { color: var(--warning); }
+.hotspot-item strong { display: block; color: var(--text-headline); font-size: 13px; }
+.hotspot-item em {
+  font-style: normal;
+  display: block;
+  margin-top: 3px;
+  line-height: 1.55;
+}
+
+/* ---------- 4. Game 2 — true/false sort ---------- */
+.sort-game {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sort-bar { display: flex; justify-content: center; }
+
+.sort-arena {
+  position: relative;
+  height: 430px;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(34, 211, 238, .12), transparent 70%),
+    rgba(7, 27, 61, .45);
+  overflow: hidden;
+}
+
+/* The falling lane sits above the two verdict zones. */
+.sort-lane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 128px;
+}
+
+.sort-card {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(360px, 74%);
+  /* JS owns `transform` for the fall, so centre with a margin instead. */
+  margin-left: calc(min(360px, 74%) / -2);
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: rgba(15, 58, 120, .94);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .42);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  z-index: 3;
+}
+.sort-card.is-dragging { cursor: grabbing; box-shadow: var(--glow-cyan-strong); }
+.sort-card p { margin: 0; color: var(--text-headline); line-height: 1.6; font-size: 15px; }
+.sort-card-keys {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: .75;
+}
+.sort-card.is-ok     { border-color: var(--success); box-shadow: var(--glow-success); }
+.sort-card.is-bad    { border-color: var(--error);   box-shadow: var(--glow-error); }
+.sort-card.is-missed { border-color: var(--warning); box-shadow: var(--glow-warning); }
+.sort-card.fly-left,
+.sort-card.fly-right { transition: transform .4s ease, opacity .4s ease; opacity: 0; }
+.sort-card.fly-left  { transform: translate(-260px, 60px) rotate(-18deg) !important; }
+.sort-card.fly-right { transform: translate(260px, 60px)  rotate(18deg)  !important; }
+
+.sort-zone {
+  position: absolute;
+  bottom: 0;
+  width: 46%;
+  height: 128px;
+  padding: 16px 12px;
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+  background: linear-gradient(to top, rgba(7, 27, 61, .92), transparent);
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.sort-zone:hover { background: linear-gradient(to top, color-mix(in srgb, var(--accent) 30%, transparent), transparent); }
+.sort-zone.is-safe   { left: 0; }
+.sort-zone.is-unsafe { right: 0; }
+.sort-zone-icon  { font-size: 30px; line-height: 1; }
+.sort-zone-label { margin-top: 6px; font-weight: 700; color: var(--text-headline); font-size: 14px; }
+.sort-zone-hint  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+/* Running tally of verdicts so far. */
+.sort-tally {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  min-height: 22px;
+}
+.sort-chip {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--glass-border);
+}
+.sort-chip.is-ok  { color: var(--success); border-color: var(--success); }
+.sort-chip.is-bad { color: var(--error);   border-color: var(--error); }
+
+.sort-review {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(620px, 100%);
+  margin: 6px auto 0;
+  text-align: left;
+}
+.sort-review-title {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.sort-review-row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  font-size: 13px;
+  color: var(--text-body);
+  line-height: 1.55;
+}
+.sort-review-zone {
+  flex: 0 0 auto;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.sort-review-zone.is-safe   { color: var(--success); }
+.sort-review-zone.is-unsafe { color: var(--error); }
+
+/* ---------- 5. Game 3 — branching story ---------- */
+.story-game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+.story-stage {
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background:
+    radial-gradient(80% 60% at 50% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    rgba(7, 27, 61, .45);
+  padding: 22px;
+  min-height: 320px;
+}
+.story-cast {
+  display: flex;
+  justify-content: center;
+  gap: 34px;
+  margin-bottom: 18px;
+}
+.story-figure {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  border-radius: 50%;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+}
+.story-figure.is-a { box-shadow: var(--glow-accent); }
+.story-bubble {
+  position: relative;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid var(--glass-border);
+}
+.story-bubble p { margin: 0; color: var(--text-body); line-height: 1.7; }
+.story-speaker {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.story-panel { display: flex; flex-direction: column; gap: 12px; }
+.story-step {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.story-question { margin: 0; color: var(--text-headline); font-size: 19px; line-height: 1.5; }
+.story-options { display: flex; flex-direction: column; gap: 10px; }
+
+.story-option {
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  color: var(--text-body);
+  font: inherit;
+  font-size: 14.5px;
+  line-height: 1.55;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.story-option:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--glass-fill-hover);
+  transform: translateX(3px);
+}
+.story-option.is-spent   { opacity: .4; }
+.story-option.is-correct { border-color: var(--success); box-shadow: var(--glow-success); color: var(--text-headline); }
+.story-option.is-wrong   { border-color: var(--error);   box-shadow: var(--glow-error);   color: var(--text-headline); }
+
+.story-feedback {
+  padding: 13px 15px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+}
+.story-feedback.is-ok  { border-color: color-mix(in srgb, var(--success) 50%, transparent); }
+.story-feedback.is-bad { border-color: color-mix(in srgb, var(--warning) 50%, transparent); }
+.story-feedback strong { display: block; margin-bottom: 4px; color: var(--text-headline); font-size: 14px; }
+.story-feedback.is-ok  strong { color: var(--success); }
+.story-feedback.is-bad strong { color: var(--warning); }
+.story-feedback p { margin: 0; color: var(--text-body); font-size: 13.5px; line-height: 1.6; }
+
+/* ---------- 6. Game 4 — password trap ---------- */
+.trap-game { display: grid; place-items: center; width: 100%; }
+
+.trap-card {
+  width: min(460px, 100%);
+  padding: 32px 30px;
+  border-radius: var(--radius);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow-cyan-soft);
+  text-align: center;
+}
+.trap-lock { font-size: 34px; line-height: 1; margin-bottom: 12px; }
+.trap-title { margin: 0 0 8px; font-size: 22px; color: var(--text-headline); }
+.trap-prompt { margin: 0 0 20px; color: var(--text-body); line-height: 1.65; font-size: 14.5px; }
+
+.trap-field { position: relative; }
+.trap-input { width: 100%; padding-right: 48px; letter-spacing: .18em; }
+.trap-eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.trap-eye:hover { color: var(--accent); background: rgba(255, 255, 255, .06); }
+
+.trap-warning {
+  min-height: 20px;
+  margin-top: 9px;
+  font-size: 13px;
+  color: var(--warning);
+}
+.trap-actions { display: flex; gap: 12px; margin-top: 18px; }
+.trap-actions .btn { flex: 1; }
+
+.trap-result {
+  margin: auto;
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+}
+.trap-result-icon {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 32px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+}
+.trap-result.is-win  .trap-result-icon { color: var(--success); border-color: var(--success); box-shadow: var(--glow-success); }
+.trap-result.is-fail .trap-result-icon { color: var(--error);   border-color: var(--error);   box-shadow: var(--glow-error); }
+.trap-result h2 { margin: 0; color: var(--text-headline); font-size: 24px; }
+.trap-result p  { margin: 0; color: var(--text-body); line-height: 1.7; }
+
+/* The reassurance line: nothing typed was captured. */
+.trap-note {
+  padding: 11px 15px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, .05);
+  border: 1px dashed var(--glass-border-strong);
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.trap-award {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--success);
+  text-shadow: var(--glow-success);
+}
+
+.trap-fireworks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- 7. Motion & responsive ---------- */
+.shake { animation: shake .42s ease; }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+.quiz-card { width: min(620px, 100%); margin: auto; padding: 26px; }
+.quiz-q { margin: 10px 0 18px; }
+.quiz-note { margin: 18px 0 0; opacity: .65; }
+
+@media (max-width: 980px) {
+  .hotspot-game {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "bar" "stage" "list";
+  }
+  .story-game { grid-template-columns: minmax(0, 1fr); }
+  .sort-arena { height: 380px; }
+  .sort-lane { bottom: 118px; }
+  .sort-zone { height: 118px; }
+  .game-shell { padding: 20px; min-height: 480px; }
+}
+
+@media (max-width: 620px) {
+  .score-hud { padding: 6px 12px; font-size: 14px; }
+  .sort-arena { height: 340px; }
+  .sort-lane { bottom: 108px; }
+  .sort-zone { height: 108px; padding: 12px 8px; }
+  .sort-card { width: 82%; margin-left: -41%; padding: 13px 14px; }  .sort-card p { font-size: 14px; }
+  .story-figure { width: 64px; height: 64px; font-size: 30px; }
+  .trap-card { padding: 24px 20px; }
+  .trap-actions { flex-direction: column-reverse; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot-ring,
+  .shake,
+  .meta-pill.is-urgent { animation: none; }
+}

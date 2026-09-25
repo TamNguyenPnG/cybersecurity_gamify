@@ -1,382 +1,302 @@
-# Setup guide — putting your own data in
+# Setup guide
 
-Everything you need to change lives in **two folders**. You do not need to touch
-the CSS or the page scripts.
-
-| What you want to change | Folder | Files |
-|---|---|---|
-| Questions and answers | `public/content/questions/` | `chapter-01.json` … `chapter-04.json` |
-| Any text on screen (EN + VI) | `public/content/i18n/` | `en.json`, `vi.json` |
-| Emails, departments, leaderboard, KPIs | `public/assets/js/data/` | `db.js` |
-| Images and photos | `public/assets/img/` | anything you drop in |
-| Backend hand-off spec | `data/templates/` | `session_progress.xlsx`, `user_records.xlsx` |
-
-After any change: **save the file and refresh the browser.** There is no build
-step. Just remember the site has to be served over HTTP (see §0).
+Everything you need to get the site running and to load your own data.
 
 ---
 
-## 0. Before you start — run it
+## 1. Requirements
 
-JSON files are fetched at runtime, and browsers block `fetch` on `file://`. So
-double-clicking `index.html` will show an empty page. Start a tiny server
-instead:
+* **Python 3.9 or newer.** Nothing else — no Node, no npm, no build step.
+* A modern browser.
 
-```bash
-cd public
-python -m http.server 8080
+Check it:
+
+```powershell
+python --version
 ```
 
-Open <http://localhost:8080>. Leave that window running while you edit.
+---
 
-If you ever see *"Could not load questions"*, it means you opened the file
-directly instead of through the server.
+## 2. First run
+
+From the repository root:
+
+```powershell
+# 1. Create the database (only needed once)
+python data\scripts\build_db.py
+
+# 2. Start the site
+python server.py
+```
+
+Then open **http://localhost:8099**.
+
+> `server.py` serves the web pages *and* the API. Opening `public/index.html`
+> directly from the filesystem will **not** work — every screen reads from the
+> API.
+
+Useful flags:
+
+| Command | What it does |
+|---|---|
+| `python server.py --port 9000` | Run on a different port |
+| `python server.py --today 2026-10-12` | Pretend it is a different date (see §7) |
+| `python data\scripts\build_db.py --reset` | Wipe and rebuild the database |
 
 ---
 
-## 1. Questions — where the quiz content comes from
+## 3. Where everything lives
 
-**Folder:** `public/content/questions/`
-**One file per chapter:** `chapter-01.json`, `chapter-02.json`, `chapter-03.json`, `chapter-04.json`
+```
+cybersecurity_gamify/
+├── server.py                  ← the web + API server
+├── data/
+│   ├── app.db                 ← SQLite database (generated, not in git)
+│   └── scripts/build_db.py    ← creates and seeds app.db
+├── docs/                      ← this guide, the data contract, the changelog
+└── public/                    ← everything the browser loads
+    ├── index.html             ← login
+    ├── main-hall.html
+    ├── chapter.html
+    ├── result.html
+    ├── assets/
+    │   ├── css/
+    │   ├── img/               ← put your images here
+    │   └── js/
+    │       ├── core/          ← starfield, shared UI, i18n
+    │       ├── data/          ← api.js (server client), db.js (chapter colours)
+    │       ├── games/         ← one file per mini-game
+    │       └── pages/         ← one file per screen
+    └── content/
+        ├── games/             ← chapter-01.json — the mini-game content
+        ├── questions/         ← classic quiz question files
+        └── i18n/              ← en.json and vi.json
+```
 
-Each file holds the chapter's name and its five questions, **in both languages
-at once**:
+---
+
+## 4. Loading your people (email + department)
+
+The list of who may sign in, and which department each person belongs to,
+lives in **`data/scripts/build_db.py`**.
+
+Open it and find the `EMPLOYEES` list near the bottom:
+
+```python
+EMPLOYEES = [
+    ("minh.cs@pg.com",  "Minh Cao Sy",  "Human Resources", None),
+    ("chi.ptm@pg.com",  "Chi Pham Thi Minh", "Marketing",   None),
+    # email, full name, department, photo filename (or None)
+]
+```
+
+Add one tuple per person, then rebuild:
+
+```powershell
+python data\scripts\build_db.py --reset
+```
+
+The `DEPARTMENTS` list just above it feeds the login dropdown. Every
+employee's department **must** appear in that list.
+
+### Loading from a spreadsheet instead
+
+If HR sends you a CSV, you can load it without editing Python by hand:
+
+```powershell
+python - <<'PY'
+import csv, sqlite3
+con = sqlite3.connect("data/app.db")
+with open("people.csv", newline="", encoding="utf-8-sig") as f:
+    for row in csv.DictReader(f):          # columns: email,name,department
+        con.execute("INSERT OR IGNORE INTO departments(name) VALUES (?)",
+                    (row["department"],))
+        con.execute("INSERT OR REPLACE INTO employees(email,name,department,photo)"
+                    " VALUES (?,?,?,NULL)",
+                    (row["email"].strip().lower(), row["name"], row["department"]))
+con.commit()
+PY
+```
+
+(On Windows PowerShell, save that snippet as `load_people.py` and run
+`python load_people.py` — PowerShell has no heredocs.)
+
+### What the login actually checks
+
+1. The typed email must be **chosen from the suggestion list**. Free typing is
+   rejected even if the address is correct.
+2. The selected department must match the employee's stored department.
+
+The suggestion list returns **email and name only**. The department is never
+sent to the browser, so nobody can read the answer out of the dropdown.
+
+---
+
+## 5. Adding images
+
+All images go in **`public/assets/img/`**.
+
+| File | Used by | Notes |
+|---|---|---|
+| `hero.png` | Main Hall | The big hero artwork. Shown **uncropped** at full width on the left of the hero. Suggested 1800×800 @2x, PNG. If the file is missing, an art-direction placeholder appears instead. |
+| `phishing-email.png` | Chapter 1, game 1 | The phishing email screenshot players click on. |
+| `avatars/*` | Optional | Per-person photos. Put the filename in the employee's `photo` column. |
+
+To swap the hero: drop your file in as `public/assets/img/hero.png` and
+refresh. Nothing else to change.
+
+To swap the phishing screenshot you must also move the clickable hotspots —
+see §6.
+
+---
+
+## 6. Editing chapter content
+
+### The mini-games (Chapter 1)
+
+All four games live in one file:
+**`public/content/games/chapter-01.json`**.
+
+It is bilingual — every piece of text has an `en` and a `vi` field side by
+side. There is **no separate English file to maintain**; the app picks the
+field matching the active language at render time. If a `vi` value is missing,
+the `en` value is used as the fallback.
 
 ```jsonc
 {
   "chapter": 1,
-  "slug": "safe-account",
-  "title": { "en": "Safe Account", "vi": "Tài khoản an toàn" },
-
-  "questions": [
+  "maxScore": 5,
+  "games": [
     {
-      "id": "c1q1",
-      "answer": 0,
-      "en": {
-        "q": "You receive an email asking you to re-verify your password. What do you do?",
-        "o": [
-          "Report it to IT Security and delete it",
-          "Click the link and check if it looks official",
-          "Forward it to your team to warn them",
-          "Enter your password only if the page has HTTPS"
-        ]
-      },
-      "vi": {
-        "q": "Bạn nhận được email yêu cầu xác minh lại mật khẩu. Bạn sẽ làm gì?",
-        "o": [
-          "Báo cáo cho IT Security và xoá email đó",
-          "Bấm vào link và kiểm tra xem có chính thống không",
-          "Chuyển tiếp cho cả nhóm để cảnh báo",
-          "Chỉ nhập mật khẩu nếu trang web có HTTPS"
-        ]
-      }
+      "id": "phish", "type": "hotspot", "points": 1,
+      "title":  { "en": "Spot the phishing", "vi": "Tìm dấu hiệu lừa đảo" },
+      "image":  "assets/img/phishing-email.png",
+      "timeLimitS": 120,
+      "hotspots": [
+        {
+          "rect": [0.06, 0.18, 0.46, 0.23],     // x1, y1, x2, y2
+          "label": { "en": "Lookalike sender domain", "vi": "..." },
+          "why":   { "en": "...", "vi": "..." }
+        }
+      ]
     }
   ]
 }
 ```
 
-### The one rule that matters
-
-`"answer": 0` means **the first option is correct — in both languages.**
-
-The English list and the Vietnamese list must be the *same answers in the same
-order*, just translated. That is why there is only one `answer` field: a
-translator supplies wording, never correctness, so the two languages can never
-disagree about which option scores.
-
-`0` = first option, `1` = second, `2` = third, `3` = fourth.
-
-### To edit a question
-
-1. Open the chapter file.
-2. Change the `q` text and the `o` list — **in both `en` and `vi`**.
-3. Check `answer` still points at the right position.
-4. Save, refresh.
-
-### To add a question
-
-Copy an existing `{ ... }` block, paste it inside `questions`, put a comma
-between blocks, and give it a **new `id`**. Ids are permanent — the answer
-history references them, so never reuse or renumber one.
-
-You can have more or fewer than five questions; the progress dots and the score
-adapt. Four to six options per question is what the layout is designed for.
-
-### Gotchas
-
-- Use **straight quotes** `"`, not curly `"` `"`. Copying from Word breaks JSON.
-- A quote *inside* text must be escaped: `\"re-verify\"`.
-- **No comma after the last item** in a list or object.
-- If a chapter goes blank, you have a JSON syntax error. Paste the file into
-  <https://jsonlint.com> to find the line.
-
-Options are reshuffled on every play, so don't rely on position in the wording
-(never write "both of the above").
-
----
-
-## 2. Emails and departments — who can log in
-
-**File:** `public/assets/js/data/db.js`
-
-This is the mock staff directory. Login checks two things: the email must exist
-here, **and** the department the user picks must match this record.
-
-```js
-var EMPLOYEES = [
-  { email: 'minh.cs@pg.com', name: 'Minh Cao Sy', dept: 'Human Resources' },
-  { email: 'tam.nt@pg.com',  name: 'Tam Nguyen Thi', dept: 'Information Technology' },
-  // add your people here, one line each
-];
-```
-
-To add someone, copy a line and change the three values. Optionally add a photo:
-
-```js
-{ email: 'tam.nt@pg.com', name: 'Tam Nguyen Thi', dept: 'Information Technology',
-  photo: 'assets/img/avatars/tam.nt.jpg' },
-```
-
-**Bulk import from a spreadsheet.** If HR gives you an Excel list, use a formula
-in a helper column to produce the lines, then paste them in:
-
-```excel
-="  { email: '"&A2&"', name: '"&B2&"', dept: '"&C2&"' },"
-```
-
-Fill down, copy the column, paste between the `[` and `]`.
-
-### Departments
-
-The dropdown on the login screen is fed by the list just above `EMPLOYEES`:
-
-```js
-var DEPARTMENTS = ['Human Resources', 'Information Technology', 'Finance', /* … */];
-```
-
-**A department string must match exactly** — same spelling, same capitalisation
-— between `DEPARTMENTS` and each employee's `dept`, or that person will always
-hit the "department does not match" error.
-
-### Leaderboard and KPI numbers
-
-Same file, further down. These are display-only sample figures until a backend
-is connected:
-
-```js
-var LEADERBOARD = [
-  { name: 'Minh Cao Sy', dept: 'Human Resources', chapter: 1, best: 5, plays: 3 },
-];
-
-var KPIS = [
-  { key: 'top-dept',  value: 'IT',    pct: 86 },
-  { key: 'completed', value: '412',   pct: 64 },
-];
-```
-
-`pct` is the little progress bar under each KPI (0–100). The KPI *labels* are
-text, so they live in the i18n files, not here — see §4.
-
-Rows are ranked automatically: highest `best`, then most `plays`. Top three get
-the gold/silver/bronze glow. Add `photo: '…'` to a leaderboard row to show a
-face instead of initials.
-
----
-
-## 3. Images — how to attach your own artwork
-
-**Folder:** `public/assets/img/` (create subfolders freely; `avatars/` already exists)
-
-Paths in HTML are written **relative to `public/`**, so a file at
-`public/assets/img/hero.png` is referenced as `assets/img/hero.png`.
-
-The site currently ships **labelled placeholders** with art direction written
-into them. There are four kinds of image you might want to add.
-
-### 3a. The hero illustration (Main Hall)
-
-Recommended export: **1800 × 800 px, transparent PNG** (or WebP), @2x.
-
-1. Save your file as `public/assets/img/hero.png`.
-2. Open `public/main-hall.html`, find `<div class="hero-art">` (around line 43).
-3. Add `has-art` to that class and drop an `<img>` in as the first child:
-
-```html
-<div class="hero-art has-art">
-  <img class="stage-img" src="assets/img/hero.png" alt="Two P&G Cybersecurity Champions">
-  <!-- leave everything below untouched; it hides itself automatically -->
-```
-
-That's the whole change. The `has-art` class hides the placeholder figures, the
-dashed frame and the art-direction note, and scales your image to fit.
-
-To go back to the placeholder, delete the `<img>` line and remove `has-art`.
-
-### 3b. Game-stage scenes (Chapter screen)
-
-Same pattern, on `public/chapter.html` around line 56:
-
-```html
-<section class="game-stage has-art" id="gameStage">
-  <img class="stage-img" src="assets/img/stage-ch1.png" alt="">
-```
-
-Because one file serves all four chapters, a *different* image per chapter needs
-one line of JS. In `public/assets/js/pages/chapter.js`, inside `renderChrome()`:
-
-```js
-stage.classList.add('has-art');
-stage.querySelector('.stage-img').src = 'assets/img/stage-ch' + chId + '.png';
-```
-
-Name your files `stage-ch1.png` … `stage-ch4.png` and that is all.
-
-Note: the Chapter 1 chase animation (hero advancing, hacker retreating) is
-driven by those placeholder figures. Replacing the stage with a flat image turns
-the animation off — keep the placeholder if you want the motion.
-
-### 3c. Result scenes (WIN / PARTIAL)
-
-`public/result.html` uses `<div class="result-stage" id="resultStage">`. Same
-`has-art` + `stage-img` pattern. For two different images, set the `src` in
-`public/assets/js/pages/result.js` depending on whether the score is perfect.
-
-Suggested export: **1200 × 700 px, transparent PNG**.
-
-### 3d. Photos of people (avatars)
-
-Square images, **256 × 256 px minimum**, JPG or PNG. They are cropped to a
-circle automatically.
-
-1. Save to `public/assets/img/avatars/`, e.g. `tam.nt.jpg`.
-2. Add a `photo:` field to that person in `db.js` (§2).
-
-Works in the header, the leaderboard and the sign-in card. Anyone without a
-`photo` keeps their initials, so you can add photos gradually.
-
-The **Contact HR card** avatar is hardcoded in `main-hall.html` (look for
-`class="avatar"` near the bottom, showing `MC`). Replace the initials with an
-`<img>`:
-
-```html
-<div class="avatar" style="width:52px;height:52px">
-  <img src="assets/img/avatars/minh.cs.jpg" alt="Minh">
-</div>
-```
-
-### 3e. Chapter card icons
-
-Each chapter card has a small glowing icon (`.ch-icon`). To use your own art,
-put an `<img>` inside it — it is generated in `main-hall.js`, in the
-`renderChapters()` function.
-
-### Image tips
-
-- **Transparent PNG or WebP** — the star field must show through. A white
-  rectangle will look wrong on the dark background.
-- Keep each file **under ~400 KB**; there is no image pipeline to compress them.
-- Always give a real `alt=""` description, except for purely decorative art
-  where empty `alt=""` is correct.
-- Filenames: lowercase, hyphens, no spaces.
-
----
-
-## 4. Text on screen — titles, labels, buttons
-
-**Folder:** `public/content/i18n/` — `en.json` and `vi.json`
-
-Every visible string that is *not* a question lives here: chapter titles, unlock
-dates, KPI labels, button text, error messages, the rules panel.
-
-```jsonc
-"chapter.1.title":  "Safe Account",
-"chapter.1.desc":   "Keep your account safe and secured",
-"chapter.1.unlock": "Oct 5",
-"kpi.completed.label": "People completed",
-"ch.counter": "Question {n} of {total}"
-```
-
-Rules:
-
-- `{n}`, `{total}` and similar are filled in at runtime — **keep them exactly as
-  written**, including the braces.
-- `en.json` and `vi.json` must have the **same set of keys**. If Vietnamese is
-  missing a key it falls back to English rather than breaking, but it will look
-  inconsistent.
-- To find the key behind a string on screen, search for the visible English text
-  in `en.json`.
-
-Chapter names, descriptions and unlock dates are here — **not** in `db.js`.
-
-To change the four unlock dates, edit `chapter.1.unlock` … `chapter.4.unlock` in
-both files.
-
----
-
-## 5. The Excel templates — what they are *not*
-
-**Folder:** `data/templates/`
-
-These two workbooks are a **specification for a future backend**, not a live
-database. Editing them does not change the website.
-
-| File | One row = | Used for |
-|---|---|---|
-| `session_progress.xlsx` | one person × one chapter | standings, KPIs, card states |
-| `user_records.xlsx` | one answered question | full audit history |
-
-Each has a `_schema` tab explaining every column. Hand these to whoever builds
-the server so the shapes agree up front. Regenerate with:
-
-```bash
-python data/scripts/build_templates.py
-```
-
-Full reference: [`docs/data-contract.md`](data-contract.md).
-
-Right now, real progress is stored in the **browser** (`localStorage`), which
-means it is per-device and clears when site data is cleared. That is expected
-for a prototype.
-
----
-
-## 6. Quick recipes
-
-**Change a question's wording** → `public/content/questions/chapter-0N.json`,
-edit both `en.q` and `vi.q`.
-
-**Change which answer is correct** → same file, change `answer` to the 0-based
-position of the correct option.
-
-**Let someone log in** → add a line to `EMPLOYEES` in
-`public/assets/js/data/db.js`; make sure their `dept` exactly matches an entry
-in `DEPARTMENTS`.
-
-**Add the real hero image** → drop it in `public/assets/img/`, add `has-art` and
-an `<img class="stage-img">` to `.hero-art` in `main-hall.html`.
-
-**Add profile photos** → `public/assets/img/avatars/`, then `photo: '…'` on the
-person in `db.js`.
-
-**Rename a chapter** → `chapter.N.title` in both `en.json` and `vi.json`.
-
-**Change an unlock date** → `chapter.N.unlock` in both i18n files.
-
-**Test Vietnamese** → add `?lang=vi` to any URL, or use the EN/VI switch.
-
----
-
-## 7. When something breaks
-
-| Symptom | Almost always |
+**Hotspot coordinates are fractions of the image, from 0 to 1**, not pixels.
+`[0.06, 0.18, 0.46, 0.23]` means "from 6 % to 46 % across, 18 % to 23 % down".
+Using fractions means the boxes stay correct at any screen size. To find them,
+open the image in any editor, read the pixel rectangle, and divide by the
+image's width and height.
+
+The other three game types in the same file:
+
+| `type` | What the author supplies |
 |---|---|
-| Page is blank / "Could not load questions" | Opened as a file instead of through the server (§0) |
-| One chapter won't load | JSON syntax error in that chapter file — check commas and quotes |
-| Text shows as `hall.title` | That key is missing from the i18n file |
-| Everyone gets "department does not match" | `dept` spelling differs from `DEPARTMENTS` |
-| Image doesn't appear | Wrong path — it must be relative to `public/`, e.g. `assets/img/hero.png` |
-| Placeholder still showing behind the image | Forgot to add `has-art` to the parent |
-| Changes don't show | Hard refresh: **Ctrl + F5** |
+| `sort` | `statements[]`, each with `zone: "safe"` or `"unsafe"` |
+| `story` | `slides[]`, each with a `question` and `options[]` where one has `correct: true` |
+| `trap` | The prompt, button labels and the win/fail messages |
 
-Nothing here can be broken permanently — every file is in Git, so
-`git checkout -- <file>` restores the last committed version.
+### The classic quiz (Chapters 2–4)
+
+Chapters 2–4 have no content yet. When you are ready, either:
+
+* add a `content/games/chapter-02.json` in the same shape as above, **or**
+* fill in `public/content/questions/chapter-02.json` with a plain question
+  list — the app falls back to a standard 5-question quiz automatically.
+
+Then flip the chapter's `has_content` flag to `1` in the `CHAPTERS` list in
+`build_db.py` and rebuild.
+
+### Interface text
+
+`public/content/i18n/en.json` and `vi.json` hold every label in the interface,
+one key per string. To change wording, edit the value — never the key. The two
+files must always contain the **same set of keys**.
+
+---
+
+## 7. Chapter dates and the demo clock
+
+The four weekly windows are defined in `build_db.py`:
+
+```python
+CHAPTERS = [
+    (1, "safe-account",      "2026-10-01", "2026-10-08", 1),
+    (2, "safe-device",       "2026-10-09", "2026-10-15", 0),
+    (3, "safe-connection",   "2026-10-16", "2026-10-22", 0),
+    (4, "safe-installation", "2026-10-23", "2026-10-29", 0),
+    # id, slug, opens, closes, has_content
+]
+```
+
+Because those are real October dates, nothing is playable before October. So
+`server.py` has a **demo clock** near the top:
+
+```python
+TODAY_OVERRIDE = "2026-10-03"   # set to None for production
+```
+
+**Set this to `None` before you go live**, otherwise the site will be frozen on
+that date forever.
+
+You can also override it per run without editing the file:
+
+```powershell
+python server.py --today 2026-10-12
+```
+
+### How the lock works
+
+| Situation | The chapter is |
+|---|---|
+| Before `opens` | Locked — "Unlocks 12 Oct" |
+| Between `opens` and `closes` | **Open** |
+| After `closes`, user already played it | Locked |
+| After `closes`, user never played it | **One last play** |
+| After `closes`, user used that last play or left without retrying | Locked |
+| `has_content = 0` | Locked — "Coming soon" |
+
+---
+
+## 8. Reading the results
+
+Open the database with any SQLite tool, or from Python:
+
+```python
+import sqlite3
+con = sqlite3.connect("data/app.db")
+con.row_factory = sqlite3.Row
+for r in con.execute("""
+        SELECT e.name, e.department, a.chapter_id,
+               MAX(a.score) AS best, COUNT(*) AS plays
+        FROM attempts a JOIN employees e ON e.email = a.email
+        GROUP BY a.email, a.chapter_id
+        ORDER BY best DESC, plays ASC"""):
+    print(dict(r))
+```
+
+To export to Excel for reporting:
+
+```python
+import sqlite3, pandas as pd
+con = sqlite3.connect("data/app.db")
+pd.read_sql_query("SELECT * FROM attempts", con).to_excel("results.xlsx", index=False)
+```
+
+Each player can see their own history in the app via the **My records**
+button in the Main Hall header.
+
+---
+
+## 9. Troubleshooting
+
+| Symptom | Cause |
+|---|---|
+| Every screen is blank or shows "Could not load" | `server.py` is not running, or you opened the HTML file directly |
+| The login list is empty | The database has no employees — run `build_db.py` |
+| All four chapters say "Unlocks…" | Today is outside every window — set `TODAY_OVERRIDE` |
+| Chapter 1 opens but games do not start | `content/games/chapter-01.json` is missing or malformed JSON |
+| The phishing rings land in the wrong place | The hotspot rectangles do not match the current image — see §6 |
+| A label shows as a raw key like `hall.cta` | That key is missing from the active language file |

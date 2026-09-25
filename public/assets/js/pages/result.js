@@ -7,7 +7,7 @@ I18N.ready.then(function () {
 
   var score   = Number(UI.qs('score', 5));
   var attempt = Number(UI.qs('attempt', 1));
-  var TOTAL   = 5;
+  var TOTAL   = Math.max(1, Number(UI.qs('max', 5)));
   var isWin   = score >= TOTAL;
 
   var chapter = DB.getChapter(chId);
@@ -20,11 +20,9 @@ I18N.ready.then(function () {
   var figs  = document.getElementById('resultFigures');
   var note  = document.getElementById('stageNote');
 
-  /* Rank this player against the chapter leaderboard by score, then plays. */
-  var rank = 1;
-  DB.leaderboard({ chapter: chId }).forEach(function (r) {
-    if (r.best > score) rank++;
-  });
+  /* Personal best for this chapter, filled in once the server answers.
+     (The public leaderboard was removed — progress is now personal only.) */
+  var best = score;
 
   function renderCopy() {
     var v = isWin ? 'win' : 'partial';
@@ -49,7 +47,7 @@ I18N.ready.then(function () {
         '<div class="figure hacker" style="opacity:.3;transform:translateX(30px)"><div class="body">🕵️</div><div class="cap">' + capHacker + '</div></div>';
 
     document.getElementById('bravoNote').textContent =
-      I18N.t(rank <= 3 ? 'result.bravoTop3' : 'result.bravoKeep');
+      I18N.t(isWin ? 'result.bravoTop3' : 'result.bravoKeep');
 
     document.getElementById('nextLabel').textContent = chId < 4
       ? I18N.t('result.next', { num: DB.getChapter(chId + 1).num })
@@ -61,7 +59,22 @@ I18N.ready.then(function () {
   /* ---------- Stats ---------- */
   document.getElementById('statScore').textContent   = score + '/' + TOTAL;
   document.getElementById('statAttempt').textContent = attempt;
-  document.getElementById('statRank').textContent    = '#' + rank;
+  var bestEl = document.getElementById('statRank');
+  bestEl.textContent = best + '/' + TOTAL;
+
+  /* Pull the real personal best from the server so a retry that scored
+     lower still shows the user their best run. */
+  var me = UI.session.get();
+  if (me) {
+    API.chapters(me.email).then(function (data) {
+      (data.chapters || []).forEach(function (c) {
+        if (c.id === chId && c.best != null && c.best > best) {
+          best = c.best;
+          bestEl.textContent = best + '/' + TOTAL;
+        }
+      });
+    }, function () {});
+  }
 
   /* ---------- Next / retry buttons ---------- */
   document.getElementById('againBtn').href = 'chapter.html?ch=' + chId;

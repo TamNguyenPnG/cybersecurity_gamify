@@ -938,3 +938,148 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
 
 /* Chapter card icon artwork: an <img> inside .ch-icon. */
 .ch-icon img { width: 60%; height: 60%; object-fit: contain; display: block; }
+
+/* ============================================================
+   21. MAIN HALL v2
+   Full-bleed hero artwork with the guide beside it, full-width
+   chapter rail above the KPI strip, and the personal records drawer.
+   ============================================================ */
+
+/* ---- Small / ghost buttons (also used by the game screens) ---- */
+.btn-sm { padding: 9px 14px; font-size: 13px; border-radius: 10px; gap: 8px; }
+.btn.is-disabled { opacity: .45; pointer-events: none; }
+
+/* ---- Hero split ---- */
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+  gap: 40px;
+  align-items: center;
+  padding: 56px 0 24px;
+}
+.hero-split > * { min-width: 0; }
+
+.hero-image {
+  margin: 0;
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 30px 80px rgba(3,12,30,.55), 0 0 60px rgba(34,211,238,.10);
+}
+/* The artwork is a single full image — never crop it. */
+.hero-image img { display: block; width: 100%; height: auto; }
+
+.hero-fallback {
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  min-height: 360px;
+  padding: 32px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%, rgba(34,211,238,.12), transparent 70%);
+  border: 1px dashed rgba(34,211,238,.45);
+  border-radius: 22px;
+}
+
+.hero-side { display: block; }
+.hero-side .rules { margin-bottom: 22px; }
+.hero-cta { width: 100%; justify-content: center; }
+
+/* ---- Chapter rail ---- */
+.chapter-grid.is-full { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.ch-card {
+  --accent: var(--ch1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  padding: 24px 22px 22px;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px);
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+a.ch-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 0 38px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.ch-card.locked { opacity: .42; }
+.ch-card.is-grace { border-color: color-mix(in srgb, var(--warning) 55%, transparent); }
+
+.ch-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.ch-top .ch-num { margin-bottom: 0; }
+.ch-lock { margin-left: auto; font-size: 15px; opacity: .8; }
+.ch-badge {
+  margin-left: auto;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 9px; border-radius: 999px;
+  color: var(--success);
+  background: rgba(52,211,153,.14);
+  border: 1px solid rgba(52,211,153,.35);
+}
+.ch-status { font-size: 12.5px; color: var(--text-muted); }
+.ch-cta { font-family: var(--font-display); font-weight: 700; font-size: 13.5px; color: var(--accent); white-space: nowrap; }
+
+/* ---- KPI strip, three tiles ---- */
+.kpi-grid.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* ---- Records drawer ---- */
+.drawer-backdrop {
+  position: fixed; inset: 0; z-index: 90;
+  display: flex; justify-content: flex-end;
+  background: rgba(4,12,28,.66);
+  backdrop-filter: blur(3px);
+}
+.drawer-backdrop[hidden] { display: none; }
+
+.drawer {
+  width: min(560px, 100%);
+  height: 100%;
+  border-radius: 0;
+  border-left: 1px solid rgba(255,255,255,.14);
+  display: flex; flex-direction: column;
+  animation: drawerIn .28s ease;
+}
+@keyframes drawerIn { from { transform: translateX(28px); opacity: 0; } }
+
+.drawer-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 26px 26px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+.drawer-body { padding: 20px 26px 30px; overflow-y: auto; flex: 1; }
+
+.rec-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.rec-table th {
+  text-align: left; padding: 0 10px 10px 0;
+  font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 600;
+}
+.rec-table td { padding: 12px 10px 12px 0; border-top: 1px solid rgba(255,255,255,.08); color: var(--text-body); vertical-align: middle; }
+.rec-chip {
+  display: inline-block;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .4px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.rec-score { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text-headline); }
+.rec-score.is-perfect { color: var(--success); }
+
+/* ---- Responsive ---- */
+@media (max-width: 980px) {
+  .hero-split { grid-template-columns: 1fr; gap: 28px; padding-top: 34px; }
+  .chapter-grid.is-full { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi-grid.is-three { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .chapter-grid.is-full { grid-template-columns: 1fr; }
+  .drawer-head, .drawer-body { padding-left: 18px; padding-right: 18px; }
+}
+
