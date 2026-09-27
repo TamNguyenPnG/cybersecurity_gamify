@@ -44,7 +44,7 @@
   <!-- ===== HERO — full artwork left, guide right ===== -->
   <section class="hero-split shell">
     <figure class="hero-image">
-      <img id="heroImg" src="assets/img/hero.png" alt="" data-i18n-alt="hall.heroAlt">
+      <img id="heroImg" src="assets/img/main-hall.png" alt="" data-i18n-alt="hall.heroAlt">
       <figcaption class="hero-fallback" id="heroFallback" hidden>
         <span class="stage-tag" data-i18n="hall.artTag">Hero illustration — placeholder</span>
         <div class="stage-note">
@@ -115,23 +115,26 @@
 
   <!-- ===== CONTACT ===== -->
   <section class="shell" style="padding-bottom:70px">
-    <div class="glass contact" style="max-width:440px">
-      <div class="avatar" style="width:52px;height:52px;font-size:15px">MC</div>
-      <div style="flex:1">
-        <div class="t-small" style="color:var(--text-headline);font-weight:700;margin-bottom:2px" data-i18n="hall.contactTitle">Questions? Contact HR — Minh</div>
-        <div class="t-caption">minh.cs@pg.com</div>
+    <h2 class="t-h3" data-i18n="hall.contactTitle">Questions? Contact the team</h2>
+    <div class="contact-grid">
+      <div class="glass contact">
+        <div class="avatar contact-avatar">MC<img src="assets/img/avatars/minh-cao.png" alt="" onerror="this.remove()"></div>
+        <div class="contact-details">
+          <div class="t-small contact-name">Minh Cao</div>
+          <div class="t-caption" data-i18n="hall.contactLeader">Cybersecurity Leader</div>
+          <div class="t-caption" data-i18n="hall.contactDepartment">Digital department</div>
+          <a class="t-caption" href="mailto:minh.cs@pg.com">minh.cs@pg.com</a>
+        </div>
       </div>
-      <a class="icon-btn" href="mailto:minh.cs@pg.com" data-i18n-aria-label="hall.emailAria" aria-label="Email Minh">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M3.5 7l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </a>
-      <button class="icon-btn" data-i18n-aria-label="hall.chatAria" aria-label="Chat with Minh" onclick="UI.toast(I18N.t('hall.chatToast'))">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M20 12a7.5 7.5 0 01-10.9 6.7L4 20l1.4-4.6A7.5 7.5 0 1120 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-        </svg>
-      </button>
+      <div class="glass contact">
+        <div class="avatar contact-avatar">TN<img src="assets/img/avatars/tam-nguyen.png" alt="" onerror="this.remove()"></div>
+        <div class="contact-details">
+          <div class="t-small contact-name">Tam Nguyen</div>
+          <div class="t-caption" data-i18n="hall.contactDeveloper">Developer</div>
+          <div class="t-caption" data-i18n="hall.contactDepartment">Digital department</div>
+          <a class="t-caption" href="mailto:nguyen.tt.3@pg.com">nguyen.tt.3@pg.com</a>
+        </div>
+      </div>
     </div>
 
     <p class="t-caption" style="margin-top:28px;opacity:.7">

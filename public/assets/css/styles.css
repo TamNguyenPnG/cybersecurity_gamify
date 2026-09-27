@@ -545,6 +545,12 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
 
 /* ---------- 13. CONTACT CARD ---------- */
 .contact { padding: 22px; display: flex; align-items: center; gap: 16px; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.contact-avatar { width: 76px; height: 76px; font-size: 18px; position: relative; }
+.contact-avatar img { position: absolute; inset: 0; }
+.contact-details { min-width: 0; display: grid; gap: 2px; }
+.contact-details a { overflow-wrap: anywhere; }
+.contact-name { color: var(--text-headline); font-weight: 700; }
 .icon-btn {
   width: 40px; height: 40px;
   border-radius: 10px;
@@ -907,7 +913,7 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
 .stage-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center bottom;
   pointer-events: none;
 }
@@ -981,6 +987,7 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
   border: 1px dashed rgba(34,211,238,.45);
   border-radius: 22px;
 }
+.hero-fallback[hidden] { display: none; }
 
 .hero-side { display: block; }
 .hero-side .rules { margin-bottom: 22px; }

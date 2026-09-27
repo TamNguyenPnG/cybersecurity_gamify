@@ -16,8 +16,6 @@ I18N.ready.then(function () {
 
   var title = document.getElementById('resultTitle');
   var sub   = document.getElementById('resultSub');
-  var figs  = document.getElementById('resultFigures');
-  var note  = document.getElementById('stageNote');
 
   /* Time spent on this attempt, reported by the game engine. */
   var elapsedS = Math.max(0, Number(UI.qs('time', 0)) || 0);
@@ -28,6 +26,14 @@ I18N.ready.then(function () {
     return m + ':' + (r < 10 ? '0' : '') + r;
   }
 
+  var stage = document.getElementById('resultStage');
+  stage.classList.add('has-art');
+  /* #resultFigures carries the .hero-figures class that .has-art hides, so
+     the artwork must be a direct child of the stage, not nested inside it. */
+  var stageImg = document.createElement('img');
+  stageImg.className = 'stage-img';
+  stage.appendChild(stageImg);
+
   function renderCopy() {
     var v = isWin ? 'win' : 'partial';
 
@@ -36,19 +42,8 @@ I18N.ready.then(function () {
 
     title.textContent = I18N.t('result.' + v + '.title');
     sub.textContent   = I18N.t('result.' + v + '.sub', { score: score, total: TOTAL });
-    document.getElementById('stageTag').textContent = I18N.t('result.' + v + '.tag');
-    note.innerHTML =
-      '<strong style="color:var(--accent)">' + UI.escape(I18N.t('hall.artLabel')) + '</strong> ' +
-      UI.escape(I18N.t('result.' + v + '.note'));
-
-    var capHero   = UI.escape(I18N.t('result.' + v + '.capHero'));
-    var capHacker = UI.escape(I18N.t('result.' + v + '.capHacker'));
-
-    figs.innerHTML = isWin
-      ? '<div class="figure fig-hero"><div class="body">🛡️</div><div class="cap">' + capHero + '</div></div>' +
-        '<div class="figure hacker" style="opacity:.55"><div class="body">🔒</div><div class="cap">' + capHacker + '</div></div>'
-      : '<div class="figure fig-hero" style="opacity:.75"><div class="body">🛡️</div><div class="cap">' + capHero + '</div></div>' +
-        '<div class="figure hacker" style="opacity:.3;transform:translateX(30px)"><div class="body">🕵️</div><div class="cap">' + capHacker + '</div></div>';
+    stageImg.src = isWin ? 'assets/img/victory.png' : 'assets/img/loss.png';
+    stageImg.alt = UI.escape(I18N.t('result.' + v + '.capHero'));
 
     document.getElementById('bravoNote').textContent =
       I18N.t(isWin ? 'result.bravoTop3' : 'result.bravoKeep');
