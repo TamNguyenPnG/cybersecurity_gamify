@@ -18,19 +18,19 @@
       },
       "brief": {
         "en": "This email is a phishing attempt. Click every suspicious detail you can find. You score the point only if you find all of them.",
-        "vi": "Đây là một email lừa đảo. Hãy bấm vào tất cả các chi tiết đáng ngờ bạn tìm được. Bạn chỉ được điểm khi tìm đủ tất cả."
+        "vi": "Đây là một mẫu email lừa đảo. Bạn hãy tìm và nhấn vào tất cả các chi tiết đáng ngờ bạn tìm được. Bạn chỉ được điểm khi tìm đủ tất cả các điểm đáng ngờ. Hãy nhớ quy tắc để tìm một email đáng ngờ. SCAN - Sender - Content - Action - Notify"
       },
       "hotspots": [
         {
           "id": "reply-to",
           "rect": [0.015, 0.183, 0.520, 0.238],
           "label": {
-            "en": "Incorrect sender address",
-            "vi": "Địa chỉ email không chính xác"
+            "en": "S - Sender: Incorrect sender address",
+            "vi": "S - Sender: Địa chỉ email không chính xác"
           },
           "why": {
             "en": "\"onedrive-micrasoft.com\" is a misspelling of Microsoft — a look-alike domain.",
-            "vi": "\"onedrive-micrasoft.com\" là biến thể sai chính tả của Microsoft — tên miền giả mạo."
+            "vi": "\"onedrive-micrasoft.com\" là biến thể sai chính tả của Microsoft — một tên miền giả mạo."
           }
         },
         {
@@ -49,8 +49,8 @@
           "id": "urgency",
           "rect": [0.020, 0.425, 0.810, 0.532],
           "label": {
-            "en": "Urgent, threatening content",
-            "vi": "Nội dung mang tính chất khẩn cấp"
+            "en": "C - Content: Urgent, threatening content",
+            "vi": "C - Content: Nội dung mang tính chất khẩn cấp"
           },
           "why": {
             "en": "A deadline and the threat of losing your account are designed to rush you.",
@@ -61,24 +61,24 @@
           "id": "link",
           "rect": [0.025, 0.755, 0.275, 0.850],
           "label": {
-            "en": "Strange, unsafe link",
-            "vi": "Đính kèm đường link lạ, không an toàn"
+            "en": "A - Action: Strange, unsafe link",
+            "vi": "A - Action: Đính kèm đường link lạ, không an toàn"
           },
           "why": {
-            "en": "The button hides its real destination. Never click to \"reactivate\" an account.",
-            "vi": "Nút bấm che giấu địa chỉ thật. Đừng bao giờ bấm để \"kích hoạt lại\" tài khoản."
+            "en": "The button hides its real website destination. Never click to \"reactivate\" an account.",
+            "vi": "Nút bấm che giấu địa chỉ trang web thật. Đừng bao giờ bấm để \"kích hoạt lại\" tài khoản."
           }
         },
         {
           "id": "attachment",
           "rect": [0.670, 0.745, 0.890, 0.885],
           "label": {
-            "en": "Suspicious attachment",
-            "vi": "Đính kèm file lạ"
+            "en": "A - Action: Suspicious attachment",
+            "vi": "A - Action: Đính kèm file lạ"
           },
           "why": {
             "en": "An unexpected .zip is a classic way to deliver malware.",
-            "vi": "File .zip không mong đợi là cách phát tán mã độc phổ biến."
+            "vi": "Một File .zip đính kèm là cách phát tán mã độc một cách dễ dàng và phổ biến nhất."
           }
         }
       ]
@@ -95,7 +95,7 @@
       },
       "brief": {
         "en": "Statements drop from the top. Drag each one to Recommend or Ban before it reaches the bottom. Get all six right to score the point.",
-        "vi": "Các phát biểu rơi từ trên xuống. Kéo mỗi phát biểu vào Nên làm hoặc Không nên làm trước khi nó chạm đáy. Đúng cả sáu để được điểm."
+        "vi": "Các phát biểu sẽ rơi từ trên xuống. Bạn hãy kéo mỗi phát biểu vào Nên làm hoặc Không nên làm trước khi nó chạm đáy. Đúng cả 6 câu để được điểm."
       },
       "zones": {
         "safe": {
@@ -112,7 +112,7 @@
           "id": "tf1",
           "zone": "safe",
           "en": "Use long, complex passwords that are never reused across accounts",
-          "vi": "Dùng mật khẩu dài, phức tạp và không trùng lặp giữa các tài khoản"
+          "vi": "Sử mật khẩu dài, phức tạp và không trùng lặp giữa các tài khoản"
         },
         {
           "id": "tf2",
@@ -157,12 +157,12 @@
       },
       "brief": {
         "en": "Three moments, three decisions. The story continues either way — but only a clean sweep scores the point.",
-        "vi": "Ba tình huống, ba quyết định. Câu chuyện vẫn tiếp diễn dù bạn chọn gì — nhưng chỉ đúng cả ba mới được điểm."
+        "vi": "Hoạt cảnh bao gồm ba tình huống, ba quyết định khác nhau. Câu chuyện vẫn tiếp diễn dù bạn chọn gì — nhưng chỉ đúng cả ba mới được điểm."
       },
       "slides": [
         {
           "id": "s1",
-          "speaker": { "en": "Linh · Supply Chain", "vi": "Linh · Chuỗi cung ứng" },
+          "speaker": { "en": "Linh · Supply Chain Employee", "vi": "Linh · Nhân viên Chuỗi cung ứng" },
           "scene": {
             "en": "An email lands in your inbox: \"Click this link and enter your details to claim your reward.\" You never entered any competition. It looks like phishing.",
             "vi": "Một email vừa đến hộp thư của bạn: \"Bấm vào link này và điền thông tin để nhận thưởng.\" Bạn chưa từng tham gia chương trình nào. Trông rất giống email lừa đảo."
@@ -174,8 +174,8 @@
               "correct": true,
               "en": "Report it with the Report Phish button",
               "vi": "Báo cáo bằng nút Report Phish",
-              "fbEn": "Correct. Reporting it lets IT Security block the sender for everyone.",
-              "fbVi": "Chính xác. Báo cáo giúp IT Security chặn người gửi cho tất cả mọi người."
+              "fbEn": "Correct. Reporting it lets P&G Security Team has more information to analyze and block the sender for everyone.",
+              "fbVi": "Chính xác. Việc báo cáo giúp nhóm P&G Security có thêm thông tin để xử lý và chặn người gửi mạo danh cho tất cả mọi người."
             },
             {
               "id": "b",
@@ -204,22 +204,22 @@
               "correct": true,
               "en": "Use the Report Phish button in Outlook, on desktop or mobile",
               "vi": "Tìm nút Report Phish trên Outlook máy tính hoặc điện thoại",
-              "fbEn": "Correct. One click sends it to IT Security and removes it from your inbox.",
-              "fbVi": "Chính xác. Một cú bấm sẽ gửi thẳng đến IT Security và xoá email khỏi hộp thư của bạn."
+              "fbEn": "Correct. One click sends it to P&G Security Team and removes it from your inbox.",
+              "fbVi": "Chính xác. Một cú bấm sẽ gửi thẳng đến Nhóm P&G Security và xoá email khỏi hộp thư của bạn."
             },
             {
               "id": "b",
               "correct": false,
-              "en": "Forward it to your site CSL or the ITOT team",
+              "en": "Forward it to your Site Cybersecurity Leader or the ITOT team",
               "vi": "Forward cho Site CSL nhà máy hoặc nhóm ITOT",
-              "fbEn": "That does reach a person, but the Report Phish button is the reliable route — use it first.",
-              "fbVi": "Cách này vẫn đến được người phụ trách, nhưng nút Report Phish mới là cách chuẩn — hãy dùng nó trước."
+              "fbEn": "Incorrect, the Report Phish button is the reliable route — use it first.",
+              "fbVi": "Chưa chính xác, sử dụng nút Report Phish mới là cách chuẩn — hãy dùng nó trước."
             }
           ]
         },
         {
           "id": "s3",
-          "speaker": { "en": "Linh · Supply Chain", "vi": "Linh · Chuỗi cung ứng" },
+          "speaker": { "en": "Linh · Supply Chain Employee", "vi": "Linh · Nhân viên Chuỗi cung ứng" },
           "scene": {
             "en": "A week later, in a hurry, you click a link in a suspicious email before you stop to think. The page asks for your password.",
             "vi": "Một tuần sau, trong lúc vội, bạn lỡ bấm vào link trong một email nghi ngờ. Trang web hiện ra yêu cầu nhập mật khẩu."
@@ -232,7 +232,7 @@
               "en": "Email securityincident.im straight away to report it",
               "vi": "Ngay lập tức gửi mail cho securityincident.im để báo cáo sự cố",
               "fbEn": "Correct. Speed matters more than embarrassment — reporting early limits the damage.",
-              "fbVi": "Chính xác. Tốc độ quan trọng hơn sự ngại ngùng — báo sớm sẽ hạn chế thiệt hại."
+              "fbVi": "Chính xác. Tốc độ quan trọng hơn sự ngại ngùng — báo cáo sớm sẽ giúp chúng ta hạn chế thiệt hại."
             },
             {
               "id": "b",
@@ -240,7 +240,7 @@
               "en": "Close the link and the file, and assume nothing happened",
               "vi": "Tắt các link hoặc file đang mở và không cần làm gì",
               "fbEn": "Not quite. Closing the window does not undo a click. Always report it, even if nothing looks wrong.",
-              "fbVi": "Chưa chính xác. Đóng cửa sổ không xoá được cú bấm. Luôn báo cáo, kể cả khi chưa thấy dấu hiệu bất thường."
+              "fbVi": "Chưa chính xác. Đóng cửa sổ không xoá được sự cố khi đã xảy ra. Luôn báo cáo, kể cả khi chưa thấy dấu hiệu bất thường."
             }
           ]
         }
@@ -263,19 +263,19 @@
         "en": "Please enter your password to continue.",
         "vi": "Vui lòng nhập mật khẩu để tiếp tục."
       },
-      "failTitle": { "en": "You did not pass", "vi": "Bạn đã không vượt qua" },
+      "failTitle": { "en": "You did not pass our testing", "vi": "Bạn đã không vượt qua thử thách của chúng tôi" },
       "failBody": {
         "en": "No system should ever ask for your password to finish a quiz. Handing it over cost you every point you had earned.",
-        "vi": "Không một hệ thống nào được phép hỏi mật khẩu của bạn để hoàn thành một bài kiểm tra. Việc cung cấp nó đã khiến bạn mất toàn bộ số điểm đã đạt được."
+        "vi": "Không một hệ thống nào được phép hỏi mật khẩu của bạn để hoàn thành một bài kiểm tra. Việc cung cấp nó đã khiến bạn mất toàn bộ số điểm đã đạt được trong chương này."
       },
       "failNote": {
-        "en": "This is an awareness test. Nothing you typed in the password box was stored, logged or sent anywhere.",
-        "vi": "Đây là bài test nhận thức. Chúng tôi không lưu, không ghi lại và không gửi đi bất kỳ thông tin nào bạn nhập trong ô mật khẩu."
+        "en": "This is an awareness test about Cybersecurity. Nothing you typed in the password box was stored, logged or sent anywhere.",
+        "vi": "Đây là bài kiểm tra về nhận thức An toàn An ninh mạng. Chúng tôi không lưu trữ, không ghi lại và không gửi đi bất kỳ thông tin nào bạn nhập trong ô mật khẩu."
       },
       "winTitle": { "en": "Exactly right", "vi": "Hoàn toàn chính xác" },
       "winBody": {
-        "en": "You refused. Never give your password to anyone or anything — not a website, not a colleague, not IT.",
-        "vi": "Bạn đã từ chối. Đừng bao giờ đưa mật khẩu cho bất kỳ ai hay bất kỳ thứ gì — không phải website, không phải đồng nghiệp, cũng không phải IT."
+        "en": "You refused. Never give your password to anyone or anything — not a strange or unsecured website, not a colleague, not IT.",
+        "vi": "Bạn đã từ chối. Đừng bao giờ đưa mật khẩu cho bất kỳ ai hay bất kỳ thứ gì — không phải website đáng ngờ hoặc không an toàn, không phải đồng nghiệp, cũng không phải IT."
       }
     }
   ]
