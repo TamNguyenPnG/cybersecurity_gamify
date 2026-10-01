@@ -14,20 +14,7 @@
 <canvas id="starfield" aria-hidden="true"></canvas>
 
 <div class="page">
-  <!-- State switcher: lets reviewers preview every designed state -->
-  <div style="position:fixed;top:18px;right:18px;z-index:60" class="glass" id="stateSwitcher">
-    <div style="padding:12px 14px">
-      <div data-lang-switch style="margin-bottom:10px"></div>
-      <div class="t-caption" style="margin-bottom:8px;letter-spacing:1px;text-transform:uppercase" data-i18n="login.previewState">Preview state</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;max-width:280px">
-        <button class="tab active" data-state="default" data-i18n="login.state.default">Default</button>
-        <button class="tab" data-state="focus" data-i18n="login.state.focus">Focus</button>
-        <button class="tab" data-state="loading" data-i18n="login.state.loading">Loading</button>
-        <button class="tab" data-state="errorA" data-i18n="login.state.errorA">Error A</button>
-        <button class="tab" data-state="errorB" data-i18n="login.state.errorB">Error B</button>
-      </div>
-    </div>
-  </div>
+  <div style="position:fixed;top:18px;right:18px;z-index:60" data-lang-switch></div>
 
   <main style="min-height:100vh;display:grid;place-items:center;padding:60px 20px">
     <div style="width:100%;max-width:460px">

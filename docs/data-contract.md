@@ -105,8 +105,6 @@ a worse retry never replaces a better run.
 score per chapter, expressed out of that chapter's maximum. Retries cannot drag
 the average down.
 
-**People completed** counts distinct emails with at least one attempt.
-
 ---
 
 ## 3. The API
@@ -134,7 +132,6 @@ Login autocomplete.
 
 ```json
 [
-  { "key": "completed", "value": "1",     "pct": 6,  "sub": { "n": 18 } },
   { "key": "plays",     "value": "1",     "pct": 4 },
   { "key": "avg",       "value": "4.0/5", "pct": 80 }
 ]
@@ -188,7 +185,8 @@ The browser **must not** decide this itself; it renders whatever the server says
 → `{ "ok": true, "user": { "email": "...", "name": "...", "department": "...", "photo": null } }`
 
 or `{ "ok": false, "error": "email-not-found" }`
-or `{ "ok": false, "error": "department-mismatch" }`
+
+The `department` field is accepted but not checked; any department may be chosen.
 
 ### `POST /api/attempts`
 

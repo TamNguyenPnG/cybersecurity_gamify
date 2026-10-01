@@ -45,7 +45,6 @@ I18N.ready.then(function () {
 
   function kpiIcon(key) {
     var paths = {
-      completed: '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
       plays: '<path d="M7 4.5v15l12-7.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
       avg: '<path d="M4 18l5-6 4 3.5L20 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
     };

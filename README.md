@@ -42,7 +42,7 @@ directly from disk will not work — every screen reads from the API.
 
 | File | Screen |
 |---|---|
-| `index.html` | **Login** — email autocomplete + department check, 5 designed states |
+| `index.html` | **Login** — email autocomplete + department select |
 | `main-hall.html` | **Main Hall** — hero, guide, chapter rail, KPI strip, records drawer, contact |
 | `chapter.html?ch=1..4` | **Chapter** — hosts the mini-games, tracks score and time |
 | `result.html` | **Result** — WIN and PARTIAL variants |
@@ -55,15 +55,13 @@ directly from disk will not work — every screen reads from the API.
 **Sign in**
 1. Type `minh` in the email field.
 2. **Pick `minh.cs@pg.com` from the dropdown** — typing alone is rejected by design.
-3. Choose **Human Resources**.
+3. Choose any department.
 4. Press **Enter**.
 
-The dropdown shows **email and name only**; the department is never sent to the
-browser, so the list cannot give away the answer.
+The department is a free choice and is not checked against the roster.
 
-**Error A** — submit an address that is not in the database → red border + shake.
-**Error B** — pick `minh.cs@pg.com` but choose **Finance** → amber border.
-Retries are unlimited. The *Preview state* panel jumps to any designed state.
+**Error** — submit an address that is not in the database → red border + shake.
+Retries are unlimited.
 
 Append `?lang=vi` to any page to force Vietnamese, or use the **EN / VI** switch.
 

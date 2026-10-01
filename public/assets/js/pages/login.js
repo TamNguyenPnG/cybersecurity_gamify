@@ -194,66 +194,17 @@ I18N.ready.then(function () {
 
     API.verify(typed, dept).then(function (res) {
       setLoading(false);
-      if (!res.ok) {
-        /* ERROR A — unknown email. ERROR B — department mismatch. */
-        if (res.error === 'department-mismatch') showDeptError();
-        else showEmailError();
-        return;
-      }
+      if (!res.ok) { showEmailError(); return; }
       UI.session.set({
         email: res.user.email,
         name: res.user.name,
-        dept: res.user.department
+        dept: dept
       });
       window.location.href = 'main-hall.html';
     }, function (err) {
       setLoading(false);
-      if (err.code === 'department-mismatch') showDeptError();
-      else if (err.code === 'email-not-found') showEmailError();
+      if (err.code === 'email-not-found') showEmailError();
       else UI.toast(I18N.t('ch.loadFailed'), 'error');
     });
-  });
-
-  /* ---------- State preview switcher (design deliverable) ---------- */
-  var switcher = document.getElementById('stateSwitcher');
-  if (!switcher) return;
-
-  switcher.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-state]');
-    if (!b) return;
-
-    switcher.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-    b.classList.add('active');
-
-    var state = b.dataset.state;
-    setLoading(false);
-    clearErrors();
-    closeAC();
-
-    if (state === 'default') {
-      emailEl.value = ''; deptEl.value = ''; pickedEmail = null; emailEl.blur();
-    }
-    if (state === 'focus') {
-      emailEl.value = 'minh';
-      emailEl.focus();
-      renderAC('minh');
-    }
-    if (state === 'loading') {
-      emailEl.value = 'minh.cs@pg.com';
-      deptEl.value = 'Digital';
-      setLoading(true);
-    }
-    if (state === 'errorA') {
-      emailEl.value = 'unknown.person@pg.com';
-      deptEl.value = 'LFE';
-      pickedEmail = null;
-      showEmailError();
-    }
-    if (state === 'errorB') {
-      emailEl.value = 'minh.cs@pg.com';
-      pickedEmail = 'minh.cs@pg.com';
-      deptEl.value = 'LFE';   // record says Digital
-      showDeptError();
-    }
   });
 });

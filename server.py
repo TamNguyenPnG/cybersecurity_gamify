@@ -149,14 +149,11 @@ def api_employees(con, q):
 
 def api_verify(con, body):
     email = (body.get("email") or "").strip().lower()
-    dept = (body.get("department") or "").strip()
     row = con.execute(
         "SELECT email, name, department, photo FROM employees WHERE LOWER(email) = ?",
         (email,)).fetchone()
     if not row:
         return {"ok": False, "error": "email-not-found"}
-    if row["department"] != dept:
-        return {"ok": False, "error": "department-mismatch"}
     return {"ok": True, "user": dict(row)}
 
 
@@ -166,10 +163,7 @@ def api_departments(con):
 
 
 def api_kpis(con):
-    """Three headline numbers for the main hall."""
-    total_people = con.execute("SELECT COUNT(*) AS n FROM employees").fetchone()["n"]
-    completed = con.execute(
-        "SELECT COUNT(DISTINCT email) AS n FROM attempts").fetchone()["n"]
+    """Headline numbers for the main hall."""
     plays = con.execute("SELECT COUNT(*) AS n FROM attempts").fetchone()["n"]
 
     # Average of each participant's best score per chapter — one bad retry
@@ -181,9 +175,6 @@ def api_kpis(con):
     avg = round(avg_row["avg"], 1) if avg_row["avg"] is not None else 0
 
     return [
-        {"key": "completed", "value": str(completed),
-         "pct": round(completed / total_people * 100) if total_people else 0,
-         "sub": {"n": total_people}},
         {"key": "plays", "value": "{:,}".format(plays), "pct": min(plays * 4, 100)},
         {"key": "avg", "value": "{}/{}".format(avg, MAX_SCORE),
          "pct": round(avg / MAX_SCORE * 100)},

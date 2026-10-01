@@ -163,10 +163,9 @@ I-Trade · ICA · LFE · MPD & SIEL · Plant Manager · Platform · QA/QC · WHS
 
 1. The typed email must be **chosen from the suggestion list**. Free typing is
    rejected even if the address is correct.
-2. The selected department must match the employee's stored department.
+2. Any department may be selected; it is not checked against the roster.
 
-The suggestion list returns **email and name only**. The department is never
-sent to the browser, so nobody can read the answer out of the dropdown.
+The suggestion list returns **email and name only**.
 
 ---
 
