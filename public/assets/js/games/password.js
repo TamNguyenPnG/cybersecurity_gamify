@@ -114,7 +114,7 @@ GAMES.register('trap', function () {
       host.innerHTML = '';
 
       var panel = el('div', 'trap-result is-fail');
-      var btn = el('button', 'btn btn-primary');
+      var btn = el('button', 'btn btn-primary btn-next');
       btn.type = 'button';
       btn.addEventListener('click', function () {
         ctx.finish(0, { points: 0, submitted: true }, { zeroAll: true });
@@ -124,10 +124,14 @@ GAMES.register('trap', function () {
         panel.innerHTML =
           '<div class="trap-result-icon">&#9888;</div>' +
           '<h2>' + UI.escape(ctx.pick(cfg.failTitle)) + '</h2>' +
-          '<p>' + UI.escape(ctx.pick(cfg.failBody)) + '</p>' +
-          '<div class="trap-note">' + UI.escape(ctx.pick(cfg.failNote)) + '</div>';
+          '<p>' + UI.escape(ctx.pick(cfg.failBody)) + '</p>';
         btn.innerHTML = UI.escape(ctx.t('game.seeResult'));
         panel.appendChild(btn);
+        panel.insertAdjacentHTML('beforeend',
+          '<div class="trap-note" role="note">' +
+            '<span class="trap-note-icon" aria-hidden="true">!</span>' +
+            '<span>' + UI.escape(ctx.pick(cfg.failNote)) + '</span>' +
+          '</div>');
       };
       panelState();
       host.appendChild(panel);
@@ -139,7 +143,7 @@ GAMES.register('trap', function () {
       host.innerHTML = '';
 
       var panel = el('div', 'trap-result is-win');
-      var btn = el('button', 'btn btn-primary');
+      var btn = el('button', 'btn btn-primary btn-next');
       btn.type = 'button';
       btn.addEventListener('click', function () {
         ctx.finish(cfg.points, { points: cfg.points, submitted: false });

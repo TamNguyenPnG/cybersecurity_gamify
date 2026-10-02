@@ -26,7 +26,6 @@ GAMES.register('story', function () {
     stage.innerHTML =
       '<div class="story-cast">' +
         '<div class="story-figure is-a"><span>&#128105;&#8205;&#128188;</span></div>' +
-        '<div class="story-figure is-b"><span>&#128104;&#8205;&#128187;</span></div>' +
       '</div>' +
       '<div class="story-bubble" id="storyBubble"></div>';
     wrap.appendChild(stage);
@@ -117,7 +116,7 @@ GAMES.register('story', function () {
       var fb = el('div', 'story-feedback ' + (option.correct ? 'is-ok' : 'is-bad'));
       panel.appendChild(fb);
 
-      var next = el('button', 'btn btn-primary');
+      var next = el('button', 'btn btn-primary btn-next');
       next.type = 'button';
       next.addEventListener('click', function () { idx += 1; render(); });
       panel.appendChild(next);

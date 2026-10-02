@@ -33,7 +33,7 @@ GAMES.register('hotspot', function () {
 
     var bar = el('div', 'hotspot-bar');
     var counter = el('div', 'hotspot-counter');
-    var nextBtn = el('button', 'btn btn-ghost btn-sm');
+    var nextBtn = el('button', 'btn btn-primary btn-next');
     nextBtn.type = 'button';
     bar.appendChild(counter);
     bar.appendChild(nextBtn);
@@ -136,13 +136,19 @@ GAMES.register('hotspot', function () {
 
       /* A short acknowledgement only — no score breakdown, and nothing
          that hints at how many signs are left. */
+      /* A popup over the page, not a panel under the image: the player may
+         be scrolled anywhere, and the Next button must stay in view. */
+      var modal = el('div', 'game-modal');
+      (document.getElementById('chapterPage') || document.body).appendChild(modal);
+
       GAMES.outcome(
-        host, ctx, all,
+        modal, ctx, all,
         function () {
           return ctx.t(all ? 'game.hotspot.win' : 'game.hotspot.miss');
         },
         null,
         function () {
+          modal.remove();
           ctx.finish(all ? cfg.points : 0,
             { points: all ? cfg.points : 0, found: n, total: total, misses: misses });
         }

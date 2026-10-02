@@ -48,6 +48,44 @@
 }
 .btn-sm { padding: 9px 18px; font-size: 13.5px; }
 
+/* Large, glowing "Next" so the way forward is never missed. */
+.btn-next {
+  padding: 18px 48px;
+  font-size: 20px;
+  min-width: 220px;
+  letter-spacing: .02em;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent), var(--glow-accent);
+  animation: next-glow 1.8s ease-in-out infinite;
+}
+.btn-next:hover:not(:disabled) { animation: none; transform: translateY(-2px) scale(1.04); }
+@keyframes next-glow {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 40%, transparent); }
+  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 46px color-mix(in srgb, var(--accent) 75%, transparent); }
+}
+
+/* Popup shown over the page when a game ends, so its Next button is always in view. */
+.game-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 16, 38, .72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.game-modal .game-outcome {
+  margin: 0;
+  width: min(460px, 100%);
+  padding: 36px 32px;
+  border-radius: var(--radius);
+  background: #0B2A5B;
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+  animation: ring-in .3s cubic-bezier(.2, 1.4, .5, 1);
+}
+
 .score-hud {
   display: inline-flex;
   align-items: center;
@@ -525,13 +563,33 @@
 
 /* The reassurance line: nothing typed was captured. */
 .trap-note {
-  padding: 11px 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 6px;
+  padding: 14px 18px;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, .05);
-  border: 1px dashed var(--glass-border-strong);
-  color: var(--text-muted);
-  font-size: 12.5px;
+  background: color-mix(in srgb, var(--warning) 14%, transparent);
+  border: 1px solid var(--warning);
+  box-shadow: var(--glow-warning);
+  color: var(--text-headline);
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.6;
+  text-align: left;
+}
+.trap-note-icon {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--warning);
+  color: #04182F;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .trap-award {
@@ -587,6 +645,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hotspot-ring,
+  .btn-next,
   .shake,
   .meta-pill.is-urgent { animation: none; }
 }

@@ -220,7 +220,7 @@ window.GAMES = (function () {
     wrap.appendChild(h);
     var p = body ? el('p') : null;
     if (p) wrap.appendChild(p);
-    var btn = el('button', 'btn btn-primary');
+    var btn = el('button', 'btn btn-primary btn-next');
     btn.type = 'button';
     btn.addEventListener('click', onNext);
     wrap.appendChild(btn);
