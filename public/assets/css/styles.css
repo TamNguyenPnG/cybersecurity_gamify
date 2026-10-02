@@ -974,7 +974,8 @@ tr.rank-3 { background: linear-gradient(90deg, rgba(217,160,102,.09), transparen
   box-shadow: 0 30px 80px rgba(3,12,30,.55), 0 0 60px rgba(34,211,238,.10);
 }
 /* The artwork is a single full image — never crop it. */
-.hero-image img { display: block; width: 100%; height: auto; }
+.hero-image img,
+.hero-image video { display: block; width: 100%; height: auto; }
 
 .hero-fallback {
   display: grid;

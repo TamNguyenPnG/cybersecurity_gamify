@@ -21,8 +21,9 @@ I18N.ready.then(function () {
       UI.escape(user.name) + '</div>' +
     '<div class="t-caption">' + UI.escape(user.dept) + '</div></div>';
 
-  /* ---------- Hero artwork: fall back to the brief if absent ---------- */
+  /* ---------- Hero video: fall back to the brief if absent ---------- */
   var heroImg = document.getElementById('heroImg');
+  heroImg.muted = true;   // the attribute alone does not always satisfy autoplay policy
   heroImg.addEventListener('error', function () {
     heroImg.hidden = true;
     document.getElementById('heroFallback').hidden = false;

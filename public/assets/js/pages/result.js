@@ -30,7 +30,20 @@ I18N.ready.then(function () {
   stage.classList.add('has-art');
   /* #resultFigures carries the .hero-figures class that .has-art hides, so
      the artwork must be a direct child of the stage, not nested inside it. */
-  var stageImg = document.createElement('img');
+  /* Muted is required for browsers to allow autoplay. */
+  var stageImg = document.createElement('video');
+  stageImg.src = 'assets/img/' + (isWin ? 'victory-video.mp4' : 'loss-video.mp4');
+  stageImg.autoplay = true;
+  stageImg.loop = true;
+  stageImg.muted = true;
+  stageImg.defaultMuted = true;
+  stageImg.playsInline = true;
+  stageImg.setAttribute('muted', '');
+  stageImg.setAttribute('playsinline', '');
+  stageImg.addEventListener('canplay', function () {
+    var p = stageImg.play();
+    if (p && p.catch) p.catch(function () {});
+  });
   stageImg.className = 'stage-img';
   stage.appendChild(stageImg);
 
@@ -42,8 +55,7 @@ I18N.ready.then(function () {
 
     title.textContent = I18N.t('result.' + v + '.title');
     sub.textContent   = I18N.t('result.' + v + '.sub', { score: score, total: TOTAL });
-    stageImg.src = isWin ? 'assets/img/victory.png' : 'assets/img/loss.png';
-    stageImg.alt = UI.escape(I18N.t('result.' + v + '.capHero'));
+    stageImg.setAttribute('aria-label', I18N.t('result.' + v + '.capHero'));
 
     document.getElementById('bravoNote').textContent =
       I18N.t(isWin ? 'result.bravoTop3' : 'result.bravoKeep');
