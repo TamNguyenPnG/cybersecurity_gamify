@@ -405,6 +405,16 @@
   gap: 34px;
   margin-bottom: 18px;
 }
+.story-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+}
+.story-image[hidden] { display: none; }
 .story-figure {
   width: 84px;
   height: 84px;
@@ -607,6 +617,116 @@
   z-index: 1;
 }
 
+/* ---------- Game — Safe Action bubbles ---------- */
+.bubble-game { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+.bubble-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.bubble-lives { font-size: 20px; letter-spacing: 4px; }
+
+.bubble-arena {
+  position: relative;
+  height: clamp(320px, calc(100vh - 290px), 480px);
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  background:
+    radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    rgba(7, 27, 61, .55);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, .35), var(--glow-accent);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.bubble-arena.is-shake { animation: bubble-shake .45s ease; }
+@keyframes bubble-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-7px, 3px); }
+  40% { transform: translate(6px, -4px); }
+  60% { transform: translate(-5px, -2px); }
+  80% { transform: translate(4px, 3px); }
+}
+
+.bubble-fx { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+
+.bubble {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+  will-change: transform;
+}
+.bubble.is-frozen { cursor: default; }
+.bubble-face {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55);
+  overflow-wrap: anywhere;
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, .55) 0 9%, transparent 22%),
+    radial-gradient(circle at 50% 55%, hsla(var(--h), 90%, 62%, .28), hsla(var(--h), 90%, 55%, .55) 72%, hsla(var(--h), 95%, 70%, .8) 100%);
+  border: 1.5px solid hsla(var(--h), 95%, 78%, .9);
+  box-shadow: 0 0 18px hsla(var(--h), 95%, 60%, .45), inset 0 0 14px rgba(255, 255, 255, .15);
+  animation: bubble-in .35s cubic-bezier(.2, 1.4, .5, 1);
+  pointer-events: none;
+}
+@keyframes bubble-in {
+  from { transform: scale(.2); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+.bubble:hover:not(.is-frozen) .bubble-face { filter: brightness(1.2); }
+.bubble:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.bubble-float {
+  position: absolute;
+  z-index: 4;
+  max-width: 220px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: bubble-float 1.1s ease-out forwards;
+}
+.bubble-float.is-safe { color: #04182F; background: var(--success); box-shadow: var(--glow-success); }
+.bubble-float.is-risk { color: #fff; background: var(--error); box-shadow: var(--glow-error); }
+@keyframes bubble-float {
+  from { opacity: 1; margin-top: 0; }
+  to   { opacity: 0; margin-top: -54px; }
+}
+
+.bubble-boom {
+  position: absolute;
+  z-index: 4;
+  font-size: 64px;
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: bubble-boom .7s ease-out forwards;
+}
+@keyframes bubble-boom {
+  0%   { transform: translate(-50%, -50%) scale(.3);  opacity: 1; }
+  40%  { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
+}
+
 /* ---------- 7. Motion & responsive ---------- */
 .shake { animation: shake .42s ease; }
 @keyframes shake {
@@ -635,6 +755,7 @@
 @media (max-width: 620px) {
   .score-hud { padding: 6px 12px; font-size: 14px; }
   .sort-arena { height: 340px; }
+  .bubble-face { font-size: 11.5px; padding: 6px; }
   .sort-lane { bottom: 108px; }
   .sort-zone { height: 108px; padding: 12px 8px; }
   .sort-card { width: 82%; margin-left: -41%; padding: 13px 14px; }  .sort-card p { font-size: 14px; }
@@ -646,6 +767,10 @@
 @media (prefers-reduced-motion: reduce) {
   .hotspot-ring,
   .btn-next,
+  .bubble-arena.is-shake,
+  .bubble-face,
+  .bubble-float,
+  .bubble-boom,
   .shake,
   .meta-pill.is-urgent { animation: none; }
 }

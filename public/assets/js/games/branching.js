@@ -1,9 +1,13 @@
 /* ============================================================
    Game 3 — What would you do?
 
-   A three-slide branching story between two colleagues. Every choice
-   advances the story; a wrong choice explains why before moving on.
-   The point is awarded only for a clean sweep.
+   A branching story. Every choice advances the story; a wrong choice
+   explains why before moving on. The point is awarded only for a clean
+   sweep.
+
+   A slide may carry an `image` (a string, or { en, vi } for artwork that
+   contains text). When any slide has one, the illustration replaces the
+   cast figure. `winScene` / `missScene` override the closing line.
    ============================================================ */
 GAMES.register('story', function () {
   'use strict';
@@ -22,11 +26,14 @@ GAMES.register('story', function () {
     var view = null;      // what is on screen right now, for re-labelling
 
     var wrap = el('div', 'story-game');
+    var hasImages = cfg.slides.some(function (s) { return s.image; });
     var stage = el('div', 'story-stage');
     stage.innerHTML =
-      '<div class="story-cast">' +
-        '<div class="story-figure is-a"><span>&#128105;&#8205;&#128188;</span></div>' +
-      '</div>' +
+      (hasImages
+        ? '<img class="story-image" alt="" hidden>'
+        : '<div class="story-cast">' +
+            '<div class="story-figure is-a"><span>&#128105;&#8205;&#128188;</span></div>' +
+          '</div>') +
       '<div class="story-bubble" id="storyBubble"></div>';
     wrap.appendChild(stage);
 
@@ -35,6 +42,7 @@ GAMES.register('story', function () {
     host.appendChild(wrap);
 
     var bubble = stage.querySelector('#storyBubble');
+    var imgEl = stage.querySelector('.story-image');
 
     function render() {
       if (idx >= cfg.slides.length) return finish();
@@ -73,9 +81,17 @@ GAMES.register('story', function () {
       var s = view.slide;
 
       if (view.done) {
-        bubble.innerHTML = '<p>' + UI.escape(ctx.t(
+        var closing = view.allRight ? cfg.winScene : cfg.missScene;
+        bubble.innerHTML = '<p>' + UI.escape(closing ? ctx.pick(closing) : ctx.t(
           view.allRight ? 'game.story.winScene' : 'game.story.missScene')) + '</p>';
         return;
+      }
+
+      if (imgEl) {
+        var src = ctx.pick(s.image);
+        imgEl.hidden = !src;
+        if (src && imgEl.getAttribute('src') !== src) imgEl.src = src;
+        imgEl.alt = ctx.pick(s.speaker);
       }
 
       bubble.innerHTML =

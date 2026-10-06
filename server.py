@@ -108,12 +108,15 @@ def chapter_states(con, email):
             state, reason = "grace", "last-chance"
 
         best = None
+        best_max = MAX_SCORE
         plays = 0
         if email:
             agg = con.execute(
-                "SELECT MAX(score) AS best, COUNT(*) AS plays FROM attempts "
-                "WHERE email = ? AND chapter_id = ?", (email, cid)).fetchone()
+                "SELECT MAX(score) AS best, COUNT(*) AS plays, MAX(max_score) AS mx "
+                "FROM attempts WHERE email = ? AND chapter_id = ?",
+                (email, cid)).fetchone()
             best, plays = agg["best"], agg["plays"]
+            best_max = agg["mx"] or MAX_SCORE
 
         out.append({
             "id": cid,
@@ -124,6 +127,7 @@ def chapter_states(con, email):
             "state": state,
             "reason": reason,
             "best": best,
+            "bestMax": best_max,
             "plays": plays,
         })
     return out
@@ -166,12 +170,13 @@ def api_kpis(con):
     """Headline numbers for the main hall."""
     plays = con.execute("SELECT COUNT(*) AS n FROM attempts").fetchone()["n"]
 
-    # Average of each participant's best score per chapter — one bad retry
-    # should not drag a participant's average down.
+    # Each chapter's best is scaled to MAX_SCORE so chapters with different
+    # question counts average fairly; one bad retry cannot drag it down.
     avg_row = con.execute(
         "SELECT AVG(best) AS avg FROM ("
-        "  SELECT MAX(score) AS best FROM attempts GROUP BY email, chapter_id"
-        ")").fetchone()
+        "  SELECT MAX(1.0 * score / max_score) * ? AS best FROM attempts "
+        "  WHERE max_score > 0 GROUP BY email, chapter_id"
+        ")", (MAX_SCORE,)).fetchone()
     avg = round(avg_row["avg"], 1) if avg_row["avg"] is not None else 0
 
     return [
@@ -246,6 +251,12 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):
         if "/api/" in (self.path or ""):
             super().log_message(fmt, *args)
+
+    def end_headers(self):
+        # Without this browsers heuristically cache pages and keep running stale JS after an update.
+        if not (self.path or "").startswith("/api/"):
+            self.send_header("Cache-Control", "no-cache")
+        super().end_headers()
 
     def _send_json(self, payload, status=200):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")

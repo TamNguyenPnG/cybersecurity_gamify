@@ -98,7 +98,7 @@ I18N.ready.then(function () {
           '<span class="ch-num">' + UI.escape(meta.num) + '</span>' +
           (playable ? '' : '<span class="ch-lock">&#128274;</span>') +
           (completed ? '<span class="ch-badge">&#10003; ' +
-            UI.escape(row.best + '/5') + '</span>' : '') +
+            UI.escape(row.best + '/' + (row.bestMax || 5)) + '</span>' : '') +
         '</div>' +
         '<h3 class="ch-title">' + UI.escape(I18N.t('chapter.' + row.id + '.title')) + '</h3>' +
         '<p class="ch-desc">' + UI.escape(I18N.t('chapter.' + row.id + '.desc')) + '</p>' +

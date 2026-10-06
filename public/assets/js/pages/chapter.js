@@ -106,15 +106,29 @@ I18N.ready.then(function () {
   }
 
   /* ---------- Build the games list ---------- */
+  /* A quiz game with "source": "questions" takes its questions from
+     content/questions/chapter-0N.json and is worth one point per question. */
+  function resolveSources(games) {
+    return Promise.all(games.map(function (g) {
+      if (g.type !== 'quiz' || g.source !== 'questions') return g;
+      return QUESTIONS.raw(chId).then(function (file) {
+        var qs = file.questions || [];
+        return Object.assign({}, g, { questions: qs, points: qs.length });
+      });
+    }));
+  }
+
   function loadGames() {
     return fetch('content/games/chapter-' + String(chId).padStart(2, '0') + '.json')
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; })
       .then(function (manifest) {
         if (manifest && manifest.games && manifest.games.length) {
-          maxScore = manifest.maxScore ||
-            manifest.games.reduce(function (s, g) { return s + (g.points || 0); }, 0);
-          return manifest.games;
+          return resolveSources(manifest.games).then(function (games) {
+            maxScore = manifest.maxScore ||
+              games.reduce(function (s, g) { return s + (g.points || 0); }, 0);
+            return games;
+          });
         }
         /* Fallback: wrap the question file as one quiz game. */
         return QUESTIONS.raw(chId).then(function (file) {

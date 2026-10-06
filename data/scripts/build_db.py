@@ -139,11 +139,11 @@ def load_roster():
     return people, departments, label
 
 # Chapter windows for October 2026. A chapter is playable during its window;
-# afterwards it locks for anyone who already played it. Only chapter 1 has
+# afterwards it locks for anyone who already played it. Chapters 1 and 2 have
 # content built.
 CHAPTERS = [
     (1, "safe-account",      "2026-10-01", "2026-10-08", 1),
-    (2, "safe-device",       "2026-10-09", "2026-10-15", 0),
+    (2, "safe-device",       "2026-10-09", "2026-10-15", 1),
     (3, "safe-connection",   "2026-10-16", "2026-10-22", 0),
     (4, "safe-installation", "2026-10-23", "2026-10-29", 0),
 ]

@@ -1,0 +1,290 @@
+{
+  "chapter": 2,
+  "slug": "safe-device",
+  "mode": "games",
+  "title": { "en": "Safe Device", "vi": "Thiết bị an toàn" },
+
+  "games": [
+    {
+      "id": "quiz",
+      "type": "quiz",
+      "source": "questions"
+    },
+
+    {
+      "id": "detective",
+      "type": "hotspot",
+      "points": 1,
+      "timeLimitS": 120,
+      "image": "assets/img/chapter2-detective-plain.png",
+      "title": {
+        "en": "Device Detective",
+        "vi": "Thám tử thiết bị"
+      },
+      "brief": {
+        "en": "Look closely at this office. Click every unsafe detail you can find. You score the point only if you find all of them.",
+        "vi": "Hãy quan sát kỹ văn phòng này. Nhấn vào tất cả các chi tiết không an toàn mà bạn tìm thấy. Bạn chỉ được điểm khi tìm đủ tất cả."
+      },
+      "hotspots": [
+        {
+          "id": "usb",
+          "rect": [0.515, 0.611, 0.588, 0.682],
+          "label": {
+            "en": "Unknown USB drive",
+            "vi": "USB lạ"
+          },
+          "why": {
+            "en": "An unknown USB drive must never be plugged in. Report it to CSL / IT.",
+            "vi": "Không bao giờ cắm USB lạ vào máy. Hãy báo cho CSL / IT."
+          }
+        },
+        {
+          "id": "password",
+          "rect": [0.465, 0.668, 0.576, 0.740],
+          "label": {
+            "en": "Password on a sticky note",
+            "vi": "Mật khẩu ghi trên giấy nhớ"
+          },
+          "why": {
+            "en": "Anyone passing by can read and use a password left on a desk.",
+            "vi": "Bất kỳ ai đi ngang qua cũng có thể đọc và sử dụng mật khẩu để trên bàn."
+          }
+        },
+        {
+          "id": "laptop",
+          "rect": [0.419, 0.498, 0.535, 0.645],
+          "label": {
+            "en": "Unattended, unlocked laptop",
+            "vi": "Laptop không khoá, không người trông coi"
+          },
+          "why": {
+            "en": "Lock the screen (Win+L) every time you leave your workstation.",
+            "vi": "Luôn khoá màn hình (Win+L) mỗi khi rời khỏi chỗ làm việc."
+          }
+        },
+        {
+          "id": "visitor",
+          "rect": [0.119, 0.077, 0.274, 0.543],
+          "label": {
+            "en": "Visitor at the network cabinet",
+            "vi": "Khách đứng cạnh tủ mạng"
+          },
+          "why": {
+            "en": "Visitors must be escorted and kept away from network equipment.",
+            "vi": "Khách phải có người đi kèm và không được tiếp cận thiết bị mạng."
+          }
+        },
+        {
+          "id": "bigfix",
+          "rect": [0.672, 0.526, 0.881, 0.709],
+          "label": {
+            "en": "Ignored BigFix restart notice",
+            "vi": "Thông báo khởi động lại BigFix bị bỏ qua"
+          },
+          "why": {
+            "en": "Security restarts deliver patches. Complete them as required instead of postponing.",
+            "vi": "Khởi động lại để cài bản vá bảo mật. Hãy hoàn tất theo yêu cầu thay vì hoãn lại."
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "bubbles",
+      "type": "bubbles",
+      "points": 1,
+      "lives": 3,
+      "timeLimitS": 60,
+      "title": {
+        "en": "Safe Action bubbles",
+        "vi": "Bong bóng hành động an toàn"
+      },
+      "brief": {
+        "en": "Bubbles are floating around. Pop all 4 Safe Actions and avoid the Cyber Risks — they explode! Each bubble appears only once. You score the point if you collect every Safe Action within 60 seconds and make at most 2 mistakes.",
+        "vi": "Các bong bóng đang bay quanh. Hãy nổ cả 4 bong bóng Safe Actions (hành động an toàn) và tránh Cyber Risks (rủi ro an ninh mạng) — chúng sẽ nổ tung! Mỗi bong bóng chỉ xuất hiện một lần. Bạn được điểm nếu thu thập đủ mọi Safe Action trong 60 giây và mắc tối đa 2 lỗi."
+      },
+      "safe": [
+        { "id": "restart",  "label": { "en": "Restart Computer",    "vi": "Khởi động lại máy tính" } },
+        { "id": "approved", "label": { "en": "Approved Software",   "vi": "Phần mềm được phê duyệt" } },
+        { "id": "vpn",      "label": { "en": "VPN Connection",      "vi": "Kết nối VPN" } },
+        { "id": "lock",     "label": { "en": "Screen Lock",         "vi": "Khoá màn hình" } }
+      ],
+      "risks": [
+        { "id": "usb",        "label": { "en": "Unknown USB",         "vi": "USB lạ" } },
+        { "id": "unauth",     "label": { "en": "Unauthorized Software", "vi": "Phần mềm trái phép" } },
+        { "id": "ignored",    "label": { "en": "Ignored Updates",     "vi": "Bỏ qua cập nhật" } },
+        { "id": "unapproved", "label": { "en": "Unapproved Device",   "vi": "Thiết bị chưa được phê duyệt" } }
+      ]
+    },
+
+    {
+      "id": "scenario",
+      "type": "story",
+      "points": 1,
+      "title": {
+        "en": "A day at the plant",
+        "vi": "Một ngày tại nhà máy"
+      },
+      "brief": {
+        "en": "Five moments, five decisions about the devices around you. The story continues either way — but only a clean sweep scores the point.",
+        "vi": "Năm tình huống, năm quyết định liên quan đến các thiết bị quanh bạn. Câu chuyện vẫn tiếp diễn dù bạn chọn gì — nhưng chỉ đúng cả năm mới được điểm."
+      },
+      "winScene": {
+        "en": "Every device was protected, approved and accounted for. That is exactly how it should go.",
+        "vi": "Mọi thiết bị đều được bảo vệ, phê duyệt và quản lý đầy đủ. Đó chính xác là cách mọi việc nên diễn ra."
+      },
+      "missScene": {
+        "en": "The day is over — but a few decisions left your devices exposed.",
+        "vi": "Một ngày làm việc kết thúc — nhưng vài quyết định đã khiến thiết bị của bạn bị phơi nhiễm rủi ro."
+      },
+      "slides": [
+        {
+          "id": "s1",
+          "image": "assets/img/scenarios/scenario-1.png",
+          "speaker": { "en": "Scenario 1 · The Start of the Day", "vi": "Tình huống 1 · Bắt đầu một ngày làm việc" },
+          "scene": {
+            "en": "You arrive at the manufacturing site and see an unattended engineering workstation in the production area.",
+            "vi": "Bạn đến nhà máy sản xuất và thấy một máy trạm kỹ thuật không có người trông coi trong khu vực sản xuất."
+          },
+          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "options": [
+            {
+              "id": "a",
+              "correct": false,
+              "en": "Use the workstation because it is already logged in",
+              "vi": "Sử dụng máy trạm vì nó đã được đăng nhập sẵn",
+              "fbEn": "Not quite. Using a workstation someone else left logged in is unauthorized use — lock the screen and inform the device owner.",
+              "fbVi": "Chưa chính xác. Dùng máy trạm mà người khác đã đăng nhập sẵn là sử dụng trái phép — hãy khoá màn hình và báo cho chủ sở hữu thiết bị."
+            },
+            {
+              "id": "b",
+              "correct": true,
+              "en": "Lock the screen and inform the device owner",
+              "vi": "Khoá màn hình và thông báo cho chủ sở hữu thiết bị",
+              "fbEn": "Correct. You prevent unauthorized use of the device and continue your day safely.",
+              "fbVi": "Chính xác. Bạn ngăn chặn việc sử dụng trái phép thiết bị và tiếp tục ngày làm việc một cách an toàn."
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "image": {
+            "en": "assets/img/scenarios/scenario-2-en.png",
+            "vi": "assets/img/scenarios/scenario-2-vi.png"
+          },
+          "speaker": { "en": "Scenario 2 · Suspicious USB Device", "vi": "Tình huống 2 · USB đáng ngờ" },
+          "scene": {
+            "en": "Later, while troubleshooting equipment, a contractor gives you a USB drive containing a diagnostic tool and asks you to install it on the workstation from Scenario 1.",
+            "vi": "Sau đó, trong lúc xử lý sự cố thiết bị, một nhà thầu đưa cho bạn một USB chứa công cụ chẩn đoán và nhờ bạn cài đặt lên máy trạm ở Tình huống 1."
+          },
+          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "options": [
+            {
+              "id": "a",
+              "correct": false,
+              "en": "Plug it in and run the software immediately",
+              "vi": "Cắm USB vào và chạy phần mềm ngay lập tức",
+              "fbEn": "Not quite. An unapproved USB or software can bring malware onto a production workstation. Always verify approval first.",
+              "fbVi": "Chưa chính xác. USB hoặc phần mềm chưa được phê duyệt có thể đưa mã độc vào máy trạm sản xuất. Luôn xác minh phê duyệt trước."
+            },
+            {
+              "id": "b",
+              "correct": true,
+              "en": "Verify approval and follow site IT/CSL procedures before using the USB or software",
+              "vi": "Xác minh phê duyệt và tuân thủ quy trình IT/CSL của nhà máy trước khi sử dụng USB hoặc phần mềm",
+              "fbEn": "Correct. The USB is found to be unapproved. Because you protected the workstation in Scenario 1, no security incident occurs.",
+              "fbVi": "Chính xác. USB được xác định là chưa được phê duyệt. Nhờ bạn đã bảo vệ máy trạm ở Tình huống 1, không có sự cố an ninh nào xảy ra."
+            }
+          ]
+        },
+        {
+          "id": "s3",
+          "image": {
+            "en": "assets/img/scenarios/scenario-3-en.png",
+            "vi": "assets/img/scenarios/scenario-3-vi.png"
+          },
+          "speaker": { "en": "Scenario 3 · Device Change Request", "vi": "Tình huống 3 · Yêu cầu thay đổi thiết bị" },
+          "scene": {
+            "en": "Following the investigation, the supplier requests that a new laptop be connected to the plant network to continue the work.",
+            "vi": "Sau cuộc điều tra, nhà cung cấp yêu cầu kết nối một laptop mới vào mạng của nhà máy để tiếp tục công việc."
+          },
+          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "options": [
+            {
+              "id": "a",
+              "correct": false,
+              "en": "Allow connection immediately to avoid delays",
+              "vi": "Cho phép kết nối ngay lập tức để tránh chậm trễ",
+              "fbEn": "Not quite. Connecting an unreviewed device skips the controls that protect the plant network — speed never outranks approval.",
+              "fbVi": "Chưa chính xác. Kết nối thiết bị chưa được xem xét sẽ bỏ qua các biện pháp kiểm soát bảo vệ mạng nhà máy — tốc độ không bao giờ quan trọng hơn phê duyệt."
+            },
+            {
+              "id": "b",
+              "correct": true,
+              "en": "Ensure the device is registered, reviewed, and approved before connection",
+              "vi": "Đảm bảo thiết bị được đăng ký, xem xét và phê duyệt trước khi kết nối",
+              "fbEn": "Correct. The new device is properly reviewed, registered, and secured before gaining network access.",
+              "fbVi": "Chính xác. Thiết bị mới được xem xét, đăng ký và bảo mật đúng cách trước khi được truy cập mạng."
+            }
+          ]
+        },
+        {
+          "id": "s4",
+          "image": "assets/img/scenarios/scenario-4.png",
+          "speaker": { "en": "Scenario 4 · Critical Update Alert", "vi": "Tình huống 4 · Cảnh báo cập nhật quan trọng" },
+          "scene": {
+            "en": "While preparing the newly approved laptop for use, a BigFix notification appears requesting an important security update and restart.",
+            "vi": "Trong lúc chuẩn bị đưa laptop mới được phê duyệt vào sử dụng, một thông báo BigFix xuất hiện yêu cầu cập nhật bảo mật quan trọng và khởi động lại."
+          },
+          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "options": [
+            {
+              "id": "a",
+              "correct": false,
+              "en": "Ignore the notification because production work is urgent",
+              "vi": "Bỏ qua thông báo vì công việc sản xuất đang gấp",
+              "fbEn": "Not quite. The device remains exposed to security risks and may fail compliance checks.",
+              "fbVi": "Chưa chính xác. Thiết bị vẫn bị phơi nhiễm trước các rủi ro bảo mật và có thể không đạt kiểm tra tuân thủ."
+            },
+            {
+              "id": "b",
+              "correct": true,
+              "en": "Complete the update and restart the device as required",
+              "vi": "Hoàn tất cập nhật và khởi động lại thiết bị theo yêu cầu",
+              "fbEn": "Correct. The device receives the latest security patches and is protected against known vulnerabilities.",
+              "fbVi": "Chính xác. Thiết bị nhận được các bản vá bảo mật mới nhất và được bảo vệ trước các lỗ hổng đã biết."
+            }
+          ]
+        },
+        {
+          "id": "s5",
+          "image": "assets/img/scenarios/scenario-5.png",
+          "speaker": { "en": "Scenario 5 · Ownership Change", "vi": "Tình huống 5 · Thay đổi chủ sở hữu" },
+          "scene": {
+            "en": "Several months later, the engineer moves to a different role and needs to transfer the laptop to its new owner.",
+            "vi": "Vài tháng sau, kỹ sư chuyển sang vai trò khác và cần bàn giao laptop cho chủ sở hữu mới."
+          },
+          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "options": [
+            {
+              "id": "a",
+              "correct": false,
+              "en": "Leave the device assignment unchanged since it is still being used",
+              "vi": "Giữ nguyên thông tin gán thiết bị vì thiết bị vẫn đang được sử dụng",
+              "fbEn": "Not quite. Security reviews, incident investigations, and compliance reporting may be impacted.",
+              "fbVi": "Chưa chính xác. Các đợt đánh giá bảo mật, điều tra sự cố và báo cáo tuân thủ có thể bị ảnh hưởng."
+            },
+            {
+              "id": "b",
+              "correct": true,
+              "en": "Proceed ITOT transition form to get review and approval for all systems then update the device ownership and status",
+              "vi": "Thực hiện biểu mẫu chuyển giao ITOT để được xem xét và phê duyệt cho tất cả hệ thống, sau đó cập nhật quyền sở hữu và trạng thái thiết bị",
+              "fbEn": "Correct. Asset records remain accurate, support teams can manage the device properly, and accountability is maintained.",
+              "fbVi": "Chính xác. Hồ sơ tài sản luôn chính xác, các nhóm hỗ trợ có thể quản lý thiết bị đúng cách và trách nhiệm được duy trì."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

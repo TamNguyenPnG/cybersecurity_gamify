@@ -34,3 +34,4 @@ data/*.db-journal
 # Without them, build_db.py seeds a small demo roster so the site still runs.
 data/EE List - Cybersecurity.xlsx
 data/source/
+__pycache__/server.cpython-314.pyc

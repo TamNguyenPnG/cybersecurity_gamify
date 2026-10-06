@@ -5,45 +5,45 @@
   "questions": [
     {
       "id": "c2q1",
-      "answer": 0,
+      "answer": 1,
       "en": {
-        "q": "You step away from your desk for a coffee. Your laptop should be:",
+        "q": "What should you do before leaving your workstation unattended?",
         "o": [
-          "Locked (Win+L)",
-          "Left open, you will be quick",
-          "Closed but not locked",
-          "Left on the login screensaver timer"
+          "Minimize all windows",
+          "Lock the screen",
+          "Turn off the monitor only",
+          "Ask a colleague to watch it"
         ]
       },
       "vi": {
-        "q": "Bạn rời bàn làm việc đi lấy cà phê. Máy tính của bạn nên được:",
+        "q": "Bạn nên làm gì trước khi rời khỏi máy trạm mà không có người trông coi?",
         "o": [
-          "Khoá màn hình (Win+L)",
-          "Để mở, vì bạn sẽ quay lại ngay",
-          "Gập máy lại nhưng không khoá",
-          "Để tự khoá theo hẹn giờ screensaver"
+          "Thu nhỏ tất cả cửa sổ",
+          "Khoá màn hình",
+          "Chỉ tắt màn hình",
+          "Nhờ đồng nghiệp trông giúp"
         ]
       }
     },
     {
       "id": "c2q2",
-      "answer": 1,
+      "answer": 2,
       "en": {
-        "q": "Your phone prompts you to install a security update. The best practice is:",
+        "q": "An unknown USB drive is found in the office. What should you do?",
         "o": [
-          "Postpone it until next month",
-          "Install it promptly",
-          "Only install if IT emails you",
-          "Ignore updates on personal devices"
+          "Plug it in to identify the owner",
+          "Keep it for personal use",
+          "Report it to CSL / IT",
+          "Test it on a spare computer"
         ]
       },
       "vi": {
-        "q": "Điện thoại của bạn nhắc cài đặt bản cập nhật bảo mật. Cách làm tốt nhất là:",
+        "q": "Bạn phát hiện một chiếc USB lạ trong văn phòng. Bạn nên làm gì?",
         "o": [
-          "Hoãn lại đến tháng sau",
-          "Cài đặt ngay khi có thể",
-          "Chỉ cài khi IT gửi email yêu cầu",
-          "Bỏ qua cập nhật trên thiết bị cá nhân"
+          "Cắm vào máy để tìm chủ nhân",
+          "Giữ lại để dùng cá nhân",
+          "Báo cho CSL / IT",
+          "Thử trên một máy tính dự phòng"
         ]
       }
     },
@@ -51,65 +51,175 @@
       "id": "c2q3",
       "answer": 2,
       "en": {
-        "q": "You find an unlabelled USB drive in the meeting room. You should:",
+        "q": "Which device is allowed to connect to the company network?",
         "o": [
-          "Plug it in to find the owner",
-          "Take it home to check it",
-          "Hand it to IT Security without plugging it in",
-          "Format it and reuse it"
+          "Any personal laptop",
+          "Any supplier device",
+          "Approved and registered devices",
+          "Any device with antivirus"
         ]
       },
       "vi": {
-        "q": "Bạn nhặt được một chiếc USB không nhãn trong phòng họp. Bạn nên:",
+        "q": "Thiết bị nào được phép kết nối vào mạng công ty?",
         "o": [
-          "Cắm vào máy để tìm chủ nhân",
-          "Mang về nhà kiểm tra",
-          "Giao cho IT Security mà không cắm vào máy",
-          "Format lại và dùng cho mình"
+          "Bất kỳ laptop cá nhân nào",
+          "Bất kỳ thiết bị nào của nhà cung cấp",
+          "Thiết bị đã được phê duyệt và đăng ký",
+          "Bất kỳ thiết bị nào có cài phần mềm diệt virus"
         ]
       }
     },
     {
       "id": "c2q4",
-      "answer": 3,
+      "answer": 1,
       "en": {
-        "q": "Which is the safest place to store confidential P&G files?",
+        "q": "What is the purpose of BigFix updates?",
         "o": [
-          "Personal cloud drive",
-          "Desktop of a shared PC",
-          "USB stick in your bag",
-          "Approved P&G-managed storage"
+          "Improve screen brightness",
+          "Deliver security patches and compliance updates",
+          "Increase storage space",
+          "Change desktop wallpaper"
         ]
       },
       "vi": {
-        "q": "Đâu là nơi an toàn nhất để lưu trữ tài liệu mật của P&G?",
+        "q": "Mục đích của các bản cập nhật BigFix là gì?",
         "o": [
-          "Ổ đĩa đám mây cá nhân",
-          "Màn hình desktop của máy tính dùng chung",
-          "USB để trong cặp của bạn",
-          "Kho lưu trữ do P&G quản lý và phê duyệt"
+          "Cải thiện độ sáng màn hình",
+          "Cung cấp các bản vá bảo mật và cập nhật tuân thủ",
+          "Tăng dung lượng lưu trữ",
+          "Thay đổi hình nền máy tính"
         ]
       }
     },
     {
       "id": "c2q5",
-      "answer": 0,
+      "answer": 1,
       "en": {
-        "q": "Antivirus flags a file you just downloaded. The right action is:",
+        "q": "A supplier asks to connect a diagnostic laptop to a production system. What should you do first?",
         "o": [
-          "Do not open it and report to IT Security",
-          "Open it in a different app",
-          "Disable antivirus and retry",
-          "Move it to another folder"
+          "Allow it immediately",
+          "Verify approval through CSL / IT process",
+          "Use your account to connect it",
+          "Ignore the request"
         ]
       },
       "vi": {
-        "q": "Phần mềm diệt virus cảnh báo một tệp bạn vừa tải về. Hành động đúng là:",
+        "q": "Nhà cung cấp yêu cầu kết nối một laptop chẩn đoán vào hệ thống sản xuất. Bạn nên làm gì trước tiên?",
         "o": [
-          "Không mở tệp và báo cho IT Security",
-          "Mở tệp bằng một ứng dụng khác",
-          "Tắt phần mềm diệt virus rồi thử lại",
-          "Chuyển tệp sang thư mục khác"
+          "Cho phép ngay lập tức",
+          "Xác minh phê duyệt qua quy trình CSL / IT",
+          "Dùng tài khoản của bạn để kết nối",
+          "Phớt lờ yêu cầu"
+        ]
+      }
+    },
+    {
+      "id": "c2q6",
+      "answer": 2,
+      "en": {
+        "q": "Approved software should be installed from:",
+        "o": [
+          "Internet download sites",
+          "Friends and colleagues",
+          "PG Apps Center / approved channels",
+          "Personal USB drive"
+        ]
+      },
+      "vi": {
+        "q": "Phần mềm được phê duyệt nên được cài đặt từ:",
+        "o": [
+          "Các trang web tải về trên Internet",
+          "Bạn bè và đồng nghiệp",
+          "PG Apps Center / các kênh được phê duyệt",
+          "USB cá nhân"
+        ]
+      }
+    },
+    {
+      "id": "c2q7",
+      "answer": 0,
+      "en": {
+        "q": "Why is device asset registration important?",
+        "o": [
+          "For inventory and security management",
+          "To increase device speed",
+          "To reduce electricity usage",
+          "To personalize the desktop"
+        ]
+      },
+      "vi": {
+        "q": "Vì sao việc đăng ký tài sản thiết bị lại quan trọng?",
+        "o": [
+          "Để phục vụ quản lý kiểm kê và bảo mật",
+          "Để tăng tốc độ thiết bị",
+          "Để giảm tiêu thụ điện",
+          "Để cá nhân hoá màn hình nền"
+        ]
+      }
+    },
+    {
+      "id": "c2q8",
+      "answer": 1,
+      "en": {
+        "q": "A laptop changes ownership. What should happen?",
+        "o": [
+          "Nothing",
+          "Update ownership records with CSL / IT",
+          "Delete all records",
+          "Share the device among users"
+        ]
+      },
+      "vi": {
+        "q": "Một laptop được chuyển giao cho người khác. Điều gì cần xảy ra?",
+        "o": [
+          "Không cần làm gì",
+          "Cập nhật hồ sơ quyền sở hữu với CSL / IT",
+          "Xoá toàn bộ hồ sơ",
+          "Dùng chung thiết bị giữa nhiều người"
+        ]
+      }
+    },
+    {
+      "id": "c2q9",
+      "answer": 2,
+      "en": {
+        "q": "If a security restart notification appears, you should:",
+        "o": [
+          "Disable the notification",
+          "Postpone indefinitely",
+          "Complete the restart as required",
+          "Ignore it"
+        ]
+      },
+      "vi": {
+        "q": "Nếu xuất hiện thông báo khởi động lại để cập nhật bảo mật, bạn nên:",
+        "o": [
+          "Tắt thông báo",
+          "Hoãn vô thời hạn",
+          "Hoàn tất việc khởi động lại theo yêu cầu",
+          "Bỏ qua"
+        ]
+      }
+    },
+    {
+      "id": "c2q10",
+      "answer": 1,
+      "en": {
+        "q": "Which action best protects a device from unauthorized access?",
+        "o": [
+          "Sharing accounts",
+          "Screen lock and controlled access",
+          "Writing passwords on paper",
+          "Leaving devices unlocked"
+        ]
+      },
+      "vi": {
+        "q": "Hành động nào bảo vệ thiết bị tốt nhất khỏi truy cập trái phép?",
+        "o": [
+          "Dùng chung tài khoản",
+          "Khoá màn hình và kiểm soát truy cập",
+          "Ghi mật khẩu ra giấy",
+          "Để thiết bị không khoá"
         ]
       }
     }
