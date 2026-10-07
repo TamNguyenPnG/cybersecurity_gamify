@@ -464,27 +464,38 @@ a { color: var(--accent); text-decoration: none; }
 /* ---------- 11b. LANGUAGE SWITCH ---------- */
 .lang-switch {
   display: inline-flex;
-  gap: 2px;
-  padding: 3px;
+  gap: 4px;
+  padding: 5px;
   border-radius: var(--radius-pill);
-  background: rgba(255,255,255,.05);
-  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--glass-border-strong);
 }
 .lang-btn {
-  padding: 5px 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 18px 8px 12px;
   border: 0;
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--text-muted);
-  font-size: 12px; font-weight: 700; letter-spacing: .6px;
+  color: var(--text-body);
+  font-size: 16px; font-weight: 700; letter-spacing: .6px;
   cursor: pointer;
   transition: all .18s ease;
 }
+.lang-flag { display: inline-flex; line-height: 0; }
+.lang-flag svg {
+  width: 30px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.35);
+}
+.lang-btn:not(.is-active) .lang-flag { opacity: .75; }
 .lang-btn:hover { color: var(--text-headline); }
 .lang-btn.is-active {
-  background: color-mix(in srgb, var(--ch1) 20%, transparent);
-  color: var(--ch1);
-  box-shadow: var(--glow-cyan-soft);
+  background: color-mix(in srgb, var(--ch1) 22%, transparent);
+  color: #fff;
+  box-shadow: var(--glow-cyan-soft), inset 0 0 0 1px var(--ch1);
 }
 
 /* ---------- 12. LEADERBOARD ---------- */

@@ -161,5 +161,7 @@
   "hall.card.soon": "Coming soon",
   "hall.guideTitle": "How the journey works",
   "hall.heroAlt": "Two P&G Cybersecurity Champions standing side by side against a star field",
-  "hall.rule.lock": "A chapter locks once its week ends"
+  "hall.rule.lock": "A chapter locks once its week ends",
+  "hall.rule.weekReplay": "The chapter of the current week can be replayed an unlimited number of times",
+  "hall.rule.pastLocked": "Chapters completed in a previous week are locked and cannot be replayed"
 }

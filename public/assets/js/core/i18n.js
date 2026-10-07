@@ -17,9 +17,29 @@ window.I18N = (function () {
 
   var STORE_KEY = 'csm_lang';
   var DEFAULT = 'en';
+  /* Inline SVG flags: Windows does not render flag emoji. */
+  var FLAG_US =
+    '<svg viewBox="0 0 24 16" aria-hidden="true">' +
+    '<rect width="24" height="16" fill="#fff"/>' +
+    [0, 2, 4, 6, 8, 10, 12].map(function (i) {
+      return '<rect y="' + (i * 16 / 13).toFixed(2) + '" width="24" height="' + (16 / 13).toFixed(2) + '" fill="#B22234"/>';
+    }).join('') +
+    '<rect width="9.6" height="8.62" fill="#3C3B6E"/>' +
+    [1.6, 3.8, 6, 8].map(function (x) {
+      return [1.5, 3.3, 5.1, 6.9].map(function (y) {
+        return '<circle cx="' + x + '" cy="' + y + '" r=".42" fill="#fff"/>';
+      }).join('');
+    }).join('') +
+    '</svg>';
+  var FLAG_VN =
+    '<svg viewBox="0 0 24 16" aria-hidden="true">' +
+    '<rect width="24" height="16" fill="#DA251D"/>' +
+    '<polygon fill="#FFFF00" points="12,3.8 13.08,7.12 16.57,7.12 13.74,9.17 14.82,12.48 12,10.43 9.18,12.48 10.26,9.17 7.43,7.12 10.92,7.12"/>' +
+    '</svg>';
+
   var LANGS = [
-    { code: 'en', label: 'EN', name: 'English' },
-    { code: 'vi', label: 'VI', name: 'Tiếng Việt' }
+    { code: 'en', label: 'EN', name: 'English', flag: FLAG_US },
+    { code: 'vi', label: 'VI', name: 'Tiếng Việt', flag: FLAG_VN }
   ];
 
   var dicts = {};
@@ -127,7 +147,7 @@ window.I18N = (function () {
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'lang-btn' + (l.code === current ? ' is-active' : '');
-          b.textContent = l.label;
+          b.innerHTML = '<span class="lang-flag">' + l.flag + '</span><span>' + l.label + '</span>';
           b.title = l.name;
           b.setAttribute('aria-pressed', l.code === current ? 'true' : 'false');
           b.addEventListener('click', function () { set(l.code); });

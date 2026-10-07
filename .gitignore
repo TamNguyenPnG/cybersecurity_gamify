@@ -35,3 +35,4 @@ data/*.db-journal
 data/EE List - Cybersecurity.xlsx
 data/source/
 __pycache__/server.cpython-314.pyc
+**/__pycache__/

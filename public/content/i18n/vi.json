@@ -161,5 +161,7 @@
   "hall.card.soon": "Sắp ra mắt",
   "hall.guideTitle": "Cách tham gia hành trình",
   "hall.heroAlt": "Hai Nhà vô địch An ninh mạng P&G đứng cạnh nhau trên nền trời sao",
-  "hall.rule.lock": "Mỗi chương sẽ khóa lại khi hết tuần của nó"
+  "hall.rule.lock": "Mỗi chương sẽ khóa lại khi hết tuần của nó",
+  "hall.rule.weekReplay": "Chương của tuần đang diễn ra có thể chơi lại không giới hạn",
+  "hall.rule.pastLocked": "Chương đã hoàn thành ở tuần trước sẽ bị khóa và không thể chơi lại"
 }
