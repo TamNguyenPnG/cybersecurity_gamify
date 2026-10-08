@@ -467,8 +467,9 @@ a { color: var(--accent); text-decoration: none; }
   gap: 4px;
   padding: 5px;
   border-radius: var(--radius-pill);
-  background: rgba(255,255,255,.07);
-  border: 1px solid var(--glass-border-strong);
+  background: linear-gradient(135deg, rgba(34,211,238,.38), rgba(129,140,248,.38));
+  border: 2px solid var(--ch1);
+  box-shadow: 0 0 22px rgba(34,211,238,.55);
 }
 .lang-btn {
   display: inline-flex;
@@ -477,8 +478,8 @@ a { color: var(--accent); text-decoration: none; }
   padding: 8px 18px 8px 12px;
   border: 0;
   border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--text-body);
+  background: rgba(7, 27, 61, .55);
+  color: #fff;
   font-size: 16px; font-weight: 700; letter-spacing: .6px;
   cursor: pointer;
   transition: all .18s ease;
@@ -490,12 +491,11 @@ a { color: var(--accent); text-decoration: none; }
   border-radius: 3px;
   box-shadow: 0 0 0 1px rgba(255,255,255,.35);
 }
-.lang-btn:not(.is-active) .lang-flag { opacity: .75; }
-.lang-btn:hover { color: var(--text-headline); }
+.lang-btn:hover { background: rgba(7, 27, 61, .25); transform: translateY(-1px); }
 .lang-btn.is-active {
-  background: color-mix(in srgb, var(--ch1) 22%, transparent);
-  color: #fff;
-  box-shadow: var(--glow-cyan-soft), inset 0 0 0 1px var(--ch1);
+  background: linear-gradient(90deg, var(--ch1) 0%, var(--ch4) 100%);
+  color: #04182F;
+  box-shadow: 0 0 16px rgba(34,211,238,.8);
 }
 
 /* ---------- 12. LEADERBOARD ---------- */

@@ -1,12 +1,19 @@
 /* ============================================================
-   Fallback game — the classic 5-question quiz.
+   Quiz game — one point per correct answer.
 
-   Chapters 2–4 have no custom mini-games yet, so the host falls back to
-   this: it wraps the whole bilingual question file from
-   content/questions/chapter-0N.json as a single "game" worth one point
-   per question. Incorrect answers glow red but are never revealed.
-   Switching language relabels the card in place, so an answer already
-   given is not undone.
+   Used two ways:
+   - the chapter fallback: wraps content/questions/chapter-0N.json;
+   - a configured game with its own `questions`, which may add
+       scoring: "all" the whole game is worth `points`, awarded only when
+                       every question is answered correctly
+       title / brief   an intro panel before the first question
+       image           artwork shown on the intro and beside each question
+       count           ask a random N of the questions each play
+       timePerQuestionS  seconds allowed per question; running out counts
+                       as a wrong answer
+
+   Incorrect answers glow red but are never revealed. Switching language
+   relabels the card in place, so an answer already given is not undone.
    ============================================================ */
 GAMES.register('quiz', function () {
   'use strict';
@@ -15,9 +22,25 @@ GAMES.register('quiz', function () {
 
   return {
     mount: function (host, cfg, ctx) {
+      if (!cfg.title) return play(host, cfg, ctx);
+
+      GAMES.intro(host, cfg, ctx, function () { play(host, cfg, ctx); });
+      if (cfg.image) {
+        var intro = host.querySelector('.game-intro');
+        var pic = el('img', 'game-intro-art');
+        pic.src = cfg.image;
+        pic.alt = '';
+        intro.insertBefore(pic, intro.firstChild);
+      }
+    }
+  };
+
+  function play(host, cfg, ctx) {
       var items = cfg.questions || [];
+      if (cfg.count) items = GAMES.shuffle(items).slice(0, cfg.count);
       var total = items.length;
       var idx = 0, score = 0, locked = false;
+      var limit = cfg.timePerQuestionS || 0;
 
       /* Option order is decided once, in terms of ORIGINAL indices, so
          switching language relabels without moving the correct answer. */
@@ -26,7 +49,17 @@ GAMES.register('quiz', function () {
       });
 
       var card = el('div', 'glass quiz-card');
-      host.appendChild(card);
+      if (cfg.image) {
+        var split = el('div', 'quiz-split');
+        var art = el('img', 'quiz-art');
+        art.src = cfg.image;
+        art.alt = '';
+        split.appendChild(art);
+        split.appendChild(card);
+        host.appendChild(split);
+      } else {
+        host.appendChild(card);
+      }
 
       var view = null;
 
@@ -37,6 +70,13 @@ GAMES.register('quiz', function () {
         var item = items[idx];
 
         card.innerHTML = '';
+        if (limit) {
+          var bar = el('div', 'quiz-timebar');
+          var fill = el('span');
+          fill.style.animationDuration = limit + 's';
+          bar.appendChild(fill);
+          card.appendChild(bar);
+        }
         var counter = el('span', 't-overline');
         card.appendChild(counter);
         var q = el('h2', 't-h3 quiz-q');
@@ -58,8 +98,43 @@ GAMES.register('quiz', function () {
         var note = el('p', 't-caption quiz-note');
         card.appendChild(note);
 
-        view = { item: item, counter: counter, q: q, buttons: buttons, note: note };
+        view = { item: item, counter: counter, q: q, buttons: buttons, note: note, answers: answers };
         paint();
+
+        if (limit) ctx.setTimer(limit, timeUp);
+      }
+
+      function next() {
+        idx += 1;
+        if (idx >= total) {
+          var all = score === total;
+          var pts = cfg.scoring === 'all' ? (all ? cfg.points : 0) : score;
+          var detail = { points: pts, correct: score, total: total };
+          if (cfg.scoring !== 'all') return ctx.finish(pts, detail);
+          return showResult(all, pts, detail);
+        }
+        render();
+      }
+
+      /* Popup over the page so its Next button is always in view. */
+      function showResult(all, pts, detail) {
+        var modal = el('div', 'game-modal');
+        (document.getElementById('chapterPage') || document.body).appendChild(modal);
+        GAMES.outcome(
+          modal, ctx, all,
+          function () { return ctx.t(all ? 'game.quiz.win' : 'game.quiz.miss', { n: pts }); },
+          function () { return ctx.t('game.quiz.summary', { n: detail.correct, total: detail.total }); },
+          function () { modal.remove(); ctx.finish(pts, detail); }
+        );
+      }
+
+      /* Out of time: counts as a wrong answer. */
+      function timeUp() {
+        if (locked) return;
+        locked = true;
+        Array.prototype.forEach.call(view.answers.children, function (n) { n.disabled = true; });
+        UI.toast(ctx.t('ch.toast.timeUp'), 'bad');
+        setTimeout(next, 1000);
       }
 
       /* Relabels what is on screen. Disabled states, the selection and the
@@ -80,6 +155,7 @@ GAMES.register('quiz', function () {
       function choose(answers, btn, correct) {
         if (locked) return;
         locked = true;
+        ctx.clearTimer();
         Array.prototype.forEach.call(answers.children, function (n) { n.disabled = true; });
         btn.classList.add('selected');
 
@@ -88,20 +164,15 @@ GAMES.register('quiz', function () {
           btn.classList.add(correct ? 'correct' : 'incorrect');
           if (correct) {
             score += 1;
-            ctx.progress(score);
+            if (cfg.scoring !== 'all') ctx.progress(score);
             UI.toast(ctx.t('ch.toast.correct'), 'ok');
           } else {
             UI.toast(ctx.t('ch.toast.wrong'), 'bad');
           }
-          setTimeout(function () {
-            idx += 1;
-            if (idx >= total) return ctx.finish(score, { points: score, total: total });
-            render();
-          }, 1000);
+          setTimeout(next, 1000);
         }, 240);
       }
 
       render();
-    }
-  };
+  }
 }());

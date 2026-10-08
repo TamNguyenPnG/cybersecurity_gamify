@@ -186,6 +186,13 @@
   justify-content: space-between;
   gap: 14px;
 }
+.hotspot-end {
+  grid-area: auto;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
 .hotspot-counter {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 15px;
@@ -740,12 +747,51 @@
 .quiz-q { margin: 10px 0 18px; }
 .quiz-note { margin: 18px 0 0; opacity: .65; }
 
+/* Quiz with artwork beside the question. */
+.quiz-split {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+}
+.quiz-art,
+.game-intro-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow-accent);
+}
+.game-intro-art { width: min(300px, 70%); }
+.quiz-split .quiz-card { width: 100%; margin: 0; }
+
+/* Per-question countdown bar. */
+.quiz-timebar {
+  height: 6px;
+  margin: 0 0 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .12);
+  overflow: hidden;
+}
+.quiz-timebar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  animation: quiz-time linear forwards;
+}
+@keyframes quiz-time { from { width: 100%; } to { width: 0; } }
+
 @media (max-width: 980px) {
   .hotspot-game {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "bar" "stage" "list";
   }
   .story-game { grid-template-columns: minmax(0, 1fr); }
+  .quiz-split { grid-template-columns: minmax(0, 1fr); }
+  .quiz-art { max-width: 360px; margin: 0 auto; }
   .sort-arena { height: 380px; }
   .sort-lane { bottom: 118px; }
   .sort-zone { height: 118px; }

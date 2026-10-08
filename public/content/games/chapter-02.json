@@ -6,9 +6,78 @@
 
   "games": [
     {
-      "id": "quiz",
+      "id": "patrol",
       "type": "quiz",
-      "source": "questions"
+      "points": 1,
+      "scoring": "all",
+      "image": "assets/img/chapter2-cyber-patrol.jpg",
+      "title": { "en": "Cyber Patrol", "vi": "Cyber Patrol – Tuần tra an ninh mạng" },
+      "brief": {
+        "en": "Walk through five questions, review the choices and pick the safest action. Answer all five correctly to score the point.",
+        "vi": "Đi qua năm câu hỏi, xem kỹ các lựa chọn và chọn hành động an toàn nhất. Trả lời đúng cả năm câu để được điểm."
+      },
+      "questions": [
+        {
+          "id": "p1",
+          "answer": 1,
+          "en": {
+            "q": "What should you do when leaving your workstation?",
+            "o": ["Turn off the monitor only", "Lock the screen", "Leave it open for quick access", "Ask a colleague to watch it"]
+          },
+          "vi": {
+            "q": "Bạn nên làm gì khi rời khỏi máy trạm?",
+            "o": ["Chỉ tắt màn hình", "Khoá màn hình", "Để mở cho tiện truy cập nhanh", "Nhờ đồng nghiệp trông giúp"]
+          }
+        },
+        {
+          "id": "p2",
+          "answer": 2,
+          "en": {
+            "q": "Who should be contacted if a device has ownership or status changes?",
+            "o": ["Facilities Team", "Finance Team", "CSL / IT Team", "Any colleague"]
+          },
+          "vi": {
+            "q": "Cần liên hệ ai khi thiết bị có thay đổi về quyền sở hữu hoặc trạng thái?",
+            "o": ["Nhóm Facilities", "Nhóm Tài chính", "Nhóm CSL / IT", "Bất kỳ đồng nghiệp nào"]
+          }
+        },
+        {
+          "id": "p3",
+          "answer": 1,
+          "en": {
+            "q": "Why connect to VPN when working remotely?",
+            "o": ["Faster Internet", "Enable security connection and receive latest security patches", "Access YouTube", "Change password"]
+          },
+          "vi": {
+            "q": "Vì sao cần kết nối VPN khi làm việc từ xa?",
+            "o": ["Internet nhanh hơn", "Bật kết nối bảo mật và nhận các bản vá bảo mật mới nhất", "Truy cập YouTube", "Đổi mật khẩu"]
+          }
+        },
+        {
+          "id": "p4",
+          "answer": 2,
+          "en": {
+            "q": "An unknown USB drive is found in the office. What should you do?",
+            "o": ["Plug it in to identify the owner", "Keep it for personal use", "Report it to CSL / IT", "Test it on a spare computer"]
+          },
+          "vi": {
+            "q": "Bạn phát hiện một chiếc USB lạ trong văn phòng. Bạn nên làm gì?",
+            "o": ["Cắm vào máy để tìm chủ nhân", "Giữ lại để dùng cá nhân", "Báo cho CSL / IT", "Thử trên một máy tính dự phòng"]
+          }
+        },
+        {
+          "id": "p5",
+          "answer": 2,
+          "en": {
+            "q": "Which device is allowed to connect to the company network?",
+            "o": ["Any personal laptop", "Any supplier device", "Approved and registered devices", "Any device with antivirus"]
+          },
+          "vi": {
+            "q": "Thiết bị nào được phép kết nối vào mạng công ty?",
+            "o": ["Bất kỳ laptop cá nhân nào", "Bất kỳ thiết bị nào của nhà cung cấp", "Thiết bị đã được phê duyệt và đăng ký", "Bất kỳ thiết bị nào có cài phần mềm diệt virus"]
+          }
+        }
+      ]
     },
 
     {
@@ -16,6 +85,7 @@
       "type": "hotspot",
       "points": 1,
       "timeLimitS": 120,
+      "review": true,
       "image": "assets/img/chapter2-detective-plain.png",
       "title": {
         "en": "Device Detective",
@@ -114,6 +184,95 @@
         { "id": "unauth",     "label": { "en": "Unauthorized Software", "vi": "Phần mềm trái phép" } },
         { "id": "ignored",    "label": { "en": "Ignored Updates",     "vi": "Bỏ qua cập nhật" } },
         { "id": "unapproved", "label": { "en": "Unapproved Device",   "vi": "Thiết bị chưa được phê duyệt" } }
+      ]
+    },
+
+    {
+      "id": "survival",
+      "type": "quiz",
+      "points": 1,
+      "scoring": "all",
+      "count": 5,
+      "timePerQuestionS": 10,
+      "image": "assets/img/chapter2-cyber-survival.jpg",
+      "title": { "en": "Cyber Survival", "vi": "Cyber Survival – Sinh tồn an ninh mạng" },
+      "brief": {
+        "en": "Real choices, real risks. Answer five cybersecurity questions, 10 seconds each. Run out of time and the question counts as wrong. Answer all five correctly to score the point.",
+        "vi": "Lựa chọn thật, rủi ro thật. Trả lời năm câu hỏi về an ninh mạng, mỗi câu 10 giây. Hết giờ là tính sai. Trả lời đúng cả năm câu để được điểm."
+      },
+      "questions": [
+        {
+          "id": "s1",
+          "answer": 1,
+          "en": {
+            "q": "What is the purpose of BigFix updates?",
+            "o": ["Improve screen brightness", "Deliver security patches and compliance updates", "Increase storage space", "Change desktop wallpaper"]
+          },
+          "vi": {
+            "q": "Mục đích của các bản cập nhật BigFix là gì?",
+            "o": ["Cải thiện độ sáng màn hình", "Cung cấp các bản vá bảo mật và cập nhật tuân thủ", "Tăng dung lượng lưu trữ", "Thay đổi hình nền máy tính"]
+          }
+        },
+        {
+          "id": "s2",
+          "answer": 1,
+          "en": {
+            "q": "A supplier asks to connect a diagnostic laptop to a production system. What should you do first?",
+            "o": ["Allow it immediately", "Verify approval through CSL / IT process", "Use your account to connect it", "Ignore the request"]
+          },
+          "vi": {
+            "q": "Nhà cung cấp yêu cầu kết nối một laptop chẩn đoán vào hệ thống sản xuất. Bạn nên làm gì trước tiên?",
+            "o": ["Cho phép ngay lập tức", "Xác minh phê duyệt qua quy trình CSL / IT", "Dùng tài khoản của bạn để kết nối", "Phớt lờ yêu cầu"]
+          }
+        },
+        {
+          "id": "s3",
+          "answer": 0,
+          "en": {
+            "q": "Why is device asset registration important?",
+            "o": ["For inventory and security management", "To increase device speed", "To reduce electricity usage", "To personalize the desktop"]
+          },
+          "vi": {
+            "q": "Vì sao việc đăng ký tài sản thiết bị lại quan trọng?",
+            "o": ["Để phục vụ quản lý kiểm kê và bảo mật", "Để tăng tốc độ thiết bị", "Để giảm tiêu thụ điện", "Để cá nhân hoá màn hình nền"]
+          }
+        },
+        {
+          "id": "s4",
+          "answer": 1,
+          "en": {
+            "q": "A laptop changes ownership. What should happen?",
+            "o": ["Nothing", "Update ownership records with CSL / IT", "Delete all records", "Share the device among users"]
+          },
+          "vi": {
+            "q": "Một laptop được chuyển giao cho người khác. Điều gì cần xảy ra?",
+            "o": ["Không cần làm gì", "Cập nhật hồ sơ quyền sở hữu với CSL / IT", "Xoá toàn bộ hồ sơ", "Dùng chung thiết bị giữa nhiều người"]
+          }
+        },
+        {
+          "id": "s5",
+          "answer": 2,
+          "en": {
+            "q": "If a security restart notification appears, you should:",
+            "o": ["Disable the notification", "Postpone indefinitely", "Complete the restart as required", "Ignore it"]
+          },
+          "vi": {
+            "q": "Nếu xuất hiện thông báo khởi động lại để cập nhật bảo mật, bạn nên:",
+            "o": ["Tắt thông báo", "Hoãn vô thời hạn", "Hoàn tất việc khởi động lại theo yêu cầu", "Bỏ qua"]
+          }
+        },
+        {
+          "id": "s6",
+          "answer": 1,
+          "en": {
+            "q": "Which action best protects a device from unauthorized access?",
+            "o": ["Sharing accounts", "Screen lock and controlled access", "Writing passwords on paper", "Leaving devices unlocked"]
+          },
+          "vi": {
+            "q": "Hành động nào bảo vệ thiết bị tốt nhất khỏi truy cập trái phép?",
+            "o": ["Dùng chung tài khoản", "Khoá màn hình và kiểm soát truy cập", "Ghi mật khẩu ra giấy", "Để thiết bị không khoá"]
+          }
+        }
       ]
     },
 

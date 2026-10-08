@@ -151,6 +151,13 @@ I18N.ready.then(function () {
           UI.escape(I18N.t('rec.empty')) + '</p>';
         return;
       }
+      function when(r) { return new Date(String(r.played_at).replace(' ', 'T')); }
+
+      /* Newest first, whatever order the server sent. */
+      rows = rows.slice().sort(function (a, b) {
+        return (when(b).getTime() || 0) - (when(a).getTime() || 0) || b.attempt_no - a.attempt_no;
+      });
+
       body.innerHTML =
         '<table class="rec-table"><thead><tr>' +
           '<th>' + UI.escape(I18N.t('rec.th.date')) + '</th>' +
@@ -159,10 +166,11 @@ I18N.ready.then(function () {
           '<th>' + UI.escape(I18N.t('rec.th.attempt')) + '</th>' +
         '</tr></thead><tbody>' +
         rows.map(function (r) {
-          var d = new Date(r.played_at.replace(' ', 'T'));
+          var d = when(r);
           var date = isNaN(d) ? r.played_at
-            : d.toLocaleDateString(I18N.lang === 'vi' ? 'vi-VN' : 'en-GB',
-                { day: '2-digit', month: 'short', year: 'numeric' });
+            : d.toLocaleString(I18N.lang === 'vi' ? 'vi-VN' : 'en-GB',
+                { day: '2-digit', month: 'short', year: 'numeric',
+                  hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
           var pct = r.max_score ? (r.score / r.max_score) : 0;
           return '<tr>' +
             '<td>' + UI.escape(date) + '</td>' +

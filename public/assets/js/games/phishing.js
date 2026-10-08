@@ -141,18 +141,49 @@ GAMES.register('hotspot', function () {
       var modal = el('div', 'game-modal');
       (document.getElementById('chapterPage') || document.body).appendChild(modal);
 
-      GAMES.outcome(
+      function advance() {
+        modal.remove();
+        ctx.finish(all ? cfg.points : 0,
+          { points: all ? cfg.points : 0, found: n, total: total, misses: misses });
+      }
+
+      var panel = GAMES.outcome(
         modal, ctx, all,
         function () {
           return ctx.t(all ? 'game.hotspot.win' : 'game.hotspot.miss');
         },
         null,
-        function () {
-          modal.remove();
-          ctx.finish(all ? cfg.points : 0,
-            { points: all ? cfg.points : 0, found: n, total: total, misses: misses });
-        }
+        advance
       );
+
+      /* Only when every sign was found, so nothing missed is ever revealed. */
+      if (all && cfg.review) addReview(panel, modal, advance);
+    }
+
+    /* Lets the player close the popup and read the findings before moving on. */
+    function addReview(panel, modal, advance) {
+      var reviewBtn = el('button', 'btn btn-ghost');
+      reviewBtn.type = 'button';
+      panel.appendChild(reviewBtn);
+
+      function nextButton() {
+        var b = el('button', 'btn btn-primary btn-next');
+        b.type = 'button';
+        b.addEventListener('click', advance);
+        ctx.live(function () { b.innerHTML = UI.escape(ctx.t('game.next')); });
+        return b;
+      }
+
+      ctx.live(function () { reviewBtn.innerHTML = UI.escape(ctx.t('game.hotspot.review')); });
+
+      reviewBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
+        bar.appendChild(nextButton());
+        var end = el('div', 'hotspot-end');
+        end.appendChild(nextButton());
+        wrap.appendChild(end);
+        wrap.scrollIntoView({ block: 'start' });
+      });
     }
   }
 }());

@@ -78,11 +78,6 @@ I18N.ready.then(function () {
     ? 'chapter.html?ch=' + (chId + 1)
     : 'main-hall.html';
 
-  /* ---------- Variant switcher highlight ---------- */
-  document.getElementById(isWin ? 'tabWin' : 'tabPartial').classList.add('active');
-  document.getElementById('tabWin').href     = 'result.html?ch=' + chId + '&score=5&attempt=' + attempt;
-  document.getElementById('tabPartial').href = 'result.html?ch=' + chId + '&score=3&attempt=' + attempt;
-
   renderCopy();
   window.addEventListener('i18n:change', renderCopy);
 
