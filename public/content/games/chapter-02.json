@@ -11,10 +11,10 @@
       "points": 1,
       "scoring": "all",
       "image": "assets/img/chapter2-cyber-patrol.jpg",
-      "title": { "en": "Cyber Patrol", "vi": "Cyber Patrol – Tuần tra an ninh mạng" },
+      "title": { "en": "Cyber Patrol", "vi": "Cyber Patrol – Tuần tra An ninh mạng" },
       "brief": {
-        "en": "Walk through five questions, review the choices and pick the safest action. Answer all five correctly to score the point.",
-        "vi": "Đi qua năm câu hỏi, xem kỹ các lựa chọn và chọn hành động an toàn nhất. Trả lời đúng cả năm câu để được điểm."
+        "en": "Your journey begins now. Face five security challenges, make the right decisions, and prove you have what it takes to become a Cyber Guardian.",
+        "vi": "Cuộc phiêu lưu đã bắt đầu! Vượt qua 5 thử thách bảo mật, lựa chọn hành động an toàn nhất và chứng minh rằng bạn xứng đáng với danh hiệu Người Bảo Vệ Không Gian Mạng."
       },
       "questions": [
         {
@@ -25,56 +25,56 @@
             "o": ["Turn off the monitor only", "Lock the screen", "Leave it open for quick access", "Ask a colleague to watch it"]
           },
           "vi": {
-            "q": "Bạn nên làm gì khi rời khỏi máy trạm?",
-            "o": ["Chỉ tắt màn hình", "Khoá màn hình", "Để mở cho tiện truy cập nhanh", "Nhờ đồng nghiệp trông giúp"]
+            "q": "Bạn nên làm gì khi rời khỏi máy tính?",
+            "o": ["Nhấn nút tắt màn hình là được", "Khoá màn hình máy tính", "Để màn hình mở cho tiện truy cập nhanh", "Nhờ đồng nghiệp trông giúp"]
           }
         },
         {
           "id": "p2",
           "answer": 2,
           "en": {
-            "q": "Who should be contacted if a device has ownership or status changes?",
-            "o": ["Facilities Team", "Finance Team", "CSL / IT Team", "Any colleague"]
+            "q": "What should you do if a computer's ownership or usage status changes?",
+            "o": ["Contact the Facilities Team to dispose of it", "Contact the Finance Team to sell it", "Contact the CSL / IT Team for guidance", "Ask any colleague to dispose of it"]
           },
           "vi": {
-            "q": "Cần liên hệ ai khi thiết bị có thay đổi về quyền sở hữu hoặc trạng thái?",
-            "o": ["Nhóm Facilities", "Nhóm Tài chính", "Nhóm CSL / IT", "Bất kỳ đồng nghiệp nào"]
+            "q": "Bạn cần làm gì khi máy tính có thay đổi về Người sở hữu hoặc tình trạng sử dụng?",
+            "o": ["Liên hệ Nhóm Facilities để đập bỏ", "Liên hệ Nhóm Tài chính để bán", "Liên hệ Nhóm CSL / IT để được hướng dẫn", "Nhờ bất kỳ đồng nghiệp nào đập bỏ đều được"]
           }
         },
         {
           "id": "p3",
           "answer": 1,
           "en": {
-            "q": "Why connect to VPN when working remotely?",
-            "o": ["Faster Internet", "Enable security connection and receive latest security patches", "Access YouTube", "Change password"]
+            "q": "Why is it important to connect to the P&G Secured VPN when working remotely?",
+            "o": ["To access the Internet faster", "To establish a secure connection to P&G systems and receive the latest security updates", "To enable ad-free access to YouTube", "To download free software from the Internet more quickly"]
           },
           "vi": {
-            "q": "Vì sao cần kết nối VPN khi làm việc từ xa?",
-            "o": ["Internet nhanh hơn", "Bật kết nối bảo mật và nhận các bản vá bảo mật mới nhất", "Truy cập YouTube", "Đổi mật khẩu"]
+            "q": "Vì sao cần kết nối P&G Secured VPN khi làm việc từ xa?",
+            "o": ["Truy cập Internet nhanh hơn", "Bật kết nối bảo mật với hệ thống P&G và nhận các bản vá bảo mật mới nhất", "Kích hoạt truy cập YouTube không quảng cáo", "Tải các phần mềm miễn phí trên mạng nhanh hơn"]
           }
         },
         {
           "id": "p4",
           "answer": 2,
           "en": {
-            "q": "An unknown USB drive is found in the office. What should you do?",
-            "o": ["Plug it in to identify the owner", "Keep it for personal use", "Report it to CSL / IT", "Test it on a spare computer"]
+            "q": "You discover an unfamiliar USB drive in the office. What should you do?",
+            "o": ["Plug it into your computer to identify the owner", "Keep it for personal use when needed", "Report it to the CSL / IT Team", "Test it on a spare computer to be safe"]
           },
           "vi": {
             "q": "Bạn phát hiện một chiếc USB lạ trong văn phòng. Bạn nên làm gì?",
-            "o": ["Cắm vào máy để tìm chủ nhân", "Giữ lại để dùng cá nhân", "Báo cho CSL / IT", "Thử trên một máy tính dự phòng"]
+            "o": ["Cắm vào máy tính để tìm người sở hữ", "Giữ lại để dùng cá nhân khi cần", "Báo cáo cho nhóm CSL / IT", "Thử cắm trên một máy tính dự phòng cho an toàn"]
           }
         },
         {
           "id": "p5",
           "answer": 2,
           "en": {
-            "q": "Which device is allowed to connect to the company network?",
-            "o": ["Any personal laptop", "Any supplier device", "Approved and registered devices", "Any device with antivirus"]
+            "q": "Which device is allowed to connect to the P&G network?",
+            "o": ["Any personal laptop", "Any device owned by a supplier", "Devices that have been approved and registered through P&G’s authorization process", "Any device with antivirus software installed"]
           },
           "vi": {
-            "q": "Thiết bị nào được phép kết nối vào mạng công ty?",
-            "o": ["Bất kỳ laptop cá nhân nào", "Bất kỳ thiết bị nào của nhà cung cấp", "Thiết bị đã được phê duyệt và đăng ký", "Bất kỳ thiết bị nào có cài phần mềm diệt virus"]
+            "q": "Thiết bị nào được phép kết nối vào hệ thống mạng P&G?",
+            "o": ["Bất kỳ laptop cá nhân nào", "Bất kỳ thiết bị nào của nhà cung cấp", "Thiết bị đã được thông qua qui trình phê duyệt và đăng ký của P&G", "Bất kỳ thiết bị nào có cài phần mềm diệt virus"]
           }
         }
       ]
@@ -88,12 +88,12 @@
       "review": true,
       "image": "assets/img/chapter2-detective-plain.png",
       "title": {
-        "en": "Device Detective",
-        "vi": "Thám tử thiết bị"
+        "en": "Device Detective: The Hidden Risk Hunt",
+        "vi": "Thám Tử Thiết Bị: Săn Tìm Rủi Ro Ẩn Giấu"
       },
       "brief": {
-        "en": "Look closely at this office. Click every unsafe detail you can find. You score the point only if you find all of them.",
-        "vi": "Hãy quan sát kỹ văn phòng này. Nhấn vào tất cả các chi tiết không an toàn mà bạn tìm thấy. Bạn chỉ được điểm khi tìm đủ tất cả."
+        "en": "Look closely at the office scene and think like a Expert Device Detective. Hidden throughout the workplace are several unsafe behaviors and security risks. Click every violation you can find. Only those who uncover them all will earn the point.",
+        "vi": "Hãy quan sát thật kỹ khung cảnh văn phòng và suy nghĩ như một Nhà thám tử Thiết bị tài ba. Ẩn trong nơi làm việc là nhiều hành vi không an toàn và các rủi ro an ninh mạng đang chờ được phát hiện. Hãy nhấp vào từng rủi ro mà bạn tìm thấy. Chỉ những ai phát hiện chính xác tất cả các rủi ro mới có thể ghi điểm và hoàn thành thử thách."
       },
       "hotspots": [
         {
@@ -113,7 +113,7 @@
           "rect": [0.465, 0.668, 0.576, 0.740],
           "label": {
             "en": "Password on a sticky note",
-            "vi": "Mật khẩu ghi trên giấy nhớ"
+            "vi": "Mật khẩu ghi trên giấy note"
           },
           "why": {
             "en": "Anyone passing by can read and use a password left on a desk.",
@@ -125,7 +125,7 @@
           "rect": [0.419, 0.498, 0.535, 0.645],
           "label": {
             "en": "Unattended, unlocked laptop",
-            "vi": "Laptop không khoá, không người trông coi"
+            "vi": "Laptop không khoá khi không có người sử dụng"
           },
           "why": {
             "en": "Lock the screen (Win+L) every time you leave your workstation.",
@@ -136,12 +136,12 @@
           "id": "visitor",
           "rect": [0.119, 0.077, 0.274, 0.543],
           "label": {
-            "en": "Visitor at the network cabinet",
-            "vi": "Khách đứng cạnh tủ mạng"
+            "en": "Unescorted visitor at the network cabinet",
+            "vi": "Khách tiếp cận tủ mạng mà không có người P&G giám sát"
           },
           "why": {
             "en": "Visitors must be escorted and kept away from network equipment.",
-            "vi": "Khách phải có người đi kèm và không được tiếp cận thiết bị mạng."
+            "vi": "Khách phải có Nhân viên P&G đi kèm và không được tiếp cận hệ thống mạng."
           }
         },
         {
@@ -153,7 +153,7 @@
           },
           "why": {
             "en": "Security restarts deliver patches. Complete them as required instead of postponing.",
-            "vi": "Khởi động lại để cài bản vá bảo mật. Hãy hoàn tất theo yêu cầu thay vì hoãn lại."
+            "vi": "Khởi động lại máy tính để cài bản vá bảo mật. Hãy hoàn tất theo yêu cầu thay vì hoãn lại."
           }
         }
       ]
@@ -166,24 +166,24 @@
       "lives": 3,
       "timeLimitS": 60,
       "title": {
-        "en": "Safe Action bubbles",
-        "vi": "Bong bóng hành động an toàn"
+        "en": "Safe Choice Challenge",
+        "vi": "Thử Thách Lựa Chọn An Toàn"
       },
       "brief": {
-        "en": "Bubbles are floating around. Pop all 4 Safe Actions and avoid the Cyber Risks — they explode! Each bubble appears only once. You score the point if you collect every Safe Action within 60 seconds and make at most 2 mistakes.",
-        "vi": "Các bong bóng đang bay quanh. Hãy nổ cả 4 bong bóng Safe Actions (hành động an toàn) và tránh Cyber Risks (rủi ro an ninh mạng) — chúng sẽ nổ tung! Mỗi bong bóng chỉ xuất hiện một lần. Bạn được điểm nếu thu thập đủ mọi Safe Action trong 60 giây và mắc tối đa 2 lỗi."
+        "en": "Balloons are floating across the screen, but only some contain the safest actions. Stay focused, read carefully, and click every balloon that represents the right security decision. Avoid the unsafe choices hidden among them. Find all the safe actions to complete the challenge, earn your point, and prove you have the instincts of a true Cyber Guardian.",
+        "vi": "Những quả bóng đang bay quanh màn hình, nhưng chỉ một số chứa hành động an toàn nhất. Hãy tập trung quan sát, đọc kỹ nội dung và nhấp vào tất cả các quả bóng thể hiện quyết định bảo mật đúng đắn. Cẩn thận với những lựa chọn không an toàn được ẩn lẫn trong đó. Tìm đúng tất cả các hành động an toàn để hoàn thành thử thách, ghi điểm và chứng minh bản lĩnh của một Cyber Guardian thực thụ."
       },
       "safe": [
-        { "id": "restart",  "label": { "en": "Restart Computer",    "vi": "Khởi động lại máy tính" } },
-        { "id": "approved", "label": { "en": "Approved Software",   "vi": "Phần mềm được phê duyệt" } },
-        { "id": "vpn",      "label": { "en": "VPN Connection",      "vi": "Kết nối VPN" } },
-        { "id": "lock",     "label": { "en": "Screen Lock",         "vi": "Khoá màn hình" } }
+        { "id": "restart",  "label": { "en": "Restart Computer regularly",    "vi": "Thường xuyên khởi động lại máy tính" } },
+        { "id": "approved", "label": { "en": "Only use Approved Software",   "vi": "Chỉ sử dụng Phần mềm được phê duyệt" } },
+        { "id": "vpn",      "label": { "en": "Always connect P&G VPN",      "vi": "Luôn kết nối P&G VPN" } },
+        { "id": "lock",     "label": { "en": "Always Screen Lock",         "vi": "Khoá màn hình" } }
       ],
       "risks": [
-        { "id": "usb",        "label": { "en": "Unknown USB",         "vi": "USB lạ" } },
-        { "id": "unauth",     "label": { "en": "Unauthorized Software", "vi": "Phần mềm trái phép" } },
-        { "id": "ignored",    "label": { "en": "Ignored Updates",     "vi": "Bỏ qua cập nhật" } },
-        { "id": "unapproved", "label": { "en": "Unapproved Device",   "vi": "Thiết bị chưa được phê duyệt" } }
+        { "id": "usb",        "label": { "en": "Plug Unknown USB",         "vi": "Cắm USB lạ" } },
+        { "id": "unauth",     "label": { "en": "Install Unauthorized Software", "vi": "Cài đặt Phần mềm trái phép" } },
+        { "id": "ignored",    "label": { "en": "Ignored Security Updates",     "vi": "Bỏ qua cập nhật" } },
+        { "id": "unapproved", "label": { "en": "Use Unapproved Device",   "vi": "Sử dụng thiết bị chưa được phê duyệt" } }
       ]
     },
 
@@ -195,69 +195,69 @@
       "count": 5,
       "timePerQuestionS": 10,
       "image": "assets/img/chapter2-cyber-survival.jpg",
-      "title": { "en": "Cyber Survival", "vi": "Cyber Survival – Sinh tồn an ninh mạng" },
+      "title": { "en": "Cyber Survival Challenge", "vi": "Thử Thách Sinh Tồn An Ninh Mạng" },
       "brief": {
-        "en": "Real choices, real risks. Answer five cybersecurity questions, 10 seconds each. Run out of time and the question counts as wrong. Answer all five correctly to score the point.",
-        "vi": "Lựa chọn thật, rủi ro thật. Trả lời năm câu hỏi về an ninh mạng, mỗi câu 10 giây. Hết giờ là tính sai. Trả lời đúng cả năm câu để được điểm."
+        "en": "Every second counts. Face five real-world cybersecurity scenarios and make the safest decision before time runs out. You have only 10 seconds for each question. One wrong answer or timeout can cost the mission. Answer all five correctly to prove your cyber instincts and earn the point.",
+        "vi": "Mỗi giây đều quan trọng. Hãy đối mặt với 5 tình huống an ninh mạng thực tế và đưa ra quyết định an toàn nhất trước khi hết giờ. Bạn chỉ có 10 giây cho mỗi câu hỏi. Chỉ một lựa chọn sai hoặc hết thời gian cũng có thể khiến nhiệm vụ thất bại. Trả lời đúng cả 5 câu để chứng minh bản năng an ninh mạng của bạn và giành điểm số."
       },
       "questions": [
         {
           "id": "s1",
           "answer": 1,
           "en": {
-            "q": "What is the purpose of BigFix updates?",
-            "o": ["Improve screen brightness", "Deliver security patches and compliance updates", "Increase storage space", "Change desktop wallpaper"]
+            "q": "A BigFix update is waiting on your device. What is the main reason you should install it promptly?",
+            "o": ["To improve the appearance of your desktop", "To protect the device with the latest security patches and compliance updates", "To speed up internet browsing", "To free up storage space automatically"]
           },
           "vi": {
-            "q": "Mục đích của các bản cập nhật BigFix là gì?",
-            "o": ["Cải thiện độ sáng màn hình", "Cung cấp các bản vá bảo mật và cập nhật tuân thủ", "Tăng dung lượng lưu trữ", "Thay đổi hình nền máy tính"]
+            "q": "Một bản cập nhật BigFix đang chờ được cài đặt trên thiết bị của bạn. Đâu là lý do quan trọng nhất để cài đặt ngay?",
+            "o": ["Để cải thiện giao diện màn hình làm việc", "Để bảo vệ thiết bị bằng các bản vá bảo mật và cập nhật tuân thủ mới nhất", "Để tăng tốc độ truy cập Internet", "Để tự động giải phóng dung lượng lưu trữ"]
           }
         },
         {
           "id": "s2",
           "answer": 1,
           "en": {
-            "q": "A supplier asks to connect a diagnostic laptop to a production system. What should you do first?",
-            "o": ["Allow it immediately", "Verify approval through CSL / IT process", "Use your account to connect it", "Ignore the request"]
+            "q": "A contractor says a production issue is urgent and needs to connect his personal laptop immediately. What should you do before any connection is made?",
+            "o": ["Approve the request because production is affected", "Confirm the device has gone through the CSL / IT approval and registration process", "Give your credentials to contractor for their login", "Let the contractor decide the safest option"]
           },
           "vi": {
-            "q": "Nhà cung cấp yêu cầu kết nối một laptop chẩn đoán vào hệ thống sản xuất. Bạn nên làm gì trước tiên?",
-            "o": ["Cho phép ngay lập tức", "Xác minh phê duyệt qua quy trình CSL / IT", "Dùng tài khoản của bạn để kết nối", "Phớt lờ yêu cầu"]
+            "q": "Một nhà thầu cho biết sự cố sản xuất đang rất khẩn cấp và cần kết nối ngay laptop cá nhân của họ để xử lý sự cố. Trước khi bất kỳ kết nối nào được thực hiện, bạn nên làm gì?",
+            "o": ["Cho phép ngay vì sản xuất đang bị ảnh hưởng", "Xác nhận thiết bị đã hoàn tất quy trình phê duyệt và đăng ký của CSL / IT", "Đưa nhà thầu tài khoản của bạn để truy cập", "Để nhà thầu tự quyết định phương án an toàn nhất"]
           }
         },
         {
           "id": "s3",
           "answer": 0,
           "en": {
-            "q": "Why is device asset registration important?",
-            "o": ["For inventory and security management", "To increase device speed", "To reduce electricity usage", "To personalize the desktop"]
+            "q": "Why must company devices be registered?",
+            "o": ["To support asset tracking and security control", "To improve device performance", "To save electricity", "To change desktop settings"]
           },
           "vi": {
             "q": "Vì sao việc đăng ký tài sản thiết bị lại quan trọng?",
-            "o": ["Để phục vụ quản lý kiểm kê và bảo mật", "Để tăng tốc độ thiết bị", "Để giảm tiêu thụ điện", "Để cá nhân hoá màn hình nền"]
+            "o": ["Để hỗ trợ quản lý tài sản và kiểm soát bảo mật", "Để cải thiện hiệu năng thiết bị", "Để tiết kiệm điện năng", "Để thay đổi cài đặt màn hình"]
           }
         },
         {
           "id": "s4",
           "answer": 1,
           "en": {
-            "q": "A laptop changes ownership. What should happen?",
-            "o": ["Nothing", "Update ownership records with CSL / IT", "Delete all records", "Share the device among users"]
+            "q": "You receive a laptop from a former employee. What is the correct next step?",
+            "o": ["Start using it immediately", "Confirm ownership has been updated with CSL / IT before using the laptop", "Remove all device records", "Share it with teammates when needed"]
           },
           "vi": {
-            "q": "Một laptop được chuyển giao cho người khác. Điều gì cần xảy ra?",
-            "o": ["Không cần làm gì", "Cập nhật hồ sơ quyền sở hữu với CSL / IT", "Xoá toàn bộ hồ sơ", "Dùng chung thiết bị giữa nhiều người"]
+            "q": "Bạn nhận một laptop từ nhân viên trước đó. Bước tiếp theo đúng là gì?",
+            "o": ["Sử dụng ngay lập tức", "Xác nhận với CSL / IT rằng thông tin chủ sở hữu đã được cập nhật trước khi sử dụng thiết bị", "Xóa toàn bộ dữ liệu thiết bị", "Chia sẻ thiết bị với đồng nghiệp khi cần"]
           }
         },
         {
           "id": "s5",
           "answer": 2,
           "en": {
-            "q": "If a security restart notification appears, you should:",
-            "o": ["Disable the notification", "Postpone indefinitely", "Complete the restart as required", "Ignore it"]
+            "q": "A restart is required to complete a security update. What is the safest action?",
+            "o": ["Disable the notification", "Postpone it indefinitely", "Complete the restart as required", "Ignore it"]
           },
           "vi": {
-            "q": "Nếu xuất hiện thông báo khởi động lại để cập nhật bảo mật, bạn nên:",
+            "q": "Thiết bị yêu cầu khởi động lại để hoàn tất cập nhật bảo mật. Đâu là hành động an toàn nhất?",
             "o": ["Tắt thông báo", "Hoãn vô thời hạn", "Hoàn tất việc khởi động lại theo yêu cầu", "Bỏ qua"]
           }
         },
@@ -265,12 +265,12 @@
           "id": "s6",
           "answer": 1,
           "en": {
-            "q": "Which action best protects a device from unauthorized access?",
-            "o": ["Sharing accounts", "Screen lock and controlled access", "Writing passwords on paper", "Leaving devices unlocked"]
+            "q": "What is the safest way to protect your device?",
+            "o": ["Share accounts when needed", "Screen lock and controlled access", "Keeping passwords on paper", "Leaving devices unlocked"]
           },
           "vi": {
-            "q": "Hành động nào bảo vệ thiết bị tốt nhất khỏi truy cập trái phép?",
-            "o": ["Dùng chung tài khoản", "Khoá màn hình và kiểm soát truy cập", "Ghi mật khẩu ra giấy", "Để thiết bị không khoá"]
+            "q": "Đâu là cách an toàn nhất để bảo vệ thiết bị của bạn?",
+            "o": ["Chia sẻ tài khoản khi cần", "Luôn khoá màn hình và kiểm soát truy cập", "Ghi mật khẩu ra giấy", "Để thiết bị không khoá"]
           }
         }
       ]
@@ -281,47 +281,47 @@
       "type": "story",
       "points": 1,
       "title": {
-        "en": "A day at the plant",
-        "vi": "Một ngày tại nhà máy"
+        "en": "Mission: Secure the Plant",
+        "vi": "Nhiệm Vụ: Bảo Vệ Nhà Máy"
       },
       "brief": {
-        "en": "Five moments, five decisions about the devices around you. The story continues either way — but only a clean sweep scores the point.",
-        "vi": "Năm tình huống, năm quyết định liên quan đến các thiết bị quanh bạn. Câu chuyện vẫn tiếp diễn dù bạn chọn gì — nhưng chỉ đúng cả năm mới được điểm."
+        "en": "From laptops and peripherial devices to system access requests, security decisions happen every day. Face five workplace challenges, identify the safest action in each situation, and successfully protect the plant from cyber risks.",
+        "vi": "Từ laptop, thiết bị ngoại vi đến các yêu cầu truy cập hệ thống, những quyết định liên quan đến an ninh mạng diễn ra mỗi ngày. Hãy đối mặt với 5 thử thách tại nơi làm việc, xác định hành động an toàn nhất trong từng tình huống và bảo vệ nhà máy khỏi các rủi ro an ninh mạng."
       },
       "winScene": {
-        "en": "Every device was protected, approved and accounted for. That is exactly how it should go.",
-        "vi": "Mọi thiết bị đều được bảo vệ, phê duyệt và quản lý đầy đủ. Đó chính xác là cách mọi việc nên diễn ra."
+        "en": "Outstanding work! Every decision helped keep the plant secure. Devices were protected, risks were avoided, and your actions made a real difference. You've proven yourself as a true Device Guardian.",
+        "vi": "Xuất sắc! Mỗi quyết định của bạn đều góp phần giữ cho nhà máy an toàn. Các thiết bị được bảo vệ, rủi ro được ngăn chặn và hành động của bạn đã tạo nên sự khác biệt. Bạn đã chứng minh mình là một Device Guardian thực thụ."
       },
       "missScene": {
-        "en": "The day is over — but a few decisions left your devices exposed.",
-        "vi": "Một ngày làm việc kết thúc — nhưng vài quyết định đã khiến thiết bị của bạn bị phơi nhiễm rủi ro."
+        "en": "Mission Incomplete. The day continued, but some decisions opened the door to unnecessary risk. Every choice matters. Review the situations and try again to fully protect the plant.",
+        "vi": "Nhiệm vụ chưa hoàn thành. Ngày làm việc vẫn tiếp diễn, nhưng một số quyết định đã vô tình mở ra những rủi ro không đáng có. Mỗi lựa chọn đều quan trọng. Hãy xem lại các tình huống và thử lại để bảo vệ nhà máy một cách toàn diện."
       },
       "slides": [
         {
           "id": "s1",
           "image": "assets/img/scenarios/scenario-1.png",
-          "speaker": { "en": "Scenario 1 · The Start of the Day", "vi": "Tình huống 1 · Bắt đầu một ngày làm việc" },
+          "speaker": { "en": "Scenario 1 · Start of the Shift", "vi": "Tình huống 1 · Bắt Đầu Ca Làm Việc" },
           "scene": {
-            "en": "You arrive at the manufacturing site and see an unattended engineering workstation in the production area.",
-            "vi": "Bạn đến nhà máy sản xuất và thấy một máy trạm kỹ thuật không có người trông coi trong khu vực sản xuất."
+            "en": "You arrive at the production floor for the start of your shift. Near a manufacturing line, you notice an engineering workstation powered on and unattended.",
+            "vi": "Bạn có mặt tại khu vực sản xuất để bắt đầu ca làm việc. Gần một dây chuyền sản xuất, bạn phát hiện một máy tính vẫn đang mở nhưng không có người giám sát."
           },
-          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "question": { "en": "What should a Cyber Guardian do next?", "vi": "Một Cyber Guardian nên làm gì tiếp theo?" },
           "options": [
             {
               "id": "a",
               "correct": false,
               "en": "Use the workstation because it is already logged in",
-              "vi": "Sử dụng máy trạm vì nó đã được đăng nhập sẵn",
+              "vi": "Sử dụng máy tính vì nó đã được đăng nhập sẵn",
               "fbEn": "Not quite. Using a workstation someone else left logged in is unauthorized use — lock the screen and inform the device owner.",
-              "fbVi": "Chưa chính xác. Dùng máy trạm mà người khác đã đăng nhập sẵn là sử dụng trái phép — hãy khoá màn hình và báo cho chủ sở hữu thiết bị."
+              "fbVi": "Chưa chính xác. Dùng máy tính mà người khác đã đăng nhập sẵn là sử dụng trái phép — hãy khoá màn hình và báo cho chủ sở hữu thiết bị."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "Lock the screen and inform the device owner",
+              "en": "Lock the screen and notify the device owner",
               "vi": "Khoá màn hình và thông báo cho chủ sở hữu thiết bị",
-              "fbEn": "Correct. You prevent unauthorized use of the device and continue your day safely.",
-              "fbVi": "Chính xác. Bạn ngăn chặn việc sử dụng trái phép thiết bị và tiếp tục ngày làm việc một cách an toàn."
+              "fbEn": "Correct. A true Cyber Guardian doesn't ignore risks. By securing the workstation, you've protected both the device and the production environment.",
+              "fbVi": "Chính xác. Một Cyber Guardian thực thụ không bỏ qua rủi ro. Bằng cách bảo vệ máy tính, bạn đã góp phần bảo vệ cả thiết bị lẫn môi trường sản xuất."
             }
           ]
         },
@@ -331,28 +331,28 @@
             "en": "assets/img/scenarios/scenario-2-en.png",
             "vi": "assets/img/scenarios/scenario-2-vi.png"
           },
-          "speaker": { "en": "Scenario 2 · Suspicious USB Device", "vi": "Tình huống 2 · USB đáng ngờ" },
+          "speaker": { "en": "Scenario 2 · Suspicious USB Device", "vi": "Tình huống 2 · Chiếc USB đáng ngờ" },
           "scene": {
-            "en": "Later, while troubleshooting equipment, a contractor gives you a USB drive containing a diagnostic tool and asks you to install it on the workstation from Scenario 1.",
-            "vi": "Sau đó, trong lúc xử lý sự cố thiết bị, một nhà thầu đưa cho bạn một USB chứa công cụ chẩn đoán và nhờ bạn cài đặt lên máy trạm ở Tình huống 1."
+            "en": "While helping resolve an equipment issue, a contractor hands you a USB drive containing a diagnostic tool. They say the fix is urgent and ask you to install it on the engineering workstation immediately.",
+            "vi": "Trong lúc hỗ trợ xử lý sự cố thiết bị, một nhà thầu đưa cho bạn một USB chứa phần mềm xử lý sự cố. Họ cho biết sự cố đang rất khẩn cấp và đề nghị bạn cài đặt ngay vào máy tính sản xuất."
           },
-          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "question": { "en": "A contractor is waiting for your decision. What is the safest action?", "vi": "Nhà thầu đang chờ quyết định của bạn. Đâu là hành động an toàn nhất?" },
           "options": [
             {
               "id": "a",
               "correct": false,
               "en": "Plug it in and run the software immediately",
               "vi": "Cắm USB vào và chạy phần mềm ngay lập tức",
-              "fbEn": "Not quite. An unapproved USB or software can bring malware onto a production workstation. Always verify approval first.",
-              "fbVi": "Chưa chính xác. USB hoặc phần mềm chưa được phê duyệt có thể đưa mã độc vào máy trạm sản xuất. Luôn xác minh phê duyệt trước."
+              "fbEn": "Not quite. A sense of urgency should never override security requirements. Installing unapproved software could put the workstation and production environment at risk.",
+              "fbVi": "Chưa chính xác. Tính khẩn cấp không bao giờ là lý do để bỏ qua yêu cầu bảo mật. Việc cài đặt phần mềm chưa được phê duyệt có thể khiến máy trạm và môi trường sản xuất đối mặt với rủi ro."
             },
             {
               "id": "b",
               "correct": true,
               "en": "Verify approval and follow site IT/CSL procedures before using the USB or software",
               "vi": "Xác minh phê duyệt và tuân thủ quy trình IT/CSL của nhà máy trước khi sử dụng USB hoặc phần mềm",
-              "fbEn": "Correct. The USB is found to be unapproved. Because you protected the workstation in Scenario 1, no security incident occurs.",
-              "fbVi": "Chính xác. USB được xác định là chưa được phê duyệt. Nhờ bạn đã bảo vệ máy trạm ở Tình huống 1, không có sự cố an ninh nào xảy ra."
+              "fbEn": "Excellent decision. The USB is later identified as unapproved. By following the proper process, you prevented a potential security incident and helped keep the production environment protected.",
+              "fbVi": "Quyết định xuất sắc. Sau đó, USB được xác định là chưa được phê duyệt. Nhờ tuân thủ đúng quy trình, bạn đã ngăn chặn một sự cố an ninh tiềm ẩn và góp phần bảo vệ môi trường sản xuất an toàn."
             }
           ]
         },
@@ -362,84 +362,84 @@
             "en": "assets/img/scenarios/scenario-3-en.png",
             "vi": "assets/img/scenarios/scenario-3-vi.png"
           },
-          "speaker": { "en": "Scenario 3 · Device Change Request", "vi": "Tình huống 3 · Yêu cầu thay đổi thiết bị" },
+          "speaker": { "en": "Scenario 3 · A Device Under Pressure", "vi": "Tình huống 3 · Thiết Bị Trong Tình Huống Khẩn Cấp" },
           "scene": {
-            "en": "Following the investigation, the supplier requests that a new laptop be connected to the plant network to continue the work.",
-            "vi": "Sau cuộc điều tra, nhà cung cấp yêu cầu kết nối một laptop mới vào mạng của nhà máy để tiếp tục công việc."
+            "en": "After the unapproved USB is rejected, the contractor proposes another solution. They ask to connect a newly arrived laptop to the plant network so work can continue without delay.",
+            "vi": "Sau khi USB chưa được phê duyệt bị từ chối, nhà thầu đề xuất một giải pháp khác. Họ yêu cầu kết nối một laptop mới vào mạng của nhà máy để công việc có thể tiếp tục ngay lập tức."
           },
-          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "question": { "en": "What is the safest action?", "vi": "Đâu là hành động an toàn nhất?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Allow connection immediately to avoid delays",
-              "vi": "Cho phép kết nối ngay lập tức để tránh chậm trễ",
-              "fbEn": "Not quite. Connecting an unreviewed device skips the controls that protect the plant network — speed never outranks approval.",
-              "fbVi": "Chưa chính xác. Kết nối thiết bị chưa được xem xét sẽ bỏ qua các biện pháp kiểm soát bảo vệ mạng nhà máy — tốc độ không bao giờ quan trọng hơn phê duyệt."
+              "en": "Allow the laptop to connect immediately so work can continue",
+              "vi": "Cho phép kết nối laptop ngay để công việc có thể tiếp tục",
+              "fbEn": "Not quite. Urgency should never bypass security controls. Connecting an unapproved device could expose the plant network to unnecessary risk.",
+              "fbVi": "Chưa chính xác. Tính khẩn cấp không nên là lý do để bỏ qua các biện pháp kiểm soát an ninh. Kết nối một thiết bị chưa được phê duyệt có thể khiến mạng nhà máy đối mặt với những rủi ro không cần thiết."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "Ensure the device is registered, reviewed, and approved before connection",
-              "vi": "Đảm bảo thiết bị được đăng ký, xem xét và phê duyệt trước khi kết nối",
-              "fbEn": "Correct. The new device is properly reviewed, registered, and secured before gaining network access.",
-              "fbVi": "Chính xác. Thiết bị mới được xem xét, đăng ký và bảo mật đúng cách trước khi được truy cập mạng."
+              "en": "Ensure the device is registered, reviewed, and approved before connecting it to the plant network",
+              "vi": "Đảm bảo thiết bị được đăng ký, kiểm tra và phê duyệt trước khi kết nối vào mạng nhà máy",
+              "fbEn": "Excellent decision. The laptop successfully completed the required review and registration process before gaining network access. By following the proper controls, you helped keep the plant network secure.",
+              "fbVi": "Quyết định xuất sắc. Laptop đã hoàn tất các bước kiểm tra và đăng ký cần thiết trước khi được kết nối vào mạng. Nhờ tuân thủ đúng các biện pháp kiểm soát, bạn đã góp phần bảo vệ mạng nhà máy an toàn."
             }
           ]
         },
         {
           "id": "s4",
           "image": "assets/img/scenarios/scenario-4.png",
-          "speaker": { "en": "Scenario 4 · Critical Update Alert", "vi": "Tình huống 4 · Cảnh báo cập nhật quan trọng" },
+          "speaker": { "en": "Scenario 4 · Critical Security Update", "vi": "Tình huống 4 · Bản Cập Nhật Bảo Mật Quan Trọng" },
           "scene": {
-            "en": "While preparing the newly approved laptop for use, a BigFix notification appears requesting an important security update and restart.",
-            "vi": "Trong lúc chuẩn bị đưa laptop mới được phê duyệt vào sử dụng, một thông báo BigFix xuất hiện yêu cầu cập nhật bảo mật quan trọng và khởi động lại."
+            "en": "The laptop is now approved and ready for use. Just before work begins, a BigFix notification appears, requiring a critical security update and restart. The contractor suggests postponing it to avoid delays.",
+            "vi": "Laptop hiện đã được phê duyệt và sẵn sàng đưa vào sử dụng. Ngay trước khi bắt đầu công việc, một thông báo BigFix xuất hiện yêu cầu cài đặt bản cập nhật bảo mật quan trọng và khởi động lại thiết bị. Nhà thầu đề nghị hoãn cập nhật để tránh làm chậm tiến độ."
           },
-          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "question": { "en": "What is the safest action?", "vi": "Đâu là hành động an toàn nhất?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Ignore the notification because production work is urgent",
-              "vi": "Bỏ qua thông báo vì công việc sản xuất đang gấp",
-              "fbEn": "Not quite. The device remains exposed to security risks and may fail compliance checks.",
-              "fbVi": "Chưa chính xác. Thiết bị vẫn bị phơi nhiễm trước các rủi ro bảo mật và có thể không đạt kiểm tra tuân thủ."
+              "en": "Postpone the update and start work immediately",
+              "vi": "Hoãn cập nhật và bắt đầu công việc ngay",
+              "fbEn": "Not quite. Security updates are designed to fix known vulnerabilities. Delaying them may leave the device exposed to unnecessary risk.",
+              "fbVi": "Chưa chính xác. Các bản cập nhật bảo mật được triển khai để khắc phục các lỗ hổng đã biết. Việc trì hoãn cập nhật có thể khiến thiết bị đối mặt với những rủi ro không cần thiết."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "Complete the update and restart the device as required",
-              "vi": "Hoàn tất cập nhật và khởi động lại thiết bị theo yêu cầu",
-              "fbEn": "Correct. The device receives the latest security patches and is protected against known vulnerabilities.",
-              "fbVi": "Chính xác. Thiết bị nhận được các bản vá bảo mật mới nhất và được bảo vệ trước các lỗ hổng đã biết."
+              "en": "Complete the required update and restart before using the laptop",
+              "vi": "Hoàn tất cập nhật và khởi động lại thiết bị trước khi đưa vào sử dụng",
+              "fbEn": "Excellent decision. The update contains important security fixes. By completing the update first, you ensure the device is protected before accessing the plant environment.",
+              "fbVi": "Quyết định xuất sắc. Bản cập nhật chứa các bản vá bảo mật quan trọng. Việc hoàn tất cập nhật trước giúp đảm bảo thiết bị được bảo vệ trước khi kết nối và làm việc trong môi trường nhà máy."
             }
           ]
         },
         {
           "id": "s5",
           "image": "assets/img/scenarios/scenario-5.png",
-          "speaker": { "en": "Scenario 5 · Ownership Change", "vi": "Tình huống 5 · Thay đổi chủ sở hữu" },
+          "speaker": { "en": "Scenario 5 · Passing the Torch", "vi": "Tình huống 5 · Bàn Giao Thiết Bị" },
           "scene": {
-            "en": "Several months later, the engineer moves to a different role and needs to transfer the laptop to its new owner.",
-            "vi": "Vài tháng sau, kỹ sư chuyển sang vai trò khác và cần bàn giao laptop cho chủ sở hữu mới."
+            "en": "Months later, the engineer moves to a new role. Before handing the laptop to its next owner, the device records and ownership information must be updated.",
+            "vi": "ài tháng sau, kỹ sư chuyển sang vai trò mới. Trước khi bàn giao laptop cho người sử dụng tiếp theo, thông tin thiết bị và chủ sở hữu cần được cập nhật đúng quy trình."
           },
-          "question": { "en": "What do you do?", "vi": "Bạn sẽ làm gì?" },
+          "question": { "en": "What is the safest action?", "vi": "Đâu là hành động an toàn nhất?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Leave the device assignment unchanged since it is still being used",
-              "vi": "Giữ nguyên thông tin gán thiết bị vì thiết bị vẫn đang được sử dụng",
-              "fbEn": "Not quite. Security reviews, incident investigations, and compliance reporting may be impacted.",
-              "fbVi": "Chưa chính xác. Các đợt đánh giá bảo mật, điều tra sự cố và báo cáo tuân thủ có thể bị ảnh hưởng."
+              "en": "Hand over the laptop and update the records later",
+              "vi": "Bàn giao laptop trước và cập nhật hồ sơ sau",
+              "fbEn": "Not quite. Ownership records should be updated before the device changes hands. Accurate records are essential for asset accountability and security management.",
+              "fbVi": "Chưa chính xác. Thông tin chủ sở hữu cần được cập nhật trước khi thiết bị được bàn giao. Hồ sơ chính xác là yếu tố quan trọng để quản lý tài sản và đảm bảo an ninh."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "Proceed ITOT transition form to get review and approval for all systems then update the device ownership and status",
-              "vi": "Thực hiện biểu mẫu chuyển giao ITOT để được xem xét và phê duyệt cho tất cả hệ thống, sau đó cập nhật quyền sở hữu và trạng thái thiết bị",
-              "fbEn": "Correct. Asset records remain accurate, support teams can manage the device properly, and accountability is maintained.",
-              "fbVi": "Chính xác. Hồ sơ tài sản luôn chính xác, các nhóm hỗ trợ có thể quản lý thiết bị đúng cách và trách nhiệm được duy trì."
+              "en": "Complete the IT/OT transition process and update ownership records before transferring the device",
+              "vi": "Hoàn tất quy trình chuyển giao IT/OT và cập nhật thông tin chủ sở hữu trước khi bàn giao thiết bị",
+              "fbEn": "Correct. Security doesn't end when a device changes hands. By following the transition process and updating ownership records, you ensure accountability, traceability, and secure device management throughout its lifecycle.",
+              "fbVi": "Chính xác. An ninh không kết thúc khi thiết bị được bàn giao cho người khác. Bằng cách tuân thủ quy trình chuyển giao và cập nhật thông tin chủ sở hữu, bạn đảm bảo trách nhiệm, khả năng truy vết và quản lý an toàn trong suốt vòng đời của thiết bị."
             }
           ]
         }
