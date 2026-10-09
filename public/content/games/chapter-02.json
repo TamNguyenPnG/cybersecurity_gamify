@@ -10,7 +10,10 @@
       "type": "quiz",
       "points": 1,
       "scoring": "all",
-      "image": "assets/img/chapter2-cyber-patrol.jpg",
+      "image": {
+        "en": "assets/img/chapter2-cyber-patrol.jpg",
+        "vi": "assets/img/chapter2-cyber-patrol-VN.png"
+      },
       "title": { "en": "Cyber Patrol", "vi": "Cyber Patrol – Tuần tra An ninh mạng" },
       "brief": {
         "en": "Your journey begins now. Face five security challenges, make the right decisions, and prove you have what it takes to become a Cyber Guardian.",
@@ -194,7 +197,10 @@
       "scoring": "all",
       "count": 5,
       "timePerQuestionS": 10,
-      "image": "assets/img/chapter2-cyber-survival.jpg",
+      "image": {
+        "en": "assets/img/chapter2-cyber-survival.jpg",
+        "vi": "assets/img/chapter2-cyber-survival-VN.png"
+      },
       "title": { "en": "Cyber Survival Challenge", "vi": "Thử Thách Sinh Tồn An Ninh Mạng" },
       "brief": {
         "en": "Every second counts. Face five real-world cybersecurity scenarios and make the safest decision before time runs out. You have only 10 seconds for each question. One wrong answer or timeout can cost the mission. Answer all five correctly to prove your cyber instincts and earn the point.",

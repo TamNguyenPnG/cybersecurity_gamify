@@ -7,7 +7,8 @@
        scoring: "all" the whole game is worth `points`, awarded only when
                        every question is answered correctly
        title / brief   an intro panel before the first question
-       image           artwork shown on the intro and beside each question
+       image           artwork shown on the intro and beside each question;
+                       a string, or { en, vi } when the art contains text
        count           ask a random N of the questions each play
        timePerQuestionS  seconds allowed per question; running out counts
                        as a wrong answer
@@ -28,8 +29,8 @@ GAMES.register('quiz', function () {
       if (cfg.image) {
         var intro = host.querySelector('.game-intro');
         var pic = el('img', 'game-intro-art');
-        pic.src = cfg.image;
         pic.alt = '';
+        ctx.live(function () { pic.src = ctx.pick(cfg.image); });
         intro.insertBefore(pic, intro.firstChild);
       }
     }
@@ -52,8 +53,8 @@ GAMES.register('quiz', function () {
       if (cfg.image) {
         var split = el('div', 'quiz-split');
         var art = el('img', 'quiz-art');
-        art.src = cfg.image;
         art.alt = '';
+        ctx.live(function () { art.src = ctx.pick(cfg.image); });
         split.appendChild(art);
         split.appendChild(card);
         host.appendChild(split);
