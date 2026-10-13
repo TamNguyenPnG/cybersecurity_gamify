@@ -1,0 +1,112 @@
+{
+  "chapter": 3,
+  "slug": "safe-connection",
+  "mode": "games",
+  "maxScore": 5,
+  "title": { "en": "Safe Connection", "vi": "Kết nối an toàn" },
+  "games": [
+    {
+      "id": "connection-flashcards",
+      "type": "flashcards",
+      "points": 4,
+      "scoring": "all",
+      "title": { "en": "Safe or unsafe?", "vi": "An toàn hay không an toàn?" },
+      "brief": {
+        "en": "Swipe each card to classify the connection.",
+        "vi": "Vuốt từng thẻ để phân loại kết nối."
+      },
+      "cards": [
+        {
+          "id": "trusted-vpn",
+          "zone": "safe",
+          "en": "Connect to P&G systems using an approved VPN over a trusted network.",
+          "vi": "Kết nối với hệ thống P&G bằng VPN được phê duyệt trên mạng đáng tin cậy."
+        },
+        {
+          "id": "unverified-link",
+          "zone": "unsafe",
+          "en": "Enter your password after following a chat link without checking the website domain.",
+          "vi": "Nhập mật khẩu sau khi mở liên kết trong tin nhắn mà không kiểm tra tên miền trang web."
+        },
+        {
+          "id": "https-domain",
+          "zone": "safe",
+          "en": "Before entering credentials, check that the domain is correct and the connection uses HTTPS.",
+          "vi": "Trước khi nhập thông tin đăng nhập, hãy kiểm tra tên miền chính xác và kết nối sử dụng HTTPS."
+        },
+        {
+          "id": "wifi-certificate",
+          "zone": "unsafe",
+          "en": "Install a certificate requested by public Wi-Fi so you can continue browsing.",
+          "vi": "Cài đặt chứng chỉ theo yêu cầu của Wi-Fi công cộng để tiếp tục duyệt web."
+        },
+        {
+          "id": "vpn-drop",
+          "zone": "safe",
+          "en": "Stop handling sensitive data if your VPN disconnects; reconnect before continuing.",
+          "vi": "Dừng xử lý dữ liệu nhạy cảm nếu VPN bị ngắt; kết nối lại trước khi tiếp tục."
+        }
+      ]
+    },
+    {
+      "id": "network-detective",
+      "type": "hotspot",
+      "points": 1,
+      "timeLimitS": 120,
+      "feedbackMode": "dialog",
+      "image": "assets/img/chapter3-detective-hd.png",
+      "title": { "en": "Network Detective", "vi": "Thám tử mạng" },
+      "brief": {
+        "en": "Find all five unsafe actions in the office scene. Each correct find opens a short explanation; select Enter to close it and continue.",
+        "vi": "Tìm năm hành vi không an toàn trong văn phòng. Mỗi lần tìm đúng sẽ hiện giải thích ngắn; chọn Tiếp tục để đóng và tìm tiếp."
+      },
+      "hotspots": [
+        {
+          "id": "visitor-photo",
+          "rect": [0.404, 0.142, 0.463, 0.320],
+          "label": { "en": "Visitor photographing the production KPI screen", "vi": "Khách tham quan chụp ảnh màn hình KPI sản xuất" },
+          "why": {
+            "en": "Production dashboards can expose confidential operational data. Do not allow visitors to photograph them.",
+            "vi": "Bảng điều khiển sản xuất có thể chứa dữ liệu vận hành mật. Không để khách tham quan chụp ảnh màn hình."
+          }
+        },
+        {
+          "id": "personal-email",
+          "rect": [0.377, 0.322, 0.522, 0.457],
+          "label": { "en": "Company data sent to a personal email account", "vi": "Dữ liệu công ty được gửi đến email cá nhân" },
+          "why": {
+            "en": "Never forward company data to a personal email account. Use approved channels.",
+            "vi": "Không chuyển tiếp dữ liệu công ty đến email cá nhân. Hãy sử dụng các kênh được phê duyệt."
+          }
+        },
+        {
+          "id": "whatsapp",
+          "rect": [0.417, 0.609, 0.489, 0.773],
+          "label": { "en": "Production data shared over WhatsApp", "vi": "Dữ liệu sản xuất được chia sẻ qua WhatsApp" },
+          "why": {
+            "en": "WhatsApp is not an approved channel for sharing company production data.",
+            "vi": "WhatsApp không phải là kênh được phê duyệt để chia sẻ dữ liệu sản xuất của công ty."
+          }
+        },
+        {
+          "id": "personal-device",
+          "rect": [0.078, 0.561, 0.334, 0.896],
+          "label": { "en": "Contractor connecting a personal device to the company network", "vi": "Nhà thầu kết nối thiết bị cá nhân vào mạng công ty" },
+          "why": {
+            "en": "Personal and contractor devices must be approved and registered before connecting to P&G networks.",
+            "vi": "Thiết bị cá nhân và thiết bị của nhà thầu phải được phê duyệt, đăng ký trước khi kết nối vào mạng P&G."
+          }
+        },
+        {
+          "id": "network-cabinet",
+          "rect": [0.823, 0.309, 0.922, 0.749],
+          "label": { "en": "Unescorted visitor accessing the network cabinet", "vi": "Khách tiếp cận tủ mạng mà không có người giám sát" },
+          "why": {
+            "en": "Visitors must be escorted and kept away from network equipment.",
+            "vi": "Khách phải luôn có người đi cùng và không được tiếp cận thiết bị mạng."
+          }
+        }
+      ]
+    }
+  ]
+}

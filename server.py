@@ -12,6 +12,7 @@ Standard library only — no pip install required.
 import argparse
 import json
 import os
+import re
 import sqlite3
 import traceback
 import datetime
@@ -159,6 +160,30 @@ def api_verify(con, body):
     if not row:
         return {"ok": False, "error": "email-not-found"}
     return {"ok": True, "user": dict(row)}
+
+
+def api_register(con, body):
+    email = (body.get("email") or "").strip().lower()
+    department = (body.get("department") or "").strip()
+    name = str(body.get("name") or "").strip()
+    if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        return {"ok": False, "error": "invalid-email"}
+    if not name or len(name) > 120 or re.search(r"[\x00-\x1f\x7f]", name):
+        return {"ok": False, "error": "invalid-name"}
+    if not department or not con.execute(
+            "SELECT 1 FROM departments WHERE name = ?", (department,)).fetchone():
+        return {"ok": False, "error": "unknown-department"}
+    if con.execute("SELECT 1 FROM employees WHERE LOWER(email) = ?", (email,)).fetchone():
+        return {"ok": False, "error": "email-already-registered"}
+
+    try:
+        con.execute(
+            "INSERT INTO employees (email, name, department) VALUES (?, ?, ?)",
+            (email, name, department))
+        con.commit()
+    except sqlite3.IntegrityError:
+        return {"ok": False, "error": "email-already-registered"}
+    return {"ok": True, "user": {"email": email, "name": name, "department": department}}
 
 
 def api_departments(con):
@@ -314,6 +339,8 @@ class Handler(SimpleHTTPRequestHandler):
             route = parsed.path
             if route == "/api/auth/verify":
                 return self._send_json(api_verify(con, body))
+            if route == "/api/auth/register":
+                return self._send_json(api_register(con, body))
             if route == "/api/attempts":
                 return self._send_json(api_save_attempt(con, body))
             if route == "/api/chapter/exit":

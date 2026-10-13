@@ -113,7 +113,8 @@ I18N.ready.then(function () {
       if (g.type !== 'quiz' || g.source !== 'questions') return g;
       return QUESTIONS.raw(chId).then(function (file) {
         var qs = file.questions || [];
-        return Object.assign({}, g, { questions: qs, points: qs.length });
+        var count = g.count ? Math.min(g.count, qs.length) : qs.length;
+        return Object.assign({}, g, { questions: qs, points: count });
       });
     }));
   }

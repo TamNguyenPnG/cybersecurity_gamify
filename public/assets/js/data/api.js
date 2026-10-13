@@ -58,6 +58,10 @@ window.API = (function () {
       return post('/auth/verify', { email: email, department: dept });
     },
 
+    register: function (email, dept, name) {
+      return post('/auth/register', { email: email, department: dept, name: name });
+    },
+
     kpis: function () {
       return request('/kpis').then(unwrap('kpis'));
     },

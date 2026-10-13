@@ -38,6 +38,16 @@
 
         <form id="loginForm" novalidate autocomplete="off">
 
+          <div class="field" id="nameField" hidden>
+            <label for="fullName" data-i18n="login.nameLabel">Full name</label>
+            <input class="input" type="text" id="fullName" name="name" maxlength="120"
+                   placeholder="Your name" data-i18n-placeholder="login.namePlaceholder" autocomplete="name"
+                   aria-describedby="nameErr">
+            <div class="field-msg msg-error" id="nameErr" role="alert">
+              <span data-i18n="login.errorName">Please enter your name.</span>
+            </div>
+          </div>
+
           <!-- Email combo with live autocomplete -->
           <div class="field combo" id="emailField">
             <label for="email" data-i18n="login.emailLabel">P&amp;G Email</label>
@@ -72,6 +82,10 @@
 
           <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:6px">
             <span id="btnLabel" data-i18n="login.cta">Enter</span>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-block" id="registerBtn" style="margin-top:10px">
+            <span id="registerLabel" data-i18n="login.register">Register</span>
           </button>
 
           <p class="t-caption center" style="margin:18px 0 0" data-i18n-html="login.help">

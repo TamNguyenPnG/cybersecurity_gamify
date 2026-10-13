@@ -178,6 +178,12 @@
   align-items: start;
   width: 100%;
 }
+.hotspot-game.has-dialog-feedback {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "bar" "stage";
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .hotspot-bar {
   grid-area: bar;
@@ -278,6 +284,124 @@
   display: block;
   margin-top: 3px;
   line-height: 1.55;
+}
+.hotspot-feedback-modal { z-index: 90; }
+.hotspot-feedback {
+  width: min(520px, 100%);
+  padding: 30px;
+  border-radius: var(--radius);
+  background: #0B2A5B;
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+  animation: ring-in .3s cubic-bezier(.2, 1.4, .5, 1);
+}
+.hotspot-feedback h2 {
+  margin: 0 0 12px;
+  color: var(--text-headline);
+  font-size: 21px;
+}
+.hotspot-feedback p {
+  margin: 0 0 24px;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+.hotspot-feedback .btn { min-width: 120px; }
+
+/* ---------- Chapter 3 — safe / unsafe flashcards ---------- */
+.flashcards-game {
+  display: grid;
+  grid-template-rows: auto auto minmax(340px, 1fr) 4px auto;
+  gap: 14px;
+  width: 100%;
+  max-width: 1040px;
+  min-height: 500px;
+  margin: 0 auto;
+}
+.flashcards-counter { text-align: center; }
+.flashcards-instructions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  color: var(--text-body);
+  font-size: 15px;
+  font-weight: 600;
+}
+.flashcard-instruction { display: inline-flex; align-items: center; gap: 8px; }
+.flashcard-instruction.is-unsafe { color: var(--error); }
+.flashcard-instruction.is-safe { color: var(--success); }
+.flashcard-instruction > span:first-child { font-size: 18px; }
+.flashcards-board {
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 340px;
+  touch-action: pan-y;
+}
+.flashcard {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: min(560px, 72%);
+  min-height: 220px;
+  padding: 28px;
+  transform: translate(calc(-50% + var(--drag-x, 0px)), -50%);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius);
+  background: #0B2A5B;
+  box-shadow: 0 20px 54px rgba(0, 0, 0, .44);
+  color: var(--text-headline);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.flashcard.is-dragging { transition: none; cursor: grabbing; }
+.flashcard.is-safe-swipe { border-color: var(--success); box-shadow: var(--glow-success); }
+.flashcard.is-risk-swipe { border-color: var(--error); box-shadow: var(--glow-error); }
+.flashcard.fly-left { transition: transform .5s ease, opacity .5s ease; transform: translate(calc(-50% - 15%), -50%) rotate(-6deg); opacity: 0; }
+.flashcard.fly-right { transition: transform .5s ease, opacity .5s ease; transform: translate(calc(-50% + 15%), -50%) rotate(6deg); opacity: 0; }
+.flashcard.is-correct { border-color: var(--success); box-shadow: var(--glow-success); }
+.flashcard.is-incorrect { border-color: var(--error); box-shadow: var(--glow-error); }
+.flashcard.is-safe-swipe.is-incorrect,
+.flashcard.is-risk-swipe.is-correct { border-color: var(--error); box-shadow: var(--glow-error); }
+.flashcards-feedbackline {
+  justify-self: center;
+  width: 0;
+  height: 3px;
+  border-radius: 99px;
+  opacity: 0;
+  transition: width .18s ease, opacity .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.flashcards-feedbackline.is-safe {
+  width: min(180px, 35vw);
+  opacity: 1;
+  background: var(--success);
+  box-shadow: var(--glow-success);
+}
+.flashcards-feedbackline.is-risk {
+  width: min(180px, 35vw);
+  opacity: 1;
+  background: var(--error);
+  box-shadow: var(--glow-error);
+}
+.flashcards-feedback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ---------- 4. Game 2 — true/false sort ---------- */
@@ -789,6 +913,13 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "bar" "stage" "list";
   }
+  .hotspot-game.has-dialog-feedback {
+    grid-template-areas: "bar" "stage";
+  }
+  .flashcards-game { grid-template-rows: auto auto minmax(300px, 1fr) 4px auto; min-height: 420px; }
+  .flashcards-board { min-height: 300px; gap: 10px; }
+  .flashcard { width: min(420px, 84%); min-height: 180px; padding: 18px; font-size: 16px; }
+  .flashcards-instructions { gap: 7px 18px; font-size: 14px; }
   .story-game { grid-template-columns: minmax(0, 1fr); }
   .quiz-split { grid-template-columns: minmax(0, 1fr); }
   .quiz-art { max-width: 360px; margin: 0 auto; }

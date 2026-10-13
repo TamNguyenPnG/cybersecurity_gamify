@@ -9,13 +9,18 @@ I18N.ready.then(function () {
   'use strict';
 
   var form      = document.getElementById('loginForm');
+  var nameEl    = document.getElementById('fullName');
   var emailEl   = document.getElementById('email');
   var deptEl    = document.getElementById('dept');
+  var nameField = document.getElementById('nameField');
   var emailField= document.getElementById('emailField');
   var deptField = document.getElementById('deptField');
   var ac        = document.getElementById('emailAC');
   var btn       = document.getElementById('submitBtn');
   var btnLabel  = document.getElementById('btnLabel');
+  var registerBtn = document.getElementById('registerBtn');
+  var registerLabel = document.getElementById('registerLabel');
+  var registrationMode = false;
 
   var activeIdx = -1;
   var current   = [];
@@ -36,8 +41,16 @@ I18N.ready.then(function () {
 
   /* ---------- Error helpers ---------- */
   function clearErrors() {
+    nameField.classList.remove('is-error', 'is-warning', 'shake');
     emailField.classList.remove('is-error', 'is-warning', 'shake');
     deptField.classList.remove('is-error', 'is-warning', 'shake');
+  }
+  function showNameError() {
+    clearErrors();
+    nameField.classList.add('is-error');
+    void nameField.offsetWidth;
+    nameField.classList.add('shake');
+    nameEl.focus();
   }
   function showEmailError() {
     clearErrors();
@@ -68,6 +81,7 @@ I18N.ready.then(function () {
   }
 
   function renderAC(term) {
+    if (registrationMode) { closeAC(); return; }
     term = String(term || '').trim();
     if (!term) { closeAC(); return; }
 
@@ -143,12 +157,14 @@ I18N.ready.then(function () {
     pickedEmail = null;      // typing invalidates a previous pick
     clearErrors();
     clearTimeout(debounce);
-    var v = emailEl.value;
-    debounce = setTimeout(function () { renderAC(v); }, 140);
+    if (!registrationMode) {
+      var v = emailEl.value;
+      debounce = setTimeout(function () { renderAC(v); }, 140);
+    }
   });
 
   emailEl.addEventListener('focus', function () {
-    if (emailEl.value.trim()) renderAC(emailEl.value);
+    if (!registrationMode && emailEl.value.trim()) renderAC(emailEl.value);
   });
 
   emailEl.addEventListener('blur', function () { setTimeout(closeAC, 120); });
@@ -162,38 +178,88 @@ I18N.ready.then(function () {
   });
 
   deptEl.addEventListener('change', clearErrors);
+  nameEl.addEventListener('input', clearErrors);
+
+  function setRegistrationMode(on) {
+    registrationMode = on;
+    nameField.hidden = !on;
+    nameEl.required = on;
+    clearErrors();
+    closeAC();
+    var submitKey = on ? 'login.createAccount' : 'login.cta';
+    var toggleKey = on ? 'login.cancelRegister' : 'login.register';
+    btnLabel.setAttribute('data-i18n', submitKey);
+    btnLabel.textContent = I18N.t(submitKey);
+    registerLabel.setAttribute('data-i18n', toggleKey);
+    registerLabel.textContent = I18N.t(toggleKey);
+    if (on) nameEl.focus();
+  }
 
   /* ---------- Submit ---------- */
-  function setLoading(on) {
-    btn.disabled = on;
-    btnLabel.setAttribute('data-i18n', on ? 'login.verifying' : 'login.cta');
-    btnLabel.textContent = I18N.t(on ? 'login.verifying' : 'login.cta');
-    var sp = btn.querySelector('.spinner');
+  function setLoading(button, label, on, loadingKey, idleKey) {
+    button.disabled = on;
+    label.setAttribute('data-i18n', on ? loadingKey : idleKey);
+    label.textContent = I18N.t(on ? loadingKey : idleKey);
+    var sp = button.querySelector('.spinner');
     if (on && !sp) {
       var s = document.createElement('span');
       s.className = 'spinner';
-      btn.appendChild(s);
+      button.appendChild(s);
     } else if (!on && sp) {
       sp.remove();
     }
   }
+
+  registerBtn.addEventListener('click', function () {
+    setRegistrationMode(!registrationMode);
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     clearErrors();
     closeAC();
 
+    var submitAction = registrationMode ? 'register' : 'login';
     var typed = emailEl.value.trim().toLowerCase();
     var dept  = deptEl.value;
 
-    /* The email must have been chosen from the list, not just typed. */
-    if (!typed || pickedEmail !== typed) { showEmailError(); return; }
+    if (submitAction === 'register' && !nameEl.value.trim()) { showNameError(); return; }
+    if (!typed || (submitAction === 'login' && pickedEmail !== typed) || !emailEl.checkValidity()) {
+      showEmailError(); return;
+    }
     if (!dept) { showDeptError(); return; }
 
-    setLoading(true);
+    if (submitAction === 'register') {
+      setLoading(btn, btnLabel, true, 'login.registering', 'login.createAccount');
+      registerBtn.disabled = true;
+      API.register(typed, dept, nameEl.value.trim()).then(function (res) {
+        setLoading(btn, btnLabel, false, 'login.registering', 'login.createAccount');
+        registerBtn.disabled = false;
+        if (!res.ok) {
+          var key = res.error === 'email-already-registered' ? 'login.registerDuplicate' :
+                    res.error === 'unknown-department' ? 'login.registerDepartment' : 'login.registerFailed';
+          if (res.error === 'invalid-name') { showNameError(); return; }
+          if (res.error === 'invalid-email') { showEmailError(); return; }
+          UI.toast(I18N.t(key), 'bad');
+          return;
+        }
+        pickedEmail = res.user.email;
+        pickedName = res.user.name;
+        emailEl.value = res.user.email;
+        setRegistrationMode(false);
+        UI.toast(I18N.t('login.registerSuccess'), 'ok');
+      }, function (err) {
+        setLoading(btn, btnLabel, false, 'login.registering', 'login.createAccount');
+        registerBtn.disabled = false;
+        UI.toast(I18N.t(err.code === 'email-already-registered' ? 'login.registerDuplicate' : 'login.registerFailed'), 'bad');
+      });
+      return;
+    }
+
+    setLoading(btn, btnLabel, true, 'login.verifying', 'login.cta');
 
     API.verify(typed, dept).then(function (res) {
-      setLoading(false);
+      setLoading(btn, btnLabel, false, 'login.verifying', 'login.cta');
       if (!res.ok) { showEmailError(); return; }
       UI.session.set({
         email: res.user.email,
@@ -202,7 +268,7 @@ I18N.ready.then(function () {
       });
       window.location.href = 'main-hall.html';
     }, function (err) {
-      setLoading(false);
+      setLoading(btn, btnLabel, false, 'login.verifying', 'login.cta');
       if (err.code === 'email-not-found') showEmailError();
       else UI.toast(I18N.t('ch.loadFailed'), 'error');
     });

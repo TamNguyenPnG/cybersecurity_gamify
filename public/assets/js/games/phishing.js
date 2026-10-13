@@ -25,11 +25,14 @@ GAMES.register('hotspot', function () {
     var found = {};
     var misses = 0;
     var done = false;
+    var feedbackOpen = false;
+    var timedOut = false;
+    var dialogFeedback = cfg.feedbackMode === 'dialog';
 
     var byId = {};
     cfg.hotspots.forEach(function (h) { byId[h.id] = h; });
 
-    var wrap = el('div', 'hotspot-game');
+    var wrap = el('div', 'hotspot-game' + (dialogFeedback ? ' has-dialog-feedback' : ''));
 
     var bar = el('div', 'hotspot-bar');
     var counter = el('div', 'hotspot-counter');
@@ -52,8 +55,8 @@ GAMES.register('hotspot', function () {
     stage.appendChild(layer);
     wrap.appendChild(stage);
 
-    var list = el('div', 'hotspot-list');
-    wrap.appendChild(list);
+    var list = dialogFeedback ? null : el('div', 'hotspot-list');
+    if (list) wrap.appendChild(list);
 
     host.appendChild(wrap);
 
@@ -68,10 +71,12 @@ GAMES.register('hotspot', function () {
       paint();
       img.alt = ctx.pick(cfg.title);
       nextBtn.innerHTML = UI.escape(ctx.t('game.next'));
-      Array.prototype.forEach.call(list.children, function (row) {
-        var h = byId[row.getAttribute('data-hs')];
-        if (h) label(row, h);
-      });
+      if (list) {
+        Array.prototype.forEach.call(list.children, function (row) {
+          var h = byId[row.getAttribute('data-hs')];
+          if (h) label(row, h);
+        });
+      }
     });
 
     stage.addEventListener('click', function (ev) {
@@ -88,7 +93,8 @@ GAMES.register('hotspot', function () {
           found[h.id] = true;
           reveal(h);
           paint();
-          if (Object.keys(found).length === total) finish(true);
+          if (dialogFeedback) showFeedback(h);
+          else if (Object.keys(found).length === total) finish(true);
           return;
         }
       }
@@ -117,15 +123,51 @@ GAMES.register('hotspot', function () {
       ring.style.height = ((r[3] - r[1]) * 100) + '%';
       layer.appendChild(ring);
 
-      var row = el('div', 'hotspot-item');
-      row.setAttribute('data-hs', h.id);
-      label(row, h);
-      list.appendChild(row);
+      if (list) {
+        var row = el('div', 'hotspot-item');
+        row.setAttribute('data-hs', h.id);
+        label(row, h);
+        list.appendChild(row);
+      }
+    }
+
+    function showFeedback(h) {
+      feedbackOpen = true;
+      var modal = el('div', 'game-modal hotspot-feedback-modal');
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      var box = el('section', 'hotspot-feedback');
+      var heading = el('h2');
+      var description = el('p');
+      var confirm = el('button', 'btn btn-primary');
+      confirm.type = 'button';
+      box.appendChild(heading);
+      box.appendChild(description);
+      box.appendChild(confirm);
+      modal.appendChild(box);
+      (document.getElementById('chapterPage') || document.body).appendChild(modal);
+
+      ctx.live(function () {
+        heading.textContent = ctx.pick(h.label);
+        description.textContent = ctx.pick(h.why);
+        confirm.textContent = ctx.t('game.confirm');
+      });
+
+      confirm.addEventListener('click', function () {
+        modal.remove();
+        feedbackOpen = false;
+        if (timedOut) finish(false);
+        else if (Object.keys(found).length === total) finish(true);
+      });
+      confirm.focus();
     }
 
     nextBtn.addEventListener('click', function () { finish(false); });
 
-    ctx.setTimer(cfg.timeLimitS, function () { finish(false); });
+    ctx.setTimer(cfg.timeLimitS, function () {
+      if (feedbackOpen) timedOut = true;
+      else finish(false);
+    });
 
     function finish(all) {
       if (done) return;
