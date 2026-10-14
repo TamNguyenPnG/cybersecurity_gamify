@@ -238,10 +238,28 @@ window.GAMES = (function () {
     return wrap;
   }
 
+  /* Moves `wrap` into a layer that fills the page below the chapter header,
+     so the header (timer, score, language) stays visible. Returns a function
+     that puts everything back. It must live outside the game shell, whose
+     blur filter would otherwise trap a fixed-position child. */
+  function fullscreen(wrap) {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    var hdr = document.querySelector('header');
+    wrap.style.setProperty('--fs-top', (hdr ? hdr.getBoundingClientRect().bottom : 0) + 'px');
+    (document.getElementById('chapterPage') || document.body).appendChild(wrap);
+    var prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return function close() {
+      document.body.style.overflow = prev;
+      wrap.remove();
+    };
+  }
+
   return {
     register: register,
     run: run,
     el: el,
+    fullscreen: fullscreen,
     shuffle: shuffle,
     intro: intro,
     outcome: outcome

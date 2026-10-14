@@ -8,6 +8,9 @@
    A slide may carry an `image` (a string, or { en, vi } for artwork that
    contains text). When any slide has one, the illustration replaces the
    cast figure. `winScene` / `missScene` override the closing line.
+   `fullscreen: true` fills the page below the chapter header and gives the
+   illustration most of the width. `sceneInPanel: true` moves the scene text
+   from under the illustration to the top of the answer panel.
    ============================================================ */
 GAMES.register('story', function () {
   'use strict';
@@ -25,8 +28,9 @@ GAMES.register('story', function () {
     var answers = [];
     var view = null;      // what is on screen right now, for re-labelling
 
-    var wrap = el('div', 'story-game');
+    var wrap = el('div', 'story-game' + (cfg.fullscreen ? ' is-fullscreen' : ''));
     var hasImages = cfg.slides.some(function (s) { return s.image; });
+    var sceneInPanel = !!cfg.sceneInPanel;
     var stage = el('div', 'story-stage');
     stage.innerHTML =
       (hasImages
@@ -34,14 +38,16 @@ GAMES.register('story', function () {
         : '<div class="story-cast">' +
             '<div class="story-figure is-a"><span>&#128105;&#8205;&#128188;</span></div>' +
           '</div>') +
-      '<div class="story-bubble" id="storyBubble"></div>';
+      (sceneInPanel ? '' : '<div class="story-bubble" id="storyBubble"></div>');
     wrap.appendChild(stage);
 
     var panel = el('div', 'story-panel');
     wrap.appendChild(panel);
-    host.appendChild(wrap);
+    var closeFullscreen = null;
+    if (cfg.fullscreen) closeFullscreen = GAMES.fullscreen(wrap);
+    else host.appendChild(wrap);
 
-    var bubble = stage.querySelector('#storyBubble');
+    var bubble = sceneInPanel ? el('div', 'story-bubble') : stage.querySelector('#storyBubble');
     var imgEl = stage.querySelector('.story-image');
 
     function render() {
@@ -50,6 +56,7 @@ GAMES.register('story', function () {
       var s = cfg.slides[idx];
 
       panel.innerHTML = '';
+      if (sceneInPanel) panel.appendChild(bubble);
       var step = el('div', 'story-step');
       panel.appendChild(step);
       var question = el('h3', 'story-question');
@@ -150,6 +157,7 @@ GAMES.register('story', function () {
       view = { done: true, allRight: all };
       paint();
       panel.innerHTML = '';
+      if (sceneInPanel) panel.appendChild(bubble);
 
       GAMES.outcome(
         panel, ctx, all,
@@ -158,6 +166,7 @@ GAMES.register('story', function () {
           return ctx.t('game.story.summary', { n: right, total: cfg.slides.length });
         },
         function () {
+          if (closeFullscreen) closeFullscreen();
           ctx.finish(all ? cfg.points : 0,
             { points: all ? cfg.points : 0, correct: right,
               total: cfg.slides.length, answers: answers });

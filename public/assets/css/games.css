@@ -286,6 +286,123 @@
   line-height: 1.55;
 }
 .hotspot-feedback-modal { z-index: 90; }
+
+/* Fullscreen variant: the image fills the page below the chapter header. */
+.hotspot-game.is-fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--fs-top, 0px);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 8px 16px 14px;
+  background: rgba(4, 16, 38, .97);
+}
+.is-fullscreen .hotspot-bar { flex: none; }
+.is-fullscreen .btn-next { padding: 9px 28px; font-size: 16px; min-width: 0; animation: none; }
+.is-fullscreen .hotspot-counter { font-size: 18px; }
+.is-fullscreen .hotspot-stage {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  line-height: normal;
+}
+.hotspot-frame {
+  position: relative;
+  line-height: 0;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 1px var(--glass-border-strong), var(--glow-accent);
+}
+.hotspot-frame .hotspot-img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+}
+.is-fullscreen .hotspot-list { display: none; }
+.is-fullscreen.is-review .hotspot-list {
+  display: flex;
+  position: fixed;
+  right: 16px;
+  top: calc(var(--fs-top, 0px) + 64px);
+  bottom: 16px;
+  width: min(380px, 42vw);
+  overflow-y: auto;
+  padding: 14px;
+  background: rgba(7, 27, 61, .97);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .5);
+  z-index: 3;
+}
+.is-fullscreen .hotspot-end { padding-top: 6px; }
+
+/* Label pinned to a found ring: pops in, then glows with a travelling border. */
+.hotspot-pin {
+  --pin-shift: -100%;
+  position: absolute;
+  z-index: 2;
+  max-width: min(320px, 44%);
+  padding: 7px 14px 7px 12px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background:
+    linear-gradient(#0A2150, #0A2150) padding-box,
+    linear-gradient(90deg, #34D399, #22D3EE, #FCD34D, #34D399) border-box;
+  background-size: 100% 100%, 300% 100%;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  pointer-events: none;
+  transform: translateY(var(--pin-shift));
+  margin-top: -10px;
+  animation:
+    pin-pop .55s cubic-bezier(.2, 1.5, .4, 1) both,
+    pin-border 2.4s linear infinite,
+    pin-glow 1.6s ease-in-out .55s infinite;
+}
+.hotspot-pin::before {
+  content: '\2713';
+  margin-right: 7px;
+  color: #34D399;
+  font-weight: 800;
+}
+.hotspot-pin.is-below { --pin-shift: 0%; margin-top: 10px; }
+@keyframes pin-pop {
+  0%   { opacity: 0; transform: translateY(var(--pin-shift)) scale(.3); }
+  60%  { opacity: 1; transform: translateY(var(--pin-shift)) scale(1.14); }
+  100% { opacity: 1; transform: translateY(var(--pin-shift)) scale(1); }
+}
+@keyframes pin-border { to { background-position: 0 0, 300% 0; } }
+@keyframes pin-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(52, 211, 153, .45); }
+  50%      { box-shadow: 0 0 26px rgba(34, 211, 238, .95), 0 0 6px rgba(252, 211, 77, .7); }
+}
+
+/* An expanding ping from the found ring draws the eye to its label. */
+.is-fullscreen .hotspot-ring::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 3px solid #34D399;
+  border-radius: 10px;
+  pointer-events: none;
+  animation: ring-ping 1.1s ease-out 3;
+}
+@keyframes ring-ping {
+  from { transform: scale(1);   opacity: .95; }
+  to   { transform: scale(1.18); opacity: 0; }
+}
 .hotspot-feedback {
   width: min(520px, 100%);
   padding: 30px;
@@ -619,6 +736,45 @@
 .story-feedback.is-bad strong { color: var(--warning); }
 .story-feedback p { margin: 0; color: var(--text-body); font-size: 13.5px; line-height: 1.6; }
 
+/* Fullscreen variant: the illustration gets about two thirds of the width. */
+.story-game.is-fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--fs-top, 0px);
+  z-index: 70;
+  grid-template-columns: minmax(0, 2.1fr) minmax(300px, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  padding: 12px 20px 16px;
+  background: rgba(4, 16, 38, .97);
+}
+.is-fullscreen .story-stage {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 12px;
+}
+.is-fullscreen .story-image {
+  flex: 1 1 0;
+  min-height: 0;
+  aspect-ratio: auto;
+  object-fit: contain;
+  background: rgba(0, 0, 0, .25);
+}
+.is-fullscreen .story-bubble { flex: none; max-height: 32%; overflow-y: auto; }
+.is-fullscreen .story-panel {
+  min-height: 0;
+  overflow-y: auto;
+  justify-content: flex-start;
+  padding: 8px 4px;
+}
+.is-fullscreen .story-panel .story-bubble { max-height: none; padding: 12px 16px; }
+.is-fullscreen .story-panel .story-bubble p { font-size: 14.5px; line-height: 1.55; }
+.is-fullscreen .story-question { font-size: 21px; }
+.is-fullscreen .story-option { font-size: 15.5px; }
+
 /* ---------- 6. Game 4 — password trap ---------- */
 .trap-game { display: grid; place-items: center; width: 100%; }
 
@@ -879,17 +1035,21 @@
   align-items: center;
   width: 100%;
 }
+/* Artwork keeps its own proportions, so portrait and square images both fit. */
 .quiz-art,
 .game-intro-art {
   display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glow-accent);
 }
-.game-intro-art { width: min(300px, 70%); }
+.quiz-art { max-height: min(72vh, 640px); }
+.game-intro-art { max-width: 70%; max-height: min(40vh, 340px); }
 .quiz-split .quiz-card { width: 100%; margin: 0; }
 
 /* Per-question countdown bar. */
@@ -921,6 +1081,9 @@
   .flashcard { width: min(420px, 84%); min-height: 180px; padding: 18px; font-size: 16px; }
   .flashcards-instructions { gap: 7px 18px; font-size: 14px; }
   .story-game { grid-template-columns: minmax(0, 1fr); }
+  .story-game.is-fullscreen { grid-template-columns: minmax(0, 1fr); overflow-y: auto; align-content: start; }
+  .is-fullscreen .story-image { flex: none; height: 42vh; }
+  .is-fullscreen .story-panel { overflow: visible; }
   .quiz-split { grid-template-columns: minmax(0, 1fr); }
   .quiz-art { max-width: 360px; margin: 0 auto; }
   .sort-arena { height: 380px; }
@@ -943,6 +1106,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hotspot-ring,
+  .hotspot-pin,
+  .is-fullscreen .hotspot-ring::after,
   .btn-next,
   .bubble-arena.is-shake,
   .bubble-face,

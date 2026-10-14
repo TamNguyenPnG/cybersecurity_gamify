@@ -137,6 +137,7 @@
   "game.sort.win": "Sorted perfectly!",
   "game.sort.miss": "Not quite sorted",
   "game.quiz.win": "+{n} point earned!",
+  "game.quiz.learning": "Learning point",
   "game.quiz.miss": "Try again next time",
   "game.quiz.summary": "You answered {n} of {total} correctly. Every answer must be right to score the point.",
   "game.bubbles.collected": "Safe Actions: {n} / {goal}",

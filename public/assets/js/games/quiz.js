@@ -170,8 +170,22 @@ GAMES.register('quiz', function () {
           } else {
             UI.toast(ctx.t('ch.toast.wrong'), 'bad');
           }
+          /* A correct answer with a learning point stops here until the player continues. */
+          if (correct && view.item.learning) return setTimeout(function () { showLearning(view.item); }, 700);
           setTimeout(next, 1000);
         }, 240);
+      }
+
+      function showLearning(item) {
+        var modal = el('div', 'game-modal');
+        (document.getElementById('chapterPage') || document.body).appendChild(modal);
+        GAMES.outcome(
+          modal, ctx, true,
+          function () { return ctx.t('game.quiz.learning'); },
+          function () { return ctx.pick(item.learning); },
+          function () { modal.remove(); next(); },
+          function () { return ctx.t('game.continue'); }
+        );
       }
 
       render();

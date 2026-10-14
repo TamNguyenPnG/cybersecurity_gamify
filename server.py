@@ -32,7 +32,7 @@ DB_PATH = os.path.join(ROOT, "data", "app.db")
 #
 # SET THIS TO None FOR PRODUCTION so the server uses the real date.
 # ---------------------------------------------------------------------------
-TODAY_OVERRIDE = "2026-10-03"
+TODAY_OVERRIDE = None
 
 MAX_SCORE = 5
 

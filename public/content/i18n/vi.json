@@ -137,6 +137,7 @@
   "game.sort.win": "Phân loại chính xác tuyệt đối!",
   "game.sort.miss": "Phân loại chưa chính xác",
   "game.quiz.win": "Bạn được +{n} điểm!",
+  "game.quiz.learning": "Điểm cần ghi nhớ",
   "game.quiz.miss": "Hãy thử lại lần sau",
   "game.quiz.summary": "Bạn trả lời đúng {n} / {total} câu. Cần đúng tất cả để được điểm.",
   "game.bubbles.collected": "Hành động an toàn: {n} / {goal}",

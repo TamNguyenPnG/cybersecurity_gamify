@@ -8,6 +8,9 @@
    Ends on: all found · timer expiry · the player pressing Next.
    The closing dialog only says whether every sign was found — it never
    reveals what was missed, so a retry is a fresh test.
+
+   `fullscreen: true` fills the page below the chapter header with the
+   image once the player presses Start, so small details are easy to click.
    ============================================================ */
 GAMES.register('hotspot', function () {
   'use strict';
@@ -28,11 +31,15 @@ GAMES.register('hotspot', function () {
     var feedbackOpen = false;
     var timedOut = false;
     var dialogFeedback = cfg.feedbackMode === 'dialog';
+    var fullscreen = !!cfg.fullscreen;
+    var pins = [];
+    var prevOverflow = '';
 
     var byId = {};
     cfg.hotspots.forEach(function (h) { byId[h.id] = h; });
 
-    var wrap = el('div', 'hotspot-game' + (dialogFeedback ? ' has-dialog-feedback' : ''));
+    var wrap = el('div', 'hotspot-game' + (dialogFeedback ? ' has-dialog-feedback' : '') +
+      (fullscreen ? ' is-fullscreen' : ''));
 
     var bar = el('div', 'hotspot-bar');
     var counter = el('div', 'hotspot-counter');
@@ -43,22 +50,56 @@ GAMES.register('hotspot', function () {
     wrap.appendChild(bar);
 
     /* The image and the click layer share one positioned box so hotspot
-       rectangles stay accurate at any rendered size. */
+       rectangles stay accurate at any rendered size. In fullscreen that box
+       is a frame sized to the image, centred inside the stage. */
     var stage = el('div', 'hotspot-stage');
+    var frame = fullscreen ? el('div', 'hotspot-frame') : stage;
     var img = document.createElement('img');
     img.className = 'hotspot-img';
     img.src = cfg.image;
     img.draggable = false;
-    stage.appendChild(img);
+    frame.appendChild(img);
 
     var layer = el('div', 'hotspot-layer');
-    stage.appendChild(layer);
+    frame.appendChild(layer);
+    if (fullscreen) stage.appendChild(frame);
     wrap.appendChild(stage);
 
     var list = dialogFeedback ? null : el('div', 'hotspot-list');
     if (list) wrap.appendChild(list);
 
-    host.appendChild(wrap);
+    if (fullscreen) openFullscreen();
+    else host.appendChild(wrap);
+
+    /* Fills the space under the chapter header, so the timer and score stay
+       visible, and scales the image to the largest size that fits. */
+    function fit() {
+      if (!fullscreen || !img.naturalWidth) return;
+      var availW = wrap.clientWidth - 32;
+      var availH = wrap.clientHeight - bar.offsetHeight - 36;
+      var s = Math.min(availW / img.naturalWidth, availH / img.naturalHeight);
+      frame.style.width = Math.floor(img.naturalWidth * s) + 'px';
+      frame.style.height = Math.floor(img.naturalHeight * s) + 'px';
+    }
+
+    function openFullscreen() {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      var hdr = document.querySelector('header');
+      wrap.style.setProperty('--fs-top', (hdr ? hdr.getBoundingClientRect().bottom : 0) + 'px');
+      (document.getElementById('chapterPage') || document.body).appendChild(wrap);
+      prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      img.addEventListener('load', fit);
+      window.addEventListener('resize', fit);
+      fit();
+    }
+
+    function closeFullscreen() {
+      if (!fullscreen) return;
+      window.removeEventListener('resize', fit);
+      document.body.style.overflow = prevOverflow;
+      wrap.remove();
+    }
 
     function paint() {
       counter.innerHTML = UI.escape(
@@ -77,6 +118,7 @@ GAMES.register('hotspot', function () {
           if (h) label(row, h);
         });
       }
+      pins.forEach(function (p) { p.el.textContent = ctx.pick(p.h.label); });
     });
 
     stage.addEventListener('click', function (ev) {
@@ -84,6 +126,7 @@ GAMES.register('hotspot', function () {
       var box = img.getBoundingClientRect();
       var x = (ev.clientX - box.left) / box.width;
       var y = (ev.clientY - box.top) / box.height;
+      if (x < 0 || x > 1 || y < 0 || y > 1) return;
 
       for (var i = 0; i < cfg.hotspots.length; i++) {
         var h = cfg.hotspots[i];
@@ -123,12 +166,41 @@ GAMES.register('hotspot', function () {
       ring.style.height = ((r[3] - r[1]) * 100) + '%';
       layer.appendChild(ring);
 
+      /* Fullscreen has no side list while playing, so pin the label to the ring. */
+      if (fullscreen) {
+        var pin = el('span', 'hotspot-pin');
+        pin.textContent = ctx.pick(h.label);
+        if (r[0] > 0.6) pin.style.right = ((1 - r[2]) * 100) + '%';
+        else pin.style.left = (r[0] * 100) + '%';
+        if (r[1] < 0.07) { pin.style.top = (r[3] * 100) + '%'; pin.classList.add('is-below'); }
+        else pin.style.top = (r[1] * 100) + '%';
+        layer.appendChild(pin);
+        /* Labels of neighbouring hotspots can collide; move the newer one below its ring. */
+        if (pins.some(function (p) { return pinsOverlap(pin, p.el); })) {
+          pin.style.top = (r[3] * 100) + '%';
+          pin.classList.add('is-below');
+        }
+        pins.push({ el: pin, h: h });
+      }
+
       if (list) {
         var row = el('div', 'hotspot-item');
         row.setAttribute('data-hs', h.id);
         label(row, h);
         list.appendChild(row);
       }
+    }
+
+    /* Layout box of a pin as placed (offsets ignore the pop-in scale animation). */
+    function pinBox(p) {
+      var above = !p.classList.contains('is-below');
+      var top = p.offsetTop + (above ? -p.offsetHeight - 10 : 10);
+      return { l: p.offsetLeft, t: top, r: p.offsetLeft + p.offsetWidth, b: top + p.offsetHeight };
+    }
+
+    function pinsOverlap(a, b) {
+      var x = pinBox(a), y = pinBox(b);
+      return x.l < y.r && x.r > y.l && x.t < y.b && x.b > y.t;
     }
 
     function showFeedback(h) {
@@ -185,6 +257,7 @@ GAMES.register('hotspot', function () {
 
       function advance() {
         modal.remove();
+        closeFullscreen();
         ctx.finish(all ? cfg.points : 0,
           { points: all ? cfg.points : 0, found: n, total: total, misses: misses });
       }
@@ -223,8 +296,14 @@ GAMES.register('hotspot', function () {
         bar.appendChild(nextButton());
         var end = el('div', 'hotspot-end');
         end.appendChild(nextButton());
-        wrap.appendChild(end);
-        wrap.scrollIntoView({ block: 'start' });
+        if (fullscreen) {
+          /* The list becomes a side panel over the image. */
+          wrap.classList.add('is-review');
+          list.appendChild(end);
+        } else {
+          wrap.appendChild(end);
+          wrap.scrollIntoView({ block: 'start' });
+        }
       });
     }
   }
