@@ -94,6 +94,103 @@ ledger. Query it like any table.
 A person with no attempts does not appear. To include them, left-join from
 `employees` — see `setup-guide.md` §8.
 
+### `escape_rooms`
+
+Chapter 4's durable room progress, keyed by `(email, room_id)`. `room_id` is
+`account`, `device`, `connection`, `installation` or `master`. `run_id`
+identifies the current replay; `results` is a JSON object mapping challenge
+IDs to pass/fail booleans. `attempted` becomes true after every challenge in the
+room (three, or four in `installation`) has been submitted, even if they failed.
+`passed` is a sticky best result:
+replaying never removes an earned key. `updated_at` is an ISO UTC timestamp.
+Partial challenge progress also survives a reload or a later visit.
+
+The table is created by both database setup and server startup. Ordinary
+database setup preserves it; `--reset` deletes it together with other activity.
+
+### Chapter 4 escape room API
+
+- `GET /api/escape/status?email=…`: returns `rooms`, `masterUnlocked` and
+  `masterPassed`. Each room contains `attempted`, `passed`, `hint` (only after
+  passing), `run_id` and current-run `results`.
+- `POST /api/escape/start`: `{email, room_id}` starts a replay, resetting only
+  current-run results. Previously earned keys and attempted status remain.
+- `POST /api/escape/challenge`:
+  `{email, room_id, run_id, challenge_id, answers}` submits one challenge.
+  The server evaluates answers from the chapter manifest and returns
+  `{passed, progress}`. Stale run IDs return 409. Repeat submissions return
+  the originally saved result unchanged so a network retry is safe.
+- `POST /api/escape/master`: `{email, code, trap?}` is the final launch. It
+  returns `{passed, progress}` and 409 until all four rooms have been played
+  through (failed rooms still unlock *entry*). `passed` is true only when
+  **all four rooms are secured** (every key earned), `code` equals the ordered
+  key characters, and `trap` is not `true`. A wrong or incomplete run is saved
+  as attempted but never removes an earned master result.
+
+Writes honor chapter 4's existing availability/grace policy and require a
+registered employee. As with the existing APIs, identity is supplied by
+email; these endpoints do not introduce a new authentication boundary.
+
+### Chapter 4 content
+
+[`chapter-04.json`](../public/content/games/chapter-04.json) defines one
+`escape-room` game worth five points: one per secured room and one for the
+successful master launch. All controls and challenges contain English and
+Vietnamese text; supplied illustrations/videos retain their original text.
+The four Word documents under `week4/` provide the first three challenges in
+each room. Safe Installation also has a fourth challenge, *Software Vault
+Key* (`type: "bubbles"`): the chapter 2 bubble game run inside the room, with
+four key-piece bubbles to pop and four unapproved sources that set off a bomb.
+It has 3 lives and 60 seconds; the client sends the popped item IDs as
+`answers.hits`, and the server passes it only if all four key pieces were
+popped and fewer than `lives` unapproved sources were. A room's challenge
+count comes from its `challenges` array, so the key is awarded only when every
+challenge in that room is passed.
+
+Ordering challenges (`type: "sequence"`: Connection Maze, Approval Workflow
+Puzzle, Software Approval Escape) share one slot UI. Tiles are dragged into
+`order.length` slots (or selected, then a slot), and may be moved, swapped or
+taken back; nothing is judged until Submit, and the server compares the chosen
+order with `order`. Extra `items` not in `order` act as distractors.
+`"vertical": true` stacks the slots top to bottom. An optional `miss` field
+holds a challenge's own bilingual failure message.
+
+**Master Room.** The key entry is drawn on top of the keypad painted in
+`master-security-room.png`: four letter boxes and the LAUNCH button are placed
+from `masterKeypad` (rectangles as 0–1 fractions of the image), with no
+side panel. On narrow screens the same controls drop below the picture inside
+the same frame. Pressing LAUNCH with all four letters starts a
+`masterKeypad.seconds` (30) countdown during which a bait button, *Download to
+see your certificate*, appears; clicking it sends `trap: true` and fails the
+launch. When the countdown ends the code is submitted and the win or fail video
+plays. When a launch fails (wrong or incomplete key, a room not secured, or the
+bait clicked), a popup appears once the fail video has finished: *Mission not
+completed — the rocket launch failed. Play again to try once more*, with
+**Play again** (back to a fresh keypad), **View chapter results** and **Back to
+the escape hall**. A successful launch ends quietly with no popup. The countdown
+and bait are client-side; the 100%-rooms, code and `trap`
+rules are enforced by the server.
+
+Each challenge has its own picture through its `image` field (portrait artwork
+in `public/assets/img/week4/`, e.g. `device-safe-or-risk.png`,
+`installation-vault-key.png`); the shared room image is only the fallback for a
+challenge without one. Portrait pictures sit in a narrow column beside the
+challenge panel, and the Security Alarm popups appear in the panel rather than
+over the picture. During the Software Vault Key arena the picture shrinks to a
+thumbnail so the bubbles keep the width.
+
+Images are copied into `public/assets/img/week4/` and launch videos into
+`public/assets/video/week4/`. Source Word/PowerPoint files are not served.
+Key order is Account, Device, Connection, Installation. Players can begin
+with any challenge; remaining challenges run in circular order, skipping
+ones already submitted. Security Alarm lasts 30 seconds and deducts five
+seconds per incorrect response. Classification supports drag/drop and
+select-item/select-group controls for touch and keyboard users.
+
+Validate using `python -m unittest discover -s tests -v`. Database tests use
+temporary databases only. Optional browser tests use Python Playwright with
+an installed Microsoft Edge; no production attempt data is written.
+
 ---
 
 ## 2. Derived values

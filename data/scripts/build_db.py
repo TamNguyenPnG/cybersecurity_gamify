@@ -145,7 +145,7 @@ CHAPTERS = [
     (1, "safe-account",      "2026-10-01", "2026-10-08", 1),
     (2, "safe-device",       "2026-10-09", "2026-10-15", 1),
     (3, "safe-connection",   "2026-10-16", "2026-10-22", 1),
-    (4, "safe-installation", "2026-10-23", "2026-10-29", 0),
+    (4, "safe-installation", "2026-10-23", "2026-10-29", 1),
 ]
 
 
@@ -160,6 +160,8 @@ def build(reset=False):
     con = sqlite3.connect(DB_PATH)
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript(SCHEMA)
+    with open(os.path.join(ROOT, "data", "escape-room-schema.sql"), encoding="utf-8") as fh:
+        con.executescript(fh.read())
 
     con.executemany(
         "INSERT OR IGNORE INTO departments (name) VALUES (?)",

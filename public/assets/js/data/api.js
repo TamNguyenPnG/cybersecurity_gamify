@@ -80,6 +80,14 @@ window.API = (function () {
       return post('/attempts', payload);
     },
 
+    escapeStatus: function (email) {
+      return request('/escape/status?email=' + encodeURIComponent(email));
+    },
+
+    escapeAction: function (action, payload) {
+      return post('/escape/' + action, payload);
+    },
+
     /* Burns the one-off grace play when a user leaves a closed chapter
        without choosing "Play again". */
     exitChapter: function (email, chapterId) {

@@ -139,6 +139,8 @@ The API the browser talks to:
 | GET | `/api/employees?q=` · `/api/departments` · `/api/kpis` |
 | GET | `/api/records?email=` · `/api/chapters?email=` |
 | POST | `/api/auth/verify` · `/api/attempts` · `/api/chapter/exit` |
+| GET | `/api/escape/status?email=` |
+| POST | `/api/escape/start` · `/api/escape/challenge` · `/api/escape/master` |
 
 Full shapes in [`docs/data-contract.md`](docs/data-contract.md).
 
@@ -154,11 +156,22 @@ and falls back to `en` if a translation is missing.
 | Path | Holds |
 |---|---|
 | `public/content/games/chapter-01.json` | All four Chapter 1 mini-games |
+| `public/content/games/chapter-04.json` | Bilingual Escape Room: four rooms (three challenges each, four in Safe Installation), then the Master Security Room |
 | `public/content/questions/chapter-0N.json` | Classic quiz questions (fallback format) |
-| `public/content/i18n/{en,vi}.json` | Every interface label, one key per string |
+| `public/content/i18n/{en,vi}.json` | Shared interface labels, one key per string |
 
 The two i18n files must always contain the same set of keys. A missing key
 renders as the raw key, never a blank.
+
+Chapter 4 saves partial room progress and earned keys in SQLite per employee,
+including across visits. Play through all four rooms to enter the Master
+Room; only passing every challenge in a room awards its key character.
+Failed replays do not remove earned keys. Each secured room earns one point,
+and a correct master launch earns the fifth point. The chapter follows its
+normal 23–29 October window; to test early, run
+`python server.py --today 2026-10-23`. Restart the server after updating so it
+creates the new progress table. Full rules and validation commands are in
+[`docs/data-contract.md`](docs/data-contract.md#chapter-4-content).
 
 **Adding a language:** drop `content/i18n/<code>.json` next to the others and
 add the code to the list in `core/i18n.js`.

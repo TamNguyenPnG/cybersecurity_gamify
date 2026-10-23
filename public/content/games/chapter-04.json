@@ -1,0 +1,340 @@
+{
+  "maxScore": 5,
+  "games": [{
+    "id": "escape-room",
+    "type": "escape-room",
+    "points": 5,
+    "title": {"en": "Cyber Escape Room", "vi": "Phòng thoát hiểm an ninh mạng"},
+    "brief": {
+      "en": "Explore five rooms: Safe Account, Safe Device, Safe Connection, Safe Installation and the Master Security Room. Complete every challenge in each of the first four rooms (three each, four in Safe Installation). Pass all of a room's challenges to earn that room's key character. Play through all four rooms to unlock the Master Room, even if you did not earn every character. Your progress is saved to your account so you can return another day.",
+      "vi": "Khám phá năm phòng: Tài khoản an toàn, Thiết bị an toàn, Kết nối an toàn, Cài đặt an toàn và Phòng bảo mật trung tâm. Hoàn thành mọi thử thách trong bốn phòng đầu tiên (mỗi phòng ba thử thách, riêng Cài đặt an toàn có bốn); vượt qua tất cả thử thách của một phòng để nhận ký tự khóa của phòng đó. Chơi qua đủ bốn phòng để mở Phòng trung tâm, kể cả khi chưa nhận đủ ký tự. Tiến độ được lưu theo tài khoản để bạn có thể quay lại vào ngày khác."
+    },
+    "hallImage": "assets/img/week4/main-hall.png",
+    "masterImage": "assets/img/week4/master-security-room.png",
+    "masterKeypad": {
+      "boxes": [[0.400, 0.502, 0.447, 0.563], [0.452, 0.502, 0.497, 0.563], [0.503, 0.502, 0.548, 0.563], [0.555, 0.502, 0.599, 0.563]],
+      "launch": [0.434, 0.586, 0.565, 0.639],
+      "clock": [0.355, 0.742, 0.645, 0.835],
+      "trap": [0.31, 0.855, 0.69, 0.965],
+      "seconds": 30
+    },
+    "winVideo": "assets/video/week4/launch-complete.mp4",
+    "failVideo": "assets/video/week4/launch-fail.mp4",
+    "ui": {
+      "loading": {"en": "Loading saved room progress…", "vi": "Đang tải tiến độ các phòng…"},
+      "loadFailed": {"en": "Could not load your progress. Please retry.", "vi": "Không thể tải tiến độ. Vui lòng thử lại."},
+      "saveFailed": {"en": "Could not save. Keep this page open and retry. If another tab restarted this room, reload this page.", "vi": "Chưa lưu được. Hãy giữ trang này và thử lại. Nếu bạn đã chơi lại phòng ở tab khác, hãy tải lại trang."},
+      "retry": {"en": "Retry", "vi": "Thử lại"},
+      "hall": {"en": "Back to the escape hall", "vi": "Về sảnh thoát hiểm"},
+      "master": {"en": "Master Security Room", "vi": "Phòng bảo mật trung tâm"},
+      "masterLocked": {"en": "Play through every challenge in each of the four rooms first. Passing is not required to enter the Master Room.", "vi": "Hãy chơi qua mọi thử thách của cả bốn phòng trước. Không bắt buộc thắng các phòng để vào Phòng trung tâm."},
+      "notPlayed": {"en": "Not played", "vi": "Chưa chơi"},
+      "inProgress": {"en": "In progress", "vi": "Đang chơi"},
+      "played": {"en": "Played — no key yet", "vi": "Đã chơi — chưa có ký tự"},
+      "key": {"en": "Key character", "vi": "Ký tự khóa"},
+      "keyOrder": {"en": "Key order: Account → Device → Connection → Installation", "vi": "Thứ tự khóa: Tài khoản → Thiết bị → Kết nối → Cài đặt"},
+      "unlocked": {"en": "Unlocked", "vi": "Đã mở khóa"},
+      "locked": {"en": "Locked", "vi": "Đang khóa"},
+      "replay": {"en": "Replay the room challenges", "vi": "Chơi lại thử thách của phòng"},
+      "roomRules": {"en": "Choose any challenge to begin, then continue through all of them. Pass every challenge to earn the key; a challenge you did not pass can be retried. Completed challenges are saved immediately.", "vi": "Chọn bất kỳ thử thách nào để bắt đầu, rồi tiếp tục đủ tất cả. Vượt qua mọi thử thách để nhận ký tự khóa; thử thách chưa đạt có thể làm lại. Kết quả từng thử thách được lưu ngay."},
+      "startChallenge": {"en": "Start challenge", "vi": "Bắt đầu thử thách"},
+      "passed": {"en": "Passed", "vi": "Đã vượt qua"},
+      "failed": {"en": "Not passed", "vi": "Chưa vượt qua"},
+      "submit": {"en": "Submit answer", "vi": "Nộp câu trả lời"},
+      "skip": {"en": "Finish this challenge without passing", "vi": "Kết thúc thử thách này, không nhận kết quả đạt"},
+      "continue": {"en": "Continue", "vi": "Tiếp tục"},
+      "challengeWin": {"en": "Challenge passed!", "vi": "Vượt qua thử thách!"},
+      "challengeMiss": {"en": "Challenge not passed. Continue to the next challenge; you can replay the room later.", "vi": "Chưa vượt qua thử thách. Hãy tiếp tục thử thách kế tiếp; bạn có thể chơi lại phòng sau."},
+      "roomWin": {"en": "Room secured! Your key character is", "vi": "Phòng đã an toàn! Ký tự khóa của bạn là"},
+      "roomMiss": {"en": "You played every challenge here, but not all were passed. Retry the ones you missed to earn the key character.", "vi": "Bạn đã chơi hết thử thách trong phòng nhưng chưa vượt qua tất cả. Hãy thử lại các thử thách chưa đạt để nhận ký tự khóa."},
+      "chooseClues": {"en": "Now select the three suspicious signs in the message.", "vi": "Bây giờ hãy chọn ba dấu hiệu đáng ngờ trong tin nhắn."},
+      "smishing": {"en": "Potential Smishing Attack Detected", "vi": "Phát hiện dấu hiệu lừa đảo qua SMS"},
+      "found": {"en": "Risks found", "vi": "Rủi ro đã tìm thấy"},
+      "miss": {"en": "No risk identified here. Try another detail.", "vi": "Chưa tìm thấy rủi ro tại đây. Hãy thử chi tiết khác."},
+      "assigned": {"en": "Items assigned", "vi": "Mục đã phân loại"},
+      "selected": {"en": "Selected", "vi": "Đang chọn"},
+      "reset": {"en": "Reset sequence", "vi": "Chọn lại trình tự"},
+      "alerts": {"en": "Security alerts resolved", "vi": "Cảnh báo đã xử lý"},
+      "incorrect": {"en": "Incorrect response. Security risk increased: −5 seconds.", "vi": "Phản hồi sai. Rủi ro bảo mật tăng: −5 giây."},
+      "alarmWin": {"en": "Security system stabilized!", "vi": "Hệ thống bảo mật đã ổn định!"},
+      "alarmMiss": {"en": "Time is up. Security alarms were not resolved in time.", "vi": "Hết giờ. Các cảnh báo bảo mật chưa được xử lý kịp thời."},
+      "code": {"en": "Enter the four key characters in room order", "vi": "Nhập bốn ký tự khóa theo thứ tự phòng"},
+      "codeIncomplete": {"en": "Enter all four letters before launching.", "vi": "Hãy nhập đủ bốn chữ cái trước khi khởi chạy."},
+      "launchChar": {"en": "Key character {n}", "vi": "Ký tự khóa {n}"},
+      "launching": {"en": "Launching…", "vi": "Đang khởi chạy…"},
+      "countdown": {"en": "Launch sequence in progress. Do not click anything suspicious.", "vi": "Đang trong quá trình khởi chạy. Đừng nhấn vào bất cứ thứ gì đáng ngờ."},
+      "trapButton": {"en": "Download to see your certificate", "vi": "Tải xuống để xem chứng nhận của bạn"},
+      "launchTrap": {"en": "Launch failed — you clicked a suspicious download during the launch.", "vi": "Khởi chạy thất bại — bạn đã nhấn vào nút tải xuống đáng ngờ trong lúc khởi chạy."},
+      "needAllRooms": {"en": "Secure all four rooms first. The launch only succeeds when every room is complete and you hold all four keys.", "vi": "Hãy hoàn thành cả bốn phòng trước. Khởi chạy chỉ thành công khi mọi phòng đã hoàn thành và bạn có đủ bốn ký tự khóa."},
+      "launch": {"en": "LAUNCH", "vi": "KHỞI CHẠY"},
+      "launchWin": {"en": "Launch complete — mission accomplished!", "vi": "Khởi chạy thành công — hoàn thành nhiệm vụ!"},
+      "launchFail": {"en": "Launch failed — the key is incorrect. Revisit rooms to earn missing characters or try again.", "vi": "Khởi chạy thất bại — khóa chưa đúng. Hãy quay lại các phòng để lấy ký tự còn thiếu hoặc thử lại."},
+      "failTitle": {"en": "Mission not completed", "vi": "Chưa hoàn thành nhiệm vụ"},
+      "failBody": {"en": "The rocket launch failed. Play again to try once more.", "vi": "Phóng tên lửa thất bại. Hãy chơi lại để thử lại."},
+      "playAgain": {"en": "Play again", "vi": "Chơi lại"},
+      "results": {"en": "View chapter results", "vi": "Xem kết quả chương"},
+      "videoError": {"en": "The video could not be loaded. Retry playback or return to the hall.", "vi": "Không thể tải video. Hãy thử phát lại hoặc về sảnh."},
+      "playVideo": {"en": "Play video", "vi": "Phát video"},
+      "saved": {"en": "Progress is saved to your account. You can leave and return later while the chapter is open.", "vi": "Tiến độ đã được lưu theo tài khoản. Bạn có thể rời trang và quay lại khi chương còn mở."},
+      "complete": {"en": "Complete", "vi": "Hoàn thành"},
+      "allFound": {"en": "All risks found! Review the marked image, then press Complete.", "vi": "Đã tìm đủ rủi ro! Xem lại hình đã đánh dấu, rồi nhấn Hoàn thành."},
+      "vaultFound": {"en": "Key pieces found: {n} / {goal}", "vi": "Mảnh chìa khóa đã tìm: {n} / {goal}"},
+      "vaultLives": {"en": "Lives left", "vi": "Số mạng còn lại"}
+    },
+    "rooms": [
+      {
+        "id": "account", "hint": "S", "door": [0.025, 0.27, 0.165, 0.685],
+        "title": {"en": "Safe Account", "vi": "Tài khoản an toàn"},
+        "image": "assets/img/week4/safe-account-room.png",
+        "challengeDoors": [[0.375, 0.654, 0.518, 0.708], [0.575, 0.656, 0.719, 0.71], [0.778, 0.656, 0.939, 0.711]],
+        "challenges": [
+          {
+            "id": "password", "type": "choice",
+            "title": {"en": "Password Fragment Hunt", "vi": "Truy tìm mật khẩu mạnh"},
+            "prompt": {"en": "Choose the strongest password.", "vi": "Chọn mật khẩu mạnh nhất."},
+            "image": "assets/img/week4/password-hint.png",
+            "options": [
+              {"id": "welcome", "label": "Welcome2026"},
+              {"id": "password", "label": "Password123"},
+              {"id": "name", "label": "Minh@2026"},
+              {"id": "summer", "label": "Summer!"},
+              {"id": "strong", "label": "R3d!F0x#M7@L"},
+              {"id": "company", "label": "Company123"}
+            ],
+            "correct": "strong"
+          },
+          {
+            "id": "sms", "type": "sms",
+            "title": {"en": "CEO SMS Trap", "vi": "Bẫy SMS từ sếp"},
+            "image": "assets/img/week4/sms-trap.png",
+            "prompt": {
+              "en": "Sender: Big Boss. \"I'm in a meeting and cannot talk right now. We need to pay an urgent supplier invoice ASAP. Please click the link below and complete the payment immediately.\" [Payment Link]\nWhat should you do?",
+              "vi": "Người gửi: Big Boss. \"Tôi đang họp và không thể nói chuyện. Chúng ta cần thanh toán gấp hóa đơn nhà cung cấp. Hãy nhấn liên kết bên dưới và thanh toán ngay.\" [Liên kết thanh toán]\nBạn nên làm gì?"
+            },
+            "options": [
+              {"id": "pay", "label": {"en": "Click and pay because the message is from Big Boss.", "vi": "Nhấn liên kết và thanh toán vì tin nhắn từ sếp."}},
+              {"id": "reply", "label": {"en": "Reply to the SMS asking for payment details.", "vi": "Trả lời SMS để hỏi thêm thông tin thanh toán."}},
+              {"id": "verify", "label": {"en": "Verify independently by phone, Teams or Finance before acting.", "vi": "Xác minh qua kênh độc lập như gọi điện, Teams hoặc Finance trước khi thực hiện."}},
+              {"id": "forward", "label": {"en": "Forward it to a colleague to handle.", "vi": "Chuyển tiếp cho đồng nghiệp xử lý."}}
+            ],
+            "correct": "verify",
+            "marks": ["urgency", "link", "bypass"],
+            "clues": [
+              {"id": "urgency", "label": {"en": "Urgent supplier invoice — pay immediately", "vi": "Hóa đơn khẩn cấp — yêu cầu thanh toán ngay"}},
+              {"id": "link", "label": {"en": "[Payment Link] — click to make a payment", "vi": "[Liên kết thanh toán] — nhấn để thanh toán"}},
+              {"id": "bypass", "label": {"en": "Cannot talk — act without normal verification", "vi": "Không thể nói chuyện — yêu cầu hành động bỏ qua xác minh thông thường"}},
+              {"id": "sender", "label": {"en": "The displayed sender name alone proves the message is safe", "vi": "Chỉ cần tên người gửi hiển thị là đủ để tin tin nhắn an toàn"}}
+            ]
+          },
+          {
+            "id": "office", "type": "hotspots", "fullscreen": true,
+            "title": {"en": "Office Scene Detective", "vi": "Thám tử văn phòng"},
+            "prompt": {"en": "Find all four account security risks in the image.", "vi": "Tìm đủ bốn rủi ro về tài khoản trong hình."},
+            "image": "assets/img/week4/account-detective.png",
+            "hotspots": [
+              {"id": "note", "rect": [0.543, 0.329, 0.61, 0.419], "label": {"en": "Password on a sticky note", "vi": "Mật khẩu trên giấy nhớ"}},
+              {"id": "unlocked", "rect": [0.399, 0.263, 0.542, 0.548], "label": {"en": "Unlocked workstation", "vi": "Máy tính không khóa màn hình"}},
+              {"id": "borrow", "rect": [0.115, 0.012, 0.238, 0.157], "label": {"en": "Request to borrow an account", "vi": "Yêu cầu mượn tài khoản"}},
+              {"id": "otp", "rect": [0.736, 0.466, 0.94, 0.681], "label": {"en": "OTP shared in chat", "vi": "Chia sẻ OTP qua chat"}}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "device", "hint": "A", "door": [0.203, 0.288, 0.347, 0.675],
+        "title": {"en": "Safe Device", "vi": "Thiết bị an toàn"},
+        "image": "assets/img/week4/safe-device-room.png",
+        "challengeDoors": [[0.366, 0.588, 0.514, 0.64], [0.557, 0.591, 0.705, 0.643], [0.752, 0.592, 0.92, 0.647]],
+        "challenges": [
+          {
+            "id": "risks", "type": "hotspots",
+            "title": {"en": "Find the Risk", "vi": "Tìm rủi ro"},
+            "prompt": {"en": "Find all five risks in the control room.", "vi": "Tìm đủ năm rủi ro trong phòng điều khiển."},
+            "image": "assets/img/week4/device-detective.png",
+            "hotspots": [
+              {"id": "unlocked", "rect": [0.206, 0.628, 0.414, 0.876], "label": {"en": "Unattended unlocked laptop", "vi": "Laptop không khóa, không có người trông"}},
+              {"id": "usb", "rect": [0.441, 0.881, 0.504, 0.945], "label": {"en": "Unknown USB drive", "vi": "USB không rõ nguồn gốc"}},
+              {"id": "contractor", "rect": [0.842, 0.401, 0.981, 0.633], "label": {"en": "Unapproved contractor laptop", "vi": "Laptop nhà thầu chưa được phê duyệt"}},
+              {"id": "update", "rect": [0.634, 0.2, 0.862, 0.535], "label": {"en": "BigFix update ignored", "vi": "Bỏ qua cập nhật BigFix"}},
+              {"id": "note", "rect": [0.106, 0.83, 0.195, 0.932], "label": {"en": "Password written on paper", "vi": "Mật khẩu viết trên giấy"}}
+            ]
+          },
+          {
+            "id": "classify", "type": "sort",
+            "image": "assets/img/week4/device-safe-or-risk.png",
+            "title": {"en": "Safe or Risk?", "vi": "An toàn hay rủi ro?"},
+            "prompt": {"en": "Drag each item into SAFE or RISK. You can also select an item, then select a group.", "vi": "Kéo từng mục vào AN TOÀN hoặc RỦI RO. Bạn cũng có thể chọn mục rồi chọn nhóm."},
+            "groups": [{"id": "safe", "tone": "safe", "icon": "assets/img/week4/safe-icon.png", "label": {"en": "SAFE", "vi": "AN TOÀN"}}, {"id": "risk", "tone": "risk", "icon": "assets/img/week4/risk-icon.png", "label": {"en": "RISK", "vi": "RỦI RO"}}],
+            "items": [
+              {"id": "corporate", "label": {"en": "Corporate Laptop", "vi": "Laptop công ty"}, "group": "safe"},
+              {"id": "usb", "label": {"en": "Unknown USB", "vi": "USB lạ"}, "group": "risk"},
+              {"id": "hmi", "label": {"en": "Approved OT HMI", "vi": "HMI OT được phê duyệt"}, "group": "safe"},
+              {"id": "tablet", "label": {"en": "Personal Tablet", "vi": "Máy tính bảng cá nhân"}, "group": "risk"},
+              {"id": "vpn", "label": {"en": "VPN Client", "vi": "Ứng dụng VPN"}, "group": "safe"},
+              {"id": "cracked", "label": {"en": "Cracked Software", "vi": "Phần mềm bẻ khóa"}, "group": "risk"}
+            ]
+          },
+          {
+            "id": "alarm", "type": "alarm", "seconds": 30,
+            "image": "assets/img/week4/device-security-alarm.png",
+            "title": {"en": "Security Alarm", "vi": "Báo động bảo mật"},
+            "prompt": {"en": "Resolve all four alerts in 30 seconds. A wrong response costs 5 seconds. The clock starts when you press Start.", "vi": "Xử lý đủ bốn cảnh báo trong 30 giây. Mỗi lần chọn sai bị trừ 5 giây. Đồng hồ bắt đầu khi bạn nhấn Bắt đầu."},
+            "alerts": [
+              {"title": {"en": "System update installed — restart required", "vi": "Đã cài bản cập nhật — cần khởi động lại"}, "correct": "restart", "options": [
+                {"id": "restart", "label": {"en": "Restart Computer", "vi": "Khởi động lại máy"}},
+                {"id": "ignore", "label": {"en": "Ignore Forever", "vi": "Bỏ qua mãi mãi"}},
+                {"id": "disable", "label": {"en": "Disable Update Service", "vi": "Tắt dịch vụ cập nhật"}}
+              ], "learning": {"en": "Restarting completes the security update installation.", "vi": "Khởi động lại giúp hoàn tất cài đặt bản cập nhật bảo mật."}},
+              {"title": {"en": "Unknown USB device detected", "vi": "Phát hiện USB không rõ nguồn gốc"}, "correct": "disconnect", "options": [
+                {"id": "open", "label": {"en": "Open Device Files", "vi": "Mở tệp trên thiết bị"}},
+                {"id": "disconnect", "label": {"en": "Disconnect Device", "vi": "Ngắt kết nối thiết bị"}},
+                {"id": "driver", "label": {"en": "Install Driver Immediately", "vi": "Cài driver ngay"}}
+              ], "learning": {"en": "Unknown devices may introduce malware.", "vi": "Thiết bị lạ có thể đưa mã độc vào hệ thống."}},
+              {"title": {"en": "You are leaving your workstation", "vi": "Bạn sắp rời máy tính"}, "correct": "lock", "options": [
+                {"id": "lock", "label": {"en": "Lock Screen", "vi": "Khóa màn hình"}},
+                {"id": "leave", "label": {"en": "Leave as-is", "vi": "Giữ nguyên"}},
+                {"id": "colleague", "label": {"en": "Ask a coworker to watch it", "vi": "Nhờ đồng nghiệp trông giúp"}}
+              ], "learning": {"en": "Always lock your screen before leaving.", "vi": "Luôn khóa màn hình trước khi rời đi."}},
+              {"title": {"en": "Security update available", "vi": "Có bản cập nhật bảo mật"}, "correct": "approved", "options": [
+                {"id": "approved", "label": {"en": "Update from Approved Source", "vi": "Cập nhật từ nguồn được phê duyệt"}},
+                {"id": "search", "label": {"en": "Search Online for Faster Version", "vi": "Tìm phiên bản nhanh hơn trên mạng"}},
+                {"id": "external", "label": {"en": "Download from External Website", "vi": "Tải từ trang web bên ngoài"}}
+              ], "learning": {"en": "Install updates from approved company sources only.", "vi": "Chỉ cài cập nhật từ nguồn được công ty phê duyệt."}}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "connection", "hint": "F", "door": [0.658, 0.288, 0.811, 0.675],
+        "title": {"en": "Safe Connection", "vi": "Kết nối an toàn"},
+        "image": "assets/img/week4/safe-connection-room.png",
+        "challengeDoors": [[0.35, 0.633, 0.499, 0.686], [0.548, 0.633, 0.697, 0.686], [0.751, 0.634, 0.906, 0.688]],
+        "challenges": [
+          {
+            "id": "maze", "type": "sequence",
+            "image": "assets/img/week4/connection-maze.png",
+            "title": {"en": "Connection Maze", "vi": "Mê cung kết nối"},
+            "miss": {"en": "Data breach! The route was not built in the right order. Continue to the next challenge; you can retry this one.", "vi": "Lộ dữ liệu! Đường kết nối chưa được ghép đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
+            "prompt": {"en": "Build a secure route to download the security patch, starting from Home. Drag the four tiles into the four slots in the order you think is right. You can move or swap tiles, or take one back, and nothing is checked until you press Submit answer. A wrong order causes a data breach. You can also select a tile, then a slot.", "vi": "Tạo đường kết nối an toàn để tải bản vá bảo mật, bắt đầu từ Nhà. Kéo bốn ô vào bốn lỗ theo thứ tự bạn cho là đúng. Bạn có thể di chuyển, đổi chỗ hoặc lấy ô ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Sai thứ tự sẽ gây lộ dữ liệu. Bạn cũng có thể chọn một ô rồi chọn lỗ."},
+            "items": [
+              {"id": "home", "label": {"en": "Home", "vi": "Nhà"}},
+              {"id": "vpn", "label": "VPN"},
+              {"id": "gateway", "label": {"en": "Company Gateway", "vi": "Cổng công ty"}},
+              {"id": "secure", "label": {"en": "Secure Network", "vi": "Mạng an toàn"}}
+            ],
+            "order": ["home", "vpn", "gateway", "secure"]
+          },
+          {
+            "id": "access", "type": "sort",
+            "image": "assets/img/week4/connection-access-control.png",
+            "title": {"en": "Network Access Control", "vi": "Kiểm soát truy cập mạng"},
+            "prompt": {"en": "Drag devices into ALLOW or BLOCK. You can also select an item, then a group.", "vi": "Kéo thiết bị vào CHO PHÉP hoặc CHẶN. Bạn cũng có thể chọn mục rồi chọn nhóm."},
+            "hideProgress": true,
+            "groups": [{"id": "allow", "tone": "allow", "icon": "assets/img/week4/allow-icon.svg", "label": {"en": "ALLOW", "vi": "CHO PHÉP"}}, {"id": "block", "tone": "block", "icon": "assets/img/week4/block-icon.svg", "label": {"en": "BLOCK", "vi": "CHẶN"}}],
+            "items": [
+              {"id": "managed", "label": {"en": "P&G Managed Laptop", "vi": "Laptop do P&G quản lý"}, "group": "allow"},
+              {"id": "contractor", "label": {"en": "Contractor Personal Laptop", "vi": "Laptop cá nhân của nhà thầu"}, "group": "block"},
+              {"id": "ot", "label": {"en": "Approved OT Workstation", "vi": "Máy trạm OT được phê duyệt"}, "group": "allow"},
+              {"id": "smart", "label": {"en": "Unknown Smart Device", "vi": "Thiết bị thông minh không rõ nguồn gốc"}, "group": "block"},
+              {"id": "mobile", "label": {"en": "Company Mobile with VPN", "vi": "Điện thoại công ty có VPN"}, "group": "allow"},
+              {"id": "gaming", "label": {"en": "Personal Gaming Laptop", "vi": "Laptop chơi game cá nhân"}, "group": "block"}
+            ]
+          },
+          {
+            "id": "sharing", "type": "choice",
+            "image": "assets/img/week4/connection-secure-sharing.png",
+            "title": {"en": "Secure Sharing", "vi": "Chia sẻ an toàn"},
+            "prompt": {"en": "Which tool should you use to share a Confidential file with an authorized recipient?", "vi": "Bạn nên dùng công cụ nào để chia sẻ tệp Mật với người nhận được phép?"},
+            "options": [
+              {"id": "teams", "label": "Microsoft Teams"},
+              {"id": "gmail", "label": "Gmail"},
+              {"id": "whatsapp", "label": "WhatsApp"},
+              {"id": "usb", "label": "USB"},
+              {"id": "onedrive", "label": {"en": "Personal OneDrive", "vi": "OneDrive cá nhân"}}
+            ],
+            "correct": "teams"
+          }
+        ]
+      },
+      {
+        "id": "installation", "hint": "E", "door": [0.845, 0.27, 0.985, 0.685],
+        "title": {"en": "Safe Installation", "vi": "Cài đặt an toàn"},
+        "image": "assets/img/week4/safe-installation-room.png",
+        "challengeDoors": [[0.325, 0.598, 0.447, 0.645], [0.484, 0.599, 0.606, 0.646], [0.644, 0.599, 0.765, 0.646], [0.811, 0.597, 0.95, 0.647]],
+        "challenges": [
+          {
+            "id": "install", "type": "sort",
+            "image": "assets/img/week4/installation-install-or-reject.png",
+            "title": {"en": "Install or Reject", "vi": "Cài đặt hay từ chối"},
+            "prompt": {"en": "Install software only from approved sources. Drag each app into INSTALL or REJECT, or select the app and then its group.", "vi": "Chỉ cài phần mềm từ nguồn được phê duyệt. Kéo ứng dụng vào CÀI ĐẶT hoặc TỪ CHỐI, hoặc chọn ứng dụng rồi chọn nhóm."},
+            "groups": [{"id": "install", "tone": "install", "icon": "assets/img/week4/install-icon.svg", "label": {"en": "INSTALL", "vi": "CÀI ĐẶT"}}, {"id": "reject", "tone": "reject", "icon": "assets/img/week4/reject-icon.svg", "label": {"en": "REJECT", "vi": "TỪ CHỐI"}}],
+            "items": [
+              {"id": "zoom", "label": "PG Apps Center - Zoom", "group": "install"},
+              {"id": "vscode", "label": "PG Apps Center - VSCode", "group": "install"},
+              {"id": "cracked", "label": {"en": "Cracked Photoshop", "vi": "Photoshop bẻ khóa"}, "group": "reject"},
+              {"id": "usb", "label": "USB Driver Pack", "group": "reject"},
+              {"id": "dropbox", "label": "Dropbox Installer", "group": "reject"},
+              {"id": "manufacturing", "label": {"en": "P&G Approved Manufacturing Tool", "vi": "Công cụ sản xuất được P&G phê duyệt"}, "group": "install"}
+            ]
+          },
+          {
+            "id": "workflow", "type": "sequence",
+            "image": "assets/img/week4/installation-approval-workflow.png",
+            "title": {"en": "Approval Workflow Puzzle", "vi": "Quy trình phê duyệt"},
+            "prompt": {"en": "Follow the right steps to get software approved. Drag the five steps into the five slots in the correct order, from Need Software to Installation. You can move or swap steps, or take one back, and nothing is checked until you press Submit answer. You can also select a step, then a slot.", "vi": "Hãy làm đúng các bước để phần mềm được phê duyệt. Kéo năm bước vào năm lỗ theo đúng thứ tự, từ Xác định nhu cầu phần mềm đến Cài đặt. Bạn có thể di chuyển, đổi chỗ hoặc lấy bước ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Bạn cũng có thể chọn một bước rồi chọn lỗ."},
+            "miss": {"en": "The approval workflow was not in the right order. Continue to the next challenge; you can retry this one.", "vi": "Quy trình phê duyệt chưa đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
+            "items": [
+              {"id": "need", "label": {"en": "Need Software", "vi": "Xác định nhu cầu phần mềm"}},
+              {"id": "justification", "label": {"en": "Business Justification", "vi": "Giải trình nhu cầu công việc"}},
+              {"id": "approval", "label": {"en": "Approval", "vi": "Phê duyệt"}},
+              {"id": "source", "label": {"en": "Approved Source", "vi": "Nguồn được phê duyệt"}},
+              {"id": "installation", "label": {"en": "Installation", "vi": "Cài đặt"}}
+            ],
+            "order": ["need", "justification", "approval", "source", "installation"]
+          },
+          {
+            "id": "escape", "type": "sequence", "vertical": true,
+            "image": "assets/img/week4/installation-approval-escape.png",
+            "title": {"en": "Software Approval Escape", "vi": "Thoát hiểm bằng phê duyệt phần mềm"},
+            "prompt": {"en": "The approval system has been scrambled. Drag the four permitted steps into the list, top to bottom, in the order they must happen. Leave the unauthorized actions out. You can reorder or swap steps, or take one back, and nothing is checked until you press Submit answer. You can also select a step, then a position.", "vi": "Hệ thống phê duyệt đã bị đảo lộn. Kéo bốn bước được phép vào danh sách theo thứ tự thực hiện, từ trên xuống dưới. Không chọn các hành động trái phép. Bạn có thể sắp xếp lại, đổi chỗ hoặc lấy bước ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Bạn cũng có thể chọn một bước rồi chọn vị trí."},
+            "miss": {"en": "The steps were not the right ones, or not in the right order. Continue to the next challenge; you can retry this one.", "vi": "Các bước chưa đúng hoặc chưa đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
+            "items": [
+              {"id": "business", "label": {"en": "Business Justification", "vi": "Giải trình nhu cầu công việc"}},
+              {"id": "manager", "label": {"en": "Manager Approval", "vi": "Quản lý phê duyệt"}},
+              {"id": "apps", "label": {"en": "Download from PG Apps Center", "vi": "Tải từ PG Apps Center"}},
+              {"id": "install", "label": {"en": "Install Software", "vi": "Cài đặt phần mềm"}},
+              {"id": "crack", "label": {"en": "Download Crack Version", "vi": "Tải bản bẻ khóa"}},
+              {"id": "usb", "label": {"en": "USB Installation", "vi": "Cài qua USB"}},
+              {"id": "dropbox", "label": {"en": "Personal Dropbox Download", "vi": "Tải từ Dropbox cá nhân"}},
+              {"id": "ignore", "label": {"en": "Ignore Approval Process", "vi": "Bỏ qua quy trình phê duyệt"}}
+            ],
+            "order": ["business", "manager", "apps", "install"]
+          },
+          {
+            "id": "vault", "type": "bubbles", "seconds": 60, "lives": 3,
+            "image": "assets/img/week4/installation-vault-key.png",
+            "title": {"en": "Software Vault Key", "vi": "Chìa khóa kho phần mềm"},
+            "miss": {"en": "The vault stayed locked — a bomb or the clock stopped you. Continue; you can retry this challenge.", "vi": "Kho vẫn bị khóa — bom nổ hoặc hết giờ. Hãy tiếp tục; bạn có thể thử lại thử thách này."},
+            "prompt": {
+              "en": "Four key pieces of the approved software process are hidden in the floating bubbles. Pop them all to open the Installation Vault. Pop an unapproved source and a bomb goes off — it costs a life. You have 3 lives and 60 seconds.",
+              "vi": "Bốn mảnh chìa khóa của quy trình phần mềm được phê duyệt đang ẩn trong các bong bóng bay. Hãy nổ hết chúng để mở Kho cài đặt. Nổ nhầm nguồn không được phê duyệt sẽ có bom nổ và mất một mạng. Bạn có 3 mạng và 60 giây."
+            },
+            "safe": [
+              {"id": "email", "label": {"en": "Approval Email", "vi": "Email phê duyệt"}},
+              {"id": "appscenter", "label": "PG Apps Center"},
+              {"id": "form", "label": {"en": "Business Justification Form", "vi": "Mẫu giải trình công việc"}},
+              {"id": "manager", "label": {"en": "Manager Approval", "vi": "Quản lý phê duyệt"}}
+            ],
+            "risks": [
+              {"id": "whatsapp", "label": "WhatsApp"},
+              {"id": "usb", "label": "USB"},
+              {"id": "dropbox", "label": "Dropbox"},
+              {"id": "crack", "label": {"en": "Crack Website", "vi": "Trang web bẻ khóa"}}
+            ]
+          }
+        ]
+      }
+    ],
+    "masterDoor": [0.398, 0.213, 0.613, 0.682]
+  }]
+}

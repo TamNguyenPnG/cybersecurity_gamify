@@ -1,0 +1,517 @@
+.escape-game {
+  position: fixed;
+  inset: var(--fs-top, 90px) 0 0;
+  z-index: 40;
+  overflow-y: auto;
+  padding: 16px clamp(12px, 3vw, 48px) 32px;
+  background: #030d1e;
+  color: #edf6ff;
+}
+.escape-bar, .escape-controls, .escape-room-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.escape-bar h2 { font-size: clamp(18px, 2vw, 28px); margin: 0; }
+.escape-back {
+  min-height: 48px;
+  padding: 10px 24px;
+  border: 2px solid #ffe16d;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd23f, #ff9f1c);
+  color: #1c1300;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px #ffd23f33, 0 0 22px #ffb62e88;
+  transition: transform .15s, box-shadow .15s;
+  animation: escape-back-glow 2.4s ease-in-out infinite;
+}
+.escape-back:hover, .escape-back:focus-visible {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 0 4px #ffd23f66, 0 0 34px #ffc84acc;
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+@keyframes escape-back-glow {
+  50% { box-shadow: 0 0 0 6px #ffd23f1a, 0 0 32px #ffb62ecc; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .escape-back { animation: none; transition: none; }
+}
+.escape-hall { position: relative; max-width: 1250px; margin: 0 auto 20px; }
+.escape-image { display: block; width: 100%; height: auto; border-radius: 12px; }
+.escape-door {
+  position: absolute;
+  white-space: pre-line;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 12px 5px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(transparent 65%, #001126dd);
+  color: white;
+  text-shadow: 0 1px 4px black;
+  font-size: clamp(10px, 1.2vw, 17px);
+  text-align: center;
+  cursor: pointer;
+  transition: background .18s, box-shadow .18s, transform .18s;
+}
+.escape-door:hover, .escape-door:focus-visible {
+  background: #42dff22e;
+  border-color: #80f5ff;
+  box-shadow: 0 0 25px #2cd6ff, inset 0 0 30px #2cd6ff77;
+  outline: 3px solid #e2fdff;
+  outline-offset: 3px;
+}
+.escape-door.is-locked { filter: saturate(.5); }
+.escape-door.is-opening { animation: escape-door-open .36s ease-in forwards; }
+.escape-room-nav { justify-content: center; }
+.escape-note { text-align: center; color: #b7cee4; }
+.escape-room-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(310px, 1fr);
+  align-items: start;
+  gap: 24px;
+  max-width: 1700px;
+  margin: auto;
+}
+.escape-art { min-width: 0; }
+.escape-room-art { position: relative; }
+.escape-challenge-door {
+  position: absolute;
+  padding: 2px;
+  background: #031326;
+  border: 2px solid #8fffea;
+  color: white;
+  font-size: clamp(9px, .8vw, 13px);
+  border-radius: 8px;
+  box-shadow: 0 0 10px #45efd677;
+  white-space: normal;
+}
+.escape-challenge-door:hover, .escape-challenge-door:focus-visible { background: #167165; box-shadow: 0 0 22px #5bffdf; }
+/* Opaque, full-strength result badges so the artwork's own button text never shows through. */
+.escape-challenge-door:disabled { opacity: 1; cursor: default; font-weight: 800; }
+.escape-challenge-door.is-failed { background: #8a1f1f; border-color: #ff9a9a; color: #fff; box-shadow: 0 0 12px #ff5a5a88; font-weight: 800; }
+.escape-challenge-door.is-failed .door-start { display: none; }
+.escape-challenge-door.is-failed:hover, .escape-challenge-door.is-failed:focus-visible {
+  background: #167165;
+  border-color: #8fffea;
+  box-shadow: 0 0 22px #5bffdf;
+}
+.escape-challenge-door.is-failed:hover .door-state, .escape-challenge-door.is-failed:focus-visible .door-state { display: none; }
+.escape-challenge-door.is-failed:hover .door-start, .escape-challenge-door.is-failed:focus-visible .door-start { display: inline; }
+.escape-challenge-door.is-passed:disabled { background: #0f7a3a; border-color: #7dff9f; color: #fff; box-shadow: 0 0 12px #3cf07a88; }
+/* The chapter 2 bubble arena, hosted full-width inside a room challenge. */
+.escape-bubble-box { display: flex; flex-direction: column; gap: 12px; max-width: 1400px; margin: 0 auto; }
+.escape-bubble-box h3, .escape-bubble-box p { margin: 0; }
+.escape-bubble-box > .btn { align-self: flex-start; }
+.escape-bubble-host .bubble-arena {
+  height: clamp(340px, calc(100dvh - var(--fs-top, 90px) - 330px), 560px);
+  border-color: #75f8df88;
+}
+.escape-art > .escape-image { max-height: calc(100dvh - 210px); object-fit: contain; }
+.escape-art.escape-room-art > .escape-image { max-height: none; }
+/* Tall challenge artwork: a narrow picture column beside a wider panel. */
+.escape-room-layout.is-portrait { grid-template-columns: minmax(240px, 420px) minmax(0, 1fr); max-width: 1240px; }
+.escape-room-layout.is-portrait .escape-art > .escape-image {
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  box-shadow: 0 0 28px #1e6fb655;
+}
+.escape-bubble-head { display: flex; align-items: center; gap: 16px; }
+.escape-bubble-head .escape-image { width: auto; height: 96px; max-height: none; flex: none; }
+.escape-bubble-text { display: grid; gap: 4px; min-width: 0; }
+.escape-alert-window {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 3px solid #ffb851;
+  background: #0b152af5;
+  box-shadow: 0 0 35px #ff822355;
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+}
+.escape-alert-window h3 { margin: 0; }
+.escape-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #365976;
+  border-radius: 16px;
+  background: #0a1c32;
+}
+.escape-panel p, .escape-panel h3 { margin: 0; line-height: 1.6; }
+.escape-prompt { white-space: pre-line; }
+.escape-option {
+  border: 1px solid #68859f;
+  background: #102e4b;
+  color: #f2faff;
+  white-space: normal;
+  text-align: left;
+  justify-content: flex-start;
+  line-height: 1.5;
+  min-height: 46px;
+}
+.escape-option:hover, .escape-option.is-selected {
+  background: #194c63;
+  border-color: #75f8df;
+  box-shadow: 0 0 0 2px #75f8df55;
+}
+.escape-option:disabled { opacity: .55; cursor: default; }
+.escape-option small { color: #9cf9de; }
+/* Assigned-group tag: green for SAFE / ALLOW / INSTALL, red for RISK / BLOCK / REJECT. */
+.escape-option .escape-tag { margin-left: 4px; font-weight: 800; letter-spacing: .04em; }
+.escape-option .escape-tag.is-safe, .escape-option .escape-tag.is-allow, .escape-option .escape-tag.is-install { color: #4dff88; }
+.escape-option .escape-tag.is-risk, .escape-option .escape-tag.is-block, .escape-option .escape-tag.is-reject { color: #ff6b6b; }
+.escape-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.escape-drop { border: 2px dashed #66dfef; min-height: 85px; background: #174150; color: white; }
+.escape-drop.is-safe, .escape-drop.is-risk, .escape-drop.is-allow, .escape-drop.is-block,
+.escape-drop.is-install, .escape-drop.is-reject {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 8px 16px;
+  border-style: solid;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #fff;
+}
+.escape-drop.is-safe, .escape-drop.is-allow, .escape-drop.is-install { background: linear-gradient(160deg, #1faa4a, #0d6a2d); border-color: #7dff9f; }
+.escape-drop.is-risk, .escape-drop.is-block, .escape-drop.is-reject { background: linear-gradient(160deg, #d62b2b, #8a1111); border-color: #ff8f8f; }
+.escape-drop.is-safe:hover, .escape-drop.is-safe:focus-visible,
+.escape-drop.is-allow:hover, .escape-drop.is-allow:focus-visible,
+.escape-drop.is-install:hover, .escape-drop.is-install:focus-visible { box-shadow: 0 0 22px #3cf07a; filter: brightness(1.12); }
+.escape-drop.is-risk:hover, .escape-drop.is-risk:focus-visible,
+.escape-drop.is-block:hover, .escape-drop.is-block:focus-visible,
+.escape-drop.is-reject:hover, .escape-drop.is-reject:focus-visible { box-shadow: 0 0 22px #ff5a5a; filter: brightness(1.12); }
+.escape-drop-icon {
+  box-sizing: border-box;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 5px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px #0006;
+  pointer-events: none;
+}
+.escape-feedback { background: #153e43; border-left: 4px solid #72efd2; padding: 10px; }
+.escape-key { color: #ffe16d; font-weight: 700; font-size: 22px; }
+.escape-detective-frame { position: relative; }
+.escape-detective-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid #365976;
+  border-radius: 12px;
+  background: #0a1c32;
+}
+.escape-detective-bar .btn { margin-left: auto; }
+.escape-detective-hint { color: #b7cee4; }
+.escape-detective-full { display: flex; justify-content: center; }
+.escape-detective-full .escape-detective-frame { display: inline-block; max-width: 100%; }
+.escape-detective-full .escape-image {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - var(--fs-top, 90px) - 190px);
+  min-height: 200px;
+}
+.escape-risk-pin {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 4px);
+  max-width: 240px;
+  width: max-content;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #0b3b32;
+  border: 1px solid #65ffd0;
+  color: #eafff8;
+  font-size: clamp(10px, 1vw, 14px);
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: normal;
+}
+.escape-risk-pin.is-below { bottom: auto; top: calc(100% + 4px); }
+.escape-risk-ring {
+  position: absolute;
+  border: 3px solid #65ffd0;
+  border-radius: 8px;
+  box-shadow: 0 0 14px #42efb0;
+  pointer-events: none;
+}
+.escape-detective-frame img { cursor: crosshair; }
+.escape-slots { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 8px; }
+.escape-slot {
+  position: relative;
+  min-height: 84px;
+  display: grid;
+  place-items: center;
+  padding: 20px 4px 8px;
+  border: 3px dashed #5f7f99;
+  border-radius: 14px;
+  background: #061426;
+  color: #fff;
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-align: center;
+  cursor: pointer;
+}
+.escape-slot small {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  color: #8fb0c8;
+  font-size: 13px;
+}
+.escape-slot.is-over { border-color: #ffe16d; background: #1d2a12; box-shadow: 0 0 18px #ffe16d66; }
+/* Top-to-bottom list: one step per row, number on the left. */
+.escape-slots.is-vertical { grid-template-columns: minmax(0, 1fr); }
+.escape-slots.is-vertical .escape-slot {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 8px 16px;
+  font-size: 15px;
+  text-align: left;
+}
+.escape-slots.is-vertical .escape-slot small {
+  position: static;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #17324d;
+  color: #cfe6fa;
+  font-size: 14px;
+  font-weight: 800;
+}
+/* Filled slots stay neutral: nothing is judged until Submit. */
+.escape-slot.is-filled {
+  border-style: solid;
+  border-color: #75f8df;
+  background: #194c63;
+  cursor: grab;
+}
+.escape-tray { display: flex; flex-wrap: wrap; gap: 10px; }
+.escape-tile { flex: 1 1 120px; justify-content: center; text-align: center; cursor: grab; border-radius: 16px; }
+.escape-clock { color: #ffe46c; font-size: 36px; }
+/* ---- Master Room: key entry lives on the keypad painted in the image. ---- */
+.escape-key-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 10px; }
+.escape-key-chip {
+  padding: 4px 12px;
+  border: 1px solid #365976;
+  border-radius: 999px;
+  background: #0a1c32;
+  color: #9db6cc;
+  font-size: 14px;
+}
+.escape-key-chip.is-earned { border-color: #ffe16d; color: #ffe16d; font-weight: 700; }
+.escape-master-note { max-width: 960px; margin: 0 auto 10px; text-align: center; }
+.escape-master-stage { display: flex; justify-content: center; }
+.escape-master-frame {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 3 / 2;
+  width: min(100%, calc((100dvh - var(--fs-top, 90px) - 190px) * 1.5));
+  min-width: min(100%, 520px);
+}
+.escape-master-frame > .escape-image { width: 100%; height: 100%; object-fit: cover; }
+.escape-keypad { display: contents; }
+.escape-key-box, .escape-launch, .escape-launch-clock, .escape-trap {
+  position: absolute;
+  left: var(--l);
+  top: var(--t);
+  width: var(--w);
+  height: var(--h);
+  box-sizing: border-box;
+}
+/* Opaque fills so the artwork's own painted boxes and button never ghost through. */
+.escape-key-box {
+  padding: 0;
+  border: 2px solid #4f9dff;
+  border-radius: 8px;
+  background: #06122a;
+  color: #fff;
+  font: 800 3.4cqw/1 'Space Grotesk', monospace;
+  text-align: center;
+  text-transform: uppercase;
+  caret-color: #ffe16d;
+  box-shadow: 0 0 12px #2b7bff88;
+}
+.escape-key-box:focus { outline: 0; border-color: #ffe16d; box-shadow: 0 0 0 2px #ffe16d66, 0 0 18px #ffe16d99; }
+.escape-key-box:disabled { opacity: .8; }
+.escape-launch {
+  border: 2px solid #ffc83a;
+  border-radius: 10px;
+  background: #1c1503;
+  color: #ffe08a;
+  font: 800 2cqw/1 'Space Grotesk', sans-serif;
+  letter-spacing: .08em;
+  cursor: pointer;
+  box-shadow: 0 0 16px #ffc83a77;
+  transition: background .15s, box-shadow .15s;
+}
+.escape-launch:hover:not(:disabled), .escape-launch:focus-visible {
+  background: #3a2a05;
+  box-shadow: 0 0 28px #ffd25ccc;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.escape-launch:disabled { cursor: progress; color: #c9a647; font-size: 1.15cqw; letter-spacing: .02em; }
+.escape-launch { white-space: nowrap; overflow: hidden; }
+.escape-launch-clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4cqw;
+  text-align: left;
+  border: 2px solid #ffc83a;
+  border-radius: 14px;
+  background: #0a0f1ef2;
+  color: #ffe08a;
+}
+.escape-launch-clock strong { font: 800 4.6cqw/1 'Space Grotesk', monospace; min-width: 2ch; text-align: center; }
+.escape-launch-clock small { font-size: 1.2cqw; color: #cfe0f2; line-height: 1.25; max-width: 15cqw; }
+/* The bait sits under the countdown. It is meant to be hard to resist:
+   a pulsing gold ring, a light sweep across it and a small wobble. */
+.escape-trap {
+  overflow: hidden;
+  border: 3px solid #fff3a6;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffd23f 0%, #ff9f1c 45%, #ff6a00 100%);
+  color: #1c1300;
+  font: 900 1.9cqw/1.15 'Space Grotesk', sans-serif;
+  letter-spacing: .02em;
+  text-shadow: 0 1px 0 #ffffff88;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 #ffd23fcc, 0 0 26px #ffb62ecc;
+  animation: escape-trap-ring 1.2s ease-out infinite, escape-trap-wobble 2.4s ease-in-out infinite;
+}
+.escape-trap > span { position: relative; z-index: 1; }
+.escape-trap::after {
+  content: '';
+  position: absolute;
+  inset: -20% auto -20% -40%;
+  width: 28%;
+  background: linear-gradient(100deg, transparent, #ffffffcc, transparent);
+  transform: skewX(-20deg);
+  animation: escape-trap-shine 2s ease-in-out infinite;
+  pointer-events: none;
+}
+.escape-trap:hover, .escape-trap:focus-visible {
+  filter: brightness(1.1) saturate(1.15);
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  animation-play-state: paused, paused;
+  transform: scale(1.05);
+}
+@keyframes escape-trap-ring {
+  0%   { box-shadow: 0 0 0 0 #ffd23fcc, 0 0 22px #ffb62ecc; }
+  70%  { box-shadow: 0 0 0 16px #ffd23f00, 0 0 38px #ffd23f; }
+  100% { box-shadow: 0 0 0 0 #ffd23f00, 0 0 22px #ffb62ecc; }
+}
+@keyframes escape-trap-wobble {
+  0%, 62%, 100% { transform: scale(1) rotate(0); }
+  68% { transform: scale(1.05) rotate(-1.5deg); }
+  74% { transform: scale(1.05) rotate(1.5deg); }
+  80% { transform: scale(1.05) rotate(-1deg); }
+  86% { transform: scale(1.03) rotate(0); }
+}
+@keyframes escape-trap-shine { 0% { left: -40%; } 55%, 100% { left: 140%; } }
+@media (max-width: 760px) {
+  /* Narrow screens: the keypad drops below the picture in the same frame. */
+  .escape-master-frame {
+    container-type: normal;
+    aspect-ratio: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 14px;
+    background: #061226;
+    border-radius: 12px;
+  }
+  .escape-master-frame > .escape-image { height: auto; flex: 0 0 100%; }
+  .escape-keypad { display: contents; }
+  .escape-key-box, .escape-launch, .escape-launch-clock {
+    position: static;
+    height: auto;
+    width: auto;
+  }
+  /* Stays positioned so the light sweep is clipped to the button. */
+  .escape-trap {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: auto;
+    width: auto;
+  }
+  .escape-key-box { flex: 1 1 18%; min-width: 0; margin-inline: 4px; padding: 10px 0; font-size: 28px; }
+  .escape-key-box:first-of-type { margin-left: 14px; }
+  .escape-launch { flex: 0 0 calc(100% - 28px); margin-inline: 14px; padding: 14px; font-size: 20px; }
+  .escape-launch:disabled { font-size: 18px; }
+  .escape-launch-clock { flex: 0 0 calc(100% - 28px); margin-inline: 14px; padding: 10px; gap: 14px; }
+  .escape-launch-clock strong { font-size: 40px; }
+  .escape-launch-clock small { font-size: 13px; max-width: none; }
+  .escape-trap { flex: 0 0 calc(100% - 28px); margin-inline: 14px; padding: 16px; font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .escape-trap, .escape-trap::after { animation: none; }
+  .escape-trap { box-shadow: 0 0 0 4px #ffd23f88, 0 0 26px #ffb62ecc; }
+  .escape-launch { transition: none; }
+}
+.escape-video { display: block; width: 100%; height: calc(100dvh - 260px); min-height: 240px; object-fit: contain; background: #000; }
+.escape-controls { justify-content: center; margin-top: 20px; }
+.escape-dialog {
+  max-width: min(600px, calc(100vw - 48px));
+  padding: 28px;
+  border: 2px solid #70e9f9;
+  border-radius: 20px;
+  background: #0a1c32;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 55px #20a9de66;
+}
+.escape-dialog::backdrop { background: #000b; backdrop-filter: blur(5px); }
+.escape-dialog p { line-height: 1.7; }
+.escape-game[aria-busy="true"] .btn { pointer-events: none; opacity: .6; }
+@keyframes escape-door-open {
+  50% { transform: scale(.96); filter: brightness(1.6); }
+  100% { transform: perspective(600px) rotateY(-18deg); opacity: .3; }
+}
+@media (max-width: 850px) {
+  .escape-room-layout { grid-template-columns: 1fr; gap: 12px; }
+  .escape-room-layout.is-portrait { grid-template-columns: 1fr; }
+  .escape-art > .escape-image { max-height: 50dvh; }
+  .escape-bubble-head .escape-image { height: 64px; }
+  .escape-door { padding: 3px; border-radius: 7px; }
+  .escape-door span { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .escape-door { transition: none; }
+  .escape-door.is-opening { animation: none; }
+}

@@ -16,6 +16,7 @@ import re
 import sqlite3
 import traceback
 import datetime
+import uuid
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
@@ -265,6 +266,154 @@ def api_exit_chapter(con, body):
     return {"ok": True}
 
 
+def escape_config():
+    path = os.path.join(PUBLIC, "content", "games", "chapter-04.json")
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)["games"][0]
+
+
+def escape_status(con, email, cfg):
+    rows = {r["room_id"]: r for r in con.execute(
+        "SELECT * FROM escape_rooms WHERE email = ?", (email,))}
+    rooms = {}
+    for room in cfg["rooms"]:
+        row = rows.get(room["id"])
+        rooms[room["id"]] = {
+            "attempted": bool(row and row["attempted"]),
+            "passed": bool(row and row["passed"]),
+            "hint": room["hint"] if row and row["passed"] else None,
+            "run_id": row["run_id"] if row else None,
+            "results": json.loads(row["results"]) if row else {},
+        }
+    return {
+        "rooms": rooms,
+        "masterUnlocked": all(r["attempted"] for r in rooms.values()),
+        "masterPassed": bool(rows.get("master") and rows["master"]["passed"]),
+    }
+
+
+def escape_grade(challenge, answers):
+    if not isinstance(answers, dict):
+        return None
+    kind = challenge["type"]
+    if kind == "choice":
+        return answers.get("choice") == challenge["correct"]
+    if kind == "sms":
+        marks = answers.get("marks")
+        return (answers.get("choice") == challenge["correct"]
+                and isinstance(marks, list) and len(marks) == 3
+                and all(isinstance(mark, str) for mark in marks)
+                and set(marks) == set(challenge["marks"]))
+    if kind == "hotspots":
+        found = answers.get("found")
+        expected = {h["id"] for h in challenge["hotspots"]}
+        return (isinstance(found, list) and len(found) == len(expected)
+                and all(isinstance(item, str) for item in found) and set(found) == expected)
+    if kind == "sort":
+        placements = answers.get("placements")
+        return isinstance(placements, dict) and placements == {
+            item["id"]: item["group"] for item in challenge["items"]}
+    if kind == "sequence":
+        return answers.get("order") == challenge["order"]
+    if kind == "bubbles":
+        hits = answers.get("hits")
+        if (not isinstance(hits, list) or not all(isinstance(h, str) for h in hits)
+                or len(set(hits)) != len(hits)):
+            return False
+        safe = {i["id"] for i in challenge["safe"]}
+        risks = {i["id"] for i in challenge["risks"]}
+        popped = set(hits)
+        return (popped <= safe | risks and safe <= popped
+                and len(popped & risks) < challenge["lives"])
+    if kind == "alarm":
+        actions = answers.get("actions")
+        elapsed = answers.get("elapsed")
+        errors = answers.get("errors")
+        if (not isinstance(actions, list) or not isinstance(elapsed, (int, float))
+                or not isinstance(errors, int) or elapsed < 0 or errors < 0):
+            return False
+        return (actions == [a["correct"] for a in challenge["alerts"]]
+                and elapsed + errors * 5 < challenge["seconds"])
+    raise ValueError("Unknown escape challenge type: " + kind)
+
+
+def api_escape(con, body, action):
+    email = str(body.get("email") or "").strip().lower()
+    if not con.execute("SELECT 1 FROM employees WHERE email = ?", (email,)).fetchone():
+        return {"error": "unknown-user"}, 400
+    cfg = escape_config()
+    if action == "status":
+        return escape_status(con, email, cfg), 200
+    state = next(r for r in chapter_states(con, email) if r["id"] == 4)
+    if state["state"] not in ("available", "grace"):
+        return {"error": "chapter-" + state["state"]}, 403
+
+    if action == "master":
+        status = escape_status(con, email, cfg)
+        if not status["masterUnlocked"]:
+            return {"error": "rooms-incomplete"}, 409
+        code = str(body.get("code") or "").strip().upper()
+        # Launching only succeeds with every room secured (100%), the right
+        # code, and without having clicked the trap download button.
+        trapped = body.get("trap") is True
+        all_secured = all(r["passed"] for r in status["rooms"].values())
+        passed = (not trapped and all_secured
+                  and code == "".join(room["hint"] for room in cfg["rooms"]))
+        con.execute(
+            "INSERT INTO escape_rooms VALUES (?,?,?,'{}',1,?,?) "
+            "ON CONFLICT(email,room_id) DO UPDATE SET attempted=1, "
+            "passed=MAX(escape_rooms.passed,excluded.passed), updated_at=excluded.updated_at",
+            (email, "master", uuid.uuid4().hex, int(passed), now_iso()))
+        con.commit()
+        return {"passed": passed, "progress": escape_status(con, email, cfg)}, 200
+
+    room = next((r for r in cfg["rooms"] if r["id"] == body.get("room_id")), None)
+    if not room:
+        return {"error": "unknown-room"}, 400
+    if action == "start":
+        con.execute(
+            "INSERT INTO escape_rooms VALUES (?,?,?,'{}',0,0,?) "
+            "ON CONFLICT(email,room_id) DO UPDATE SET run_id=excluded.run_id, "
+            "results='{}', updated_at=excluded.updated_at",
+            (email, room["id"], uuid.uuid4().hex, now_iso()))
+        con.commit()
+        return escape_status(con, email, cfg), 200
+    if action != "challenge":
+        return {"error": "unknown-action"}, 404
+
+    # Serialize updates so two tabs cannot overwrite each other's challenge results.
+    con.execute("BEGIN IMMEDIATE")
+    row = con.execute("SELECT * FROM escape_rooms WHERE email=? AND room_id=?",
+                      (email, room["id"])).fetchone()
+    if not row or row["run_id"] != body.get("run_id"):
+        con.rollback()
+        return {"error": "stale-room-run"}, 409
+    challenge = next((c for c in room["challenges"] if c["id"] == body.get("challenge_id")), None)
+    if not challenge:
+        con.rollback()
+        return {"error": "unknown-challenge"}, 400
+    answers = body.get("answers")
+    if not isinstance(answers, dict):
+        con.rollback()
+        return {"error": "invalid-answers"}, 400
+    results = json.loads(row["results"])
+    if results.get(challenge["id"]) is True:
+        con.rollback()
+        return {"passed": True,
+                "progress": escape_status(con, email, cfg)}, 200
+    # A challenge that was not passed may be retried within the same run.
+    passed = escape_grade(challenge, answers) is True
+    results[challenge["id"]] = passed
+    completed = len(results) == len(room["challenges"])
+    won = completed and all(results.values())
+    con.execute(
+        "UPDATE escape_rooms SET results=?, attempted=MAX(attempted,?), "
+        "passed=MAX(passed,?), updated_at=? WHERE email=? AND room_id=?",
+        (json.dumps(results), int(completed), int(won), now_iso(), email, room["id"]))
+    con.commit()
+    return {"passed": passed, "progress": escape_status(con, email, cfg)}, 200
+
+
 # ---------------------------------------------------------------------------
 # HTTP plumbing
 # ---------------------------------------------------------------------------
@@ -324,6 +473,9 @@ class Handler(SimpleHTTPRequestHandler):
                     "today": today().isoformat(),
                     "chapters": chapter_states(con, email),
                 })
+            if route == "/api/escape/status":
+                result, status = api_escape(con, {"email": q.get("email", [""])[0]}, "status")
+                return self._send_json(result, status)
             return self._send_json({"error": "not-found"}, 404)
         finally:
             con.close()
@@ -345,6 +497,9 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._send_json(api_save_attempt(con, body))
             if route == "/api/chapter/exit":
                 return self._send_json(api_exit_chapter(con, body))
+            if route.startswith("/api/escape/"):
+                result, status = api_escape(con, body, route.rsplit("/", 1)[-1])
+                return self._send_json(result, status)
             return self._send_json({"error": "not-found"}, 404)
         except Exception as exc:                      # noqa: BLE001
             # Without this the connection is simply dropped and the browser
@@ -369,6 +524,13 @@ def main():
     if not os.path.exists(DB_PATH):
         raise SystemExit(
             "data/app.db not found — run: python data/scripts/build_db.py")
+
+    con = connect()
+    try:
+        with open(os.path.join(ROOT, "data", "escape-room-schema.sql"), encoding="utf-8") as fh:
+            con.executescript(fh.read())
+    finally:
+        con.close()
 
     srv = ThreadingHTTPServer(("0.0.0.0", args.port), Handler)
     print("Cybersecurity Gamify running on http://localhost:{}".format(args.port))

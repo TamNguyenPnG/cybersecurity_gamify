@@ -21,6 +21,10 @@ GAMES.register('bubbles', function () {
 
   return {
     mount: function (host, cfg, ctx) {
+      /* Embedded (e.g. the escape room) skips the intro and the outcome
+         dialog; the caller receives the result through ctx.finish and
+         can stop the loop with the returned handle. */
+      if (cfg.noIntro) return start(host, cfg, ctx);
       GAMES.intro(host, cfg, ctx, function () { start(host, cfg, ctx); });
     }
   };
@@ -116,6 +120,7 @@ GAMES.register('bubbles', function () {
 
       var btn = el('button', 'bubble');
       btn.type = 'button';
+      btn.dataset.item = item.id;
       var face = el('span', 'bubble-face');
       face.style.setProperty('--h', HUES[Math.floor(Math.random() * HUES.length)]);
       btn.appendChild(face);
@@ -342,6 +347,13 @@ GAMES.register('bubbles', function () {
       /* Let the last explosion play before the dialog appears. */
       setTimeout(function () {
         if (!wrap.isConnected) return;
+        if (cfg.noIntro) {
+          ctx.finish(win ? cfg.points : 0, {
+            points: win ? cfg.points : 0, collected: collected, goal: goal,
+            livesLeft: lives, ended: reason, hits: hits
+          });
+          return;
+        }
         var modal = el('div', 'game-modal');
         (document.getElementById('chapterPage') || document.body).appendChild(modal);
 
@@ -366,5 +378,12 @@ GAMES.register('bubbles', function () {
     paintHud();
     requestAnimationFrame(frame);
     ctx.setTimer(cfg.timeLimitS || 60, function () { finish('time'); });
+    return {
+      stop: function () {
+        over = true;
+        ctx.clearTimer();
+        window.removeEventListener('resize', measure);
+      }
+    };
   }
 }());

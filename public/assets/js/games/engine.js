@@ -257,6 +257,7 @@ window.GAMES = (function () {
 
   return {
     register: register,
+    get: function (type) { return registry[type]; },
     run: run,
     el: el,
     fullscreen: fullscreen,
