@@ -25,28 +25,28 @@
             "vi": "Chỉ các thiết bị đã được phê duyệt mới được kết nối vào hệ thống của công ty."
           },
           "en": {
-            "q": "You see a non-employee connecting a personal laptop to the P&G network.",
-            "o": ["Ignore it", "Ask whether they have approval", "Stop the connection and contact CSL/IT", "Help them connect"]
+            "q": "You notice a vendor preparing to connect a personal laptop to the P&G network. What should you do?",
+            "o": ["Ignore it because the vendor is working on-site", "Help the vendor connect to save time", "Ask the vendor to provide Cybersecurity-approved authorization before allowing any connection", "Allow the connection first and verify the approval paperwork later"]
           },
           "vi": {
-            "q": "Bạn thấy một người không phải nhân viên đang kết nối laptop cá nhân vào mạng P&G.",
-            "o": ["Làm ngơ", "Hỏi xem họ đã được phê duyệt chưa", "Ngăn việc kết nối và liên hệ CSL/IT", "Giúp họ kết nối"]
+            "q": "Bạn thấy một nhà thầu chuẩn bị kết nối laptop cá nhân vào mạng P&G. Bạn nên làm gì?",
+            "o": ["Làm ngơ vì nhà thầu đang làm việc trong nhà máy", "Hỗ trợ nhà thầu kết nối để tiết kiệm thời gian", "Yêu cầu nhà thầu xuất trình đầy đủ phê duyệt từ Cybersecurity trước khi cho phép kết nối", "Cho phép kết nối trước rồi kiểm tra hồ sơ phê duyệt sau"]
           }
         },
         {
           "id": "p2",
           "answer": 2,
           "learning": {
-            "en": "Unauthorized activities create cybersecurity and compliance risks.",
-            "vi": "Các hoạt động trái phép tạo ra rủi ro về an ninh mạng và tuân thủ."
+            "en": "Always verify Cybersecurity approval before allowing a vendor device to connect. Unapproved connections introduce security and compliance risks.",
+            "vi": "Luôn xác minh phê duyệt từ Cybersecurity trước khi cho phép thiết bị của nhà thầu kết nối. Các kết nối chưa được phê duyệt có thể gây rủi ro về an ninh mạng và tuân thủ."
           },
           "en": {
-            "q": "You notice a contractor browsing unauthorized websites on a plant computer.",
-            "o": ["Ignore it", "Continue working", "Stop the activity and notify supervisor/CSL", "Join them"]
+            "q": "You notice a contractor accessing unauthorized websites from a plant computer. What should you do?",
+            "o": ["Ignore it because it does not affect your work", "Assume the contractor has approval and continue working", "Stop the activity and notify to the P&G Contractor Manager (CM), CSL, or HR", "Suggest a different website that may more interesting"]
           },
           "vi": {
-            "q": "Bạn phát hiện một nhà thầu đang truy cập các trang web trái phép trên máy tính của nhà máy.",
-            "o": ["Làm ngơ", "Tiếp tục làm việc", "Ngăn chặn hoạt động và báo cho quản lý/CSL", "Tham gia cùng họ"]
+            "q": "Bạn phát hiện một nhà thầu đang truy cập các trang web không được phép trên máy tính của nhà máy. Bạn nên làm gì?",
+            "o": ["Làm ngơ vì việc này không ảnh hưởng đến công việc của bạn", "Cho rằng nhà thầu đã được phê duyệt và tiếp tục làm việc", "Ngăn chặn hoạt động và thông báo cho quản lý nhà thầu (CM), CSL hoặc Nhân sự", "Gợi ý một trang web khác hấp dẫn hơn"]
           }
         },
         {
@@ -57,37 +57,37 @@
             "vi": "Hãy bảo vệ thông tin kinh doanh nhạy cảm khỏi việc bị tiết lộ trái phép."
           },
           "en": {
-            "q": "A non-employee uses a personal phone to photograph production screens.",
-            "o": ["Ignore it", "Ask if it is work-related", "Stop and escalate according to site policy", "Take a photo too"]
+            "q": "You notice a contractor using a personal phone to take photos of production screens. What should you do?",
+            "o": ["Ignore it because they may need the information for work", "Ask whether they have authorization to take photos", "Stop the activity and report to HR follow P&G process", "Take photos as well for future reference"]
           },
           "vi": {
-            "q": "Một người không phải nhân viên dùng điện thoại cá nhân để chụp ảnh màn hình sản xuất.",
-            "o": ["Làm ngơ", "Hỏi xem có liên quan đến công việc không", "Ngăn lại và báo cáo theo quy định của nhà máy", "Chụp ảnh cùng"]
+            "q": "Bạn phát hiện một nhà thầu đang dùng điện thoại cá nhân để chụp ảnh các màn hình sản xuất. Bạn nên làm gì?",
+            "o": ["Làm ngơ vì có thể họ cần thông tin đó cho công việc", "Hỏi xem họ có được phép chụp ảnh hay không", "Ngăn chặn hành động và báo cáo cho HR theo quy định của nhà máy", "Chụp ảnh theo để lưu lại làm tài liệu"]
           }
         },
         {
           "id": "p4",
           "answer": 1,
           "learning": {
-            "en": "When working outside the company network, users should use approved secure connection methods such as VPN before accessing company systems or data.",
-            "vi": "Khi làm việc bên ngoài mạng công ty, người dùng nên dùng các phương thức kết nối an toàn được phê duyệt như VPN trước khi truy cập hệ thống hoặc dữ liệu của công ty."
+            "en": "When working outside the company network, always use approved secure connection methods, such as a P&G Secured Zscaler or Ivanti (VPN), before accessing company systems, applications, or data.",
+            "vi": "Khi làm việc bên ngoài mạng công ty, hãy luôn sử dụng các phương thức kết nối an toàn được phê duyệt như P&G Secured ZScaler hoặc Ivanti (VPN) trước khi truy cập hệ thống, ứng dụng hoặc dữ liệu của công ty."
           },
           "en": {
-            "q": "You are on a business trip with a colleague. While waiting at the airport, you notice your colleague connecting a P&G laptop to the airport's public Wi-Fi to access company email and documents. What will you do?",
+            "q": "You are traveling with a colleague. While waiting at the airport, you notice them connecting a P&G laptop to public Wi‑Fi to access company email and documents. What should you do?",
             "o": [
-              "Ignore it because it is a company laptop",
-              "Remind the colleague to use P&G Secured Hotspot or another approved secure connection method before accessing company resources",
+              "Ignore it because the laptop is company-managed",
+              "Remind your colleague to use P&G Secured Zscaler, VPN, or another approved secure connection before accessing company resources",
               "Connect to any available Wi-Fi because airport networks are safe",
-              "Recommend using a stranger's hotspot because the signal is stronger"
+              "Use whichever network has the strongest signal available"
             ]
           },
           "vi": {
-            "q": "Bạn đang đi công tác cùng một đồng nghiệp. Trong lúc chờ ở sân bay, bạn thấy đồng nghiệp kết nối laptop P&G vào Wi-Fi công cộng của sân bay để truy cập email và tài liệu công ty. Bạn sẽ làm gì?",
+            "q": "Bạn đang đi công tác cùng một đồng nghiệp. Trong lúc chờ ở sân bay, bạn thấy đồng nghiệp kết nối laptop P&G vào Wi‑Fi công cộng để truy cập email và tài liệu công ty. Bạn nên làm gì?",
             "o": [
-              "Làm ngơ vì đó là laptop của công ty",
-              "Nhắc đồng nghiệp dùng P&G Secured Hotspot hoặc phương thức kết nối an toàn được phê duyệt khác trước khi truy cập tài nguyên công ty",
+              "Làm ngơ vì đây là laptop do công ty quản lý",
+              "Nhắc đồng nghiệp sử dụng P&G Secured ZScaler, VPN hoặc phương thức kết nối an toàn được phê duyệt trước khi truy cập tài nguyên công ty",
               "Kết nối vào bất kỳ Wi-Fi nào có sẵn vì mạng sân bay là an toàn",
-              "Đề nghị dùng hotspot của người lạ vì sóng mạnh hơn"
+              "Sử dụng bất kỳ mạng nào có tín hiệu mạnh nhất"
             ]
           }
         },
@@ -95,16 +95,19 @@
           "id": "p5",
           "answer": 2,
           "learning": {
-            "en": "Company information should only be shared using approved collaboration and data-sharing platforms.",
-            "vi": "Thông tin công ty chỉ nên được chia sẻ qua các nền tảng cộng tác và chia sẻ dữ liệu được phê duyệt."
+            "en": "Even when the vendor is qualified, company information should only be shared through approved collaboration and data-sharing platforms.",
+            "vi": "Ngay cả khi nhà thầu đã được phê duyệt, thông tin công ty vẫn chỉ nên được chia sẻ thông qua các nền tảng cộng tác và chia sẻ dữ liệu được phê duyệt."
           },
           "en": {
-            "q": "You notice a colleague preparing to send a production report to a supplier.",
-            "o": ["Send it through personal Gmail", "Send it through WhatsApp", "Send it through Microsoft Teams or other approved collaboration tools", "Copy it to a personal USB and hand-carry it"]
+            "q": "An qualified supplier is waiting for the latest production report to continue their work. How should the report be shared?",
+            "o": ["Send it through a personal email account for convenience",
+      "Share it through a personal messaging app such as Zalo/WhatsApp",
+      "Share it through P&G Microsoft Teams, SharePoint, or P&G another approved collaboration platform",
+      "Copy it to a personal USB drive and deliver it manually"]
           },
           "vi": {
-            "q": "Bạn thấy một đồng nghiệp chuẩn bị gửi báo cáo sản xuất cho nhà cung cấp.",
-            "o": ["Gửi qua Gmail cá nhân", "Gửi qua WhatsApp", "Gửi qua Microsoft Teams hoặc các công cụ cộng tác được phê duyệt khác", "Sao chép vào USB cá nhân và mang đến tận tay"]
+            "q": "Một nhà cung cấp đã được phê duyệt cần báo cáo sản xuất mới nhất để tiếp tục công việc. Đâu là cách an toàn nhất để chia sẻ tài liệu này?",
+            "o": ["Gửi qua email cá nhân để thuận tiện hơn", "Chia sẻ qua ứng dụng nhắn tin cá nhân như Zalo/WhatsApp", "Chia sẻ qua P&G Microsoft Teams, SharePoint hoặc nền tảng cộng tác khác được P&G phê duyệt", "Sao chép vào USB cá nhân rồi chuyển trực tiếp cho nhà thầu"]
           }
         }
       ]
@@ -119,24 +122,24 @@
       "fullscreen": true,
       "image": "assets/img/chapter3-detective-hd.png",
       "title": {
-        "en": "Network Detective",
-        "vi": "Thám tử mạng"
+        "en": "Master Network Detective",
+        "vi": "Nhà Thám Tử Mạng Tài Ba"
       },
       "brief": {
-        "en": "Look closely at the office scene. Several unsafe actions put the company network and data at risk. Click every one you can find. You score the point only if you find all five.",
-        "vi": "Hãy quan sát kỹ khung cảnh văn phòng. Có nhiều hành động không an toàn đang đặt mạng và dữ liệu của công ty vào rủi ro. Nhấn vào từng hành động mà bạn tìm thấy. Bạn chỉ được điểm khi tìm đủ cả năm."
+        "en": "Something isn't right in this office. Hidden across the scene are five unsafe actions that could expose the company network and data to risk. Investigate carefully and identify every one of them. You earn the point only when all five risks are found.",
+        "vi": "Có điều gì đó không ổn trong văn phòng này. Năm hành vi không an toàn đang ẩn trong khung cảnh và có thể khiến mạng và dữ liệu của công ty gặp rủi ro. Hãy quan sát thật kỹ, điều tra hiện trường và tìm ra tất cả. Bạn chỉ nhận được điểm khi xác định đúng cả năm rủi ro."
       },
       "hotspots": [
         {
           "id": "visitor-photo",
           "rect": [0.369, 0.138, 0.478, 0.348],
           "label": {
-            "en": "Visitor photographing the production dashboard",
-            "vi": "Khách chụp ảnh/quay video bảng điều khiển sản xuất"
+            "en": "Visitor photographing production information",
+            "vi": "Khách chụp ảnh/quay video thông tin sản xuất"
           },
           "why": {
-            "en": "Production dashboards can expose confidential operational data. Do not allow visitors to photograph or record them.",
-            "vi": "Bảng điều khiển sản xuất có thể chứa dữ liệu vận hành mật. Không để khách chụp ảnh hay quay video."
+            "en": "Production screens may contain sensitive business or operational information. Visitors must not photograph or record them without authorization.",
+            "vi": "Các màn hình sản xuất có thể chứa thông tin kinh doanh hoặc vận hành nhạy cảm. Khách không được phép chụp ảnh hoặc quay video nếu chưa được phê duyệt."
           }
         },
         {
@@ -147,44 +150,44 @@
             "vi": "Dữ liệu công ty gửi đến email cá nhân"
           },
           "why": {
-            "en": "Never forward company data to a personal email account. Use approved channels.",
-            "vi": "Không chuyển tiếp dữ liệu công ty đến email cá nhân. Hãy dùng các kênh được phê duyệt."
+            "en": "Never forward or send company data to a personal email account. Use approved channels.",
+            "vi": "Không chuyển tiếp hoặc gửi dữ liệu công ty đến email cá nhân. Hãy dùng các kênh được phê duyệt."
           }
         },
         {
           "id": "chat-app",
           "rect": [0.583, 0.545, 0.793, 0.855],
           "label": {
-            "en": "Production data shared over a third-party chat app",
-            "vi": "Dữ liệu sản xuất được chia sẻ qua ứng dụng chat bên thứ ba"
+            "en": "Production data shared through an unapproved chat application",
+            "vi": "Dữ liệu sản xuất được chia sẻ qua ứng dụng chat không được phê duyệt"
           },
           "why": {
-            "en": "Third-party chat apps are not approved channels for sharing company data.",
-            "vi": "Ứng dụng chat bên thứ ba không phải là kênh được phê duyệt để chia sẻ dữ liệu công ty."
+            "en": "Business data should only be shared using approved collaboration tools and communication channels.",
+            "vi": "Dữ liệu công việc chỉ nên được chia sẻ thông qua các công cụ cộng tác và kênh liên lạc được phê duyệt."
           }
         },
         {
           "id": "contractor-device",
           "rect": [0.024, 0.525, 0.296, 0.827],
           "label": {
-            "en": "Contractor connecting a personal device to the P&G network",
+            "en": "Contractor connecting his personal device to P&G network",
             "vi": "Nhà thầu kết nối thiết bị cá nhân vào mạng P&G"
           },
           "why": {
-            "en": "Personal and contractor devices must be approved and registered before connecting to P&G networks.",
-            "vi": "Thiết bị cá nhân và thiết bị của nhà thầu phải được phê duyệt, đăng ký trước khi kết nối vào mạng P&G."
+            "en": "Contractor and personal devices must have the required Cybersecurity approval before connecting to P&G networks.",
+            "vi": "Thiết bị cá nhân hoặc thiết bị của nhà thầu phải có đầy đủ phê duyệt từ Cybersecurity trước khi được kết nối vào mạng P&G."
           }
         },
         {
           "id": "network-cabinet",
           "rect": [0.865, 0.410, 0.989, 0.827],
           "label": {
-            "en": "Unescorted visitor working at the network cabinet",
-            "vi": "Khách làm việc tại tủ mạng mà không có người P&G đi kèm"
+            "en": "Unescorted visitor access to network infrastructure",
+            "vi": "Khách tiếp cận thiết bị mạng mà không có nhân viên P&G đi kèm"
           },
           "why": {
-            "en": "Visitors must be escorted by P&G staff and kept away from network equipment.",
-            "vi": "Khách phải có nhân viên P&G đi kèm và không được tiếp cận thiết bị mạng."
+            "en": "Visitors must be authorized and accompanied by P&G personnel when working near network infrastructure. Unescorted access may create security risks.",
+            "vi": "Khách phải được phê duyệt và có nhân viên P&G đi kèm khi làm việc gần hạ tầng mạng. Việc tiếp cận mà không có giám sát có thể tạo ra rủi ro an ninh."
           }
         }
       ]
@@ -201,59 +204,59 @@
         "vi": "Nhiệm Vụ: Kết Nối An Toàn"
       },
       "brief": {
-        "en": "From the airport lounge to a supplier meeting, every connection and every file you share is a security decision. Work through three scenarios and five choices, and keep company systems and data protected. Only a clean sweep scores the point.",
-        "vi": "Từ sân bay đến buổi họp với nhà cung cấp, mỗi kết nối và mỗi tệp bạn chia sẻ đều là một quyết định bảo mật. Hãy đi qua ba tình huống với năm lựa chọn và giữ cho hệ thống, dữ liệu của công ty luôn an toàn. Chỉ đúng tất cả mới được điểm."
+        "en": "From joining a meeting at the airport to sharing files with a supplier, every connection and every action can affect company security. Complete three scenarios and make five safe choices to protect company systems and data. Only a perfect mission earns the point for this challenge.",
+        "vi": "Từ việc tham gia cuộc họp tại sân bay đến chia sẻ tài liệu với nhà cung cấp, mỗi kết nối và hành động của bạn đều có thể ảnh hưởng đến an toàn của công ty. Hãy hoàn thành ba tình huống và đưa ra năm lựa chọn an toàn để bảo vệ hệ thống và dữ liệu công ty. Chỉ khi hoàn thành đúng toàn bộ nhiệm vụ, bạn mới nhận được điểm cho thử thách này."
       },
       "winScene": {
-        "en": "Mission complete! You joined through an approved connection, kept an unapproved device off the network and shared information only through approved channels.",
-        "vi": "Hoàn thành nhiệm vụ! Bạn đã kết nối qua phương thức được phê duyệt, không cho thiết bị chưa được phê duyệt vào mạng và chỉ chia sẻ thông tin qua các kênh được phê duyệt."
+        "en": "Mission accomplished! You used an approved secure connection, kept an unapproved device off the network, and shared P&G information only through approved channels.",
+        "vi": "Nhiệm vụ hoàn thành! Bạn đã sử dụng kết nối bảo mật được phê duyệt, ngăn thiết bị chưa được phê duyệt truy cập mạng và chỉ chia sẻ thông tin P&G qua các kênh được phép."
       },
       "missScene": {
-        "en": "Mission incomplete. Some choices put company systems and data at risk. Review the situations and try again.",
-        "vi": "Nhiệm vụ chưa hoàn thành. Một số lựa chọn đã đặt hệ thống và dữ liệu của công ty vào rủi ro. Hãy xem lại các tình huống và thử lại."
+        "en": "Mission incomplete. Some decisions exposed company systems or data to unnecessary risk. Review the scenarios, strengthen your choices, and try again.",
+        "vi": "Nhiệm vụ chưa hoàn thành. Một số quyết định đã khiến hệ thống hoặc dữ liệu P&G gặp rủi ro không cần thiết. Hãy xem lại các tình huống, thử lại các lựa chọn an toàn hơn."
       },
       "slides": [
         {
           "id": "s1",
           "image": "assets/img/scenarios/c3-scenario-1.png",
-          "speaker": { "en": "Scenario 1 · Choosing a Network", "vi": "Tình huống 1 · Chọn mạng kết nối" },
+          "speaker": { "en": "Scenario 1 · Connecting at the Airport", "vi": "Tình huống 1 · Kết nối tại sân bay" },
           "scene": {
-            "en": "You arrive at the airport and need to join an urgent Teams meeting. Your laptop detects many Wi-Fi networks: Free Airport WiFi, Airport_Guest, CoffeeShop_Free, iPhone Hotspot, PG-Corporate-VPN and Unknown_Public_WiFi.",
-            "vi": "Bạn đến sân bay và cần tham gia gấp một cuộc họp Teams. Laptop phát hiện nhiều mạng Wi-Fi: Free Airport WiFi, Airport_Guest, CoffeeShop_Free, iPhone Hotspot, PG-Corporate-VPN và Unknown_Public_WiFi."
+            "en": "You arrive at the airport and need to join an urgent Teams meeting. Your laptop detects several available networks, including Free Airport WiFi, Airport_Guest, CoffeeShop_Free, an unknown iPhone Hotspot, and Unknown_Public_WiFi.",
+            "vi": "Bạn đến sân bay và cần tham gia gấp một cuộc họp Teams. Laptop phát hiện nhiều mạng khả dụng, bao gồm Free Airport WiFi, Airport_Guest, CoffeeShop_Free, một iPhone Hotspot không rõ nguồn gốc và Unknown_Public_WiFi."
           },
-          "question": { "en": "What should you do?", "vi": "Bạn nên làm gì?" },
+          "question": { "en": "What is the safest way to join the meeting and access P&G resources?", "vi": "Đâu là cách an toàn nhất để tham gia cuộc họp và truy cập dữ liệu P&G?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Connect to Free Airport WiFi",
-              "vi": "Kết nối vào Free Airport WiFi",
-              "fbEn": "You successfully connect to the Internet, but the network is not approved for company work. ⚠️ Security Risk +1",
-              "fbVi": "Bạn kết nối được Internet, nhưng mạng này chưa được phê duyệt để làm việc cho công ty. ⚠️ Rủi ro bảo mật +1"
+              "en": "Connect to Free Airport WiFi and access P&G resources directly",
+              "vi": "Kết nối Free Airport WiFi và truy cập trực tiếp dữ liệu",
+              "fbEn": "This public network is not an approved secure connection for accessing P&G resources. ⚠️ Security Risk +1",
+              "fbVi": "Mạng công cộng này không phải là kết nối bảo mật được phê duyệt để truy cập vào hệ thống P&G. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "b",
               "correct": false,
-              "en": "Connect to Airport_Guest",
-              "vi": "Kết nối vào Airport_Guest",
-              "fbEn": "You successfully connect to the Internet, but the network is not approved for company work. ⚠️ Security Risk +1",
-              "fbVi": "Bạn kết nối được Internet, nhưng mạng này chưa được phê duyệt để làm việc cho công ty. ⚠️ Rủi ro bảo mật +1"
+              "en": "Connect to Airport_Guest because an official-looking name means it is secure",
+              "vi": "Kết nối Airport_Guest vì tên mạng có vẻ chính thức nên có thể an toàn",
+              "fbEn": "A network name alone does not prove that the connection is trusted or approved. ⚠️ Security Risk +1",
+              "fbVi": "Chỉ dựa vào tên mạng không đủ để xác nhận kết nối đó đáng tin cậy hoặc đã được phê duyệt. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "c",
               "correct": false,
-              "en": "Connect to an unknown iPhone Hotspot",
-              "vi": "Kết nối vào một iPhone Hotspot không rõ nguồn gốc",
-              "fbEn": "You successfully connect to the Internet, but the network is not approved for company work. ⚠️ Security Risk +1",
-              "fbVi": "Bạn kết nối được Internet, nhưng mạng này chưa được phê duyệt để làm việc cho công ty. ⚠️ Rủi ro bảo mật +1"
+              "en": "Connect to the unknown iPhone Hotspot because it has the strongest signal",
+              "vi": "Kết nối vào iPhone Hotspot không rõ nguồn gốc vì có tín hiệu mạnh nhất",
+              "fbEn": "Never connect a company device to an unknown personal hotspot. ⚠️ Security Risk +1",
+              "fbVi": "Không kết nối thiết bị công ty vào điểm phát sóng cá nhân không rõ nguồn gốc. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "d",
               "correct": true,
-              "en": "Connect to PG-Corporate-VPN / approved secure connection",
-              "vi": "Kết nối qua PG-Corporate-VPN / phương thức kết nối bảo mật được phê duyệt",
-              "fbEn": "Secure connection established. Continue to Scenario 2.",
-              "fbVi": "Đã thiết lập kết nối bảo mật. Tiếp tục sang Tình huống 2."
+              "en": "Use a P&G Secured Hotspot or another approved connection, then activate the approved VPN before accessing company resources",
+              "vi": "Sử dụng P&G Secured Hotspot hoặc kết nối được phê duyệt khác, sau đó kích hoạt VPN được phê duyệt trước khi truy cập tài nguyên công ty",
+              "fbEn": "Secure connection established. P&G resources can now be accessed through an approved protected connection. Continue to Scenario 2.",
+              "fbVi": "Đã thiết lập kết nối bảo mật. Giờ đây, bạn có thể truy cập hệ thống P&G qua kết nối được bảo vệ và phê duyệt. Tiếp tục sang Tình huống 2."
             }
           ]
         },
@@ -263,44 +266,44 @@
             "en": "assets/img/scenarios/c3-scenario-2-en.png",
             "vi": "assets/img/scenarios/c3-scenario-2-vi.png"
           },
-          "speaker": { "en": "Scenario 2 · Unexpected Device Request", "vi": "Tình huống 2 · Yêu cầu kết nối thiết bị bất ngờ" },
+          "speaker": { "en": "Scenario 2 · Supplier Device Access", "vi": "Tình huống 2 · Thiết bị của nhà cung cấp" },
           "scene": {
-            "en": "After connecting to the network, you arrive at the supplier meeting. A supplier tells you: \"I need to access the P&G production system urgently. My laptop is ready. Can I connect it to the P&G network for a few minutes?\"",
-            "vi": "Sau khi kết nối mạng, bạn đến buổi họp với nhà cung cấp. Nhà cung cấp nói với bạn: \"Tôi cần truy cập khẩn cấp vào hệ thống sản xuất của P&G. Laptop của tôi đã sẵn sàng. Tôi có thể kết nối vào mạng P&G trong vài phút không?\""
+            "en": "At the supplier meeting, a supplier says: \"I urgently need to access the P&G production system. My laptop is ready. Can I connect it to the P&G network for a few minutes?\"",
+            "vi": "Tại buổi họp, một nhà cung cấp nói: \"Tôi cần truy cập gấp vào hệ thống sản xuất của P&G. Laptop của tôi đã sẵn sàng. Tôi có thể kết nối vào mạng P&G trong vài phút không?\""
           },
           "question": { "en": "What should you do?", "vi": "Bạn nên làm gì?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Allow the connection because it is business-related",
-              "vi": "Cho phép kết nối vì việc này liên quan đến công việc",
-              "fbEn": "Unauthorized device connected. ⚠️ Security Risk +1",
-              "fbVi": "Thiết bị trái phép đã được kết nối. ⚠️ Rủi ro bảo mật +1"
+              "en": "Allow the connection because the request is urgent and business-related",
+              "vi": "Cho phép kết nối vì yêu cầu này khẩn cấp và phục vụ công việc",
+              "fbEn": "Urgency does not justify connecting an external device to the P&G network. ⚠️ Security Risk +1",
+              "fbVi": "Tính khẩn cấp không phải là lý do để kết nối thiết bị bên ngoài vào mạng P&G. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "b",
               "correct": false,
-              "en": "Share your connection and help the supplier connect",
-              "vi": "Chia sẻ kết nối của bạn và giúp nhà cung cấp kết nối",
-              "fbEn": "Network access shared with an unapproved device. ⚠️ Security Risk +1",
-              "fbVi": "Quyền truy cập mạng đã được chia sẻ cho thiết bị chưa được phê duyệt. ⚠️ Rủi ro bảo mật +1"
+              "en": "Share your secure connection with the supplier for a few minutes",
+              "vi": "Chia sẻ kết nối bảo mật của bạn với nhà cung cấp trong vài phút",
+              "fbEn": "Do not share your company connection with an external or unapproved device. ⚠️ Security Risk +1",
+              "fbVi": "Không chia sẻ kết nối công ty với thiết bị bên ngoài hoặc chưa được phê duyệt. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "c",
               "correct": true,
-              "en": "Ask the supplier to follow the approval and registration process",
-              "vi": "Yêu cầu nhà cung cấp thực hiện quy trình phê duyệt và đăng ký",
-              "fbEn": "Only approved devices may connect to company networks. Continue to the risk check.",
-              "fbVi": "Chỉ thiết bị đã được phê duyệt mới được kết nối vào mạng công ty. Tiếp tục sang phần kiểm tra rủi ro."
+              "en": "Refuse the request and do not allow the supplier's device to connect to the P&G network",
+              "vi": "Từ chối yêu cầu và không cho phép thiết bị của nhà cung cấp kết nối vào mạng P&G",
+              "fbEn": "Correct. When outside a P&G site, do not connect an external supplier device to the P&G network or share your company connection.",
+              "fbVi": "Chính xác. Khi ở bên ngoài nhà máy P&G, không kết nối thiết bị bên ngoài của nhà cung cấp vào mạng P&G hoặc chia sẻ kết nối công ty."
             },
             {
               "id": "d",
               "correct": false,
-              "en": "Let the supplier use your laptop credentials",
-              "vi": "Cho nhà cung cấp dùng thông tin đăng nhập trên laptop của bạn",
-              "fbEn": "Unauthorized access to company resources. 🚨 Security Risk +2",
-              "fbVi": "Truy cập trái phép vào tài nguyên của công ty. 🚨 Rủi ro bảo mật +2"
+              "en": "Let the supplier use your P&G laptop or sign-in credentials instead",
+              "vi": "Cho nhà cung cấp sử dụng laptop P&G hoặc thông tin đăng nhập của bạn",
+              "fbEn": "Never share your company device or sign-in credentials. This could enable unauthorized access to P&G resources. 🚨 Security Risk +2",
+              "fbVi": "Không chia sẻ thiết bị công ty hoặc thông tin đăng nhập của bạn. Việc này có thể dẫn đến truy cập trái phép vào tài nguyên P&G. 🚨 Rủi ro bảo mật +2"
             }
           ]
         },
@@ -310,47 +313,47 @@
             "en": "assets/img/scenarios/c3-scenario-2-en.png",
             "vi": "assets/img/scenarios/c3-scenario-2-vi.png"
           },
-          "speaker": { "en": "Scenario 2 · Risk Check", "vi": "Tình huống 2 · Kiểm tra rủi ro" },
+          "speaker": { "en": "Scenario 2 · Understand the Risk", "vi": "Tình huống 2 · Nhận diện rủi ro" },
           "scene": {
-            "en": "The supplier is waiting while you check the approval process. Before the next step, think about why it matters.",
-            "vi": "Nhà cung cấp đang chờ trong lúc bạn kiểm tra quy trình phê duyệt. Trước bước tiếp theo, hãy nghĩ vì sao điều này quan trọng."
+            "en": "You refused the supplier's request. Now consider why connecting an external device outside a P&G site could put company systems and data at risk.",
+            "vi": "Bạn đã từ chối yêu cầu của nhà cung cấp. Bây giờ, hãy xem vì sao việc kết nối một thiết bị bên ngoài khi không ở nhà máy P&G có thể gây rủi ro cho hệ thống và dữ liệu công ty."
           },
           "question": {
-            "en": "What is the main risk of allowing an unapproved supplier device to connect to the P&G network?",
-            "vi": "Rủi ro chính khi cho phép thiết bị chưa được phê duyệt của nhà cung cấp kết nối vào mạng P&G là gì?"
+            "en": "What is the main risk of allowing the supplier's device to connect?",
+            "vi": "Rủi ro chính khi cho phép thiết bị của nhà cung cấp kết nối là gì??"
           },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "The supplier's laptop may charge more slowly",
-              "vi": "Laptop của nhà cung cấp có thể sạc chậm hơn",
-              "fbEn": "Not quite. The real risk is that the device could introduce malware, expose data, or provide unauthorized access to P&G systems.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thiết bị có thể đưa mã độc vào, làm lộ dữ liệu hoặc cho phép truy cập trái phép vào hệ thống P&G."
+              "en": "The supplier's laptop may have a weak network signal",
+              "vi": "Laptop của nhà cung cấp có thể có tín hiệu mạng yếu",
+              "fbEn": "Signal strength is not the security concern. The device could expose company systems and data to unauthorized access.",
+              "fbVi": "Độ mạnh của mạng không phải là vấn đề bảo mật. Thiết bị có thể khiến hệ thống và dữ liệu công ty bị truy cập trái phép."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "The device could introduce malware, expose data, or provide unauthorized access to P&G systems",
-              "vi": "Thiết bị có thể đưa mã độc vào, làm lộ dữ liệu hoặc cho phép truy cập trái phép vào hệ thống P&G",
-              "fbEn": "Correct. An unapproved device bypasses the controls that protect P&G systems and data.",
-              "fbVi": "Chính xác. Thiết bị chưa được phê duyệt bỏ qua các biện pháp kiểm soát bảo vệ hệ thống và dữ liệu của P&G."
+              "en": "The device could introduce malware, expose company data, or enable unauthorized access to P&G systems",
+              "vi": "Thiết bị có thể đưa mã độc vào, làm lộ dữ liệu công ty hoặc tạo điều kiện truy cập trái phép vào hệ thống P&G",
+              "fbEn": "Correct. External devices must not be given access to the P&G network, company devices, or employee credentials.",
+              "fbVi": "Chính xác. Không cấp cho thiết bị bên ngoài quyền truy cập vào mạng P&G, thiết bị công ty hoặc thông tin đăng nhập của nhân viên."
             },
             {
               "id": "c",
               "correct": false,
-              "en": "The meeting may start a few minutes late",
-              "vi": "Cuộc họp có thể bắt đầu trễ vài phút",
-              "fbEn": "Not quite. The real risk is that the device could introduce malware, expose data, or provide unauthorized access to P&G systems.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thiết bị có thể đưa mã độc vào, làm lộ dữ liệu hoặc cho phép truy cập trái phép vào hệ thống P&G."
+              "en": "The supplier may need more time to complete the work",
+              "vi": "Nhà cung cấp có thể cần thêm thời gian để hoàn thành công việc",
+              "fbEn": "Business urgency must not override the controls protecting P&G systems and data.",
+              "fbVi": "Tính khẩn cấp của công việc không được phép vượt qua các biện pháp bảo vệ hệ thống và dữ liệu P&G."
             },
             {
               "id": "d",
               "correct": false,
-              "en": "The supplier may receive too many company notifications",
-              "vi": "Nhà cung cấp có thể nhận quá nhiều thông báo của công ty",
-              "fbEn": "Not quite. The real risk is that the device could introduce malware, expose data, or provide unauthorized access to P&G systems.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thiết bị có thể đưa mã độc vào, làm lộ dữ liệu hoặc cho phép truy cập trái phép vào hệ thống P&G."
+              "en": "The meeting may be delayed by a few minutes",
+              "vi": "Cuộc họp có thể bị chậm vài phút",
+              "fbEn": "A short delay is not the main risk. Unauthorized access could compromise company systems or data.",
+              "fbVi": "Việc chậm vài phút không phải là rủi ro chính. Truy cập trái phép có thể ảnh hưởng đến hệ thống hoặc dữ liệu công ty."
             }
           ]
         },
@@ -360,44 +363,44 @@
             "en": "assets/img/scenarios/c3-scenario-3-en.png",
             "vi": "assets/img/scenarios/c3-scenario-3-vi.png"
           },
-          "speaker": { "en": "Scenario 3 · Sharing Information", "vi": "Tình huống 3 · Chia sẻ thông tin" },
+          "speaker": { "en": "Scenario 3 · Sharing Information Securely", "vi": "Tình huống 3 · Chia sẻ thông tin an toàn" },
           "scene": {
-            "en": "The supplier now needs a copy of a technical issue report. You need to send Technical_issue_Report.xlsx.",
-            "vi": "Nhà cung cấp hiện cần một bản sao báo cáo sự cố kỹ thuật. Bạn cần gửi tệp Technical_issue_Report.xlsx."
+            "en": "The supplier needs Technical_Issue_Report.xlsx to continue their work. The report may contain sensitive production information.",
+            "vi": "Nhà cung cấp cần tệp Technical_Issue_Report.xlsx để tiếp tục công việc. Báo cáo này có thể chứa thông tin sản xuất nhạy cảm."
           },
-          "question": { "en": "What should you do?", "vi": "Bạn nên làm gì?" },
+          "question": { "en": "What is the safest way to share the report?", "vi": "Đâu là cách an toàn nhất để chia sẻ báo cáo?" },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "Send using WhatsApp",
-              "vi": "Gửi bằng WhatsApp",
-              "fbEn": "Business information shared through an unauthorized communication platform. ⚠️ Security Risk +1",
-              "fbVi": "Thông tin kinh doanh được chia sẻ qua nền tảng liên lạc không được phép. ⚠️ Rủi ro bảo mật +1"
+              "en": "Send it through WhatsApp because the supplier needs it urgently",
+              "vi": "Gửi qua WhatsApp vì nhà cung cấp đang cần gấp",
+              "fbEn": "Urgency does not justify using an unapproved communication platform. ⚠️ Security Risk +1",
+              "fbVi": "Tính khẩn cấp không phải là lý do để sử dụng nền tảng liên lạc chưa được phê duyệt. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "b",
               "correct": false,
               "en": "Send to the supplier's personal Gmail account",
               "vi": "Gửi đến tài khoản Gmail cá nhân của nhà cung cấp",
-              "fbEn": "Potential data exposure outside company controls. ⚠️ Security Risk +1",
-              "fbVi": "Nguy cơ lộ dữ liệu ngoài tầm kiểm soát của công ty. ⚠️ Rủi ro bảo mật +1"
+              "fbEn": "Personal email is outside approved company controls and may expose sensitive information. ⚠️ Security Risk +1",
+              "fbVi": "Email cá nhân nằm ngoài các biện pháp kiểm soát được phê duyệt của công ty và có thể làm lộ thông tin nhạy cảm. ⚠️ Rủi ro bảo mật +1"
             },
             {
               "id": "c",
               "correct": false,
-              "en": "Upload to a public file-sharing website",
-              "vi": "Tải lên một trang web chia sẻ tệp công khai",
-              "fbEn": "Potential public disclosure of company information. 🚨 Security Risk +2",
-              "fbVi": "Nguy cơ công bố công khai thông tin của công ty. 🚨 Rủi ro bảo mật +2"
+              "en": "Upload it to a public file-sharing website and send the link",
+              "vi": "Tải lên một trang web chia sẻ tệp công khai rồi gửi liên kết",
+              "fbEn": "A public file-sharing service could expose company information beyond the authorized recipient. 🚨 Security Risk +2",
+              "fbVi": "Dịch vụ chia sẻ tệp công khai có thể khiến thông tin công ty bị truy cập ngoài phạm vi người nhận được phép. 🚨 Rủi ro bảo mật +2"
             },
             {
               "id": "d",
               "correct": true,
-              "en": "Classify the data and use Microsoft Teams / approved collaboration tools",
-              "vi": "Phân loại dữ liệu và dùng Microsoft Teams / các công cụ cộng tác được phê duyệt",
-              "fbEn": "Information is shared through approved channels. One more check to go.",
-              "fbVi": "Thông tin được chia sẻ qua các kênh được phê duyệt. Còn một câu kiểm tra nữa."
+              "en": "Confirm the recipient is authorized, classify the report, and share it through P&G Microsoft Teams, SharePoint, or P&G another approved platform",
+              "vi": "Xác nhận người nhận đã được cấp quyền, phân loại báo cáo và chia sẻ qua P&G Microsoft Teams, SharePoint hoặc nền tảng khác được P&G phê duyệt",
+              "fbEn": "Correct. The recipient, data classification, and sharing channel have all been verified. One final risk check remains.",
+              "fbVi": "Chính xác. Người nhận, phân loại dữ liệu và kênh chia sẻ đều đã được xác minh. Còn một bước kiểm tra rủi ro cuối cùng."
             }
           ]
         },
@@ -407,47 +410,47 @@
             "en": "assets/img/scenarios/c3-scenario-3-en.png",
             "vi": "assets/img/scenarios/c3-scenario-3-vi.png"
           },
-          "speaker": { "en": "Scenario 3 · Risk Check", "vi": "Tình huống 3 · Kiểm tra rủi ro" },
+          "speaker": { "en": "Scenario 3 · Understand the Risk", "vi": "Tình huống 3 · Nhận diện rủi ro" },
           "scene": {
-            "en": "The report is ready to go. One last check before you close out the mission.",
-            "vi": "Báo cáo đã sẵn sàng để gửi. Một lần kiểm tra cuối cùng trước khi hoàn tất nhiệm vụ."
+            "en": "The report is ready to be shared through an approved platform. Complete one final check to finish the mission.",
+            "vi": "Báo cáo đã sẵn sàng để được chia sẻ qua nền tảng được phê duyệt. Hãy hoàn thành bước kiểm tra cuối cùng để kết thúc nhiệm vụ."
           },
           "question": {
-            "en": "What is the main risk of sharing the technical report through an unapproved channel?",
-            "vi": "Rủi ro chính khi chia sẻ báo cáo kỹ thuật qua một kênh chưa được phê duyệt là gì?"
+            "en": "Why must company information be shared only through approved platforms?",
+            "vi": "Vì sao thông tin công ty chỉ được chia sẻ qua các nền tảng được phê duyệt?"
           },
           "options": [
             {
               "id": "a",
               "correct": false,
-              "en": "The file name may change automatically",
-              "vi": "Tên tệp có thể tự động bị đổi",
-              "fbEn": "Not quite. The real risk is that sensitive company information could be exposed, copied, or accessed outside P&G controls.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thông tin nhạy cảm của công ty có thể bị lộ, bị sao chép hoặc bị truy cập ngoài tầm kiểm soát của P&G."
+              "en": "To prevent the file name from changing",
+              "vi": "Để tránh tên tập tin bị thay đổi",
+              "fbEn": "The main concern is not the file name. It is protecting P&G business information from unauthorized disclosure or access.",
+              "fbVi": "Tên tệp không phải là vấn đề chính. Điều quan trọng là bảo vệ thông tin kinh doanh công ty khỏi bị tiết lộ hoặc truy cập trái phép."
             },
             {
               "id": "b",
               "correct": true,
-              "en": "Sensitive company information could be exposed, copied, or accessed outside P&G controls",
-              "vi": "Thông tin nhạy cảm của công ty có thể bị lộ, bị sao chép hoặc bị truy cập ngoài tầm kiểm soát của P&G",
-              "fbEn": "Correct. Mission complete: approved channels keep company information under P&G controls.",
-              "fbVi": "Chính xác. Hoàn thành nhiệm vụ: các kênh được phê duyệt giữ thông tin công ty trong tầm kiểm soát của P&G."
+              "en": "To protect company information from unauthorized access, copying, or disclosure",
+              "vi": "Để bảo vệ thông tin kinh doanh P&G khỏi bị truy cập, sao chép hoặc tiết lộ trái phép",
+              "fbEn": "Correct. Approved platforms help keep company information protected and shared only with authorized recipients. Mission accomplished!",
+              "fbVi": "Chính xác. Các nền tảng được phê duyệt giúp bảo vệ thông tin công ty và chỉ chia sẻ với người nhận được cấp quyền. Nhiệm vụ hoàn thành!"
             },
             {
               "id": "c",
               "correct": false,
-              "en": "The supplier may need to download Microsoft Teams",
-              "vi": "Nhà cung cấp có thể phải tải Microsoft Teams",
-              "fbEn": "Not quite. The real risk is that sensitive company information could be exposed, copied, or accessed outside P&G controls.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thông tin nhạy cảm của công ty có thể bị lộ, bị sao chép hoặc bị truy cập ngoài tầm kiểm soát của P&G."
+              "en": "To ensure the supplier receives the file more quickly",
+              "vi": "Để bảo đảm nhà cung cấp nhận được tệp nhanh hơn",
+              "fbEn": "Delivery speed is not the main security concern. The priority is protecting the information and controlling access.",
+              "fbVi": "Tốc độ gửi không phải là vấn đề bảo mật chính. Ưu tiên là bảo vệ thông tin và kiểm soát quyền truy cập."
             },
             {
               "id": "d",
               "correct": false,
-              "en": "The spreadsheet may open in read-only mode",
-              "vi": "Bảng tính có thể mở ở chế độ chỉ đọc",
-              "fbEn": "Not quite. The real risk is that sensitive company information could be exposed, copied, or accessed outside P&G controls.",
-              "fbVi": "Chưa chính xác. Rủi ro thực sự là thông tin nhạy cảm của công ty có thể bị lộ, bị sao chép hoặc bị truy cập ngoài tầm kiểm soát của P&G."
+              "en": "To make sure the spreadsheet opens in edit mode",
+              "vi": "Để bảo đảm bảng tính được mở ở chế độ chỉnh sửa",
+              "fbEn": "Editing mode does not determine whether information is shared securely.",
+              "fbVi": "Chế độ chỉnh sửa tập tin không quyết định thông tin có được chia sẻ an toàn hay không."
             }
           ]
         }
