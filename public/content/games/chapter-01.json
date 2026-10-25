@@ -17,7 +17,7 @@
         "vi": "Phát hiện email lừa đảo"
       },
       "brief": {
-        "en": "This email is a phishing attempt. Click every suspicious detail you can find. You score the point only if you find all of them.",
+        "en": "This email is a phishing attempt. Find and click every suspicious clue hidden in the message. You earn the point only when all clues are found. Remember SCAN: Sender • Content • Action • Notify.",
         "vi": "Đây là một mẫu email lừa đảo. Bạn hãy tìm và nhấn vào tất cả các chi tiết đáng ngờ bạn tìm được. Bạn chỉ được điểm khi tìm đủ tất cả các điểm đáng ngờ. Hãy nhớ quy tắc để tìm một email đáng ngờ. SCAN - Sender - Content - Action - Notify"
       },
       "hotspots": [
@@ -90,7 +90,7 @@
       "points": 1,
       "fallSeconds": 16,
       "title": {
-        "en": "Safe or unsafe?",
+        "en": "Safe or Unsafe?",
         "vi": "An toàn hay không an toàn?"
       },
       "brief": {
