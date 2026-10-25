@@ -213,43 +213,43 @@
           {
             "id": "maze", "type": "sequence",
             "image": "assets/img/week4/connection-maze.png",
-            "title": {"en": "Connection Maze", "vi": "Mê cung kết nối"},
-            "miss": {"en": "Data breach! The route was not built in the right order. Continue to the next challenge; you can retry this one.", "vi": "Lộ dữ liệu! Đường kết nối chưa được ghép đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
-            "prompt": {"en": "Build a secure connection path to download the security patch. Starting from Home, place the four tiles in the correct order. You can move, swap, or remove tiles before submitting your answer. An incorrect route will cause a data breach.", "vi": "Hãy xây dựng đường kết nối an toàn để tải bản vá bảo mật. Bắt đầu từ Nhà, sắp xếp bốn ô theo đúng thứ tự. Bạn có thể di chuyển, đổi chỗ hoặc lấy ô ra trước khi nộp câu trả lời. Nếu sắp xếp sai, dữ liệu có thể bị lộ."},
+            "title": {"en": "Secure Access Route", "vi": "Hành Trình Truy Cập An Toàn"},
+            "miss": {"en": "The secure access path was not completed correctly. Company data could have been exposed. Continue your journey and return later to try again.", "vi": "Lộ trình truy cập an toàn chưa được thiết lập đúng. Dữ liệu công ty có thể đã bị đặt vào rủi ro. Hãy tiếp tục hành trình và quay lại thử lại sau."},
+            "prompt": {"en": "You are working from home and need to access company resources. Build the secure access path in the correct order. One missed security step could expose company data.", "vi": "Bạn đang làm việc tại nhà và cần truy cập tài nguyên công ty. Hãy xây dựng lộ trình truy cập an toàn theo đúng thứ tự. Chỉ một bước bảo mật bị bỏ qua cũng có thể khiến dữ liệu công ty gặp rủi ro."},
             "items": [
-              {"id": "home", "label": {"en": "Home", "vi": "Nhà"}},
-              {"id": "vpn", "label": "VPN"},
-              {"id": "gateway", "label": {"en": "Company Gateway", "vi": "Cổng công ty"}},
-              {"id": "secure", "label": {"en": "Secure Network", "vi": "Mạng an toàn"}}
+              {"id": "home", "label": {"en": "Connect to Home Network", "vi": "Kết nối mạng tại nhà"}},
+              {"id": "vpn", "label": {"en": "Verify Zscaler Is Active", "vi": "Kiểm tra Zscaler đang hoạt động"}},
+              {"id": "gateway", "label": {"en": "Connect through Ivanti", "vi": "Kết nối qua Ivanti"}},
+              {"id": "secure", "label": {"en": "Access P&G Internal Resources", "vi": "Truy cập hệ thống nội bộ P&G"}}
             ],
             "order": ["home", "vpn", "gateway", "secure"]
           },
           {
             "id": "access", "type": "sort",
             "image": "assets/img/week4/connection-access-control.png",
-            "title": {"en": "Network Access Control", "vi": "Kiểm soát truy cập mạng"},
-            "prompt": {"en": "Drag each device into ALLOW or BLOCK. Only approved and managed devices should access the P&G network.", "vi": "Kéo từng thiết bị vào nhóm CHO PHÉP hoặc CHẶN. Chỉ các thiết bị được phê duyệt và quản lý mới được phép truy cập mạng P&G."},
+            "title": {"en": "Network Access Checkpoint", "vi": "Trạm Kiểm Soát Truy Cập Mạng"},
+            "prompt": {"en": "Several devices are requesting access to the company network. Review each one carefully and decide whether it should be ALLOWED or BLOCKED. Only approved and trusted devices should be granted access.", "vi": "Nhiều thiết bị đang yêu cầu truy cập vào mạng công ty. Hãy xem xét từng thiết bị và quyết định CHO PHÉP hay CHẶN. Chỉ những thiết bị được phê duyệt và đáng tin cậy mới được cấp quyền truy cập."},
             "hideProgress": true,
             "groups": [{"id": "allow", "tone": "allow", "icon": "assets/img/week4/allow-icon.svg", "label": {"en": "ALLOW", "vi": "CHO PHÉP"}}, {"id": "block", "tone": "block", "icon": "assets/img/week4/block-icon.svg", "label": {"en": "BLOCK", "vi": "CHẶN"}}],
             "items": [
               {"id": "managed", "label": {"en": "P&G Managed Laptop", "vi": "Laptop do P&G quản lý"}, "group": "allow"},
-              {"id": "contractor", "label": {"en": "Unapproved Contractor Personal Laptop", "vi": "Laptop cá nhân của nhà thầu chưa phê duyệt"}, "group": "block"},
+              {"id": "contractor", "label": {"en": "Unapproved Contractor Laptop", "vi": "Laptop của nhà thầu chưa phê duyệt"}, "group": "block"},
               {"id": "ot", "label": {"en": "Approved OT Workstation", "vi": "Máy trạm OT được phê duyệt"}, "group": "allow"},
               {"id": "smart", "label": {"en": "Unknown Smart Device", "vi": "Thiết bị thông minh không rõ nguồn gốc"}, "group": "block"},
-              {"id": "mobile", "label": {"en": "Company Mobile with VPN", "vi": "Điện thoại công ty có VPN"}, "group": "allow"},
+              {"id": "mobile", "label": {"en": "Mobile with P&G Approved Software", "vi": "Điện thoại có cài phần mềm được P&G phê duyệt"}, "group": "allow"},
               {"id": "gaming", "label": {"en": "Personal Gaming Laptop", "vi": "Laptop chơi game cá nhân"}, "group": "block"}
             ]
           },
           {
             "id": "sharing", "type": "choice",
             "image": "assets/img/week4/connection-secure-sharing.png",
-            "title": {"en": "Secure Sharing", "vi": "Chia sẻ an toàn"},
-            "prompt": {"en": "Which method should you use to securely share a Confidential file with an authorized recipient?", "vi": "Bạn nên sử dụng phương thức nào để chia sẻ an toàn một tệp Mật với người nhận được phép?"},
+            "title": {"en": "Choose the Trusted Platform", "vi": "Chọn Nền Tảng Đáng Tin Cậy"},
+            "prompt": {"en": "Your team needs to discuss work and share business information. Which platform should you use?", "vi": "Nhóm của bạn cần trao đổi công việc và chia sẻ thông tin phục vụ công việc. Bạn nên sử dụng nền tảng nào?"},
             "options": [
-              {"id": "teams", "label": "Microsoft Teams"},
-              {"id": "gmail", "label": "Gmail"},
-              {"id": "whatsapp", "label": "WhatsApp"},
-              {"id": "usb", "label": "USB"},
+              {"id": "teams", "label": "P&G Microsoft Teams"},
+              {"id": "gmail", "label": {"en": "Gmail/Personal Outlook", "vi": "Gmail/Outlook cá nhân"}},
+              {"id": "whatsapp", "label": {"en": "Zalo/WhatsApp", "vi": "Phần mềm Zalo/WhatsApp"}},
+              {"id": "usb", "label": {"en": "USB Device", "vi": "Thiết bị USB"}},
               {"id": "onedrive", "label": {"en": "Personal OneDrive", "vi": "OneDrive cá nhân"}}
             ],
             "correct": "teams"
@@ -266,27 +266,27 @@
             "id": "install", "type": "sort",
             "image": "assets/img/week4/installation-install-or-reject.png",
             "title": {"en": "Install or Reject", "vi": "Cài đặt hay từ chối"},
-            "prompt": {"en": "Only approved software can unlock this room. Drag each item into INSTALL or REJECT.", "vi": "Chỉ phần mềm được phê duyệt mới có thể mở khóa căn phòng này. Kéo từng mục vào ô CÀI ĐẶT hoặc TỪ CHỐI."},
+            "prompt": {"en": "Only software from approved sources can unlock this room. Review each item and decide whether it should be INSTALLED or REJECTED.", "vi": "Chỉ phần mềm từ nguồn được phê duyệt mới có thể mở khóa căn phòng này. Hãy xem xét từng mục và quyết định nên CÀI ĐẶT hay TỪ CHỐI."},
             "groups": [{"id": "install", "tone": "install", "icon": "assets/img/week4/install-icon.svg", "label": {"en": "INSTALL", "vi": "CÀI ĐẶT"}}, {"id": "reject", "tone": "reject", "icon": "assets/img/week4/reject-icon.svg", "label": {"en": "REJECT", "vi": "TỪ CHỐI"}}],
             "items": [
               {"id": "zoom", "label": "PG Apps Center - 7zip", "group": "install"},
               {"id": "vscode", "label": "PG Apps Center - SAP", "group": "install"},
-              {"id": "cracked", "label": {"en": "Cracked Photoshop", "vi": "Photoshop bẻ khóa"}, "group": "reject"},
-              {"id": "usb", "label": "USB Driver Pack", "group": "reject"},
-              {"id": "dropbox", "label": "Dropbox Installer", "group": "reject"},
+              {"id": "cracked", "label": {"en": "Cracked Photoshop", "vi": "Phần mềm Photoshop bẻ khóa"}, "group": "reject"},
+              {"id": "usb", "label": {"en": "Software from an Unknown USB", "vi": "Phần mềm từ USB không rõ nguồn gốc"}, "group": "reject"},
+              {"id": "dropbox", "label": {"en": "Software Downloaded from an Unknown Website", "vi": "Phần mềm tải từ trang web không rõ nguồn gốc"}, "group": "reject"},
               {"id": "manufacturing", "label": {"en": "P&G Approved Manufacturing Software", "vi": "Phần mềm sản xuất được P&G phê duyệt"}, "group": "install"}
             ]
           },
           {
             "id": "workflow", "type": "sequence",
             "image": "assets/img/week4/installation-approval-workflow.png",
-            "title": {"en": "Approval Workflow Puzzle", "vi": "Quy trình phê duyệt"},
+            "title": {"en": "Software Approval Workflow", "vi": "Quy Trình Phê Duyệt Phần Mềm"},
             "prompt": {"en": "Unlock this room by arranging the software approval workflow in the correct order.", "vi": "Mở khóa căn phòng này bằng cách sắp xếp quy trình phê duyệt phần mềm theo đúng thứ tự."},
             "miss": {"en": "The approval process is out of order. Continue your journey and return later to try again.", "vi": "Quy trình phê duyệt chưa đúng thứ tự. Hãy tiếp tục hành trình và quay lại thử lại sau."},
             "items": [
-              {"id": "need", "label": {"en": "Identify a Software Need", "vi": "Xác định nhu cầu sử dụng phần mềm"}},
-              {"id": "justification", "label": {"en": "Submit Business Justification", "vi": "Giải trình nhu cầu công việc"}},
-              {"id": "approval", "label": {"en": "Obtain Approval", "vi": "Phê duyệt"}},
+              {"id": "need", "label": {"en": "Identify a Business Need", "vi": "Xác định nhu cầu công việc"}},
+              {"id": "justification", "label": {"en": "Provide Business Justification", "vi": "Giải trình nhu cầu sử dụng"}},
+              {"id": "approval", "label": {"en": "Obtain Required Approvals", "vi": "Nhận các phê duyệt cần thiết"}},
               {"id": "source", "label": {"en": "Clarify Approved Source", "vi": "Chọn nguồn được phê duyệt"}},
               {"id": "installation", "label": {"en": "Download & Install the Software", "vi": "Tải và Cài đặt phần mềm"}}
             ],
