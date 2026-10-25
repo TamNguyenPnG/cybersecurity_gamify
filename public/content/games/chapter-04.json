@@ -162,44 +162,44 @@
           {
             "id": "classify", "type": "sort",
             "image": "assets/img/week4/device-safe-or-risk.png",
-            "title": {"en": "Safe or Risk?", "vi": "An toàn hay rủi ro?"},
-            "prompt": {"en": "Sort all items into SAFE or RISK to unlock the next clue.", "vi": "Phân loại tất cả các mục vào AN TOÀN hoặc RỦI RO để mở khóa manh mối tiếp theo."},
+            "title": {"en": "Device Security Checkpoint", "vi": "Trạm Kiểm Tra Thiết Bị"},
+            "prompt": {"en": "A mix of trusted and risky devices has been detected. Sort each item into SAFE or RISK. Only approved devices and tools should be trusted. Correctly classify them all to unlock the next clue.", "vi": "Một số thiết bị và công cụ đã được phát hiện. Hãy phân loại từng mục vào AN TOÀN hoặc RỦI RO. Chỉ các thiết bị và công cụ được phê duyệt mới có thể được tin cậy. Phân loại đúng tất cả để mở khóa manh mối tiếp theo."},
             "groups": [{"id": "safe", "tone": "safe", "icon": "assets/img/week4/safe-icon.png", "label": {"en": "SAFE", "vi": "AN TOÀN"}}, {"id": "risk", "tone": "risk", "icon": "assets/img/week4/risk-icon.png", "label": {"en": "RISK", "vi": "RỦI RO"}}],
             "items": [
-              {"id": "corporate", "label": {"en": "Corporate Laptop", "vi": "Laptop công ty"}, "group": "safe"},
-              {"id": "usb", "label": {"en": "Unknown USB", "vi": "USB không rõ nguồn gốc"}, "group": "risk"},
+              {"id": "corporate", "label": {"en": "P&G Laptop/Computer", "vi": "Laptop/Máy tính do P&G quản lý"}, "group": "safe"},
+              {"id": "usb", "label": {"en": "Unknown USB Device", "vi": "USB không rõ nguồn gốc"}, "group": "risk"},
               {"id": "hmi", "label": {"en": "Approved OT HMI", "vi": "Thiết bị HMI OT được phê duyệt"}, "group": "safe"},
               {"id": "tablet", "label": {"en": "Personal Tablet", "vi": "Máy tính bảng cá nhân"}, "group": "risk"},
-              {"id": "vpn", "label": {"en": "P&G VPN Client", "vi": "Ứng dụng VPN P&G"}, "group": "safe"},
+              {"id": "vpn", "label": {"en": "P&G Approved VPN Software", "vi": "Ứng dụng VPN P&G"}, "group": "safe"},
               {"id": "cracked", "label": {"en": "Cracked Software", "vi": "Phần mềm bẻ khóa"}, "group": "risk"}
             ]
           },
           {
             "id": "alarm", "type": "alarm", "seconds": 30,
             "image": "assets/img/week4/device-security-alarm.png",
-            "title": {"en": "Security Alarm", "vi": "Báo động bảo mật"},
-            "prompt": {"en": "Resolve all four security alerts before time runs out. You have 30 seconds, and every incorrect response costs 5 seconds. Press Start to begin.", "vi": "Xử lý đủ bốn cảnh báo bảo mật trước khi hết giờ. Bạn có 30 giây, và mỗi lần trả lời sai sẽ bị trừ 5 giây. Nhấn Bắt đầu để khởi động nhiệm vụ."},
+            "title": {"en": "Security Alert Response", "vi": "Phản Ứng Cảnh Báo Bảo Mật"},
+            "prompt": {"en": "Multiple security alerts are appearing across your device. Act quickly to contain them before they become incidents. You have 30 seconds to resolve all four alerts. Every incorrect action costs 5 seconds.", "vi": "Nhiều cảnh báo bảo mật đang xuất hiện trên thiết bị của bạn. Hãy phản ứng nhanh để ngăn chúng trở thành sự cố thực sự. Bạn có 30 giây để xử lý cả bốn cảnh báo. Mỗi hành động sai sẽ làm mất 5 giây."},
             "alerts": [
-              {"title": {"en": "System update installed — restart required", "vi": "Đã cài bản cập nhật — cần khởi động lại"}, "correct": "restart", "options": [
-                {"id": "restart", "label": {"en": "Restart Computer", "vi": "Khởi động lại máy"}},
-                {"id": "ignore", "label": {"en": "Ignore the notice", "vi": "Bỏ qua thông báo"}},
-                {"id": "disable", "label": {"en": "Disable Update Service", "vi": "Tắt dịch vụ cập nhật"}}
-              ], "learning": {"en": "Restarting the device to completes the security update installation.", "vi": "Khởi động lại thiết bị để giúp hệ thống hoàn tất cài đặt bản cập nhật bảo mật."}},
+              {"title": {"en": "Security update installed — restart required", "vi": "Bản cập nhật bảo mật đã được cài đặt — cần khởi động lại"}, "correct": "restart", "options": [
+                {"id": "restart", "label": {"en": "Restart the Device", "vi": "Khởi động lại thiết bị"}},
+                {"id": "ignore", "label": {"en": "Ignore and Continue Working", "vi": "Bỏ qua và tiếp tục làm việc"}},
+                {"id": "disable", "label": {"en": "Turn Off the Update Service", "vi": "Tắt dịch vụ cập nhật"}}
+              ], "learning": {"en": "Restarting your device completes the security update and helps ensure the latest protections are active.", "vi": "Khởi động lại thiết bị giúp hoàn tất bản cập nhật bảo mật và kích hoạt các cơ chế bảo vệ mới nhất."}},
               {"title": {"en": "Unknown USB device detected", "vi": "Phát hiện USB không rõ nguồn gốc"}, "correct": "disconnect", "options": [
                 {"id": "open", "label": {"en": "Open Device Files", "vi": "Mở tệp trên thiết bị"}},
                 {"id": "disconnect", "label": {"en": "Disconnect Device", "vi": "Ngắt kết nối thiết bị"}},
                 {"id": "driver", "label": {"en": "Install Driver Immediately", "vi": "Cài driver ngay"}}
-              ], "learning": {"en": "Unknown devices may introduce malware.", "vi": "Thiết bị lạ có thể đưa mã độc vào hệ thống."}},
+              ], "learning": {"en": "A single unknown USB device can become an entry point for malware. Disconnect it immediately and verify that the device is approved before use.", "vi": "Chỉ một USB không rõ nguồn gốc cũng có thể trở thành cánh cửa cho mã độc xâm nhập. Hãy ngắt kết nối ngay và xác minh thiết bị đã được phê duyệt trước khi sử dụng."}},
               {"title": {"en": "You are leaving your workstation", "vi": "Bạn sắp rời máy tính"}, "correct": "lock", "options": [
-                {"id": "lock", "label": {"en": "Lock Screen", "vi": "Khóa màn hình"}},
-                {"id": "leave", "label": {"en": "Leave as-is", "vi": "Giữ nguyên"}},
+                {"id": "lock", "label": {"en": "Lock the Screen", "vi": "Khóa màn hình"}},
+                {"id": "leave", "label": {"en": "Leave the Device Unlocked", "vi": "Rời đi và để nguyên máy"}},
                 {"id": "colleague", "label": {"en": "Ask a coworker to watch it", "vi": "Nhờ đồng nghiệp trông giúp"}}
               ], "learning": {"en": "Always lock your screen before leaving.", "vi": "Luôn khóa màn hình trước khi rời đi."}},
-              {"title": {"en": "Security update available", "vi": "Có bản cập nhật bảo mật"}, "correct": "approved", "options": [
+              {"title": {"en": "Security Update Available", "vi": "Có bản cập nhật bảo mật mới"}, "correct": "approved", "options": [
                 {"id": "approved", "label": {"en": "Update from Approved Source", "vi": "Cập nhật từ nguồn được phê duyệt"}},
-                {"id": "search", "label": {"en": "Search Online for Faster Version", "vi": "Tìm phiên bản nhanh hơn trên mạng"}},
+                {"id": "search", "label": {"en": "Search Online for an Alternative Version", "vi": "Tìm phiên bản khác trên Internet"}},
                 {"id": "external", "label": {"en": "Download from External Website", "vi": "Tải từ trang web bên ngoài"}}
-              ], "learning": {"en": "Install updates from approved company sources only.", "vi": "Chỉ cài cập nhật từ nguồn được công ty phê duyệt."}}
+              ], "learning": {"en": "Not every update is a safe update. Trust only approved company sources to keep your device protected and prevent malicious software from entering the network.", "vi": "Không phải mọi bản cập nhật đều an toàn. Hãy chỉ tin cậy các nguồn được công ty phê duyệt để bảo vệ thiết bị và ngăn phần mềm độc hại xâm nhập vào mạng."}}
             ]
           }
         ]
