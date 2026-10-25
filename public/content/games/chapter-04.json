@@ -314,22 +314,25 @@
             "id": "vault", "type": "bubbles", "seconds": 60, "lives": 3,
             "image": "assets/img/week4/installation-vault-key.png",
             "title": {"en": "Software Vault Key", "vi": "Chìa khóa kho phần mềm"},
-            "miss": {"en": "The vault stayed locked — a bomb or the clock stopped you. Continue; you can retry this challenge.", "vi": "Kho vẫn bị khóa — bom nổ hoặc hết giờ. Hãy tiếp tục; bạn có thể thử lại thử thách này."},
+            "miss": {"en": "The Software Vault remains locked. Some key pieces were missed, lives were lost, or time ran out. Continue your journey and return later to unlock this room.", "vi": "Kho Phần Mềm vẫn còn bị khóa. Bạn đã bỏ lỡ một số mảnh chìa khóa, mất hết mạng hoặc hết thời gian. Hãy tiếp tục hành trình và quay lại sau để mở khóa căn phòng này."},
             "prompt": {
-              "en": "Four key pieces of the approved software process are hidden in the floating bubbles. Pop them all to open the Installation Vault. Pop an unapproved source and a bomb goes off — it costs a life. You have 3 lives and 60 seconds.",
-              "vi": "Bốn mảnh chìa khóa của quy trình phần mềm được phê duyệt đang ẩn trong các bong bóng bay. Hãy nổ hết chúng để mở Kho cài đặt. Nổ nhầm nguồn không được phê duyệt sẽ có bom nổ và mất một mạng. Bạn có 3 mạng và 60 giây."
+              "en": "The Software Vault is locked. Four approval keys are hidden among the floating bubbles. Find and collect all four before time runs out to unlock the vault. Watch out for suspicious shortcuts and unapproved sources, they're traps that will cost you a life.",
+              "vi": "Kho Phần Mềm đang bị khóa. Bốn chìa khóa phê duyệt đang ẩn trong các bong bóng bay. Hãy tìm và thu thập đủ cả bốn trước khi hết giờ để mở khóa kho. Cẩn thận với những lối tắt đáng ngờ và các nguồn không được phê duyệt, đó là những chiếc bẫy sẽ khiến bạn bị rủi ro."
             },
             "safe": [
-              {"id": "email", "label": {"en": "Approval Email", "vi": "Email phê duyệt"}},
+              {"id": "email", "label": {"en": "Approval Confirmation", "vi": "Xác nhận phê duyệt"}},
               {"id": "appscenter", "label": "PG Apps Center"},
-              {"id": "form", "label": {"en": "Business Justification Form", "vi": "Mẫu giải trình công việc"}},
-              {"id": "manager", "label": {"en": "Manager Approval", "vi": "Quản lý phê duyệt"}}
+              {"id": "form", "label": {"en": "Business Justification", "vi": "Giải trình nhu cầu công việc"}},
+              {"id": "manager", "label": {"en": "Manager Approval", "vi": "Phê duyệt của quản lý"}}
             ],
             "risks": [
               {"id": "whatsapp", "label": "WhatsApp"},
-              {"id": "usb", "label": "USB"},
-              {"id": "dropbox", "label": "Dropbox"},
-              {"id": "crack", "label": {"en": "Crack Website", "vi": "Trang web bẻ khóa"}}
+              {"id": "Unknown usb", "label": "USB lạ"},
+              {"id": "dropbox", "label": {
+        "en": "Personal Onedrive/Google Cloud",
+        "vi": "Bộ nhớ Onedrive/Google cá nhân"
+      },
+              {"id": "crack", "label": {"en": "Unknown/Unsecured Website", "vi": "Trang web lạ/không an toàn"}}
             ]
           }
         ]
