@@ -58,26 +58,26 @@
       "incorrect": {"en": "Incorrect answer. Security systems compromised: −5 seconds.", "vi": "Đáp án chưa chính xác. Hệ thống bảo mật bị ảnh hưởng: −5 giây."},
       "alarmWin": {"en": "Security system stabilized! Threat neutralized!", "vi": "Hệ thống bảo mật đã ổn định! Mối đe dọa đã được ngăn chặn!"},
       "alarmMiss": {"en": "Mission failed. The security alerts could not be resolved in time.", "vi": "Nhiệm vụ chưa thành công. Các cảnh báo bảo mật chưa được xử lý kịp thời."},
-      "code": {"en": "Enter the four key characters in room order", "vi": "Nhập bốn ký tự khóa theo thứ tự phòng"},
-      "codeIncomplete": {"en": "Enter all four letters before launching.", "vi": "Hãy nhập đủ bốn chữ cái trước khi khởi chạy."},
+      "code": {"en": "Enter the four key characters to unlock the Master Security Room", "vi": "Nhập bốn ký tự khóa để mở khóa Phòng Bảo Mật Trung Tâm"},
+      "codeIncomplete": {"en": "The code is incomplete. Enter all four key characters.", "vi": "Mật mã chưa hoàn chỉnh. Hãy nhập đủ bốn ký tự khóa."},
       "launchChar": {"en": "Key character {n}", "vi": "Ký tự khóa {n}"},
       "launching": {"en": "Launching…", "vi": "Đang khởi chạy…"},
-      "countdown": {"en": "Launch sequence in progress. Do not click anything suspicious.", "vi": "Đang trong quá trình khởi chạy. Đừng nhấn vào bất cứ thứ gì đáng ngờ."},
-      "trapButton": {"en": "Download to see your certificate", "vi": "Tải xuống để xem chứng nhận của bạn"},
-      "launchTrap": {"en": "Launch failed — you clicked a suspicious download during the launch.", "vi": "Khởi chạy thất bại — bạn đã nhấn vào nút tải xuống đáng ngờ trong lúc khởi chạy."},
-      "needAllRooms": {"en": "Secure all four rooms first. The launch only succeeds when every room is complete and you hold all four keys.", "vi": "Hãy hoàn thành cả bốn phòng trước. Khởi chạy chỉ thành công khi mọi phòng đã hoàn thành và bạn có đủ bốn ký tự khóa."},
+      "countdown": {"en": "Launch sequence in progress. Stay alert.", "vi": "Đang khởi động hệ thống. Hãy luôn cảnh giác."},
+      "trapButton": {"en": "Download your Cyber Defender Certificate", "vi": "Tải chứng nhận Cyber Defender của bạn"},
+      "launchTrap": {"en": "Unlock failed. The final trap was triggered by a suspicious download. Always verify before you click.", "vi": "Mở khóa thất bại. Chiếc bẫy cuối cùng đã bị kích hoạt bởi một liên kết tải xuống đáng ngờ. Hãy luôn xác minh trước khi nhấp."},
+      "needAllRooms": {"en": "The Master Security Room is unlocked, but the final mission can only be completed when all four rooms are secured and all four key characters are collected.", "vi": "Phòng Bảo Mật Trung Tâm đã được mở khóa, nhưng nhiệm vụ cuối cùng chỉ có thể hoàn thành khi cả bốn phòng đều được chinh phục và bạn thu thập đủ bốn ký tự khóa."},
       "launch": {"en": "LAUNCH", "vi": "KHỞI CHẠY"},
-      "launchWin": {"en": "Launch complete — mission accomplished!", "vi": "Khởi chạy thành công — hoàn thành nhiệm vụ!"},
-      "launchFail": {"en": "Launch failed — the key is incorrect. Revisit rooms to earn missing characters or try again.", "vi": "Khởi chạy thất bại — khóa chưa đúng. Hãy quay lại các phòng để lấy ký tự còn thiếu hoặc thử lại."},
+      "launchWin": {"en": "Unlock complete — mission accomplished! You have secured every room and mastered the Cyber Escape Room!", "vi": "Mở khóa thành công — nhiệm vụ hoàn thành! Bạn đã chinh phục tất cả các căn phòng và làm chủ Cyber Escape Room!"},
+      "launchFail": {"en": "Almost there. The key code is incorrect. Revisit the rooms and complete your collection of key characters.", "vi": "Bạn đã rất gần đích. Mật mã chưa chính xác. Hãy quay lại các phòng và thu thập đầy đủ các ký tự khóa."},
       "failTitle": {"en": "Mission not completed", "vi": "Chưa hoàn thành nhiệm vụ"},
-      "failBody": {"en": "The rocket launch failed. Play again to try once more.", "vi": "Phóng tên lửa thất bại. Hãy chơi lại để thử lại."},
+      "failBody": {"en": "The launch was aborted. Revisit the rooms, strengthen your defenses, and try again.", "vi": "Quá trình phóng đã bị hủy. Hãy quay lại các phòng, củng cố kiến thức bảo mật và thử lại."},
       "playAgain": {"en": "Play again", "vi": "Chơi lại"},
       "results": {"en": "View chapter results", "vi": "Xem kết quả chương"},
       "videoError": {"en": "The video could not be loaded. Retry playback or return to the hall.", "vi": "Không thể tải video. Hãy thử phát lại hoặc về sảnh."},
       "playVideo": {"en": "Play video", "vi": "Phát video"},
       "saved": {"en": "Progress is saved to your account. You can leave and return later while the chapter is open.", "vi": "Tiến độ đã được lưu theo tài khoản. Bạn có thể rời trang và quay lại khi chương còn mở."},
       "complete": {"en": "Complete", "vi": "Hoàn thành"},
-      "allFound": {"en": "All risks found! Review the marked image, then press Complete.", "vi": "Đã tìm đủ rủi ro! Xem lại hình đã đánh dấu, rồi nhấn Hoàn thành."},
+      "allFound": {"en": "Great work! All security risks have been identified. Review the marked image, then press Complete.", "vi": "Tuyệt vời! Bạn đã xác định được tất cả các rủi ro bảo mật. Hãy xem lại hình đã đánh dấu, sau đó nhấn Hoàn thành."},
       "vaultFound": {"en": "Key pieces found: {n} / {goal}", "vi": "Mảnh chìa khóa đã tìm: {n} / {goal}"},
       "vaultLives": {"en": "Lives left", "vi": "Số mạng còn lại"}
     },
@@ -90,8 +90,8 @@
         "challenges": [
           {
             "id": "password", "type": "choice",
-            "title": {"en": "Password Fragment Hunt", "vi": "Truy tìm mật khẩu mạnh"},
-            "prompt": {"en": "Choose the strongest password.", "vi": "Chọn mật khẩu mạnh nhất."},
+            "title": {"en": "Password Fragment Hunt", "vi": "Hành trình tìm mảnh ghép mật khẩu"},
+            "prompt": {"en": "Find the strongest password to secure the account.", "vi": "Hãy tìm mật khẩu mạnh nhất để bảo vệ tài khoản."},
             "image": "assets/img/week4/password-hint.png",
             "options": [
               {"id": "welcome", "label": "Welcome2026"},
@@ -105,31 +105,31 @@
           },
           {
             "id": "sms", "type": "sms",
-            "title": {"en": "CEO SMS Trap", "vi": "Bẫy SMS từ sếp"},
+            "title": {"en": "CEO SMS Scam", "vi": "Bẫy tin nhắn giả mạo CEO"},
             "image": "assets/img/week4/sms-trap.png",
             "prompt": {
               "en": "Sender: Big Boss. \"I'm in a meeting and cannot talk right now. We need to pay an urgent supplier invoice ASAP. Please click the link below and complete the payment immediately.\" [Payment Link]\nWhat should you do?",
               "vi": "Người gửi: Big Boss. \"Tôi đang họp và không thể nói chuyện. Chúng ta cần thanh toán gấp hóa đơn nhà cung cấp. Hãy nhấn liên kết bên dưới và thanh toán ngay.\" [Liên kết thanh toán]\nBạn nên làm gì?"
             },
             "options": [
-              {"id": "pay", "label": {"en": "Click and pay because the message is from Big Boss.", "vi": "Nhấn liên kết và thanh toán vì tin nhắn từ sếp."}},
+              {"id": "pay", "label": {"en": "Click the link and make the payment because the message is from the CEO.", "vi": "Nhấn liên kết và thanh toán vì tin nhắn đến từ CEO."}},
               {"id": "reply", "label": {"en": "Reply to the SMS asking for payment details.", "vi": "Trả lời SMS để hỏi thêm thông tin thanh toán."}},
-              {"id": "verify", "label": {"en": "Verify independently by phone, Teams or Finance before acting.", "vi": "Xác minh qua kênh độc lập như gọi điện, Teams hoặc Finance trước khi thực hiện."}},
-              {"id": "forward", "label": {"en": "Forward it to a colleague to handle.", "vi": "Chuyển tiếp cho đồng nghiệp xử lý."}}
+              {"id": "verify", "label": {"en": "Verify the request through an independent channel such as a phone call, Teams, or Finance/Cybersecurity Team before taking any action.", "vi": "Xác minh yêu cầu qua kênh độc lập như gọi điện, Teams hoặc bộ phận Tài chính/An ninh mạng trước khi thực hiện bất kỳ hành động nào."}},
+              {"id": "forward", "label": {"en": "Forward the message to a colleague and let them handle it.", "vi": "Chuyển tiếp tin nhắn cho đồng nghiệp để họ xử lý."}}
             ],
             "correct": "verify",
             "marks": ["urgency", "link", "bypass"],
             "clues": [
-              {"id": "urgency", "label": {"en": "Urgent supplier invoice — pay immediately", "vi": "Hóa đơn khẩn cấp — yêu cầu thanh toán ngay"}},
-              {"id": "link", "label": {"en": "[Payment Link] — click to make a payment", "vi": "[Liên kết thanh toán] — nhấn để thanh toán"}},
-              {"id": "bypass", "label": {"en": "Cannot talk — act without normal verification", "vi": "Không thể nói chuyện — yêu cầu hành động bỏ qua xác minh thông thường"}},
-              {"id": "sender", "label": {"en": "The displayed sender name alone proves the message is safe", "vi": "Chỉ cần tên người gửi hiển thị là đủ để tin tin nhắn an toàn"}}
+              {"id": "urgency", "label": {"en": "Urgent supplier invoice requiring immediate payment", "vi": "Hóa đơn nhà cung cấp khẩn cấp yêu cầu thanh toán ngay"}},
+              {"id": "link", "label": {"en": "A payment link asking you to complete a transaction", "vi": "Liên kết thanh toán yêu cầu thực hiện giao dịch"}},
+              {"id": "bypass", "label": {"en": "The sender cannot talk and asks you to bypass normal verification", "vi": "Người gửi không thể trao đổi và yêu cầu bỏ qua quy trình xác minh thông thường"}},
+              {"id": "sender", "label": {"en": "The sender's displayed name alone proves the message is legitimate", "vi": "Chỉ dựa vào tên người gửi hiển thị để xác nhận tin nhắn là hợp lệ"}}
             ]
           },
           {
             "id": "office", "type": "hotspots", "fullscreen": true,
-            "title": {"en": "Office Scene Detective", "vi": "Thám tử văn phòng"},
-            "prompt": {"en": "Find all four account security risks in the image.", "vi": "Tìm đủ bốn rủi ro về tài khoản trong hình."},
+            "title": {"en": "Office Security Detective", "vi": "Thám tử an ninh văn phòng"},
+            "prompt": {"en": "Investigate the scene and identify all four account security risks.", "vi": "Hãy điều tra hiện trường và xác định cả bốn rủi ro bảo mật tài khoản."},
             "image": "assets/img/week4/account-detective.png",
             "hotspots": [
               {"id": "note", "rect": [0.543, 0.329, 0.61, 0.419], "label": {"en": "Password on a sticky note", "vi": "Mật khẩu trên giấy nhớ"}},
@@ -149,10 +149,10 @@
           {
             "id": "risks", "type": "hotspots",
             "title": {"en": "Find the Risk", "vi": "Tìm rủi ro"},
-            "prompt": {"en": "Find all five risks in the control room.", "vi": "Tìm đủ năm rủi ro trong phòng điều khiển."},
+            "prompt": {"en": "Identify all five security risks in the control room.", "vi": "Hãy xác định đủ năm rủi ro bảo mật trong phòng điều khiển."},
             "image": "assets/img/week4/device-detective.png",
             "hotspots": [
-              {"id": "unlocked", "rect": [0.206, 0.628, 0.414, 0.876], "label": {"en": "Unattended unlocked laptop", "vi": "Laptop không khóa, không có người trông"}},
+              {"id": "unlocked", "rect": [0.206, 0.628, 0.414, 0.876], "label": {"en": "Unattended unlocked laptop", "vi": "Laptop không khóa và không có người giám sát"}},
               {"id": "usb", "rect": [0.441, 0.881, 0.504, 0.945], "label": {"en": "Unknown USB drive", "vi": "USB không rõ nguồn gốc"}},
               {"id": "contractor", "rect": [0.842, 0.401, 0.981, 0.633], "label": {"en": "Unapproved contractor laptop", "vi": "Laptop nhà thầu chưa được phê duyệt"}},
               {"id": "update", "rect": [0.634, 0.2, 0.862, 0.535], "label": {"en": "BigFix update ignored", "vi": "Bỏ qua cập nhật BigFix"}},
@@ -163,14 +163,14 @@
             "id": "classify", "type": "sort",
             "image": "assets/img/week4/device-safe-or-risk.png",
             "title": {"en": "Safe or Risk?", "vi": "An toàn hay rủi ro?"},
-            "prompt": {"en": "Drag each item into SAFE or RISK. You can also select an item, then select a group.", "vi": "Kéo từng mục vào AN TOÀN hoặc RỦI RO. Bạn cũng có thể chọn mục rồi chọn nhóm."},
+            "prompt": {"en": "Sort all items into SAFE or RISK to unlock the next clue.", "vi": "Phân loại tất cả các mục vào AN TOÀN hoặc RỦI RO để mở khóa manh mối tiếp theo."},
             "groups": [{"id": "safe", "tone": "safe", "icon": "assets/img/week4/safe-icon.png", "label": {"en": "SAFE", "vi": "AN TOÀN"}}, {"id": "risk", "tone": "risk", "icon": "assets/img/week4/risk-icon.png", "label": {"en": "RISK", "vi": "RỦI RO"}}],
             "items": [
               {"id": "corporate", "label": {"en": "Corporate Laptop", "vi": "Laptop công ty"}, "group": "safe"},
-              {"id": "usb", "label": {"en": "Unknown USB", "vi": "USB lạ"}, "group": "risk"},
-              {"id": "hmi", "label": {"en": "Approved OT HMI", "vi": "HMI OT được phê duyệt"}, "group": "safe"},
+              {"id": "usb", "label": {"en": "Unknown USB", "vi": "USB không rõ nguồn gốc"}, "group": "risk"},
+              {"id": "hmi", "label": {"en": "Approved OT HMI", "vi": "Thiết bị HMI OT được phê duyệt"}, "group": "safe"},
               {"id": "tablet", "label": {"en": "Personal Tablet", "vi": "Máy tính bảng cá nhân"}, "group": "risk"},
-              {"id": "vpn", "label": {"en": "VPN Client", "vi": "Ứng dụng VPN"}, "group": "safe"},
+              {"id": "vpn", "label": {"en": "P&G VPN Client", "vi": "Ứng dụng VPN P&G"}, "group": "safe"},
               {"id": "cracked", "label": {"en": "Cracked Software", "vi": "Phần mềm bẻ khóa"}, "group": "risk"}
             ]
           },
@@ -178,13 +178,13 @@
             "id": "alarm", "type": "alarm", "seconds": 30,
             "image": "assets/img/week4/device-security-alarm.png",
             "title": {"en": "Security Alarm", "vi": "Báo động bảo mật"},
-            "prompt": {"en": "Resolve all four alerts in 30 seconds. A wrong response costs 5 seconds. The clock starts when you press Start.", "vi": "Xử lý đủ bốn cảnh báo trong 30 giây. Mỗi lần chọn sai bị trừ 5 giây. Đồng hồ bắt đầu khi bạn nhấn Bắt đầu."},
+            "prompt": {"en": "Resolve all four security alerts before time runs out. You have 30 seconds, and every incorrect response costs 5 seconds. Press Start to begin.", "vi": "Xử lý đủ bốn cảnh báo bảo mật trước khi hết giờ. Bạn có 30 giây, và mỗi lần trả lời sai sẽ bị trừ 5 giây. Nhấn Bắt đầu để khởi động nhiệm vụ."},
             "alerts": [
               {"title": {"en": "System update installed — restart required", "vi": "Đã cài bản cập nhật — cần khởi động lại"}, "correct": "restart", "options": [
                 {"id": "restart", "label": {"en": "Restart Computer", "vi": "Khởi động lại máy"}},
-                {"id": "ignore", "label": {"en": "Ignore Forever", "vi": "Bỏ qua mãi mãi"}},
+                {"id": "ignore", "label": {"en": "Ignore the notice", "vi": "Bỏ qua thông báo"}},
                 {"id": "disable", "label": {"en": "Disable Update Service", "vi": "Tắt dịch vụ cập nhật"}}
-              ], "learning": {"en": "Restarting completes the security update installation.", "vi": "Khởi động lại giúp hoàn tất cài đặt bản cập nhật bảo mật."}},
+              ], "learning": {"en": "Restarting the device to completes the security update installation.", "vi": "Khởi động lại thiết bị để giúp hệ thống hoàn tất cài đặt bản cập nhật bảo mật."}},
               {"title": {"en": "Unknown USB device detected", "vi": "Phát hiện USB không rõ nguồn gốc"}, "correct": "disconnect", "options": [
                 {"id": "open", "label": {"en": "Open Device Files", "vi": "Mở tệp trên thiết bị"}},
                 {"id": "disconnect", "label": {"en": "Disconnect Device", "vi": "Ngắt kết nối thiết bị"}},
