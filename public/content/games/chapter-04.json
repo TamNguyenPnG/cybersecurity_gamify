@@ -215,7 +215,7 @@
             "image": "assets/img/week4/connection-maze.png",
             "title": {"en": "Connection Maze", "vi": "Mê cung kết nối"},
             "miss": {"en": "Data breach! The route was not built in the right order. Continue to the next challenge; you can retry this one.", "vi": "Lộ dữ liệu! Đường kết nối chưa được ghép đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
-            "prompt": {"en": "Build a secure route to download the security patch, starting from Home. Drag the four tiles into the four slots in the order you think is right. You can move or swap tiles, or take one back, and nothing is checked until you press Submit answer. A wrong order causes a data breach. You can also select a tile, then a slot.", "vi": "Tạo đường kết nối an toàn để tải bản vá bảo mật, bắt đầu từ Nhà. Kéo bốn ô vào bốn lỗ theo thứ tự bạn cho là đúng. Bạn có thể di chuyển, đổi chỗ hoặc lấy ô ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Sai thứ tự sẽ gây lộ dữ liệu. Bạn cũng có thể chọn một ô rồi chọn lỗ."},
+            "prompt": {"en": "Build a secure connection path to download the security patch. Starting from Home, place the four tiles in the correct order. You can move, swap, or remove tiles before submitting your answer. An incorrect route will cause a data breach.", "vi": "Hãy xây dựng đường kết nối an toàn để tải bản vá bảo mật. Bắt đầu từ Nhà, sắp xếp bốn ô theo đúng thứ tự. Bạn có thể di chuyển, đổi chỗ hoặc lấy ô ra trước khi nộp câu trả lời. Nếu sắp xếp sai, dữ liệu có thể bị lộ."},
             "items": [
               {"id": "home", "label": {"en": "Home", "vi": "Nhà"}},
               {"id": "vpn", "label": "VPN"},
@@ -228,12 +228,12 @@
             "id": "access", "type": "sort",
             "image": "assets/img/week4/connection-access-control.png",
             "title": {"en": "Network Access Control", "vi": "Kiểm soát truy cập mạng"},
-            "prompt": {"en": "Drag devices into ALLOW or BLOCK. You can also select an item, then a group.", "vi": "Kéo thiết bị vào CHO PHÉP hoặc CHẶN. Bạn cũng có thể chọn mục rồi chọn nhóm."},
+            "prompt": {"en": "Drag each device into ALLOW or BLOCK. Only approved and managed devices should access the P&G network.", "vi": "Kéo từng thiết bị vào nhóm CHO PHÉP hoặc CHẶN. Chỉ các thiết bị được phê duyệt và quản lý mới được phép truy cập mạng P&G."},
             "hideProgress": true,
             "groups": [{"id": "allow", "tone": "allow", "icon": "assets/img/week4/allow-icon.svg", "label": {"en": "ALLOW", "vi": "CHO PHÉP"}}, {"id": "block", "tone": "block", "icon": "assets/img/week4/block-icon.svg", "label": {"en": "BLOCK", "vi": "CHẶN"}}],
             "items": [
               {"id": "managed", "label": {"en": "P&G Managed Laptop", "vi": "Laptop do P&G quản lý"}, "group": "allow"},
-              {"id": "contractor", "label": {"en": "Contractor Personal Laptop", "vi": "Laptop cá nhân của nhà thầu"}, "group": "block"},
+              {"id": "contractor", "label": {"en": "Unapproved Contractor Personal Laptop", "vi": "Laptop cá nhân của nhà thầu chưa phê duyệt"}, "group": "block"},
               {"id": "ot", "label": {"en": "Approved OT Workstation", "vi": "Máy trạm OT được phê duyệt"}, "group": "allow"},
               {"id": "smart", "label": {"en": "Unknown Smart Device", "vi": "Thiết bị thông minh không rõ nguồn gốc"}, "group": "block"},
               {"id": "mobile", "label": {"en": "Company Mobile with VPN", "vi": "Điện thoại công ty có VPN"}, "group": "allow"},
@@ -244,7 +244,7 @@
             "id": "sharing", "type": "choice",
             "image": "assets/img/week4/connection-secure-sharing.png",
             "title": {"en": "Secure Sharing", "vi": "Chia sẻ an toàn"},
-            "prompt": {"en": "Which tool should you use to share a Confidential file with an authorized recipient?", "vi": "Bạn nên dùng công cụ nào để chia sẻ tệp Mật với người nhận được phép?"},
+            "prompt": {"en": "Which method should you use to securely share a Confidential file with an authorized recipient?", "vi": "Bạn nên sử dụng phương thức nào để chia sẻ an toàn một tệp Mật với người nhận được phép?"},
             "options": [
               {"id": "teams", "label": "Microsoft Teams"},
               {"id": "gmail", "label": "Gmail"},
@@ -266,47 +266,47 @@
             "id": "install", "type": "sort",
             "image": "assets/img/week4/installation-install-or-reject.png",
             "title": {"en": "Install or Reject", "vi": "Cài đặt hay từ chối"},
-            "prompt": {"en": "Install software only from approved sources. Drag each app into INSTALL or REJECT, or select the app and then its group.", "vi": "Chỉ cài phần mềm từ nguồn được phê duyệt. Kéo ứng dụng vào CÀI ĐẶT hoặc TỪ CHỐI, hoặc chọn ứng dụng rồi chọn nhóm."},
+            "prompt": {"en": "Only approved software can unlock this room. Drag each item into INSTALL or REJECT.", "vi": "Chỉ phần mềm được phê duyệt mới có thể mở khóa căn phòng này. Kéo từng mục vào ô CÀI ĐẶT hoặc TỪ CHỐI."},
             "groups": [{"id": "install", "tone": "install", "icon": "assets/img/week4/install-icon.svg", "label": {"en": "INSTALL", "vi": "CÀI ĐẶT"}}, {"id": "reject", "tone": "reject", "icon": "assets/img/week4/reject-icon.svg", "label": {"en": "REJECT", "vi": "TỪ CHỐI"}}],
             "items": [
-              {"id": "zoom", "label": "PG Apps Center - Zoom", "group": "install"},
-              {"id": "vscode", "label": "PG Apps Center - VSCode", "group": "install"},
+              {"id": "zoom", "label": "PG Apps Center - 7zip", "group": "install"},
+              {"id": "vscode", "label": "PG Apps Center - SAP", "group": "install"},
               {"id": "cracked", "label": {"en": "Cracked Photoshop", "vi": "Photoshop bẻ khóa"}, "group": "reject"},
               {"id": "usb", "label": "USB Driver Pack", "group": "reject"},
               {"id": "dropbox", "label": "Dropbox Installer", "group": "reject"},
-              {"id": "manufacturing", "label": {"en": "P&G Approved Manufacturing Tool", "vi": "Công cụ sản xuất được P&G phê duyệt"}, "group": "install"}
+              {"id": "manufacturing", "label": {"en": "P&G Approved Manufacturing Software", "vi": "Phần mềm sản xuất được P&G phê duyệt"}, "group": "install"}
             ]
           },
           {
             "id": "workflow", "type": "sequence",
             "image": "assets/img/week4/installation-approval-workflow.png",
             "title": {"en": "Approval Workflow Puzzle", "vi": "Quy trình phê duyệt"},
-            "prompt": {"en": "Follow the right steps to get software approved. Drag the five steps into the five slots in the correct order, from Need Software to Installation. You can move or swap steps, or take one back, and nothing is checked until you press Submit answer. You can also select a step, then a slot.", "vi": "Hãy làm đúng các bước để phần mềm được phê duyệt. Kéo năm bước vào năm lỗ theo đúng thứ tự, từ Xác định nhu cầu phần mềm đến Cài đặt. Bạn có thể di chuyển, đổi chỗ hoặc lấy bước ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Bạn cũng có thể chọn một bước rồi chọn lỗ."},
-            "miss": {"en": "The approval workflow was not in the right order. Continue to the next challenge; you can retry this one.", "vi": "Quy trình phê duyệt chưa đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
+            "prompt": {"en": "Unlock this room by arranging the software approval workflow in the correct order.", "vi": "Mở khóa căn phòng này bằng cách sắp xếp quy trình phê duyệt phần mềm theo đúng thứ tự."},
+            "miss": {"en": "The approval process is out of order. Continue your journey and return later to try again.", "vi": "Quy trình phê duyệt chưa đúng thứ tự. Hãy tiếp tục hành trình và quay lại thử lại sau."},
             "items": [
-              {"id": "need", "label": {"en": "Need Software", "vi": "Xác định nhu cầu phần mềm"}},
-              {"id": "justification", "label": {"en": "Business Justification", "vi": "Giải trình nhu cầu công việc"}},
-              {"id": "approval", "label": {"en": "Approval", "vi": "Phê duyệt"}},
-              {"id": "source", "label": {"en": "Approved Source", "vi": "Nguồn được phê duyệt"}},
-              {"id": "installation", "label": {"en": "Installation", "vi": "Cài đặt"}}
+              {"id": "need", "label": {"en": "Identify a Software Need", "vi": "Xác định nhu cầu sử dụng phần mềm"}},
+              {"id": "justification", "label": {"en": "Submit Business Justification", "vi": "Giải trình nhu cầu công việc"}},
+              {"id": "approval", "label": {"en": "Obtain Approval", "vi": "Phê duyệt"}},
+              {"id": "source", "label": {"en": "Clarify Approved Source", "vi": "Chọn nguồn được phê duyệt"}},
+              {"id": "installation", "label": {"en": "Download & Install the Software", "vi": "Tải và Cài đặt phần mềm"}}
             ],
             "order": ["need", "justification", "approval", "source", "installation"]
           },
           {
             "id": "escape", "type": "sequence", "vertical": true,
             "image": "assets/img/week4/installation-approval-escape.png",
-            "title": {"en": "Software Approval Escape", "vi": "Thoát hiểm bằng phê duyệt phần mềm"},
-            "prompt": {"en": "The approval system has been scrambled. Drag the four permitted steps into the list, top to bottom, in the order they must happen. Leave the unauthorized actions out. You can reorder or swap steps, or take one back, and nothing is checked until you press Submit answer. You can also select a step, then a position.", "vi": "Hệ thống phê duyệt đã bị đảo lộn. Kéo bốn bước được phép vào danh sách theo thứ tự thực hiện, từ trên xuống dưới. Không chọn các hành động trái phép. Bạn có thể sắp xếp lại, đổi chỗ hoặc lấy bước ra, và chỉ được chấm khi nhấn Nộp câu trả lời. Bạn cũng có thể chọn một bước rồi chọn vị trí."},
-            "miss": {"en": "The steps were not the right ones, or not in the right order. Continue to the next challenge; you can retry this one.", "vi": "Các bước chưa đúng hoặc chưa đúng thứ tự. Hãy tiếp tục thử thách kế tiếp; bạn có thể thử lại thử thách này."},
+            "title": {"en": "Software Approval Process Escape", "vi": "Thoát hiểm bằng qui trình phê duyệt phần mềm"},
+            "prompt": {"en": "The software approval process has been scrambled. Select only the four authorized steps and place them in the correct order to unlock the room. Leave all unauthorized actions out.", "vi": "Quy trình phê duyệt phần mềm đã bị xáo trộn. Hãy chọn đúng bốn bước được phép và sắp xếp theo đúng thứ tự để mở khóa căn phòng. Bỏ qua tất cả các hành động không được phép."},
+            "miss": {"en": "The approval process was not completed correctly. Continue your journey and return later to earn this key character.", "vi": "Quy trình phê duyệt chưa được hoàn thành đúng cách. Hãy tiếp tục hành trình và quay lại sau để mở khóa ký tự này."},
             "items": [
-              {"id": "business", "label": {"en": "Business Justification", "vi": "Giải trình nhu cầu công việc"}},
-              {"id": "manager", "label": {"en": "Manager Approval", "vi": "Quản lý phê duyệt"}},
-              {"id": "apps", "label": {"en": "Download from PG Apps Center", "vi": "Tải từ PG Apps Center"}},
-              {"id": "install", "label": {"en": "Install Software", "vi": "Cài đặt phần mềm"}},
-              {"id": "crack", "label": {"en": "Download Crack Version", "vi": "Tải bản bẻ khóa"}},
-              {"id": "usb", "label": {"en": "USB Installation", "vi": "Cài qua USB"}},
-              {"id": "dropbox", "label": {"en": "Personal Dropbox Download", "vi": "Tải từ Dropbox cá nhân"}},
-              {"id": "ignore", "label": {"en": "Ignore Approval Process", "vi": "Bỏ qua quy trình phê duyệt"}}
+              {"id": "business", "label": {"en": "Identify the Business Need", "vi": "Xác định nhu cầu công việc"}},
+              {"id": "manager", "label": {"en": "Obtain Manager Approval", "vi": "Nhận phê duyệt từ quản lý"}},
+              {"id": "apps", "label": {"en": "Download from approved sources", "vi": "Tải từ nguồn được phê duyệt"}},
+              {"id": "install", "label": {"en": "Install the Approved Software", "vi": "Cài đặt phần mềm đã được phê duyệt"}},
+              {"id": "crack", "label": {"en": "Download a Cracked Version", "vi": "Tải phiên bản bẻ khóa"}},
+              {"id": "usb", "label": {"en": "Install from a USB Drive", "vi": "Cài đặt từ USB"}},
+              {"id": "dropbox", "label": {"en": "Download from Personal Dropbox", "vi": "Tải từ Dropbox cá nhân"}},
+              {"id": "ignore", "label": {"en": "Skip the Approval Process", "vi": "Bỏ qua quy trình phê duyệt"}}
             ],
             "order": ["business", "manager", "apps", "install"]
           },
