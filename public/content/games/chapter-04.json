@@ -44,7 +44,7 @@
       "skip": {"en": "Skip This Challenge", "vi": "Bỏ qua thử thách này"},
       "continue": {"en": "Continue", "vi": "Tiếp tục"},
       "challengeWin": {"en": "Challenge passed!", "vi": "Vượt qua thử thách!"},
-      "challengeMiss": {"en": "Challenge skipped. Continue your journey and return anytime to earn the key character.", "vi": "Đã bỏ qua thử thách. Hãy tiếp tục hành trình và quay lại bất cứ lúc nào để nhận ký tự khóa."},
+      "challengeMiss": {"en": "Challenge not completed yet. Continue your journey and return anytime to earn the key character.", "vi": "Thử thách vẫn chưa được hoàn thành. Hãy tiếp tục hành trình và quay lại bất cứ lúc nào để nhận ký tự khóa."},
       "roomWin": {"en": "Mission accomplished! Your key character is", "vi": "Nhiệm vụ hoàn thành! Ký tự khóa của bạn là"},
       "roomMiss": {"en": "Room completed, but the key character has not been earned yet. Retry missed challenges to unlock it.", "vi": "Đã hoàn thành căn phòng nhưng chưa nhận được ký tự khóa. Hãy thử lại các thử thách chưa đạt để mở khóa."},
       "chooseClues": {"en": "Identify the three suspicious signs to unlock the next clue.", "vi": "Hãy xác định ba dấu hiệu đáng ngờ để mở khóa manh mối tiếp theo."},
